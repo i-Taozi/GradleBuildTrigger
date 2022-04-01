@@ -1,7 +1,7 @@
 sudo: false
 dist: trusty
 branches:
-  only: [cyclestreets/android-494-origin]
+  only: [cyclestreets/android-494-GRADLE_PARALLEL_TEST]
 git: {depth: false}
 language: android
 addons:
