@@ -1,0 +1,265 @@
+{
+  "validuntil": 1591689876,
+  "types": {
+    "archaeologicalsites": {
+      "id": "archaeologicalsites",
+      "name": "Archaeological sites",
+      "total": "60259"
+    },
+    "bandbs": {
+      "id": "bandbs",
+      "name": "B&Bs",
+      "total": "258"
+    },
+    "bikerepairstations": {
+      "id": "bikerepairstations",
+      "name": "Bike repair stations",
+      "total": "2729"
+    },
+    "bikeshops": {
+      "id": "bikeshops",
+      "name": "Bike shops",
+      "total": "22829"
+    },
+    "britishcyclingclubs": {
+      "id": "britishcyclingclubs",
+      "name": "British Cycling clubs",
+      "total": "1631"
+    },
+    "busstops": {
+      "id": "busstops",
+      "name": "Bus stops",
+      "total": "1694084"
+    },
+    "cafes": {
+      "id": "cafes",
+      "name": "Cafés",
+      "total": "188332"
+    },
+    "cairns": {
+      "id": "cairns",
+      "name": "Cairns",
+      "total": "3633"
+    },
+    "campsites": {
+      "id": "campsites",
+      "name": "Campsites",
+      "total": "14290"
+    },
+    "carshare": {
+      "id": "carshare",
+      "name": "Car sharing",
+      "total": "7281"
+    },
+    "atms": {
+      "id": "atms",
+      "name": "Cashpoints (ATMs)",
+      "total": "70272"
+    },
+    "castles": {
+      "id": "castles",
+      "name": "Castles",
+      "total": "9444"
+    },
+    "playgrounds": {
+      "id": "playgrounds",
+      "name": "Children's playgrounds",
+      "total": "144415"
+    },
+    "cinemas": {
+      "id": "cinemas",
+      "name": "Cinemas",
+      "total": "7557"
+    },
+    "conveniencestores": {
+      "id": "conveniencestores",
+      "name": "Convenience stores",
+      "total": "126594"
+    },
+    "cycleparking": {
+      "id": "cycleparking",
+      "name": "Cycle parking",
+      "total": "228718"
+    },
+    "cyclesport": {
+      "id": "cyclesport",
+      "name": "Cycle sport",
+      "total": "1049"
+    },
+    "drinkingwater": {
+      "id": "drinkingwater",
+      "name": "Drinking water",
+      "total": "129034"
+    },
+    "gardens": {
+      "id": "gardens",
+      "name": "Gardens",
+      "total": "38010"
+    },
+    "golfcourses": {
+      "id": "golfcourses",
+      "name": "Golf courses",
+      "total": "2892"
+    },
+    "hospitals": {
+      "id": "hospitals",
+      "name": "Hospitals",
+      "total": "11957"
+    },
+    "libraries": {
+      "id": "libraries",
+      "name": "Libraries",
+      "total": "26570"
+    },
+    "londoncyclehire": {
+      "id": "londoncyclehire",
+      "name": "London Cycle Hire points",
+      "total": "1254"
+    },
+    "museums": {
+      "id": "museums",
+      "name": "Museums",
+      "total": "23413"
+    },
+    "naturereserves": {
+      "id": "naturereserves",
+      "name": "Nature reserves",
+      "total": "6607"
+    },
+    "parks": {
+      "id": "parks",
+      "name": "Parks",
+      "total": "108072"
+    },
+    "policestations": {
+      "id": "policestations",
+      "name": "Police stations",
+      "total": "23331"
+    },
+    "postboxes": {
+      "id": "postboxes",
+      "name": "Postboxes",
+      "total": "254835"
+    },
+    "publicart": {
+      "id": "publicart",
+      "name": "Public art",
+      "total": "82347"
+    },
+    "pubs": {
+      "id": "pubs",
+      "name": "Pubs",
+      "total": "86876"
+    },
+    "recycling": {
+      "id": "recycling",
+      "name": "Recycling",
+      "total": "225837"
+    },
+    "restaurants": {
+      "id": "restaurants",
+      "name": "Restaurants",
+      "total": "459491"
+    },
+    "romanroads": {
+      "id": "romanroads",
+      "name": "Roman roads",
+      "total": "1539"
+    },
+    "ruins": {
+      "id": "ruins",
+      "name": "Ruins",
+      "total": "20441"
+    },
+    "schools": {
+      "id": "schools",
+      "name": "Schools",
+      "total": "91680"
+    },
+    "railwaystations": {
+      "id": "railwaystations",
+      "name": "Railway stations",
+      "total": "2581"
+    },
+    "stonecircles": {
+      "id": "stonecircles",
+      "name": "Stone circles",
+      "total": "5"
+    },
+    "supermarkets": {
+      "id": "supermarkets",
+      "name": "Supermarkets",
+      "total": "107887"
+    },
+    "tabletennis": {
+      "id": "tabletennis",
+      "name": "Table tennis tables",
+      "total": "9125"
+    },
+    "taxiranks": {
+      "id": "taxiranks",
+      "name": "Taxi ranks",
+      "total": "16029"
+    },
+    "telephones": {
+      "id": "telephones",
+      "name": "Telephones",
+      "total": "70670"
+    },
+    "theatres": {
+      "id": "theatres",
+      "name": "Theatres",
+      "total": "9891"
+    },
+    "toilets": {
+      "id": "toilets",
+      "name": "Toilets",
+      "total": "95356"
+    },
+    "attractions": {
+      "id": "attractions",
+      "name": "Tourist attractions",
+      "total": "50106"
+    },
+    "touristinformation": {
+      "id": "touristinformation",
+      "name": "Tourist information",
+      "total": "527741"
+    },
+    "racetracks": {
+      "id": "racetracks",
+      "name": "Tracks",
+      "total": "3545"
+    },
+    "viewpoints": {
+      "id": "viewpoints",
+      "name": "Viewpoints",
+      "total": "86434"
+    },
+    "windmills": {
+      "id": "windmills",
+      "name": "Windmills",
+      "total": "3718"
+    },
+    "gritbins": {
+      "id": "gritbins",
+      "name": "Winter grit bins",
+      "total": "15969"
+    },
+    "worship": {
+      "id": "worship",
+      "name": "Worship, place of",
+      "total": "102605"
+    },
+    "youthhostels": {
+      "id": "youthhostels",
+      "name": "Youth hostels",
+      "total": "10496"
+    },
+    "zoos": {
+      "id": "zoos",
+      "name": "Zoos",
+      "total": "994"
+    }
+  }
+}
