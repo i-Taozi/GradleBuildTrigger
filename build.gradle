@@ -49,3 +49,10 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.10'
 }
 
+
+allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
+}
