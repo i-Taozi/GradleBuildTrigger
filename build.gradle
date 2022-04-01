@@ -51,6 +51,10 @@ dependencyCheck {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
   apply plugin: 'com.jfrog.artifactory'
   apply plugin: 'maven-publish'
 
@@ -704,4 +708,3 @@ tasks.named('sonarqube') {
     outputFile.append(JsonOutput.toJson([category: "Analysis", suite: "Standalone", operation: "total", duration: taskDuration]) + '\n')
   }
 }
-
