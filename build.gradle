@@ -29,6 +29,10 @@ if (!project.hasProperty("gitCommitHash")) {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
     apply plugin: 'java'
     apply plugin: 'maven-publish'
 
