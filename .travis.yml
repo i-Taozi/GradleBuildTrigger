@@ -1,0 +1,5 @@
+language: java
+jdk: [oraclejdk8, openjdk8]
+notifications: {email: false}
+branches:
+  only: [EngineHub/CraftBook-1281-origin]
