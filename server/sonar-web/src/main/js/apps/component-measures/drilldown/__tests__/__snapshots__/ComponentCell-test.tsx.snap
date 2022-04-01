@@ -1,0 +1,316 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render correctly for a "APP" root component and a component with branch "develop" 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "branch": "develop",
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="TRK"
+        />
+        <span>
+          Foo
+        </span>
+        <BranchIcon
+          className="spacer-left little-spacer-right"
+        />
+        <span
+          className="note"
+        >
+          develop
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;
+
+exports[`should render correctly for a "APP" root component and a component with branch "undefined" 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="TRK"
+        />
+        <span>
+          Foo
+        </span>
+        <span
+          className="spacer-left badge"
+        >
+          branches.main_branch
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;
+
+exports[`should render correctly for a "TRK" root component and a component with branch "develop" 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "branch": "develop",
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="TRK"
+        />
+        <span>
+          Foo
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;
+
+exports[`should render correctly for a "TRK" root component and a component with branch "undefined" 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="TRK"
+        />
+        <span>
+          Foo
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;
+
+exports[`should render correctly for a "VW" root component and a component with branch "develop" 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "branch": "develop",
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="TRK"
+        />
+        <span>
+          Foo
+        </span>
+        <BranchIcon
+          className="spacer-left little-spacer-right"
+        />
+        <span
+          className="note"
+        >
+          develop
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;
+
+exports[`should render correctly for a "VW" root component and a component with branch "undefined" 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="TRK"
+        />
+        <span>
+          Foo
+        </span>
+        <span
+          className="spacer-left badge"
+        >
+          branches.main_branch
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;
+
+exports[`should render correctly: default 1`] = `
+<td
+  className="measure-details-component-cell"
+>
+  <div
+    className="text-ellipsis"
+  >
+    <Link
+      className="link-no-underline"
+      id="component-measures-component-link-foo:src/index.tsx"
+      onlyActiveOnIndex={false}
+      style={Object {}}
+      to={
+        Object {
+          "pathname": "/component_measures",
+          "query": Object {
+            "id": "foo",
+            "metric": "bugs",
+            "selected": "foo:src/index.tsx",
+            "view": "list",
+          },
+        }
+      }
+    >
+      <span
+        title="foo:src/index.tsx"
+      >
+        <QualifierIcon
+          className="little-spacer-right"
+          qualifier="FIL"
+        />
+        <span
+          className="note"
+        >
+          src
+          /
+        </span>
+        <span>
+          index.tsx
+        </span>
+      </span>
+    </Link>
+  </div>
+</td>
+`;

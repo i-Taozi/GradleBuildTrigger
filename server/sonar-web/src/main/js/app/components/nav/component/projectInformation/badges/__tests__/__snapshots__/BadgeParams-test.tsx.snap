@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should display measure badge params 1`] = `
+<div>
+  <label
+    className="spacer-right"
+    htmlFor="badge-metric"
+  >
+    overview.badges.metric
+    :
+  </label>
+  <SelectLegacy
+    className="input-medium"
+    clearable={false}
+    menuStyle={
+      Object {
+        "maxHeight": 100,
+      }
+    }
+    name="badge-metric"
+    onChange={[Function]}
+    options={Array []}
+    searchable={false}
+    value="alert_status"
+  />
+  <label
+    className="spacer-right spacer-top"
+    htmlFor="badge-format"
+  >
+    format
+    :
+  </label>
+  <SelectLegacy
+    className="input-medium"
+    clearable={false}
+    name="badge-format"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "label": "overview.badges.options.formats.md",
+          "value": "md",
+        },
+        Object {
+          "label": "overview.badges.options.formats.url",
+          "value": "url",
+        },
+      ]
+    }
+    searchable={false}
+    value="md"
+  />
+</div>
+`;
+
+exports[`should display quality gate badge params 1`] = `
+<div>
+  <label
+    className="spacer-right"
+    htmlFor="badge-format"
+  >
+    format
+    :
+  </label>
+  <SelectLegacy
+    className="input-medium"
+    clearable={false}
+    name="badge-format"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "label": "overview.badges.options.formats.md",
+          "value": "md",
+        },
+        Object {
+          "label": "overview.badges.options.formats.url",
+          "value": "url",
+        },
+      ]
+    }
+    searchable={false}
+    value="md"
+  />
+</div>
+`;

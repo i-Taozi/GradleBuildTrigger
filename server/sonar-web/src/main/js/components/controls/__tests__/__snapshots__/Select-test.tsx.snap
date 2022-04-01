@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select should render correctly: default 1`] = `
+<StateManager
+  components={
+    Object {
+      "DropdownIndicator": [Function],
+    }
+  }
+  defaultInputValue=""
+  defaultMenuIsOpen={false}
+  defaultValue={null}
+  styles={
+    Object {
+      "container": [Function],
+      "control": [Function],
+      "indicatorsContainer": [Function],
+      "menu": [Function],
+      "menuList": [Function],
+      "option": [Function],
+      "singleValue": [Function],
+      "valueContainer": [Function],
+    }
+  }
+/>
+`;

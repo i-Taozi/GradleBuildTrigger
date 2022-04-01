@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly: basic 1`] = `
+<HelpTooltip
+  overlay={
+    <div
+      className="big-padded-top big-padded-bottom"
+    >
+      <div
+        className="spacer-bottom"
+      >
+        <strong>
+          title
+        </strong>
+      </div>
+      <p>
+        content
+      </p>
+    </div>
+  }
+/>
+`;
+
+exports[`renders correctly: no content 1`] = `
+<HelpTooltip
+  overlay={
+    <div
+      className="big-padded-top big-padded-bottom"
+    >
+      <div
+        className="spacer-bottom"
+      >
+        <strong>
+          title
+        </strong>
+      </div>
+    </div>
+  }
+/>
+`;
+
+exports[`renders correctly: no title 1`] = `
+<HelpTooltip
+  overlay={
+    <div
+      className="big-padded-top big-padded-bottom"
+    >
+      <p>
+        content
+      </p>
+    </div>
+  }
+/>
+`;
+
+exports[`renders correctly: with links 1`] = `
+<HelpTooltip
+  overlay={
+    <div
+      className="big-padded-top big-padded-bottom"
+    >
+      <div
+        className="spacer-bottom"
+      >
+        <strong>
+          title
+        </strong>
+      </div>
+      <p>
+        content
+      </p>
+      <React.Fragment>
+        <hr
+          className="big-spacer-top big-spacer-bottom"
+        />
+        <div
+          className="little-spacer-bottom"
+        >
+          <Link
+            className="display-inline-flex-center link-with-icon"
+            onlyActiveOnIndex={false}
+            rel="noopener noreferrer"
+            style={Object {}}
+            target="_blank"
+            to="http://link.tosome.place"
+          >
+            <DetachIcon
+              className="spacer-right"
+              size={14}
+            />
+            <span>
+              external link
+            </span>
+          </Link>
+        </div>
+        <div
+          className="little-spacer-bottom"
+        >
+          <Link
+            className="display-inline-flex-center link-with-icon"
+            onlyActiveOnIndex={false}
+            rel="noopener noreferrer"
+            style={Object {}}
+            target="_blank"
+            to="/documentation/guide"
+          >
+            <span>
+              internal link
+            </span>
+          </Link>
+        </div>
+        <div
+          className="little-spacer-bottom"
+        >
+          <Link
+            onlyActiveOnIndex={false}
+            style={Object {}}
+            to="/projects"
+          >
+            <span>
+              in place
+            </span>
+          </Link>
+        </div>
+      </React.Fragment>
+    </div>
+  }
+/>
+`;
