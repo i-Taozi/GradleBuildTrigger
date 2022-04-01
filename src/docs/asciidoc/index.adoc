@@ -1,0 +1,262 @@
+= HttpBuilder-NG User Guide
+David Clark & Christopher J. Stehno
+v1.0.4, October 2017
+:toc: left
+:toclevels: 4
+
+== Introduction
+
+The https://http-builder-ng.github.io/http-builder-ng/[HttpBuilder-NG] project is a modern Groovy DSL for making HTTP requests. It is usable with both
+Groovy and Java, though it requires Java 8 and a modern version of Groovy. It is built against Groovy 2.4.x, but it doesn't make any assumptions about
+which version of Groovy you are using. The main goal of HttpBuilder-NG is to allow you to make HTTP requests in a natural and readable way.
+
+== History
+
+HttpBuilder-NG was forked from the HTTPBuilder project originally developed by Thomas Nichols. It was later passed on to
+https://github.com/jgritman/httpbuilder[Jason Gritman] who maintained it for several years, though it seems to have grown stagnant.
+
+The original intent of HttpBuilder-NG was to fix a few bugs and add a slight enhancement to the original HTTPBuilder project. The slight enhancement
+was to make HTTPBuilder conform to more modern Groovy DSL designs; however, it was not possible to update the original code to have a more modern
+typesafe DSL while preserving backwards compatibility. I decided to just make a clean break and give the project a new name to make it clear that
+HttpBuilder-NG is basically a complete re-write and re-architecture.
+
+== Articles & Presentations
+
+People are talking about HttpBuilder-NG:
+
+* https://twitter.com/noamtenne[Noam Tenne] did a great presentation at Greach 2017: https://www.youtube.com/watch?v=HoPSS5TEqS8&feature=youtu.be[Back from The Dead: HTTP Builder NG]
+* http://stehno.com[Chris Stehno] wrote a blog post: http://coffeaelectronica.com/blog/2016/httpbuilder-ng-demo.html[HttpBuilder-NG Demo]
+* The https://groovypodcast.podbean.com/[Groovy Podcast] has discussed the project a few times
+* You can follow the project on Twitter: https://twitter.com/HttpBuilderNG[@HttpBuilderNG]
+* You can ask questions about issues you are having on StackOverflow using the http://stackoverflow.com/questions/tagged/httpbuilder-ng[httpbuilder-ng tag]
+* http://coffeaelectronica.com/blog/2017/rest-httpbuilder-ersatz.html[Take a REST with HttpBuilder-NG and Ersatz] - blog post showing REST client development and testing with examples in Groovy, Java and Kotlin.
+
+== Quick Start
+
+If you are itching to get started, here's what you need to do to get up and running.
+
+=== Add Library to Project
+
+First, you need the library in your project. If you are using Gradle, add the following dependency to your `build.gradle` file `dependencies` closure:
+
+    compile 'io.github.http-builder-ng:http-builder-ng-CLIENT:1.0.4'
+
+or, for Maven add the following to your `pom.xml` file:
+
+    <dependency>
+      <groupId>io.github.http-builder-ng</groupId>
+      <artifactId>http-builder-ng-CLIENT</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+where `CLIENT` is replaced with the client library name (`core`, `apache`, or `okhttp`).
+
+=== Instantiate `HttpBuilder`
+
+Next, you need to instantiate an instance of `HttpBuilder` to make requests on. If you are using Groovy:
+
+[source,groovy]
+----
+import static groovyx.net.http.HttpBuilder.configure
+
+def http = configure {
+    request.uri = 'http://localhost:9876'
+}
+----
+
+or, if you are using Java:
+
+[source,java]
+----
+import groovyx.net.http.HttpBuilder;
+import static groovyx.net.http.HttpBuilder.configure;
+
+HttpBuilder http = configure(config -> {
+    config.getRequest().setUri("http://localhost:9876");
+});
+----
+
+A `request.uri` is the only required property, though other global and client configurations may be configured in the `configure` block.
+
+The code shown will use the default client library based on the Java `HttpUrlConnection`; however, you can also use the Apache HttpComponents or the
+OkHttp client libraries. See the section on Client-Related Configuration for more details on switching client implementations.
+
+=== Make Requests
+
+Once you have the library and an instance of `HttpBuilder` you are ready to make requests. For Groovy:
+
+[source,groovy]
+----
+String text = http.get(String){
+    request.uri.path = '/name'
+}
+----
+
+and for Java:
+
+[source,java]
+----
+String text = http.get(String.class, cfg -> {
+    cfg.getRequest().getUri().setPath("/name");
+});
+----
+
+At the end of the User Guide there is an Examples section with some complete Groovy script examples.
+
+== Common Usages
+
+* If you want to deal with parsed content, do that in a link:#_status_handlers[`success`], link:#_status_handlers[`failure`], or
+link:#_status_handlers[`when`] handler. This is probably what you want to do 99% of the time as a user of the library. Being able to easily consume
+content as pre-parsed objects is one of the main selling points.
+* If you want to deal with the data streams, do that by implementing a link:#_parsers[content parser]. You can use either the input stream or the
+reader inside the `FromServer` interface (but not both). There is no need to worry about managing opening or closing the stream, the builders will do
+the right thing. You are also free to duplicate or "tee" the stream or reader and delegate to existing parsers.
+* If you want to do something out of band (such as logging or adding metrics), use an link:#_interceptors[`interceptor`] This is fairly easy to do
+because neither what is requested nor what is returned is changed by the interceptor.
+* If you want to change what is requested (before being sent) or change the object(s) returned from the content parser use an
+link:#_interceptors[`interceptor`]. This is probably the most difficult to do because the order of interceptor invocation is not guaranteed but the
+interceptor must still return to the user what is expected. If the user is expecting a `List` then the interceptor must make sure that the user gets that.
+* If you want to handle unexpected exceptions, implement an link:#_exception_handlers[`exception`] handler.
+
+include::configuration.adoc[]
+
+include::logging.adoc[]
+
+== Testing
+
+If you are using HttpBuilder-NG to access HTTP endpoints, how are you testing those interactions? Often, it's best to use integration testing with
+live servers to test HTTP integration points; however, it is sometimes useful to have unit tests around these services so that their functionality
+does not drift too far if your intgration tests don't get run as often as the unit test.
+
+For HttpBuilder-NG itself, we use, the http://stehno.com/ersatz[Ersatz] Mock Server library for all of our functional testing.
+
+== Client Library Integration
+
+Currently the HttpBuilder-NG library has three HTTP client implementations, one based on the `HttpURLConnection` class (called the "core" or "java"
+implementation), another based on the Apache Http Components (called the "apache" implementation) and the third based on OkHttp (the "okhttp"
+implementation); however, there is no reason other HTTP clients could not be used, perhaps the
+https://github.com/google/google-http-java-client[Google HTTP Java Client] if needed.
+
+A client implementation is an extension of the abstract `HttpBuilder` class, which must implement a handful of abstract methods for the handling the
+HTTP verbs:
+
+[source,groovy]
+----
+protected abstract Object doGet(final ChainedHttpConfig config);
+protected abstract Object doHead(final ChainedHttpConfig config);
+protected abstract Object doPost(final ChainedHttpConfig config);
+protected abstract Object doPut(final ChainedHttpConfig config);
+protected abstract Object doDelete(final ChainedHttpConfig config);
+protected abstract Object doPatch(final ChainedHttpConfig config);
+protected abstract Object doOptions(final ChainedHttpConfig config);
+----
+
+There is also an abstract method for retrieving the client configuration, though generally this will be a simple getter:
+
+[source,groovy]
+----
+protected abstract ChainedHttpConfig getObjectConfig();
+----
+
+And finally a method to retrieve the threading interface, again this is generally a getter for the configured thread executor.
+
+[source,groovy]
+----
+public abstract Executor getExecutor();
+----
+
+Once the abstract contract is satisfied, you can use the new client just as the others, with your client in the factory function:
+
+[source,groovy]
+----
+HttpBuilder.configure({ c -> new GoogleHttpBuilder(c); } as Function){
+    request.uri = 'http://localhost:10101/foo'
+}
+----
+
+The client extensions will reside in their own sub-projects that in turn depend on the core library. This allows the clients to have code and
+dependency isolation from other implementations and minimizes unused dependencies in projects using the library.
+
+If you come up with something generally useful, feel free to create a pull request and we may be able to bring it into the project.
+
+include::examples.adoc[]
+
+include::troubleshooting.adoc[]
+
+== Shadow Jars
+
+Each client-implementation library has an alternate "shadowed" jar distribution option available with classifier of `safe`. For Gradle this would look
+like the following:
+
+    compile 'io.github.http-builder-ng:http-builder-ng-CLIENT:1.0.4:safe@jar'
+
+or, for Maven add the following to your `pom.xml` file:
+
+    <dependency>
+      <groupId>io.github.http-builder-ng</groupId>
+      <artifactId>http-builder-ng-CLIENT</artifactId>
+      <version>1.0.4</version>
+      <classifier>safe</classifier>
+    </dependency>
+
+where `CLIENT` is replaced with the client library name (`core`, `apache`, or `okhttp`) for the desired client implementation. Notice that the `safe`
+classifier is added to each usage.
+
+These shadowed jars have some of the client dependencies bundled and repackaged into the library so that collisions with other libraries may be avoided
+- the remaining dependencies are excluded. Each library has the specified re-packaged dependencies, while all other dependencies will be left up to the
+using project to include, as necessary.
+
+The re-packages dependency libraries (by client) are listed below (also found in the project `build.gradle` files):
+
+* Core
+** `org.apache.env` package.
+** `org.apache.xml.resolver` package.
+* Apache
+** `org.apache.http` package.
+** `org.apache.commons.codec` package.
+** `org.apache.env` package.
+** `org.apache.xml.resolver` package.
+* OkHttp
+** `okhttp3` package.
+** `okio` package.
+** `com.burgstaller.okhttp` package.
+** `org.apache.env` package.
+** `org.apache.xml.resolver` package.
+
+WARNING: These shadow jars are considered experimental distributions - they will exist moving forward, but will require further testing before they are
+completely vetted.
+
+== Unsupported Features
+
+* The `core` library implementation does not support the `PATCH` request method due to limitations of the underlying client library.
+* The `TRACE` request method does not support HTTPS requests.
+
+== Contributors
+
+Our https://github.com/http-builder-ng/http-builder-ng/blob/master/CONTRIBUTING.md[Contribution Guidelines] are available in the repository.
+
+=== Owners
+
+* https://github.com/dwclark[David Clark] (lead developer)
+* https://github.com/cjstehno[Christopher J. Stehno] (developer)
+
+=== Community
+
+* https://github.com/noamt[Noam Tenne] - Greach 2017 presentation and documentation overhaul suggestions
+* https://github.com/ksuderman[Keith Suderman] - support for the PATCH request method
+
+_(If you have contributed recently and are not on this list, let us know, we want to give credit where credit is due!)_
+
+== License
+
+HttpBuilder-NG is licensed under the http://www.apache.org/licenses/LICENSE-2.0[Apache 2] open source license.
+
+----
+Copyright 2017 HttpBuilder-NG Project
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+----

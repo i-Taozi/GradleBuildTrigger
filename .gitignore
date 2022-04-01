@@ -1,0 +1,13 @@
+*.class
+*~
+.gradle
+build
+.idea
+*.iml
+.DS_Store
+conftarget/
+*.ipr
+*.iws
+classes/
+**/out/**
+.gradletasknamecache
