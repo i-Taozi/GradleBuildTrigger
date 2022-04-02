@@ -62,4 +62,4 @@ jobs:
     after_script: skip
     after_success: skip
 branches:
-  only: [optimizely/android-sdk-388-origin]
+  only: [optimizely/android-sdk-388-GRADLE_PARALLEL_TEST]
