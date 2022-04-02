@@ -1,0 +1,15 @@
+language: android
+jdk: oraclejdk8
+sudo: false
+env:
+  matrix: [ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a]
+android:
+  components: [tools, platform-tools, tools, build-tools-28.0.3, android-23, android-28,
+    extra-android-m2repository, sys-img-armeabi-v7a-android-23]
+before_script: [./gradlew assembleClientDebug, echo no | android create avd --force
+    -n test -t $ANDROID_TARGET --abi $ANDROID_ABI, emulator -avd test -no-window &,
+  android-wait-for-emulator, adb devices, adb shell input keyevent 82 &, adb logcat
+    -s TestRunner &]
+script: ./gradlew connectedCheck
+branches:
+  only: [Simperium/simperium-android-244-origin]

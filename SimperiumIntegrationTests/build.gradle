@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.3'
+    }
+}
+apply plugin: 'android'
+
+repositories {
+    maven { url "http://simperium.github.io/simperium-android" }
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":Simperium")
+}
+
+android {
+    compileSdkVersion 17
+    buildToolsVersion "17.0.0"
+
+    defaultConfig {
+        minSdkVersion 7
+        targetSdkVersion 16
+    }
+}
