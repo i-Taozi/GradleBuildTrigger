@@ -1,0 +1,26 @@
+sudo: false
+language: java
+matrix:
+  fast_finish: true
+  include:
+  - {jdk: openjdk8, env: TASK=BUILD, os: linux}
+  - {jdk: oraclejdk9, env: TASK=BUILD, os: linux}
+  - {jdk: openjdk10, env: TASK=BUILD, os: linux}
+  - {jdk: openjdk8, env: TASK=CHECKER_FRAMEWORK, os: linux}
+  - {env: TASK=CHECK_GIT_HISTORY, os: linux}
+  - {jdk: openjdk8, env: TASK=BUILD_EXAMPLES_GRADLE, os: linux}
+  - {jdk: openjdk8, env: TASK=BUILD_EXAMPLES_MAVEN, os: linux}
+  - {env: TASK=BUILD, osx_image: xcode9.3, os: osx}
+  allow_failures:
+  - {env: TASK=BUILD, os: osx}
+before_install: [git log --oneline --decorate --graph -30]
+install: true
+script: [buildscripts/travis_script]
+after_success: ['if \[ "$TASK" == "BUILD" \] && \[ "$TRAVIS_JDK_VERSION" == "openjdk8"
+    \] && \[ "$TRAVIS_OS_NAME" = linux \]; then bash <(curl -s https://codecov.io/bash)
+    ; fi']
+before_cache: [rm -fr $HOME/.gradle/caches/modules-2/modules-2.lock]
+cache:
+  directories: [$HOME/.gradle, $HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
+branches:
+  only: [census-instrumentation/opencensus-java-2083-origin]
