@@ -1,0 +1,109 @@
+Validate correctness of trunk/lilith/lilith/src/main/resources/detailsView/history
+Check that lilith logback.xml does not include debug="true"
+
+#####
+
+Remember to update CHANGELOG.md.
+Write release notes and put them into lilith/releases/x.x.x.xhtml
+	Use http://daringfireball.net/projects/markdown/dingus to generate part of it from CHANGELOG.md.
+Validate it using https://validator.w3.org/
+Write release notes and changes (README.txt) for sf.net upload.
+
+#####
+
+Execute
+gradlew cleanStaging
+in either sulky or lilith.
+
+#####
+
+Check that both sulky repository and lilith repository are clean.
+git status
+
+#####
+
+Change into sulky root.
+
+gradlew clean
+
+gradlew -Drelease=true -DpgpPassword=xxx
+
+http://issues.gradle.org//browse/GRADLE-2310
+
+#####
+
+Change into lilith root.
+
+gradlew clean
+
+gradlew -Drelease=true -DpgpPassword=xxx
+
+gradlew -PremoteUsername=huxi -PremotePassword=... syncStaging
+
+#####
+
+Validate staged files and release them:
+https://oss.sonatype.org
+
+#####
+
+Tag sulky with comment "x.x.x release".
+git tag -s vx.x.x -m "x.x.x release"
+
+#####
+
+Tag lilith with comment "x.x.x release".
+git tag -s vx.x.x -m "x.x.x release"
+
+#####
+
+Upload javadocs
+
+#####
+
+Upload lilith-files to sf.net
+frs.sourceforge.net
+/home/frs/project/lilith/lilith
+Use SFTP, Luke. m(
+
+#####
+
+Upload /releases/x.x.x.xhtml
+Update current-version.txt (legacy)
+Update release-version.txt
+
+#####
+
+Update allprojects.version in sulky/build.gradle to next sulky-version 
+Update allprojects.version in lilith/build.gradle to next lilith-version 
+Update sulkyVersion in lilith/dependencyDefinitions.gradle to next sulky-version
+Update project.ext.lilithVersion in lilith/sandbox/sandboxDefaults.gradle to next lilith-version
+
+#####
+
+Commit sulky root with comment "Starting work on x.x.x+1"
+Commit lilith root with comment "Starting work on x.x.x+1"
+
+#####
+
+Push everything to the remote git repositories
+git push origin
+git push sf
+git push gitlab
+git push bitbucket
+git push --tags origin
+git push --tags sf
+git push --tags gitlab
+git push --tags bitbucket
+
+#####
+
+Send mail to lilith-announce@lists.sourceforge.net with CC to lilith-user@lists.sourceforge.net (using joern@lilith.huxhorn.de as sender)
+Send mail to logback-user@qos.ch and slf4j-user@qos.ch and log4j-user@logging.apache.org (using jhuxhorn@googlemail.com as sender)
+Twitter about the release @LilithApp
+
+#####
+
+Watch
+http://repo1.maven.org/maven2/de/huxhorn/lilith/de.huxhorn.lilith/
+for arrival of the artifacts.

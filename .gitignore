@@ -1,0 +1,14 @@
+target
+build
+.gradle
+.DS_Store
+.idea
+*.iml
+*.iws
+*.ipr
+*.class
+*.idx
+*.log
+*.log.*
+*.lilith
+/out/

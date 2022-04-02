@@ -1,0 +1,116 @@
+apply from: '../../dependencyDefinitions.gradle'
+apply from: '../sandboxDefaults.gradle'
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE")
+    }
+}
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.5'
+}
+
+/*
+class ConfigurationDetectionDependencyResolutionListener
+        implements DependencyResolutionListener, BuildListener {
+    private final Logger logger
+    private boolean enabled = true
+    private final Map<String, Long> timestampMap = [:]
+    private final Map<String, Long> resultMap = [:]
+    private final java.util.concurrent.locks.Lock lock =
+        new java.util.concurrent.locks.ReentrantLock()
+
+    ConfigurationDetectionDependencyResolutionListener(Gradle gradle) {
+        logger = gradle.rootProject.logger
+    }
+    
+    // DependencyResolutionListener
+    void beforeResolve(ResolvableDependencies dependencies) {
+        def path = dependencies.path
+        lock.lock()
+        try {
+            timestampMap[path] = System.currentTimeMillis()
+        } finally {
+            lock.unlock()
+        }
+    }
+
+    void afterResolve(ResolvableDependencies dependencies) {
+        def path = dependencies.path
+        long millis
+        lock.lock()
+        try {
+            if(!enabled) {
+                return
+            }
+    
+            millis = System.currentTimeMillis() - timestampMap[path]
+            resultMap[path] = millis
+        } finally {
+            lock.unlock()
+        }
+
+        logger.warn('PERFORMANCE WARNING: Resolving {} during configuration took {}ms!',path, millis, new Throwable())
+    }
+
+    // BuildListener
+    void buildStarted(Gradle gradle) {
+    }
+
+    void settingsEvaluated(Settings settings) {
+    }
+
+    void projectsLoaded(Gradle gradle) {
+    }
+
+    void projectsEvaluated(Gradle gradle) {
+        long accumulated = 0
+        lock.lock()
+        try {
+            enabled = false
+            if(resultMap.isEmpty()) {
+                return
+            }
+    
+            resultMap.each {
+                accumulated += it.value
+            }
+            timestampMap.clear()
+            resultMap.clear()
+        } finally {
+            lock.unlock()
+        }
+
+        logger.warn('### Total time spent resolving dependencies during configuration:\n### {}ms', accumulated)
+    }
+
+    void buildFinished(BuildResult result) {
+    }
+}
+
+gradle.addListener(new ConfigurationDetectionDependencyResolutionListener(gradle))
+*/
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+version = '1.0.0-SNAPSHOT'
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	runtime "de.huxhorn.lilith:de.huxhorn.lilith.logback.appender.multiplex-access:${lilithVersion}"
+	runtime "de.huxhorn.lilith:de.huxhorn.lilith.logback.appender.multiplex-classic:${lilithVersion}"
+	runtime "de.huxhorn.lilith:de.huxhorn.lilith.logback.encoder.access:${lilithVersion}"
+	runtime "de.huxhorn.lilith:de.huxhorn.lilith.logback.encoder.classic:${lilithVersion}"
+	runtime libraries.'spring-boot-ext-logback-access'
+	compile libraries.'logback-access'
+	compile libraries.'logback-core'
+	compile libraries.'logback-classic'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+}

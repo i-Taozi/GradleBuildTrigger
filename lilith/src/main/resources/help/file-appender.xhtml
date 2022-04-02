@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Using Lilith Encoders with Logback FileAppender</title>
+	<link href="help.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<p><a href="index.xhtml">ToC</a></p>
+
+<h1 id="top">Using Lilith Encoders with Logback FileAppender</h1>
+
+<p>Starting with Lilith 0.9.38 and Logback 0.9.19, you can write Lilith files directly from within Logback.</p>
+<p>Those files can be opened by Lilith using either the Open command or drag&amp;drop.</p>
+
+<h2>Logback Classic</h2>
+<p>Add the following dependency to your applications <code>pom.xml</code> file:</p>
+		<pre><code><![CDATA[<dependency>
+  <groupId>de.huxhorn.lilith</groupId>
+  <artifactId>de.huxhorn.lilith.logback.encoder.classic</artifactId>
+  <version>${lilithVersion}</version>
+  <scope>runtime</scope>
+</dependency>]]></code></pre>
+
+<p>Then, add the following to your <code>logback.xml</code> file:</p>
+		<pre><code><![CDATA[<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+  <file>classic.lilith</file>
+  <encoder class="de.huxhorn.lilith.logback.encoder.ClassicLilithEncoder">
+    <IncludeCallerData>true</IncludeCallerData>
+  </encoder>
+</appender>]]></code></pre>
+
+
+<p>You also have to attach the appender to some logger, e.g. the root logger…</p>
+		<pre><code><![CDATA[<root>
+  <level value="INFO"/>
+  <appender-ref ref="FILE"/>
+</root>]]></code></pre>
+
+
+<p>… or a specific logger…</p>
+		<pre><code><![CDATA[<logger name="foo.Bar">
+  <level value="DEBUG"/>
+  <appender-ref ref="FILE"/>
+</logger>]]></code></pre>
+
+<p><a href="#top">Back to top.</a></p>
+
+<h2>Logback Access</h2>
+
+<p>Add the following to your applications <code>pom.xml</code> file:</p>
+		<pre><code><![CDATA[<plugin>
+  <groupId>org.mortbay.jetty</groupId>
+  <artifactId>maven-jetty-plugin</artifactId>
+  <configuration>
+    <scanIntervalSeconds>10</scanIntervalSeconds>
+    <connectors>
+      <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+        <port>8080</port>
+        <maxIdleTime>60000</maxIdleTime>
+      </connector>
+    </connectors>
+    <requestLog implementation="ch.qos.logback.access.jetty.RequestLogImpl">
+      <fileName>src/main/jetty/logback-access.xml</fileName>
+    </requestLog>
+  </configuration>
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4jVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logbackVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logbackVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
+      <version>${logbackVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!--
+    <dependency>
+      <groupId>de.huxhorn.lilith</groupId>
+      <artifactId>de.huxhorn.lilith.logback.appender.multiplex-access</artifactId>
+      <version>${lilithVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>de.huxhorn.lilith</groupId>
+      <artifactId>de.huxhorn.lilith.logback.encoder.access</artifactId>
+      <version>${lilithVersion}</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+</plugin>]]></code></pre>
+
+<p>Then, put the following into <code>src/main/jetty/logback-access.xml</code> file:</p>
+		<pre><code><![CDATA[<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.access.PatternLayout">
+      <Pattern>combined</Pattern>
+    </layout>
+  </appender>
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>access.lilith</file>
+    <encoder class="de.huxhorn.lilith.logback.encoder.access.AccessLilithEncoder"/>
+  </appender>
+
+  <appender-ref ref="FILE" />
+</configuration>]]></code></pre>
+
+
+<p><a href="#top">Back to top.</a></p>
+</body>
+</html>

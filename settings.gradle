@@ -1,0 +1,48 @@
+include 'lilith'
+include 'lilith-conditions'
+include 'lilith-constants'
+include 'lilith-engine'
+include 'lilith-json-logging'
+include 'lilith-prefs'
+include 'lilith-sender'
+include 'lilith-sounds'
+include 'lilith-xml-logging'
+include 'slf4j'
+include 'tracing'
+
+def ignores = new HashSet<String>()
+ignores.add('xml-schema')
+ignores.add('target')
+
+new File(rootDir, "lilith-data").eachDir { dir ->
+	if(!ignores.contains(dir.name)) {
+		def moduleName = "${dir.parentFile.name}-${dir.name}"
+		include "${moduleName}"
+		project(":${moduleName}").projectDir = dir
+    }
+}
+
+new File(rootDir, 'jul').eachDir { dir ->
+	if(!ignores.contains(dir.name)) {
+		def moduleName = "${dir.name}"
+		include "${moduleName}"
+		project(":${moduleName}").projectDir = dir
+	}
+}
+
+new File(rootDir, 'log4j').eachDir { dir ->
+	if(!ignores.contains(dir.name)) {
+		def moduleName = "${dir.name}"
+		include "${moduleName}"
+		project(":${moduleName}").projectDir = dir
+	}
+}
+
+new File(rootDir, "logback").eachDir { dir ->
+	if(!ignores.contains(dir.name)) {
+		def moduleName = "${dir.parentFile.name}-${dir.name}"
+		include "${moduleName}"
+		project(":${moduleName}").projectDir = dir
+	}
+}
+

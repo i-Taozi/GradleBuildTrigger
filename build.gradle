@@ -1,0 +1,627 @@
+buildscript {
+	apply from: 'dependencyDefinitions.gradle'
+	project.ext.localReleaseRepoFile = new File("${System.properties.'user.home'}/local-gradle-repository/release")
+	project.ext.localSnapshotRepoFile = new File("${System.properties.'user.home'}/local-gradle-repository/snapshot")
+	project.ext.localReleaseRepo = localReleaseRepoFile.toURL().toString()
+	project.ext.localSnapshotRepo = localSnapshotRepoFile.toURL().toString()
+	repositories {
+		maven {
+			url localReleaseRepo
+		}
+		maven {
+			url localSnapshotRepo
+		}
+		jcenter()
+		mavenCentral()
+		mavenLocal()
+		maven {
+			url 'https://plugins.gradle.org/m2/'
+		}
+	}
+
+	dependencies {
+		// needed for syncSnapshot and syncStaging
+		classpath 'org.apache.maven.wagon:wagon-webdav-jackrabbit:2.9'
+		classpath 'de.huxhorn.gradle:de.huxhorn.gradle.git-state-plugin:0.0.4'
+		classpath 'com.github.ben-manes:gradle-versions-plugin:0.20.0'
+		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.2'
+		classpath 'gradle.plugin.edu.sc.seis:macAppBundle:2.2.3'
+		classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+		classpath 'de.thetaphi:forbiddenapis:3.2'
+		classpath 'org.kordamp.gradle:jdeps-gradle-plugin:0.4.1'
+	}
+}
+
+apply from: 'dependencyDefinitions.gradle'
+apply from: 'projectDependencies.gradle'
+
+import org.apache.tools.ant.filters.FixCrLfFilter
+import org.gradle.plugins.signing.Sign
+
+wrapper {
+	gradleVersion = '6.8.1'
+	// TODO:
+	// maven -> maven-publish
+	// MacAppBundle
+}
+
+def copyright = "Copyright \u00a9 2007-2021 J\u00f6rn Huxhorn"
+def globalSourceCompatibility = 1.8
+def globalTargetCompatibility = 1.8
+
+apply plugin: 'idea'
+
+idea {
+	project {
+		jdkName = globalSourceCompatibility
+		languageLevel = globalSourceCompatibility
+
+		ipr {
+			withXml {
+				def node = it.asNode()
+				def vcsConfig = node.component.find { it.'@name' == 'VcsDirectoryMappings' }
+				vcsConfig.mapping[0].'@vcs' = 'Git'
+			}
+		}
+	}
+}
+
+apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'base'
+apply plugin: 'signing'
+apply plugin: 'com.github.kt3k.coveralls' // see https://github.com/kt3k/coveralls-gradle-plugin
+
+task javadocAll(type: Javadoc) {
+	destinationDir = file("$buildDir/javadoc")
+	source = files { subprojects.collect { it.sourceSets.main.java } }
+	classpath = files { subprojects.collect { it.sourceSets.main.compileClasspath } }
+	// disable doclint for protobuf
+	// http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+	// https://github.com/google/protobuf/issues/304
+	if (JavaVersion.current().isJava8Compatible()) {
+		options.addStringOption('Xdoclint:none', '-quiet')
+	}
+}
+
+task sourceZip(type: Zip) {
+	classifier = 'sources'
+	from { subprojects.collect { it.sourceSets.main.allSource } }
+}
+
+task javadocZip(type: Zip) {
+	classifier = 'javadoc'
+	from javadocAll.outputs.files
+}
+
+signing {
+	required = { !version.endsWith("SNAPSHOT") }
+	sign javadocZip
+	sign sourceZip
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+	if(taskGraph.allTasks.any { it instanceof Sign && it.required }) {
+		String pgpPassword = System.properties.'pgpPassword'
+		if(!pgpPassword) {
+			throw new IllegalStateException('Set pgpPassword system property!')
+		}
+
+		allprojects { ext.'signing.keyId' = '740A1840' }
+		allprojects { ext.'signing.secretKeyRingFile' = new File("${System.properties['user.home']}/.gnupg/secring.gpg").absolutePath }
+		allprojects { ext."signing.password" = pgpPassword }
+	}
+}
+
+if(!System.properties.'release' && !System.properties.'prerelease') {
+	defaultTasks 'build', 'uploadPublished', 'shadowJar', 'myDistZip', 'myDistTgz', 'appTgz'
+} else {
+	defaultTasks 'build', 'uploadPublished', 'shadowJar', 'myDistZip', 'myDistTgz', 'appTgz', 'signJavadocZip', 'signSourceZip'
+}
+
+allprojects {
+	apply plugin: 'project-reports'
+	apply plugin: 'eclipse'
+	apply plugin: 'idea'
+	apply plugin: 'jacoco'
+
+	group = 'de.huxhorn.lilith'
+	version = '8.4.0'
+	def prereleaseIdentifier = System.properties.'prerelease'
+	if(prereleaseIdentifier) {
+		version = version + '-' + prereleaseIdentifier
+	} else if(!System.properties.'release') {
+		version = version + '-SNAPSHOT'
+	}
+
+	repositories {
+		maven {
+			url localReleaseRepo
+		}
+		maven {
+			url localSnapshotRepo
+		}
+		mavenCentral()
+		mavenLocal()
+	}
+
+	jacoco {
+		toolVersion = '0.8.7'
+	}
+
+	task printConfig doLast {
+		configurations.each { config ->
+			println "Configuration " + config.name
+				config.allArtifacts.each {
+					println "\t${it}"
+					println "\t\t${it.name}"
+					println "\t\t${it.file}"
+					println "\t\t${it.buildDependencies.values}"
+				}
+			println "------"
+		}
+	}
+}
+
+subprojects {
+	apply plugin: 'groovy'
+	apply plugin: 'maven'
+	apply plugin: 'signing'
+	apply plugin: 'de.thetaphi.forbiddenapis'
+	apply plugin: 'checkstyle'
+	apply plugin: 'pmd'
+	//apply plugin: 'org.kordamp.jdeps'
+	
+	checkstyle {
+		configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+		configProperties = [
+				'configDir': rootProject.file('config/checkstyle'),
+				'baseDir': rootDir,
+			]
+		toolVersion = '9.2'
+		//ignoreFailures = true
+	}
+	
+	pmd {
+		ruleSetFiles = files(rootProject.file('config/pmd/ruleSet.xml'))
+		ruleSets = []
+		toolVersion = '6.41.0'
+		incrementalAnalysis = true
+		//ignoreFailures = true
+	}
+
+	forbiddenApis {
+		bundledSignatures = [
+			'jdk-unsafe-1.8',
+			'jdk-deprecated-1.8',
+			'jdk-internal-1.8',
+			'jdk-non-portable',
+			//'jdk-system-out',
+			'jdk-reflection',
+			//'commons-io-unsafe-2.5',
+			]
+		ignoreFailures = false
+		//failOnUnresolvableSignatures = false
+	}
+
+	jacocoTestReport {
+		additionalSourceDirs.from(files(sourceSets.main.allSource.srcDirs))
+		sourceDirectories.from(files(sourceSets.main.allSource.srcDirs))
+		classDirectories.from(files(sourceSets.main.output))
+		reports {
+			html.enabled = true
+			xml.enabled = true
+			csv.enabled = false
+		}
+	}
+	//defaultTasks 'build', 'uploadPublished'
+
+	sourceCompatibility = globalSourceCompatibility
+	targetCompatibility = globalTargetCompatibility
+
+	// -Xlint:-options disables the
+	// "warning: [options] bootstrap class path not set in conjunction with -source 1.x"
+	// for now
+	def compilerArgs = ['-Xlint:unchecked', '-Xlint:-options', '-Xlint:deprecation', '-g']
+
+	compileJava.options.compilerArgs = compilerArgs
+	compileTestJava.options.compilerArgs = compilerArgs
+	compileGroovy.options.compilerArgs = compilerArgs
+	compileTestGroovy.options.compilerArgs = compilerArgs
+
+	def sourceEncoding = 'UTF-8'
+
+	compileJava.options.encoding = sourceEncoding
+	compileTestJava.options.encoding = sourceEncoding
+	compileGroovy.options.encoding = sourceEncoding
+	compileTestGroovy.options.encoding = sourceEncoding
+
+	signing {
+		required = { !version.endsWith("SNAPSHOT") }
+		sign configurations.archives
+	}
+
+	boolean gpl=['lilith', 'lilith-conditions', 'lilith-engine', 'lilith-xml-logging'].contains(project.name)
+
+	task sourceJar(type: Jar) { from sourceSets.main.allSource; classifier = 'sources' }
+	task javadocJar(type: Jar) { from javadoc.outputs.files; classifier = 'javadoc' }
+
+	artifacts { archives sourceJar, javadocJar }
+
+    project.ext.defaultProject= {
+    	url 'http://lilithapp.com'
+    	name project.name
+    	description project.description
+    	inceptionYear '2007'
+
+    	scm {
+    		connection 'scm:git:git://github.com/huxi/lilith.git'
+    		developerConnection 'scm:git:ssh://git@github.com:huxi/lilith.git'
+    		url 'http://github.com/huxi/lilith/'
+    	}
+
+		licenses {
+			if(gpl)
+			{
+				license {
+					name 'GNU General Public License v3 (GPL)'
+					url 'http://www.gnu.org/licenses/gpl.html'
+					distribution 'repo'
+				}
+			}
+			else
+			{
+				license {
+					name 'GNU Lesser General Public License v3 (LGPL)'
+					url 'http://www.gnu.org/copyleft/lesser.html'
+					distribution 'repo'
+				}
+
+				license {
+					name 'The Apache Software License, Version 2.0'
+					url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+					distribution 'repo'
+				}
+			}
+		}
+
+		issueManagement {
+			system 'Github'
+			url 'https://github.com/huxi/lilith/issues'
+		}
+
+		developers {
+			developer {
+				id 'huxhorn'
+				email 'huxhorn@users.sourceforge.net'
+				name 'Joern Huxhorn'
+				organization = 'Joern Huxhorn'
+				organizationUrl 'http://lilithapp.com'
+				roles {
+					role 'Developer'
+				}
+			}
+		}
+
+		properties {
+			'project.build.sourceEncoding' 'UTF-8'
+			'project.reporting.outputEncoding' 'UTF-8'
+		}
+	}
+
+	configurations {
+		all*.exclude group: 'commons-logging', module: 'commons-logging'
+		all*.exclude group: 'org.codehaus.groovy', module: 'groovy-all'
+
+		published.extendsFrom archives, signatures
+	}
+
+	dependencies {
+		testImplementation libraries.'byte-buddy'
+		testImplementation libraries.'groovy'
+		testImplementation libraries.'junit'
+		testImplementation libraries.'slf4j-api'
+		testImplementation libraries.'spock-core', {
+			exclude group: 'org.codehaus.groovy', module: 'groovy-all' 
+		}
+		testRuntimeOnly libraries.'logback-classic'
+	}
+
+	def deployer = null
+
+	uploadPublished {
+		deployer = repositories.mavenDeployer {
+			repository(url: localReleaseRepo)
+			snapshotRepository(url: localSnapshotRepo)
+			beforeDeployment { MavenDeployment deployment ->
+				signing.signPom(deployment)
+			}
+		}
+	}
+
+	def installer = install.repositories.mavenInstaller
+
+	installer.pom.project defaultProject
+
+	deployer.pom.project defaultProject
+}
+
+project(':lilith') {
+	apply plugin: 'application'
+	apply plugin: de.huxhorn.gradle.git.GitStatePlugin
+	apply plugin: 'edu.sc.seis.macAppBundle'
+	apply plugin: 'com.github.johnrengelman.shadow'
+
+/*
+### macappbundle
+- [Gradle Plugin Homepage](https://github.com/crotwell/gradle-macappbundle/)
+- [MacAppBundlePluginExtension](https://github.com/crotwell/gradle-macappbundle/blob/master/src/main/groovy/edu/sc/seis/macAppBundle/MacAppBundlePluginExtension.groovy)
+- http://kovuthehusky.com/blog/running-minecraft-on-os-x-using-java-7/
+- https://bugs.mojang.com/browse/MCL-1049
+- https://bugs.mojang.com/browse/MCL-2628
+- https://gist.github.com/pudquick/7518753
+- http://docs.oracle.com/javase/8/docs/technotes/guides/deploy/package_for_mac.html
+- https://developer.apple.com/library/mac/documentation/GraphicsAnimation/Conceptual/HighResolutionOSX/Optimizing/Optimizing.html
+*/
+	if(!System.properties.'ignoreGit' && (System.properties.'release' || System.properties.'prerelease')) {
+		project.git.requireClean = true
+		processResources.dependsOn checkGitState
+	}
+
+	//def theMainClassName = 'de.huxhorn.lilith.Lilith'
+	def theMainClassName = 'de.huxhorn.sulky.version.Main'
+
+	mainClassName = theMainClassName
+
+	macAppBundle {
+		mainClassName = theMainClassName
+		appName = 'Lilith' // ends up in CFBundleName
+		bundleIdentifier = 'de.huxhorn.lilith'
+		creatorCode = 'Llth'
+		//jvmVersion = '1.8+'
+		//jvmVersion is AppleJava only
+		icon = "${projectDir}/src/main/mac-resources/Lilith.icns"
+		bundleExtras = [
+			'CFBundleShortVersionString': version,
+			//'CFBundleGetInfoString': copyright,
+			'NSHumanReadableCopyright': copyright,
+			'NSSupportsAutomaticGraphicsSwitching': true,
+		]
+		javaProperties = [
+			'apple.laf.useScreenMenuBar': 'true'
+		]
+		javaExtras = [
+			'-Xdock:name': appName // About name
+		]
+		bundleJRE = false
+		jreHome = 'N/A'
+	}
+
+	createDmg {
+		enabled false
+	}
+
+	jar {
+		manifest.attributes(
+			'Main-Class': "${mainClassName}",
+			// Class-Path must be evaluated at runtime not configuration time.
+			// see http://gradle.1045684.n5.nabble.com/Manifest-classpath-incomplete-and-distribution-ZIP-empty-td2635807.html
+			'Class-Path': "${ -> configurations.runtimeClasspath.collect { File file -> file.name }.sort().join(' ')}"
+		)
+
+	}
+
+	processResources {
+		def props = [
+			'lilithVersion': version,
+			'jacksonVersion': versions.jackson,
+			'slf4jVersion': versions.slf4j,
+			'logbackVersion': versions.logback,
+			'log4jVersion': versions.log4j,
+			'log4j2Version': versions.log4j2,
+			'gitRevision': project.gitHeadHash,
+			'timestamp': "${System.currentTimeMillis()}"
+		]
+
+		// props is manually added as input to circumvent the following issues:
+		// - Change in filtered resource not picked up by archive tasks
+		//   http://issues.gradle.org/browse/GRADLE-1298
+		// - processResources task considered up-to-date although its spec has changed
+		//   https://issues.gradle.org/browse/GRADLE-1276
+		// - Copy tasks do not consider filter/expansion properties in up-to-date checks
+		//   https://issues.gradle.org/browse/GRADLE-1646
+		inputs.properties props
+		// See also:
+		// http://forums.gradle.org/gradle/topics/1_7_rc_1_probably_erroneous_including_duplicate_file_warnings
+
+		filesMatching '**/*.properties', { expand props }
+		filesMatching '**/*.xhtml', { expand props }
+		filesMatching '**/*.message', { expand props }
+	}
+
+	project.ext.distSpec = copySpec {
+		into("lilith-${version}") {
+
+			//println "projectDir: ${projectDir}"
+			from(projectDir) {
+				include 'COPYING'
+				include 'COPYING.LESSER'
+				include 'LICENSE-2.0.txt'
+				include 'build.txt'
+			}
+
+			from(projectDir) {
+				include 'readme.txt'
+				expand(
+					'lilithVersion': version,
+					'slf4jVersion': versions.slf4j,
+					'logbackVersion': versions.logback,
+					'log4jVersion': versions.log4j,
+					'commonsLoggingVersion': versions.commonsLogging,
+				)
+			}
+
+			into('bin') {
+				from("${projectDir}/src/bin") {
+					include 'lilith.bat'
+				}
+			}
+
+			into('bin') {
+				from("${projectDir}/src/bin") {
+					include 'lilith'
+					fileMode = 0755
+					filter(FixCrLfFilter,
+						eol: FixCrLfFilter.CrLf.newInstance('lf'),
+						tab: FixCrLfFilter.AddAsisRemove.newInstance('asis'),
+						eof: FixCrLfFilter.AddAsisRemove.newInstance('remove'),
+						fixlast: true)
+				}
+			}
+
+			into('lib') {
+				from configurations.default
+				from configurations.default.allArtifacts.files
+				exclude '*-sources.jar'
+				exclude '*-javadoc.jar'
+				rename 'de.huxhorn.lilith-(.*).jar', 'lilith.jar'
+			}
+		}
+	}
+
+	shadowDistZip.classifier = 'shadow'
+	shadowDistTar.classifier = 'shadow'
+	
+	task myDistZip(dependsOn: configurations.default.allArtifacts.buildDependencies, type: Zip) {
+		description = 'Creates a ZIP containing the Lilith distribution.'
+		classifier = 'bin'
+		with distSpec
+	}
+
+	task myDistTgz(dependsOn: configurations.default.allArtifacts.buildDependencies, type: Tar) {
+		description = 'Creates a TGZ containing the Lilith distribution.'
+		classifier = 'bin'
+		compression = Compression.GZIP
+		with distSpec
+	}
+
+	task appTgz(dependsOn: createApp, type: Tar) {
+		description = 'Creates a TGZ containing the Lilith Mac OS X app.'
+		classifier = 'app'
+		compression = Compression.GZIP
+		from "${projectDir}/build/macApp"
+	}
+
+	signing {
+		required = { !version.endsWith("SNAPSHOT") }
+		sign shadowJar
+		sign myDistZip
+		sign myDistTgz
+		sign appTgz
+	}
+}
+
+// source: https://gist.github.com/aalmiray/e6f54aa4b3803be0bcac
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+	dependsOn = subprojects.jacocoTestReport
+	dependsOn = subprojects.test
+	additionalSourceDirs.from(files(subprojects.sourceSets.main.allSource.srcDirs))
+	sourceDirectories.from(files(subprojects.sourceSets.main.allSource.srcDirs))
+	classDirectories.from(files(subprojects.sourceSets.main.output))
+	executionData.from(files(subprojects.jacocoTestReport.executionData))
+	reports {
+		html.enabled = true
+		xml.enabled = true
+		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+		csv.enabled = false
+	}
+	onlyIf = {
+		true
+	}
+	doFirst {
+		executionData = files(executionData.findAll {
+			it.exists()
+		})
+	}
+}
+
+coveralls {
+	jacocoReportPath = "${buildDir}/reports/jacoco/report.xml"
+	sourceDirs += jacocoRootReport.sourceDirectories
+}
+
+allprojects {
+	tasks.each { task ->
+		if (task instanceof Javadoc) {
+			//println task
+			if (JavaVersion.current().isJava10Compatible()) {
+				task.options.optionFiles << rootProject.file('config/javadoc10.options')
+			} else {
+				task.options.optionFiles << rootProject.file('config/javadoc.options')
+			}
+		}
+	}
+}
+
+project.ext.deleteClosure = {
+	// delete content of it recursively
+	it.eachDir( deleteClosure );
+	it.eachFile {
+		if(it.delete()) {
+			logger.debug("Deleted ${it.absolutePath}.")
+		}
+	}
+}
+
+task (group: 'Repository', description: "Cleans the local staging-repository, i.e. '${localReleaseRepoFile.absolutePath}'.", 'cleanStaging') doLast {
+	deleteClosure(localReleaseRepoFile)
+	logger.info("Deleted content of ${localReleaseRepoFile.absolutePath}.")
+}
+
+task (group: 'Repository', description: "Cleans the local SNAPSHOT-repository, i.e. '${localSnapshotRepoFile.absolutePath}'.", 'cleanSnapshot') doLast {
+	deleteClosure(localSnapshotRepoFile)
+	logger.info("Deleted content of ${localReleaseRepoFile.absolutePath}.")
+}
+
+task (group: 'Repository', description: 'Sync local staging-repository to oss.sonatype.org.', 'syncStaging') doLast {
+	if (project.hasProperty('remoteUsername') && project.hasProperty('remotePassword')) {
+		def stagingRepos = new org.apache.maven.wagon.repository.Repository('staging', 'https://oss.sonatype.org/service/local/staging/deploy/maven2')
+		def auth = new org.apache.maven.wagon.authentication.AuthenticationInfo()
+		auth.userName = remoteUsername
+		auth.password = remotePassword
+		def wagon = new org.apache.maven.wagon.providers.webdav.WebDavWagon()
+
+		wagon.connect(stagingRepos, auth)
+		localReleaseRepoFile.eachFile {
+			if (it.directory) {
+				wagon.putDirectory(it, it.name)
+			} else {
+				wagon.put(it, it.name)
+			}
+		}
+	} else {
+		println "Can't sync staging as credentials aren't set. Set with -PremoteUsername=user -PremotePassword=password."
+	}
+}
+
+task (group: 'Repository', description: 'Sync local SNAPSHOT-repository to oss.sonatype.org.', 'syncSnapshot') doLast {
+	if (project.hasProperty('remoteUsername') && project.hasProperty('remotePassword')) {
+		def snapshotRepos = new org.apache.maven.wagon.repository.Repository('snapshot', 'https://oss.sonatype.org/content/repositories/snapshots')
+		def auth = new org.apache.maven.wagon.authentication.AuthenticationInfo()
+		auth.userName = remoteUsername
+		auth.password = remotePassword
+		def wagon = new org.apache.maven.wagon.providers.webdav.WebDavWagon()
+
+		wagon.connect(snapshotRepos, auth)
+		localSnapshotRepoFile.eachFile {
+			if (it.directory) {
+				wagon.putDirectory(it, it.name)
+			} else {
+				wagon.put(it, it.name)
+			}
+		}
+	} else {
+		println "Can't sync snapshots as credentials aren't set. Set with -PremoteUsername=user -PremotePassword=password."
+	}
+}
+
+apply plugin: 'detect-split-packages'

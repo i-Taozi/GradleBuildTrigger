@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+	
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE1" class="ch.qos.logback.core.FileAppender">
+		<file>fileTextual.log</file>
+		<encoder>
+			<pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE2" class="ch.qos.logback.core.FileAppender">
+		<file>fileAppending.lilith</file>
+		<encoder class="de.huxhorn.lilith.logback.encoder.ClassicLilithEncoder">
+			<IncludeCallerData>true</IncludeCallerData>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE3" class="ch.qos.logback.core.FileAppender">
+		<file>fileOverwriting.lilith</file>
+		<append>false</append>
+		<encoder class="de.huxhorn.lilith.logback.encoder.ClassicLilithEncoder">
+			<IncludeCallerData>true</IncludeCallerData>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE4" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>classicRolling.lilith</file>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>classic.%i.lilith</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>3</maxIndex>
+		</rollingPolicy>
+		
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+		
+		<encoder class="de.huxhorn.lilith.logback.encoder.ClassicLilithEncoder">
+			<IncludeCallerData>true</IncludeCallerData>
+		</encoder>
+	</appender>
+	
+	<appender name="FILE5" class="ch.qos.logback.core.FileAppender">
+		<file>fileXml.log</file>
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<!-- http://jira.qos.ch/browse/LOGBACK-328 -->
+			<layout class="ch.qos.logback.classic.log4j.XMLLayout">
+				<locationInfo>true</locationInfo>
+			</layout>
+		</encoder>
+	</appender>
+	
+	<appender name="MultiplexClassicCompressed" class="de.huxhorn.lilith.logback.appender.ClassicMultiplexSocketAppender">
+		<Compressing>true</Compressing>
+		<ApplicationIdentifier>Lilith-Compressed</ApplicationIdentifier>
+		<ReconnectionDelay>30</ReconnectionDelay>
+		<IncludeCallerData>true</IncludeCallerData>
+		<RemoteHosts>localhost</RemoteHosts>
+	</appender>
+	
+	<!--
+	http://jira.qos.ch/browse/LOGBACK-929
+	-->
+	<appender name="LogbackClassic" class="ch.qos.logback.classic.net.SocketAppender">
+		<RemoteHost>localhost</RemoteHost>
+		<Port>4560</Port>
+		<ReconnectionDelay>170</ReconnectionDelay>
+		<IncludeCallerData>true</IncludeCallerData>
+	</appender>
+	
+	<appender name="Foo" class="de.huxhorn.lilith.sandbox.FooAppender"/>
+	
+	<root level="ALL">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="FILE1"/>
+		<appender-ref ref="FILE2"/>
+		<appender-ref ref="FILE3"/>
+		<appender-ref ref="FILE4"/>
+		<appender-ref ref="FILE5"/>
+		<appender-ref ref="MultiplexClassicCompressed"/>
+		<appender-ref ref="LogbackClassic"/>
+		<!--
+		<appender-ref ref="Foo"/>
+		-->
+	</root>
+	
+	<logger name="de.huxhorn.lilith.slf4j" level="ALL"/>
+</configuration>

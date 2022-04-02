@@ -1,0 +1,936 @@
+apply from: 'dependencyDefinitions.gradle'
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+}
+
+project(':lilith-sender') {
+	archivesBaseName = 'de.huxhorn.lilith.sender'
+	description = 'This file is part of Lilith. It contains the event sender definition.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-io'
+	}
+}
+
+project(':lilith-data-converter') {
+	archivesBaseName = 'de.huxhorn.lilith.data.converter'
+	description = 'This file is part of Lilith. It contains the Converter interface and registry.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		testImplementation libraries.'sulky-junit'
+	}
+}
+
+project(':lilith-data-eventsource') {
+	archivesBaseName = 'de.huxhorn.lilith.data.eventsource'
+	description = 'This file is part of Lilith. It contains the EventSource datatype and related classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		testImplementation libraries.'sulky-junit'
+	}
+}
+
+project(':lilith-data-eventsource-xml') {
+	archivesBaseName = 'de.huxhorn.lilith.data.eventsource-xml'
+	description = 'This file is part of Lilith. It contains XML I/O for EventSource.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.eventsource.xml'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'sulky-stax'
+		implementation project(':lilith-data-eventsource')
+		runtimeOnly libraries.'woodstox'
+	}
+}
+
+project(':lilith-data-logging') {
+	archivesBaseName = 'de.huxhorn.lilith.data.logging'
+	description = 'This file is part of Lilith. It contains the LoggingEvent datatype and related classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'sulky-formatting'
+		implementation project(':lilith-data-eventsource')
+		testImplementation libraries.'sulky-junit'
+	}
+}
+
+project(':lilith-data-logging-io-test') {
+	archivesBaseName = 'de.huxhorn.lilith.data.logging-io-test'
+	description = 'This file is part of Lilith. It contains a Baseclass for LoggingEvent-De/Serializer tests.'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.logging.test'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'junit'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-formatting'
+		implementation libraries.'sulky-junit'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+	}
+}
+
+project(':lilith-data-logging-xml') {
+	archivesBaseName = 'de.huxhorn.lilith.data.logging-xml'
+	description = 'This file is part of Lilith. It contains XML I/O for LoggingEvent.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.logging.xml'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'sulky-stax'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-eventsource-xml')
+		implementation project(':lilith-data-logging')
+		runtimeOnly libraries.'woodstox'
+	}
+}
+
+project(':lilith-data-logging-xml-serializer') {
+	archivesBaseName = 'de.huxhorn.lilith.data.logging-xml-serializer'
+	description = 'This file is part of Lilith. It contains XML De/Serializer for LoggingEvent.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.logging.xml.codec'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'sulky-codec'
+		implementation libraries.'sulky-stax'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-data-logging-xml')
+		runtimeOnly libraries.'woodstox'
+		testImplementation libraries.'sulky-junit'
+		testImplementation project(':lilith-data-logging-io-test')
+	}
+}
+
+project(':lilith-data-logging-protobuf') {
+	archivesBaseName = 'de.huxhorn.lilith.data.logging.protobuf'
+	description = 'This file is part of Lilith. It contains the Logging Protobuf classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	javadoc {
+		// disable doclint for protobuf
+		// http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+		// https://github.com/google/protobuf/issues/304
+		if (JavaVersion.current().isJava8Compatible()) {
+			options.addStringOption('Xdoclint:none', '-quiet')
+		}
+	}
+
+	dependencies {
+		implementation libraries.'protobuf'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		testImplementation libraries.'sulky-junit'
+		testImplementation project(':lilith-data-logging-io-test')
+	}
+}
+
+project(':lilith-data-logging-json-serializer') {
+	archivesBaseName = 'de.huxhorn.lilith.data.logging-json-serializer'
+	description = 'This file is part of Lilith. It contains JSON De/Serializer for LoggingEvent.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.logging.json'
+	}
+
+	dependencies {
+		implementation libraries.'jackson-afterburner'
+		implementation libraries.'jackson-databind'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		testImplementation libraries.'sulky-junit'
+		testImplementation project(':lilith-data-logging-io-test')
+	}
+}
+
+project(':lilith-data-access') {
+	archivesBaseName = 'de.huxhorn.lilith.data.access'
+	description = 'This file is part of Lilith. It contains the AccesEvent datatype and related classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation project(':lilith-data-eventsource')
+		testImplementation libraries.'sulky-junit'
+	}
+}
+
+project(':lilith-data-access-protobuf') {
+	archivesBaseName = 'de.huxhorn.lilith.data.access.protobuf'
+	description = 'This file is part of Lilith. It contains the Access Protobuf classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	javadoc {
+		// disable doclint for protobuf
+		// http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+		// https://github.com/google/protobuf/issues/304
+		if (JavaVersion.current().isJava8Compatible()) {
+			options.addStringOption('Xdoclint:none', '-quiet')
+		}
+	}
+
+	dependencies {
+		implementation libraries.'protobuf'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-eventsource')
+	}
+}
+
+project(':lilith-data-corpus') {
+	apply plugin: 'groovy'
+	archivesBaseName = 'de.huxhorn.lilith.data.corpus'
+	description = 'This file is part of Lilith. It contains a corpus of Logging- and AccessEvents for tests.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'groovy'
+		implementation libraries.'slf4j-api'
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+	}
+}
+
+project(':lilith-constants') {
+	archivesBaseName = 'de.huxhorn.lilith.constants'
+	description = 'This file is part of Lilith. It contains part of the Lilith API (Constants).'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.api'
+	}
+}
+
+project(':lilith-engine') {
+	archivesBaseName = 'de.huxhorn.lilith.engine'
+	description = 'This file is part of Lilith. It contains the engine part of Lilith.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-codec'
+		implementation libraries.'sulky-codec-filebuffer'
+		implementation libraries.'sulky-conditions'
+		implementation project(':lilith-constants')
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-access-protobuf')
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-data-logging-protobuf')
+		implementation project(':lilith-sender')
+		testImplementation libraries.'logback-classic'
+	}
+}
+
+project(':lilith-xml-logging') {
+	archivesBaseName = 'de.huxhorn.lilith.xml-logging'
+	description = 'This file is part of Lilith. It contains XML logging classes.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.engine.xml'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-codec'
+		implementation libraries.'sulky-stax'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-data-logging-xml')
+		implementation project(':lilith-data-logging-xml-serializer')
+		implementation project(':lilith-engine')
+	}
+}
+
+project(':lilith-json-logging') {
+	archivesBaseName = 'de.huxhorn.lilith.json-logging'
+	description = 'This file is part of Lilith. It contains JSON logging classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.engine.json'
+	}
+
+	dependencies {
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-data-logging-json-serializer')
+		implementation project(':lilith-engine')
+	}
+}
+
+project(':logback-classic') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.classic'
+	description = 'This file is part of Lilith. It contains an NDC implementation that can be used in conjunction with the lilith appenders to get NDC functionality in Logback.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation project(':lilith-data-logging')
+	}
+}
+
+project(':logback-converter-classic') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.converter-classic'
+	description = 'This file is part of Lilith. It contains the converter to translate from logback to lilith logging events.'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.logging.logback'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'logback-classic'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':logback-classic')
+	}
+}
+
+project(':logback-converter-access') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.converter-access'
+	description = 'This file is part of Lilith. It contains the converter to translate from logback to lilith access events.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.data.access.logback'
+	}
+
+	dependencies {
+		implementation libraries.'logback-access'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+	}
+}
+
+project(':logback-multiplex-appender-core') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.appender.multiplex-core'
+	description = 'This file is part of Lilith. It contains the multiplexing appender core classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.logback.appender.core'
+	}
+
+	dependencies {
+		implementation libraries.'logback-core'
+		implementation libraries.'sulky-codec'
+		implementation libraries.'sulky-ulid'
+		implementation project(':lilith-sender')
+	}
+}
+
+project(':logback-multiplex-appender-classic') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.appender.multiplex-classic'
+	description = 'This file is part of Lilith. It contains the multiplexing logging appender.'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.logback.appender'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'logback-classic'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-logging-protobuf')
+		implementation project(':lilith-sender')
+		implementation project(':logback-converter-classic')
+		implementation project(':logback-multiplex-appender-core')
+	}
+}
+
+project(':logback-multiplex-appender-access') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.appender.multiplex-access'
+	description = 'This file is part of Lilith. It contains the multiplexing access appender.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.logback.appender.access'
+	}
+
+	dependencies {
+		implementation libraries.'logback-access'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-access-protobuf')
+		implementation project(':lilith-sender')
+		implementation project(':logback-converter-access')
+		implementation project(':logback-multiplex-appender-core')
+	}
+}
+
+project(':logback-multiplex-appender-classic-xml') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.appender.multiplex-classic-xml'
+	description = 'This file is part of Lilith. It contains the multiplexing logging appender (XML).'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.logback.appender.xml'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'logback-classic'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-logging-xml-serializer')
+		implementation project(':lilith-sender')
+		implementation project(':logback-converter-classic')
+		implementation project(':logback-multiplex-appender-core')
+	}
+}
+
+project(':logback-multiplex-appender-classic-json') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.appender.multiplex-classic-json'
+	description = 'This file is part of Lilith. It contains the multiplexing logging appender (JSON).'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.logback.appender.json'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'logback-classic'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-data-logging-json-serializer')
+		implementation project(':lilith-sender')
+		implementation project(':logback-converter-classic')
+		implementation project(':logback-multiplex-appender-core')
+	}
+}
+
+project(':logback-shutdown-context-listener') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.servlet'
+	description = 'This file is part of Lilith. It contains a ServletContextListener that shuts down logback.'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+	*/
+
+	dependencies {
+		compileOnly libraries.'servlet-api'
+		implementation libraries.'logback-classic'
+		implementation libraries.'slf4j-api'
+		implementation project(':logback-tools')
+	}
+}
+
+project(':logback-tools') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.tools'
+	description = 'This file is part of Lilith. It contains tools for working with logback.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'logback-core'
+		implementation libraries.'slf4j-api'
+	}
+}
+
+project(':logback-encoder-core') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.encoder.core'
+	description = 'This file is part of Lilith. It contains the encoder base class.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'logback-core'
+		implementation libraries.'sulky-codec'
+		implementation libraries.'sulky-codec-filebuffer'
+		implementation project(':lilith-constants')
+	}
+}
+
+project(':logback-encoder-classic') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.encoder.classic'
+	description = 'This file is part of Lilith. It contains the classic encoder.'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.logback.encoder'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'logback-classic'
+		implementation libraries.'logback-core'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-constants')
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-data-logging-protobuf')
+		implementation project(':logback-converter-classic')
+		implementation project(':logback-encoder-core')
+	}
+}
+
+project(':logback-encoder-access') {
+	archivesBaseName = 'de.huxhorn.lilith.logback.encoder.access'
+	description = 'This file is part of Lilith. It contains the access encoder.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'logback-access'
+		implementation libraries.'logback-core'
+		implementation libraries.'sulky-codec'
+		implementation project(':lilith-constants')
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-access-protobuf')
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':logback-converter-access')
+		implementation project(':logback-encoder-core')
+	}
+}
+
+project(':log4j-xml') {
+	archivesBaseName = 'de.huxhorn.lilith.log4j.xml'
+	description = 'This file is part of Lilith. It contains LOG4J XML I/O.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'commons-io'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-stax'
+		implementation libraries.'sulky-tasks'
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		runtimeOnly libraries.'woodstox'
+		testImplementation project(':lilith-data-eventsource')
+	}
+}
+
+project(':converter-log4j') {
+	archivesBaseName = 'de.huxhorn.lilith.log4j.converter'
+	description = 'This file is part of Lilith. It contains the LOG4J Converter.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'log4j'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-engine')
+	}
+}
+
+project(':converter-log4j2') {
+	archivesBaseName = 'de.huxhorn.lilith.log4j2.converter'
+	description = 'This file is part of Lilith. It contains the LOG4J 2 Converter.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'log4j2-core'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-engine')
+	}
+}
+
+project(':decoder-log4j2') {
+	archivesBaseName = 'de.huxhorn.lilith.log4j2.decoder'
+	description = 'This file is part of Lilith. It contains the LOG4J 2 Decoders.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'log4j2-core'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-codec'
+		implementation project(':converter-log4j2')
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		runtimeOnly libraries.'jackson-databind'
+		runtimeOnly libraries.'jackson-dataformat-xml'
+		runtimeOnly libraries.'jackson-dataformat-yaml'
+	}
+}
+
+project(':producer-log4j2') {
+	archivesBaseName = 'de.huxhorn.lilith.log4j2.producer'
+	description = 'This file is part of Lilith. It contains the LOG4J 2 Producers.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'log4j2-core'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-codec'
+		implementation project(':decoder-log4j2')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-engine')
+		runtimeOnly libraries.'jackson-databind'
+		runtimeOnly libraries.'jackson-dataformat-xml'
+		runtimeOnly libraries.'jackson-dataformat-yaml'
+	}
+}
+
+project(':jul-xml') {
+	archivesBaseName = 'de.huxhorn.lilith.jul.xml'
+	description = 'This file is part of Lilith. It contains java.util.logging XML I/O.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'commons-io'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-stax'
+		implementation project(':lilith-data-logging')
+		runtimeOnly libraries.'woodstox'
+		testImplementation project(':lilith-data-eventsource')
+	}
+}
+
+project(':jul-xml-import') {
+	archivesBaseName = 'de.huxhorn.lilith.jul.xml-import'
+	description = 'This file is part of Lilith. It contains java.util.logging XML-Import.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.jul.xml.importing'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'commons-io'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-formatting'
+		implementation libraries.'sulky-stax'
+		implementation libraries.'sulky-tasks'
+		implementation project(':jul-xml')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		runtimeOnly libraries.'woodstox'
+		testImplementation project(':lilith-data-eventsource')
+	}
+}
+
+project(':jul-xml-receiver') {
+	archivesBaseName = 'de.huxhorn.lilith.jul.xml.receiver'
+	description = 'This file is part of Lilith. It contains java.util.logging XML I/O.'
+
+	/*
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': 'de.huxhorn.lilith.engine.jul'
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'commons-io'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-formatting'
+		implementation libraries.'sulky-stax'
+		implementation project(':jul-xml')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-engine')
+		runtimeOnly libraries.'woodstox'
+		testImplementation project(':lilith-data-eventsource')
+	}
+}
+
+project(':lilith-sounds') {
+	archivesBaseName = 'de.huxhorn.lilith.sounds'
+	description = 'This file is part of Lilith. It contains the sound files of Lilith.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+}
+
+project(':lilith-prefs') {
+	archivesBaseName = 'de.huxhorn.lilith.prefs'
+	description = 'This file is part of Lilith. It contains the Preferences Protobuf classes.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	javadoc {
+		// disable doclint for protobuf
+		// http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+		// https://github.com/google/protobuf/issues/304
+		if (JavaVersion.current().isJava8Compatible()) {
+			options.addStringOption('Xdoclint:none', '-quiet')
+		}
+	}
+
+	dependencies {
+		implementation libraries.'protobuf'
+		implementation libraries.'sulky-codec'
+	}
+}
+
+project(':lilith-conditions') {
+	archivesBaseName = 'de.huxhorn.lilith.conditions'
+	description = 'This file is part of Lilith. It contains conditions.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'groovy'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-conditions'
+		implementation libraries.'sulky-groovy'
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		testImplementation libraries.'sulky-junit'
+		testImplementation project(':lilith-data-corpus')
+	}
+}
+
+project(':lilith') {
+	archivesBaseName = 'de.huxhorn.lilith'
+	description = 'Lilith is a logging and access event viewer for the Logback logging framework. It has features comparable to Chainsaw, a logging event viewer for log4j. This means that it can receive logging events from remote applications using Logback as their logging backend. It uses files to buffer the received events locally, so it is possible to keep vast amounts of logging events at your fingertip while still being able to check only the ones you are really interested in by using filtering conditions.'
+
+	/*
+	logback-classic-1.2.3 jdeps failure
+	woodstox-core-5.0.3 jdeps failure
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+	*/
+
+	dependencies {
+		implementation libraries.'commons-io'
+		implementation libraries.'commons-lang'
+		implementation libraries.'commons-text'
+		implementation libraries.'flyingsaucer'
+		implementation libraries.'glazedlists'
+		implementation libraries.'groovy'
+		implementation libraries.'groovy-console'
+		implementation libraries.'groovy-xml'
+		implementation libraries.'httpclient'
+		implementation libraries.'httpcore'
+		implementation libraries.'jcommander'
+		implementation libraries.'jul-to-slf4j'
+		implementation libraries.'junique'
+		implementation libraries.'logback-access'
+		implementation libraries.'logback-classic'
+		implementation libraries.'logback-core'
+		implementation libraries.'servlet-api'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-buffers'
+		implementation libraries.'sulky-buffers-filtering'
+		implementation libraries.'sulky-buffers-table'
+		implementation libraries.'sulky-codec'
+		implementation libraries.'sulky-codec-filebuffer'
+		implementation libraries.'sulky-conditions'
+		implementation libraries.'sulky-formatting'
+		implementation libraries.'sulky-groovy'
+		implementation libraries.'sulky-logging'
+		implementation libraries.'sulky-sounds-api'
+		implementation libraries.'sulky-sounds-impl-jlayer'
+		implementation libraries.'sulky-swing'
+		implementation libraries.'sulky-tasks'
+		implementation libraries.'sulky-version'
+		implementation libraries.'thymeleaf'
+		implementation project(':converter-log4j')
+		implementation project(':converter-log4j2')
+		implementation project(':jul-xml')
+		implementation project(':jul-xml-import')
+		implementation project(':jul-xml-receiver')
+		implementation project(':lilith-conditions')
+		implementation project(':lilith-constants')
+		implementation project(':lilith-data-access')
+		implementation project(':lilith-data-converter')
+		implementation project(':lilith-data-eventsource')
+		implementation project(':lilith-data-logging')
+		implementation project(':lilith-data-logging-json-serializer')
+		implementation project(':lilith-data-logging-protobuf')
+		implementation project(':lilith-data-logging-xml-serializer')
+		implementation project(':lilith-engine')
+		implementation project(':lilith-json-logging')
+		implementation project(':lilith-prefs')
+		implementation project(':lilith-xml-logging')
+		implementation project(':log4j-xml')
+		implementation project(':logback-classic')
+		implementation project(':logback-converter-access')
+		implementation project(':logback-converter-classic')
+		implementation project(':logback-converter-classic')
+		implementation project(':logback-multiplex-appender-access')
+		implementation project(':logback-multiplex-appender-classic')
+		implementation project(':logback-multiplex-appender-classic-json')
+		implementation project(':logback-multiplex-appender-classic-xml')
+		implementation project(':logback-tools')
+		implementation project(':producer-log4j2')
+		runtimeOnly libraries.'jcl-over-slf4j'
+		runtimeOnly libraries.'log4j2-core'
+		// 'spring-boot-ext-logback-access' and 'spring-webmvc' should not be necessary
+		// see LOGBACK-1182
+		runtimeOnly libraries.'spring-boot-ext-logback-access'
+		runtimeOnly libraries.'spring-webmvc'
+		runtimeOnly project(':lilith-sounds')
+		testImplementation libraries.'sulky-junit'
+		testImplementation project(':lilith-data-corpus')
+		testRuntimeOnly libraries.'objenesis'
+	}
+}
+
+project(':slf4j') {
+	archivesBaseName = 'de.huxhorn.lilith.slf4j'
+	description = 'This is a concept how SLF4J could be redesigned for Java>=5'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'slf4j-api'
+		testRuntimeOnly project(':logback-multiplex-appender-classic')
+	}
+}
+
+project(':tracing') {
+	archivesBaseName = 'de.huxhorn.lilith.tracing'
+	description = 'This module contains a tracing and profiling aspect.'
+
+	jar {
+		manifest.attributes 'Automatic-Module-Name': archivesBaseName
+	}
+
+	dependencies {
+		implementation libraries.'aspectjrt'
+		implementation libraries.'slf4j-api'
+		implementation libraries.'sulky-formatting'
+		testImplementation libraries.'spring-beans'
+		testImplementation libraries.'spring-context'
+		testImplementation libraries.'spring-core'
+		testRuntimeOnly libraries.'aspectjweaver'
+		testRuntimeOnly libraries.'jcl-over-slf4j'
+		testRuntimeOnly libraries.'spring-aop'
+		testRuntimeOnly project(':logback-multiplex-appender-classic')
+	}
+}
+

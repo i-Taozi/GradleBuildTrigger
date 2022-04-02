@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LoggingEvent xmlns="http://lilith.sf.net/schema/logging/14" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://lilith.sf.net/schema/logging/14 http://lilith.sf.net/schema/logging/14/LoggingEvent.xsd" logger="Logger" level="INFO" threadName="Thread-Name" threadId="17" threadGroup="ThreadGroup-Name" threadGroupId="42" timeStamp="2009-02-14T00:31:30.000+01:00" timeStampMillis="1234567890000">
+	<Message>pattern</Message>
+	<Arguments>
+		<Argument>arg1</Argument>
+		<null/>
+		<Argument>arg3</Argument>
+	</Arguments>
+	<Throwable name="the.exception.class.Name">
+		<Message>Huhu! Exception Message</Message>
+		<StackTrace>
+			<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+				<LineNumber>403</LineNumber>
+				<CodeLocation>CodeLocation</CodeLocation>
+				<Version>Version</Version>
+				<Exact/>
+			</StackTraceElement>
+			<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createThrowableInfo" fileName="LoggingEventIOTest.java">
+				<LineNumber>436</LineNumber>
+				<CodeLocation>CodeLocation</CodeLocation>
+				<Version>Version</Version>
+			</StackTraceElement>
+			<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+				<LineNumber>300</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+				<Native/>
+			</StackTraceElement>
+			<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+				<LineNumber>39</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+				<LineNumber>25</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+				<LineNumber>597</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+				<LineNumber>44</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+				<LineNumber>15</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+				<LineNumber>41</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+				<LineNumber>20</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+				<LineNumber>28</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+				<LineNumber>79</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+				<LineNumber>71</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+				<LineNumber>49</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+				<LineNumber>193</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+				<LineNumber>52</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+				<LineNumber>191</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+				<LineNumber>42</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+				<LineNumber>184</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+				<LineNumber>236</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+				<LineNumber>59</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+				<LineNumber>120</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+				<LineNumber>103</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+				<LineNumber>169</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+				<Native/>
+			</StackTraceElement>
+			<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+				<LineNumber>39</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+				<LineNumber>25</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+				<LineNumber>597</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+				<LineNumber>350</LineNumber>
+			</StackTraceElement>
+			<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+				<LineNumber>1021</LineNumber>
+			</StackTraceElement>
+		</StackTrace>
+		<Cause name="another.exception.class.Name">
+			<Message>Huhu! Exception Message</Message>
+			<StackTrace>
+				<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+					<LineNumber>403</LineNumber>
+					<CodeLocation>CodeLocation</CodeLocation>
+					<Version>Version</Version>
+					<Exact/>
+				</StackTraceElement>
+				<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createThrowableInfo" fileName="LoggingEventIOTest.java">
+					<LineNumber>436</LineNumber>
+					<CodeLocation>CodeLocation</CodeLocation>
+					<Version>Version</Version>
+				</StackTraceElement>
+				<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+					<LineNumber>301</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+					<Native/>
+				</StackTraceElement>
+				<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+					<LineNumber>39</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+					<LineNumber>25</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+					<LineNumber>597</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+					<LineNumber>44</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+					<LineNumber>15</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+					<LineNumber>41</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+					<LineNumber>20</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+					<LineNumber>28</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+					<LineNumber>79</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+					<LineNumber>71</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+					<LineNumber>49</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+					<LineNumber>193</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+					<LineNumber>52</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+					<LineNumber>191</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+					<LineNumber>42</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+					<LineNumber>184</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+					<LineNumber>236</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+					<LineNumber>59</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+					<LineNumber>120</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+					<LineNumber>103</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+					<LineNumber>169</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+					<Native/>
+				</StackTraceElement>
+				<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+					<LineNumber>39</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+					<LineNumber>25</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+					<LineNumber>597</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+					<LineNumber>350</LineNumber>
+				</StackTraceElement>
+				<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+					<LineNumber>1021</LineNumber>
+				</StackTraceElement>
+			</StackTrace>
+			<Suppressed>
+				<Throwable name="yet.another.exception.class.Name">
+					<Message>Suppressed1</Message>
+					<StackTrace>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+							<LineNumber>403</LineNumber>
+							<CodeLocation>CodeLocation</CodeLocation>
+							<Version>Version</Version>
+							<Exact/>
+						</StackTraceElement>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createThrowableInfo" fileName="LoggingEventIOTest.java">
+							<LineNumber>436</LineNumber>
+							<CodeLocation>CodeLocation</CodeLocation>
+							<Version>Version</Version>
+						</StackTraceElement>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+							<LineNumber>303</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+							<Native/>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+							<LineNumber>39</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+							<LineNumber>25</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+							<LineNumber>597</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+							<LineNumber>44</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+							<LineNumber>15</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+							<LineNumber>41</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+							<LineNumber>20</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+							<LineNumber>28</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>79</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>71</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>49</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+							<LineNumber>193</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+							<LineNumber>52</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+							<LineNumber>191</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+							<LineNumber>42</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+							<LineNumber>184</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+							<LineNumber>236</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+							<LineNumber>59</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+							<LineNumber>120</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+							<LineNumber>103</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+							<LineNumber>169</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+							<Native/>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+							<LineNumber>39</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+							<LineNumber>25</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+							<LineNumber>597</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+							<LineNumber>350</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+							<LineNumber>1021</LineNumber>
+						</StackTraceElement>
+					</StackTrace>
+				</Throwable>
+				<Throwable name="yet.another.exception.class.Name">
+					<Message>Suppressed2</Message>
+					<StackTrace>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+							<LineNumber>403</LineNumber>
+							<CodeLocation>CodeLocation</CodeLocation>
+							<Version>Version</Version>
+							<Exact/>
+						</StackTraceElement>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createThrowableInfo" fileName="LoggingEventIOTest.java">
+							<LineNumber>436</LineNumber>
+							<CodeLocation>CodeLocation</CodeLocation>
+							<Version>Version</Version>
+						</StackTraceElement>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+							<LineNumber>304</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+							<Native/>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+							<LineNumber>39</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+							<LineNumber>25</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+							<LineNumber>597</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+							<LineNumber>44</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+							<LineNumber>15</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+							<LineNumber>41</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+							<LineNumber>20</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+							<LineNumber>28</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>79</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>71</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>49</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+							<LineNumber>193</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+							<LineNumber>52</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+							<LineNumber>191</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+							<LineNumber>42</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+							<LineNumber>184</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+							<LineNumber>236</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+							<LineNumber>59</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+							<LineNumber>120</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+							<LineNumber>103</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+							<LineNumber>169</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+							<Native/>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+							<LineNumber>39</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+							<LineNumber>25</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+							<LineNumber>597</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+							<LineNumber>350</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+							<LineNumber>1021</LineNumber>
+						</StackTraceElement>
+					</StackTrace>
+				</Throwable>
+				<Throwable name="yet.another.exception.class.Name">
+					<Message>Suppressed3</Message>
+					<StackTrace>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+							<LineNumber>403</LineNumber>
+							<CodeLocation>CodeLocation</CodeLocation>
+							<Version>Version</Version>
+							<Exact/>
+						</StackTraceElement>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createThrowableInfo" fileName="LoggingEventIOTest.java">
+							<LineNumber>436</LineNumber>
+							<CodeLocation>CodeLocation</CodeLocation>
+							<Version>Version</Version>
+						</StackTraceElement>
+						<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+							<LineNumber>305</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+							<Native/>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+							<LineNumber>39</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+							<LineNumber>25</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+							<LineNumber>597</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+							<LineNumber>44</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+							<LineNumber>15</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+							<LineNumber>41</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+							<LineNumber>20</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+							<LineNumber>28</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>79</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>71</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+							<LineNumber>49</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+							<LineNumber>193</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+							<LineNumber>52</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+							<LineNumber>191</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+							<LineNumber>42</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+							<LineNumber>184</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+							<LineNumber>236</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+							<LineNumber>59</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+							<LineNumber>120</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+							<LineNumber>103</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+							<LineNumber>169</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+							<Native/>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+							<LineNumber>39</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+							<LineNumber>25</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+							<LineNumber>597</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+							<LineNumber>350</LineNumber>
+						</StackTraceElement>
+						<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+							<LineNumber>1021</LineNumber>
+						</StackTraceElement>
+					</StackTrace>
+				</Throwable>
+			</Suppressed>
+			<Cause name="yet.another.exception.class.Name">
+				<Message>Huhu! Exception Message</Message>
+				<StackTrace>
+					<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+						<LineNumber>403</LineNumber>
+						<CodeLocation>CodeLocation</CodeLocation>
+						<Version>Version</Version>
+						<Exact/>
+					</StackTraceElement>
+					<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createThrowableInfo" fileName="LoggingEventIOTest.java">
+						<LineNumber>436</LineNumber>
+						<CodeLocation>CodeLocation</CodeLocation>
+						<Version>Version</Version>
+					</StackTraceElement>
+					<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+						<LineNumber>313</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+						<Native/>
+					</StackTraceElement>
+					<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+						<LineNumber>39</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+						<LineNumber>25</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+						<LineNumber>597</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+						<LineNumber>44</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+						<LineNumber>15</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+						<LineNumber>41</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+						<LineNumber>20</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+						<LineNumber>28</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+						<LineNumber>79</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+						<LineNumber>71</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+						<LineNumber>49</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+						<LineNumber>193</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+						<LineNumber>52</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+						<LineNumber>191</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+						<LineNumber>42</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+						<LineNumber>184</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+						<LineNumber>236</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+						<LineNumber>59</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+						<LineNumber>120</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+						<LineNumber>103</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+						<LineNumber>169</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+						<Native/>
+					</StackTraceElement>
+					<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+						<LineNumber>39</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+						<LineNumber>25</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+						<LineNumber>597</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+						<LineNumber>350</LineNumber>
+					</StackTraceElement>
+					<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+						<LineNumber>1021</LineNumber>
+					</StackTraceElement>
+				</StackTrace>
+			</Cause>
+		</Cause>
+	</Throwable>
+	<MDC>
+		<Entry key="key3">value3</Entry>
+		<Entry key="key2">value2</Entry>
+		<Entry key="key1">value1</Entry>
+	</MDC>
+	<NDC>
+		<Entry>
+			<Message>Pattern 1 {} {}</Message>
+			<Arguments>
+				<Argument>foo</Argument>
+				<Argument>bar</Argument>
+			</Arguments>
+		</Entry>
+		<Entry>
+			<Message>Pattern 2 {} {}</Message>
+			<Arguments>
+				<Argument>foo</Argument>
+				<Argument>bar</Argument>
+			</Arguments>
+		</Entry>
+	</NDC>
+	<Marker name="marker">
+		<Marker name="marker2-1"/>
+		<Marker name="marker2-2">
+			<Marker name="marker3-1">
+				<MarkerReference ref="marker2-1"/>
+			</Marker>
+		</Marker>
+	</Marker>
+	<CallStack>
+		<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="createStackTraceElements" fileName="LoggingEventIOTest.java">
+			<LineNumber>403</LineNumber>
+			<CodeLocation>CodeLocation</CodeLocation>
+			<Version>Version</Version>
+			<Exact/>
+		</StackTraceElement>
+		<StackTraceElement className="de.huxhorn.lilith.data.logging.xml.LoggingEventIOTest" methodName="full" fileName="LoggingEventIOTest.java">
+			<LineNumber>340</LineNumber>
+			<CodeLocation>CodeLocation</CodeLocation>
+			<Version>Version</Version>
+		</StackTraceElement>
+		<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+			<Native/>
+		</StackTraceElement>
+		<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+			<LineNumber>39</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+			<LineNumber>25</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+			<LineNumber>597</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.model.FrameworkMethod$1" methodName="runReflectiveCall" fileName="FrameworkMethod.java">
+			<LineNumber>44</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.internal.runners.model.ReflectiveCallable" methodName="run" fileName="ReflectiveCallable.java">
+			<LineNumber>15</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.model.FrameworkMethod" methodName="invokeExplosively" fileName="FrameworkMethod.java">
+			<LineNumber>41</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.internal.runners.statements.InvokeMethod" methodName="evaluate" fileName="InvokeMethod.java">
+			<LineNumber>20</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.internal.runners.statements.RunBefores" methodName="evaluate" fileName="RunBefores.java">
+			<LineNumber>28</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runNotIgnored" fileName="BlockJUnit4ClassRunner.java">
+			<LineNumber>79</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+			<LineNumber>71</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.BlockJUnit4ClassRunner" methodName="runChild" fileName="BlockJUnit4ClassRunner.java">
+			<LineNumber>49</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.ParentRunner$3" methodName="run" fileName="ParentRunner.java">
+			<LineNumber>193</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.ParentRunner$1" methodName="schedule" fileName="ParentRunner.java">
+			<LineNumber>52</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.ParentRunner" methodName="runChildren" fileName="ParentRunner.java">
+			<LineNumber>191</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.ParentRunner" methodName="access$000" fileName="ParentRunner.java">
+			<LineNumber>42</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.ParentRunner$2" methodName="evaluate" fileName="ParentRunner.java">
+			<LineNumber>184</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.junit.runners.ParentRunner" methodName="run" fileName="ParentRunner.java">
+			<LineNumber>236</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.apache.maven.surefire.junit4.JUnit4TestSet" methodName="execute" fileName="JUnit4TestSet.java">
+			<LineNumber>59</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="executeTestSet" fileName="AbstractDirectoryTestSuite.java">
+			<LineNumber>120</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.apache.maven.surefire.suite.AbstractDirectoryTestSuite" methodName="execute" fileName="AbstractDirectoryTestSuite.java">
+			<LineNumber>103</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.apache.maven.surefire.Surefire" methodName="run" fileName="Surefire.java">
+			<LineNumber>169</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke0" fileName="NativeMethodAccessorImpl.java">
+			<Native/>
+		</StackTraceElement>
+		<StackTraceElement className="sun.reflect.NativeMethodAccessorImpl" methodName="invoke" fileName="NativeMethodAccessorImpl.java">
+			<LineNumber>39</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="sun.reflect.DelegatingMethodAccessorImpl" methodName="invoke" fileName="DelegatingMethodAccessorImpl.java">
+			<LineNumber>25</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="java.lang.reflect.Method" methodName="invoke" fileName="Method.java">
+			<LineNumber>597</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="runSuitesInProcess" fileName="SurefireBooter.java">
+			<LineNumber>350</LineNumber>
+		</StackTraceElement>
+		<StackTraceElement className="org.apache.maven.surefire.booter.SurefireBooter" methodName="main" fileName="SurefireBooter.java">
+			<LineNumber>1021</LineNumber>
+		</StackTraceElement>
+	</CallStack>
+</LoggingEvent>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Lilith 0.9.40 Release Notes</title>
+		<link href="help.css" rel="stylesheet" type="text/css"/>
+	</head>
+	<body>
+		<h1>Lilith 0.9.40</h1>
+
+		<div>
+		<a class="download" href="http://sourceforge.net/projects/lilith/files/lilith/0.9.40">Download Now!
+		<br />(Released: 2010-11-11)</a>
+		</div>
+
+		<h2>Changes</h2>
+		<ul>
+			<li>
+				Color-Schemes (as used by saved conditions, for example) can now be defined partially, i.e. one condition
+				can set a border while the text-color might be defined by a different condition.
+			</li>
+			<li>
+				Maps, e.g. MDC, are now sorted by key-value in the details view.
+				<br/>This was suggested by Joe.
+			</li>
+			<li>
+				Added preferences to check for pre-release versions in addition to release versions. Off by default.
+			</li>
+			<li>
+				Added -T/--print-timestamp command line argument that prints the timestamp and date of build.
+			</li>
+			<li>
+				If the used version is a SNAPSHOT, Lilith will always check for a new SNAPSHOT pre-release regardless
+				of the "Check for updates on startup." settings.
+			</li>
+			<li>
+				Enhanced "Check for update" functionality.
+				<br/>No more false update warnings in case of SNAPSHOT pre-releases. A new release takes precedence over a new pre-release.
+			</li>
+			<li>
+				SNAPSHOT pre-releases will now contain the date and time of the build in the window title.
+			</li>
+			<li>
+				Added support for java.util.logging SocketHandler. Lilith is listening on port 11020 for incoming connections.
+				<br/>I'd still recommend to switch to SLF4J/Logback, though!
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/35">Ticket 35</a>)
+			</li>
+			<li>
+				Added JSON-Appenders and JSON-Receivers.<br />
+				Lilith is listening for message-based JSON-Events on port 10030 (uncompressed) and 10031 (compressed).<br />
+				Zero-delimited JSON-Events are consumed on port 11010.<br />
+				Check out the <a href="http://sourceforge.net/apps/trac/lilith/wiki/LilithJsonFormat">expected JSON data</a>.
+			</li>
+			<li>
+				Replaced Commons-CLI with JCommander. Very nice replacement.<br />
+				I'd like to take this opportunity to thank <a href="http://twitter.com/cbeust">Cédric Beust</a> for his great (and fast!) support!<br />
+				You should seriously check <a href="http://beust.com/jcommander/">JCommander</a> out if your application is handling command line arguments at all.
+			</li>
+			<li>
+				Added support for Log4j SocketAppender. Lilith is listening on port 4445 for incoming connections.
+				<br/>I'd still recommend to switch to SLF4J/Logback, though!
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/32">Ticket 32</a>)
+			</li>
+			<li>
+				Fixed glitch in case of "Find next"/"Find prev" while search is already running. Additional searches are now ignored.
+			</li>
+			<li>
+				Added "Find previous active" (*command* T) and "Find next active" (*command* shift T) functionality
+				to quickly jump to events that match any active condition.
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/93">Ticket 93</a>)
+			</li>
+			<li>
+				Added "Export" functionality which exports the currently selected view into a Lilith file.
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/92">Ticket 92</a>)
+			</li>
+			<li>
+				Added default condition name to preferences. It's preselected for every new view.
+				<br/>This was suggested by Lothar Cezanne.
+			</li>
+			<li>
+				Polling events every 100ms instead of every 2s.
+				<br/>This results in less congestion and a much snappier feeling.
+			</li>
+			<!--
+			<li>
+				Fixed deployment of site.<br />
+				See <a href="http://sulky.huxhorn.de/projects/">sulky</a> and <a href="http://lilith.huxhorn.de/projects/">lilith</a>.
+			</li>
+			-->
+			<li>
+				Added --export-preferences &lt;file&gt; and --import-preferences &lt;file&gt;
+				commandline options to be able to export and import all preferences.
+				<br/>This was requested by Gareth Doutch (gdoutch).
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/81">Ticket 81</a>)
+			</li>
+			<li>
+				Added an additional executable lilith-all.jar containing all dependencies as
+				another download option.
+				<br/>This was requested by Adrien Sales.
+			</li>
+			<li>
+				Added ability to define a sound for WARN-level events, but without any assigned default sound.
+				<br/>This was requested by Adrien Sales.
+			</li>
+			<li>
+				Added F1 as shortcut for Help.
+				<br/>This was requested by Adrien Sales.
+			</li>
+			<li>
+				Fixed several issues in case of log files that are recreated by
+				&lt;append&gt;false&lt;/append&gt; in FileAppender.
+				<br/>Those were all raised by Jeff Jensen (jeffjensen). Thank you very much!
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/84">Ticket 84</a>,
+				<a href="http://sourceforge.net/apps/trac/lilith/ticket/88">Ticket 88</a>,
+				<a href="http://sourceforge.net/apps/trac/lilith/ticket/90">Ticket 90</a>)
+			</li>
+			<li>
+				Fixed the regression that the internal Lilith log wouldn't show up in the menu anymore.
+				<br/>(<a href="http://sourceforge.net/apps/trac/lilith/ticket/85">Ticket 85</a>)
+			</li>
+			<li>
+				Changed update interval of opened files from 5 seconds to 1 second.
+			</li>
+			<li>
+				Spring 3.0.5.RELEASE
+			</li>
+			<li>
+				Groovy 1.7.5
+			</li>
+			<li>
+				SLF4J 1.6.1
+			</li>
+			<li>
+				Logback 0.9.26
+			</li>
+		</ul>
+
+		<h2>Known Issues</h2>
+		<ul>
+			<li>Selection in the HTML view is currently somewhat buggy, especially in case of scaled view.
+				This is a limitation of Flying Saucer that's used as the XHTML renderer.
+			</li>
+			<li>cat and tail are currently still experimental features.
+			<br/>AccessEvent isn't (and can't be) supported yet. LoggingEvent isn't
+			fully supported, either.
+			</li>
+		</ul>
+
+		<h2>Thanks</h2>
+		<p>
+			Sulky and Lilith builds have been switched from Maven to Gradle. pom files
+			are still maintained but mainly because of Sonar.<br/>
+			I'd like to take this opportunity and thank the great Gradle community from
+			the #gradle channel on irc.codehaus.org, especially - but not exclusively! -
+			adam (Adam Murdoch), xlson (Leonard Axelsson) and sebersole (Steve Ebersole).<br/>
+			Thank you very much!<br/>
+			If you haven't taken a look at <a href="http://gradle.org">Gradle</a> yet you should definitely do so now or in
+			the near future...
+		</p>
+		
+		<h2>Previous Versions</h2>
+		<ul>
+			<li><a href="http://lilith.huxhorn.de/releases/0.9.39.xhtml">0.9.39</a></li>
+			<li><a href="http://lilith.huxhorn.de/releases/0.9.38.xhtml">0.9.38</a></li>
+			<li><a href="http://lilith.huxhorn.de/releases/0.9.37.xhtml">0.9.37</a></li>
+			<li><a href="http://lilith.huxhorn.de/releases/0.9.36.xhtml">0.9.36</a></li>
+		</ul>
+
+	</body>
+</html>
+
