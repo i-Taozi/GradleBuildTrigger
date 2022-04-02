@@ -28,4 +28,4 @@ deploy:
 after_success: ['bash <(curl -s https://codecov.io/bash) && echo I am done, Release
     url:https://github.com/Kyson/AndroidGodEye/releases and CodeCov:https://codecov.io/gh/Kyson/AndroidGodEye']
 branches:
-  only: [Kyson/AndroidGodEye-83-origin]
+  only: [Kyson/AndroidGodEye-83-GRADLE_FORK_TEST]
