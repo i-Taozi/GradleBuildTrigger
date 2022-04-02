@@ -12,4 +12,4 @@ before_script: [./gradlew assembleClientDebug, echo no | android create avd --fo
     -s TestRunner &]
 script: ./gradlew connectedCheck
 branches:
-  only: [Simperium/simperium-android-244-origin]
+  only: [Simperium/simperium-android-244-GRADLE_PARALLEL_TEST]
