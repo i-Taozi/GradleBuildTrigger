@@ -6,4 +6,4 @@ android:
     extra-google-m2repository, extra-android-m2repository, 'sys-img-${ANDROID_ABI}-${ANDROID_TARGET}']
 script: [./gradlew checkstyle build]
 branches:
-  only: [raulh82vlc/Movies-Finder-17-origin]
+  only: [raulh82vlc/Movies-Finder-17-GRADLE_PARALLEL_TEST]
