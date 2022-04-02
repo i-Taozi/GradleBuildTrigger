@@ -29,6 +29,10 @@ if (!project.hasProperty("gitCommitHash")) {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        forkEvery = 100
+    }
+
     apply plugin: 'java'
     apply plugin: 'maven-publish'
 
