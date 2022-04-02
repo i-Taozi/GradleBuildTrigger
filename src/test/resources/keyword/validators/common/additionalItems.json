@@ -1,0 +1,32 @@
+[
+    {
+        "digest": {
+            "additionalItems": true,
+            "itemsSize": 0
+        },
+        "data": [ 1, 2, 3, 4, 5 ],
+        "valid": true
+    },
+    {
+        "digest": {
+            "itemsSize": 3,
+            "additionalItems": false
+        },
+        "data": [ 1, 2, 3 ],
+        "valid": true
+    },
+    {
+        "digest": {
+            "itemsSize": 3,
+            "additionalItems": false
+        },
+        "data": [ 1, 2, 3, 4 ],
+        "valid": false,
+        "message": "err.common.additionalItems.notAllowed",
+        "msgData": {
+            "allowed": 3,
+            "found": 4
+        },
+        "msgParams": [ "allowed", "found" ]
+    }
+]

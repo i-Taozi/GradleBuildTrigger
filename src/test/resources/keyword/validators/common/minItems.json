@@ -1,0 +1,23 @@
+[
+    {
+        "digest": { "minItems": 4 },
+        "data": [ 1, 2, 3 ],
+        "valid": false,
+        "message": "err.common.minItems.arrayTooShort",
+        "msgData": {
+            "minItems": 4,
+            "found": 3
+        },
+        "msgParams": [ "minItems", "found" ]
+    },
+    {
+        "digest": { "minItems": 4 },
+        "data": [ 1, 2, 3, 4 ],
+        "valid": true
+    },
+    {
+        "digest": { "minItems": 4 },
+        "data": [ 1, 2, 3, 4, 5 ],
+        "valid": true
+    }
+]

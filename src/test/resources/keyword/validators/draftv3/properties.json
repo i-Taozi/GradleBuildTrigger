@@ -1,0 +1,29 @@
+[
+    {
+        "digest": {
+            "required": [ "a1", "a2", "a3" ]
+        },
+        "data": {
+            "a1": 1,
+            "a2": 2,
+            "a3": 3
+        },
+        "valid": true
+    },
+    {
+        "digest": {
+            "required": [ "a1", "a2", "a3" ]
+        },
+        "data": {
+            "a1": 1,
+            "p": "yeah, right"
+        },
+        "valid": false,
+        "message": "err.common.object.missingMembers",
+        "msgData": {
+            "required": [ "a1", "a2", "a3" ],
+            "missing": [ "a2", "a3" ]
+        },
+        "msgParams": [ "missing" ]
+    }
+]

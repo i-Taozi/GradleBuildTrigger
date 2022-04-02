@@ -1,0 +1,42 @@
+[
+    {
+        "digest": {
+            "enum": [ true ]
+        },
+        "data": false,
+        "valid": false,
+        "message": "err.common.enum.notInEnum",
+        "msgData": {
+            "enum": [ true ],
+            "value": false
+        },
+        "msgParams": [ "value", "enum" ]
+    },
+    {
+        "digest": {
+            "enum": [ true ]
+        },
+        "data": true,
+        "valid": true
+    },
+    {
+        "digest": {
+            "enum": [ 1, {}, [ 1, 2, 3 ] ]
+        },
+        "data": { "a": "b" },
+        "valid": false,
+        "message": "err.common.enum.notInEnum",
+        "msgData": {
+            "enum": [ 1, {}, [ 1, 2, 3 ] ],
+            "value": { "a": "b" }
+        },
+        "msgParams": [ "value", "enum" ]
+    },
+    {
+        "digest": {
+            "enum": [ 1, {}, [ 1, 2, 3 ] ]
+        },
+        "data": [ 1, 2, 3 ],
+        "valid": true
+    }
+]

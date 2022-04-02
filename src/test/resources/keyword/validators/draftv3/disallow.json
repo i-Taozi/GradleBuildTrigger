@@ -1,0 +1,87 @@
+[
+    {
+        "digest": { "disallow": [ "string" ], "schemas": [] },
+        "data": null,
+        "valid": true
+    },
+    {
+        "digest": { "disallow": [ "string" ], "schemas": [] },
+        "data": "",
+        "valid": false,
+        "message": "err.draftv3.disallow.type",
+        "msgData": {
+            "disallowed": [ "string" ],
+            "found": "string"
+        },
+        "msgParams": [ "found", "disallowed" ]
+    },
+    {
+        "digest": { "disallow": [ "integer", "number" ], "schemas": [] },
+        "data": 3.1,
+        "valid": false,
+        "message": "err.draftv3.disallow.type",
+        "msgData": {
+            "disallowed": [ "integer", "number" ],
+            "found": "number"
+        },
+        "msgParams": [ "found", "disallowed" ]
+    },
+    {
+        "digest": { "disallow": [ "integer", "number" ], "schemas": [] },
+        "data": 3,
+        "valid": false,
+        "message": "err.draftv3.disallow.type",
+        "msgData": {
+            "disallowed": [ "integer", "number" ],
+            "found": "integer"
+        },
+        "msgParams": [ "found", "disallowed" ]
+    },
+    {
+        "digest": { "disallow": [ "integer" ], "schemas": [] },
+        "data": 3.1,
+        "valid": true
+    },
+    {
+        "digest": { "disallow": [ "integer" ], "schemas": [] },
+        "data": 3.0,
+        "valid": true
+    },
+    {
+        "digest": { "disallow": [ "integer" ], "schemas": [] },
+        "data": 3,
+        "valid": false,
+        "message": "err.draftv3.disallow.type",
+        "msgData": {
+            "disallowed": [ "integer" ],
+            "found": "integer"
+        },
+        "msgParams": [ "found", "disallowed" ]
+    },
+    {
+        "digest": { "disallow": [ "integer", "null" ], "schemas": [] },
+        "data": 3,
+        "valid": false,
+        "message": "err.draftv3.disallow.type",
+        "msgData": {
+            "disallowed": [ "integer", "null" ],
+            "found": "integer"
+        },
+        "msgParams": [ "found", "disallowed" ]
+    },
+    {
+        "digest": { "disallow": [ "integer", "number" ], "schemas": [] },
+        "data": null,
+        "valid": true
+    },
+    {
+        "digest": { "disallow": [ "null", "object" ], "schemas": [] },
+        "data": [],
+        "valid": true
+    },
+    {
+        "digest": { "disallow": [ "null", "object" ], "schemas": [] },
+        "data": "",
+        "valid": true
+    }
+]

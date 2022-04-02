@@ -1,0 +1,19 @@
+[
+    {
+        "digest": { "uniqueItems": true },
+        "data": [ 1, 2, 3 ],
+        "valid": true
+    },
+    {
+        "digest": { "uniqueItems": true },
+        "data": [ 1, 1.0 ],
+        "valid": false,
+        "message": "err.common.uniqueItems.duplicateElements",
+        "msgData": {}
+    },
+    {
+        "digest": { "uniqueItems": false },
+        "data": [ 1, 2, 1 ],
+        "valid": true
+    }
+]

@@ -1,0 +1,23 @@
+[
+    {
+        "digest": { "maxItems": 4 },
+        "data": [ 1, 2, 3 ],
+        "valid": true
+    },
+    {
+        "digest": { "maxItems": 4 },
+        "data": [ 1, 2, 3, 4 ],
+        "valid": true
+    },
+    {
+        "digest": { "maxItems": 4 },
+        "data": [ 1, 2, 3, 4, 5 ],
+        "valid": false,
+        "message": "err.common.maxItems.arrayTooLarge",
+        "msgData": {
+            "maxItems": 4,
+            "found": 5
+        },
+        "msgParams": [ "maxItems", "found" ]
+    }
+]

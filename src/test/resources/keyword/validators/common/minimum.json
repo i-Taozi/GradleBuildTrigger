@@ -1,0 +1,94 @@
+[
+    {
+        "digest": {
+            "minimum": 0,
+            "valueIsLong": true,
+            "exclusive": false
+        },
+        "data": -1,
+        "valid": false,
+        "message": "err.common.minimum.tooSmall",
+        "msgData": {
+            "minimum": 0,
+            "found": -1
+        },
+        "msgParams": [ "minimum", "found" ]
+    },
+    {
+        "digest": {
+            "minimum": 0,
+            "valueIsLong": true,
+            "exclusive": false
+        },
+        "data": 0,
+        "valid": true
+    },
+    {
+        "digest": {
+            "minimum": 0,
+            "valueIsLong": true,
+            "exclusive": true
+        },
+        "data": 0,
+        "valid": false,
+        "message": "err.common.minimum.notExclusive",
+        "msgData": { "minimum": 0 },
+        "msgParams": [ "minimum" ]
+    },
+    {
+        "digest": {
+            "minimum": 0,
+            "valueIsLong": true,
+            "exclusive": true
+        },
+        "data": 1,
+        "valid": true
+    },
+    {
+        "digest": {
+            "minimum": 98091239809812309812312.43298,
+            "valueIsLong": false,
+            "exclusive": false
+        },
+        "data": 98091239809812309812312.4329,
+        "valid": false,
+        "message": "err.common.minimum.tooSmall",
+        "msgData": {
+            "minimum": 98091239809812309812312.43298,
+            "found": 98091239809812309812312.4329
+        },
+        "msgParams": [ "minimum", "found" ]
+    },
+    {
+        "digest": {
+            "minimum": 98091239809812309812312.43298,
+            "valueIsLong": false,
+            "exclusive": false
+        },
+        "data": 98091239809812309812312.43298,
+        "valid": true
+    },
+    {
+        "digest": {
+            "minimum": 98091239809812309812312.43298,
+            "valueIsLong": false,
+            "exclusive": true
+        },
+        "data": 98091239809812309812312.43298,
+        "valid": false,
+        "message": "err.common.minimum.notExclusive",
+        "msgData": {
+            "minimum": 98091239809812309812312.43298
+        },
+        "msgParams": [ "minimum" ]
+    },
+    {
+        "digest": {
+            "minimum": 98091239809812309812312.43298,
+            "valueIsLong": false,
+            "exclusiveMinimum": true
+        },
+        "data": 98091239809812309812312.43299,
+        "valid": true
+    }
+]

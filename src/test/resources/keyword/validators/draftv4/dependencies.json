@@ -1,0 +1,38 @@
+[
+    {
+
+        "digest": {
+            "propertyDeps": {
+                "a": [ "b", "c" ]
+            },
+            "schemaDeps": []
+        },
+        "data": {
+            "a": false,
+            "b": false,
+            "c": false
+        },
+        "valid": true
+    },
+    {
+
+        "digest": {
+            "propertyDeps": {
+                "a": [ "b", "c" ]
+            },
+            "schemaDeps": []
+        },
+        "data": {
+            "a": false,
+            "c": false
+        },
+        "valid": false,
+        "message": "err.common.dependencies.missingPropertyDeps",
+        "msgData": {
+            "property": "a",
+            "required": [ "b", "c" ],
+            "missing": [ "b" ]
+        },
+        "msgParams": [ "property", "required", "missing" ]
+    }
+]
