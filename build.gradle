@@ -550,6 +550,10 @@ coveralls {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
 	tasks.each { task ->
 		if (task instanceof Javadoc) {
 			//println task
