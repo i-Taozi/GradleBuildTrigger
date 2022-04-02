@@ -3,4 +3,4 @@ jdk: [openjdk11]
 install: [./gradlew autogenerate, ./gradlew build]
 script: null
 branches:
-  only: [lessthanoptimal/GeoRegression-22-origin]
+  only: [lessthanoptimal/GeoRegression-22-GRADLE_PARALLEL_TEST]
