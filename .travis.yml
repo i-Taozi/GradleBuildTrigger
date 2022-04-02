@@ -57,4 +57,4 @@ after_success:
 notifications:
   email: [p6spy-developers@googlegroups.com]
 branches:
-  only: [p6spy/p6spy-538-origin]
+  only: [p6spy/p6spy-538-GRADLE_PARALLEL_TEST]
