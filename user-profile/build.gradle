@@ -1,0 +1,72 @@
+/****************************************************************************
+ * Copyright 2016-2020, Optimizely, Inc. and contributors                        *
+ *                                                                          *
+ * Licensed under the Apache License, Version 2.0 (the "License");          *
+ * you may not use this file except in compliance with the License.         *
+ * You may obtain a copy of the License at                                  *
+ *                                                                          *
+ *    http://www.apache.org/licenses/LICENSE-2.0                            *
+ *                                                                          *
+ * Unless required by applicable law or agreed to in writing, software      *
+ * distributed under the License is distributed on an "AS IS" BASIS,        *
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. *
+ * See the License for the specific language governing permissions and      *
+ * limitations under the License.                                           *
+ ***************************************************************************/
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
+
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName version_name
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+        debug {
+            testCoverageEnabled true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api project(':shared')
+
+    implementation "androidx.annotation:annotation:$annotations_ver"
+
+    compileOnly "com.noveogroup.android:android-logger:$android_logger_ver"
+
+    testImplementation "junit:junit:$junit_ver"
+    testImplementation "org.mockito:mockito-core:$mockito_ver"
+    testImplementation "com.noveogroup.android:android-logger:$android_logger_ver"
+
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test"
+    // Set this dependency to use JUnit 4 rules
+    androidTestImplementation "androidx.test:rules:$androidx_test"
+    // Set this dependency to build and run Espresso tests
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_ver"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_ver"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker:$dexmaker_ver"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker-dx:$dexmaker_ver"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker-mockito:$dexmaker_ver"
+    androidTestImplementation "com.noveogroup.android:android-logger:$android_logger_ver"
+    androidTestImplementation "com.fasterxml.jackson.core:jackson-databind:$jacksonversion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}

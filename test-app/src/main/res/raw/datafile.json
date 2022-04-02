@@ -1,0 +1,54 @@
+{
+  "groups": [],
+  "variables": [],
+  "experiments": [
+    {
+      "status": "Running",
+      "key": "background_experiment",
+      "layerId": "8143622708",
+      "trafficAllocation": [
+        {
+          "entityId": "8146590584",
+          "endOfRange": 5000
+        },
+        {
+          "entityId": "8134412703",
+          "endOfRange": 10000
+        }
+      ],
+      "audienceIds": [],
+      "variations": [
+        {
+          "variables": [],
+          "id": "8146590584",
+          "key": "variation_a"
+        },
+        {
+          "variables": [],
+          "id": "8134412703",
+          "key": "variation_b"
+        }
+      ],
+      "forcedVariations": {
+        "test_user": "variation_a"
+      },
+      "id": "8126664113"
+    }
+  ],
+  "audiences": [],
+  "anonymizeIP": false,
+  "accountId": "6384711706",
+  "projectId": "8136462271",
+  "version": "3",
+  "attributes": [],
+  "events": [
+    {
+      "experimentIds": [
+        "8126664113"
+      ],
+      "id": "8128595839",
+      "key": "sample_conversion"
+    }
+  ],
+  "revision": "5"
+}

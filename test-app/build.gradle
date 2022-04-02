@@ -1,0 +1,85 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    // Includes the Optimizely X Full Stack Java SDK, event handler, and user profile
+    implementation (project(':android-sdk')) {
+        exclude group: 'com.google.code.gson', module:'gson'
+        // exclude group: 'com.noveogroup.android', module:'android-logger'
+    }
+
+    implementation "com.noveogroup.android:android-logger:$android_logger_ver"
+    // implementation "com.optimizely.ab:android-sdk:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation "com.google.android.material:material:1.2.1"
+    // EXAMPLE - replace noveogroup android-looger with slf4j-android logger
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-android
+    //implementation "org.slf4j:slf4j-android:1.7.25"
+    // EXAMPLE - replace gson with jackson-databind json parser
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonversion"
+
+    // required by API-16
+    implementation "com.google.code.gson:gson:$gson_ver"
+    implementation 'com.google.code.findbugs:annotations:3.0.0'
+
+    testImplementation "junit:junit:$junit_ver"
+    testImplementation "org.mockito:mockito-core:$mockito_ver"
+    testImplementation "com.noveogroup.android:android-logger:$android_logger_ver"
+    // testImplementation 'com.optimizely.ab:android-sdk:1.0.0'
+    testImplementation project(':android-sdk')
+
+    androidTestImplementation('androidx.test.ext:junit:1.1.1')
+    //androidTestimplementation "androidx.annotation:annotation:$annotations_ver"
+    // Set this dependency to use JUnit 4 rules
+    androidTestImplementation "androidx.test:rules:$androidx_test"
+    // Set this dependency to build and run Espresso tests
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_ver"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_ver"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker:$dexmaker_ver"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker-dx:$dexmaker_ver"
+    androidTestImplementation "com.crittercism.dexmaker:dexmaker-mockito:$dexmaker_ver"
+    // androidTestImplementation 'com.optimizely.ab:android-sdk:1.0.0'
+    androidTestImplementation project(':android-sdk')
+    androidTestImplementation project(path: ':shared')
+    androidTestImplementation "com.fasterxml.jackson.core:jackson-databind:$jacksonversion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
