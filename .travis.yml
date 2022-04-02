@@ -1,7 +1,7 @@
 sudo: false
 dist: trusty
 branches:
-  only: [cyclestreets/android-496-origin]
+  only: [cyclestreets/android-496-GRADLE_FORK_TEST]
 git: {depth: false}
 language: android
 addons:
