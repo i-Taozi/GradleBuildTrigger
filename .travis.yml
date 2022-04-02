@@ -9,4 +9,4 @@ cache:
 install: true
 script: [./gradlew check --refresh-dependencies --no-daemon]
 branches:
-  only: [spring-projects/spring-integration-samples-294-origin]
+  only: [spring-projects/spring-integration-samples-294-GRADLE_PARALLEL_TEST]

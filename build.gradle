@@ -29,6 +29,10 @@ ext {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    }
+
 	group = 'org.springframework.integration.samples'
 
 	repositories {
@@ -1526,4 +1530,3 @@ sonarqube {
 		property 'sonar.links.scm_dev', linkScmDevConnection
 	}
 }
-
