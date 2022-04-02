@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+apply plugin: 'jacoco-android'
+
+android {
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
+    publishNonDefault true
+
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 25
+
+        if (System.getenv().containsKey("IS_CI_JOB")) {
+            buildConfigField("String", "PUBLIC_KEY", "\"" + System.getenv("CI_PUBLIC_KEY") + "\"")
+            buildConfigField("String", "PRIVATE_KEY", "\"" + System.getenv("CI_PRIVATE_KEY") + "\"")
+        } else {
+            buildConfigField("String", "PUBLIC_KEY", "\"${marvelPublicKey}\"")
+            buildConfigField("String", "PRIVATE_KEY", "\"${marvelPrivateKey}\"")
+        }
+    }
+
+    lintOptions {
+        // ref https://github.com/square/okio/issues/58
+        warning 'InvalidPackage'
+        abortOnError false
+    }
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            // Enable for ui-testing: http://stackoverflow.com/questions/39195754/java-lang-noclassdeffounderror-failed-resolution-of-lorg-jacoco-agent-rt-inter
+//            testCoverageEnabled true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
+}
+
+dependencies {
+    compile "com.android.support:support-annotations:$supportLibraryVersion"
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-jackson:$retrofitVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttpLoggerVsion"
+    // LeakCanary
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    // Unit tests dependencies
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.powermock:powermock-module-junit4:$powermockVersion"
+    testCompile "org.powermock:powermock-api-mockito:$powermockVersion"
+}
