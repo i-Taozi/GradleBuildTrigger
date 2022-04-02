@@ -1,0 +1,98 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath "org.ajoberstar:gradle-git:1.5.1"
+
+        // The dynamic version here is explicitly recommended by the Crashlytics docs:
+        // https://docs.fabric.io/android/fabric/integration.html#modify-build-gradle
+        //noinspection GradleDynamicVersion
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+apply plugin: 'com.android.application'
+apply from: '../config/quality/quality.gradle'
+apply plugin: "org.ajoberstar.grgit"
+
+if (new File('app/crashlytics.properties').exists()) {
+    apply plugin: 'io.fabric'
+}
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+def keystorePropertiesFile = project.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+ext {
+    git = org.ajoberstar.grgit.Grgit.open()
+    gitVersionCode = git.tag.list().size()
+    gitVersionName = "${git.describe()}"
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
+
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "com.liato.bankdroid"
+        minSdkVersion 9
+        targetSdkVersion 25
+        versionCode 224 + gitVersionCode
+        versionName gitVersionName
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            ext.enableCrashlytics = false
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':bankdroid-legacy')
+    compile project(':bankdroid-core')
+    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.jakewharton.timber:timber:4.3.1'
+    compile "com.android.support:appcompat-v7:25.2.0"
+    compile 'com.google.collections:google-collections:1.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+}

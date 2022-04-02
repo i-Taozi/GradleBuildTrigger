@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_repeat">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/TableLayout01"
+        android:layout_below="@id/toolbar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/LinearLayout01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_below="@+id/txtErrorDesc"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bank"/>
+
+            <Spinner
+                android:id="@+id/spnBankeditBanklist"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"></Spinner>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/layoutBankConfiguration"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"></LinearLayout>
+
+            <TextView
+                android:id="@+id/txtErrorDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/indicator_input_error"
+                android:drawablePadding="5dp"
+                android:text="@string/error_desc"
+                android:textSize="12sp"
+                android:visibility="invisible"></TextView>
+        </LinearLayout>
+    </ScrollView>
+
+    <TableLayout
+        android:id="@+id/TableLayout01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/LinearLayout01"
+        android:gravity="bottom"
+        android:stretchColumns="0,2">
+
+        <TableRow
+                android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal">
+
+            <Button
+                android:id="@+id/btnSettingsCancel"
+                style="@style/Menu_Button"
+                android:drawableLeft="@drawable/button_cancel"
+                android:text="@android:string/cancel"></Button>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:focusable="false"
+                android:maxWidth="3dp"
+                android:minWidth="3dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/menu_separator"></ImageView>
+
+            <Button
+                android:id="@+id/btnSettingsOk"
+                style="@style/Menu_Button"
+                android:drawableLeft="@drawable/button_save"
+                android:text="@string/save"></Button>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

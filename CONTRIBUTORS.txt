@@ -1,0 +1,54 @@
+--------------------------------------------------------------------------------
+Development
+--------------------------------------------------------------------------------
+  liato                             https://github.com/liato
+  DEGE1                             https://github.com/DEGE1
+  Magnus Hagander                   https://github.com/mhagander
+  Pierre Chateau                    https://github.com/PMC
+  Magnus Andersson                  https://github.com/magnusart
+  cork                              https://github.com/cork
+  Emil Hesslow                      https://github.com/WizKid
+  Peter Björkman                    https://github.com/woody2
+  Joakim Andersson                  https://github.com/firetech
+  Mathias Åhsberg                   https://github.com/goober
+  Lars Wiklund                      https://github.com/lawi75
+  Fredrik Lindberg                  https://github.com/fredriklindberg
+  Erik Fredriksen                   https://github.com/erifre
+  Mats Karlsson                     https://github.com/MatsKarlsson
+  Snah                              https://github.com/Snaah
+  Jonas Björk                       https://github.com/bjooork
+  Anders Waldenborg                 https://github.com/wanders
+  Mattias Fagerström                https://github.com/mafa73
+  Jacob Siverskog                   https://github.com/jsiverskog
+  Andreas Gunnerås                  https://github.com/d95andek
+  Emil Andersson                    https://github.com/emilan
+  oskla129                          https://github.com/oskla129
+  Per Wigren                        https://github.com/Tuxie
+  Joakim Lundborg                   https://github.com/cortex
+  Jonathan Hjertström               https://github.com/nixi
+  Tim Jansson                       https://github.com/timtux
+  Christer Fletcher                 https://github.com/chrfle
+  Richard Ginzburg                  https://github.com/rickythefox
+  ScuttleSE                         https://github.com/ScuttleSE
+  Andreas Knifh                     https://github.com/knifhen
+  NanoRage                          https://github.com/NanoRage
+  Adam Nybäck                       https://github.com/nadam
+  MathiasBois                       https://github.com/MathiasBois
+  Johan Sköld                       https://github.com/rhoot
+  Wictor                            https://github.com/wicol
+  sed03                             https://github.com/sed03
+  Fredrik Erlandsson                https://github.com/fredrike
+  Niclasl                           https://github.com/NiclasI
+  Mikael Eriksson                   https://github.com/mikaeler
+  Mikael Auno                       https://github.com/auno
+  robho                             https://github.com/robho
+  Johan Walles                      https://github.com/walles
+
+
+  Stats at:
+  https://github.com/liato/android-bankdroid/graphs/contributors?type=a
+
+--------------------------------------------------------------------------------
+Beta testing
+--------------------------------------------------------------------------------
+  Swedroid users                    http://goo.gl/9tJeH

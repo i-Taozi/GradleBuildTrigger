@@ -1,0 +1,15 @@
+language: android
+jdk: oraclejdk8
+before_cache: [rm -f $HOME/.gradle/caches/modules-2/modules-2.lock]
+cache:
+  directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
+env:
+  matrix: [ANDROID_TARGET=android-25  ANDROID_ABI=armeabi-v7a]
+android:
+  components: [tools, platform-tools, build-tools-25.0.1, android-25, extra-android-m2repository]
+script: ./gradlew assembleDebug check
+notifications:
+  email: false
+  slack: {secure: asrV7/94tGqJbhotBAkPFi80PWJY3lcu7uYo855kpujXQHP61b0gC5gHnAairdD+MtrwICOmsJE9KIK/HOIpFrzwE+IwxJ+p6cGL9kX9blX+ZThcz1HkZgEK/EgaMSUxLKZFGrz0LUdktoZ9h+VixeRg05S4VijA7A814iA78fI=}
+branches:
+  only: [liato/android-bankdroid-691-origin]

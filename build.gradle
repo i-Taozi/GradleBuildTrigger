@@ -1,0 +1,34 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    // Workaround. See https://code.google.com/p/android/issues/detail?id=64887#c54
+    plugins.withType(JavaPlugin).whenPluginAdded {
+        task copyTestResources(type: Copy) {
+            from "${projectDir}/src/test/resources"
+            into "${buildDir}/classes/test"
+        }
+        processTestResources.dependsOn copyTestResources
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+}
