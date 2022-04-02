@@ -17,4 +17,4 @@ before_script: [chmod +x gradlew, echo no | android create avd --force --name te
 script: ['./gradlew core:jacocoTestReport']
 after_success: ['bash <(curl -s https://codecov.io/bash)']
 branches:
-  only: [JoaquimLey/avenging-33-origin]
+  only: [JoaquimLey/avenging-33-GRADLE_PARALLEL_TEST]
