@@ -23,4 +23,4 @@ before_cache: [rm -fr $HOME/.gradle/caches/modules-2/modules-2.lock]
 cache:
   directories: [$HOME/.gradle, $HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
 branches:
-  only: [census-instrumentation/opencensus-java-2083-origin]
+  only: [census-instrumentation/opencensus-java-2083-GRADLE_PARALLEL_TEST]
