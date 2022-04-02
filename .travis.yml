@@ -1,0 +1,13 @@
+sudo: false
+language: java
+jdk: [openjdk8, openjdk11]
+env: [TERM=dumb]
+cache:
+  directories: [$HOME/.gradle]
+script: [./gradlew --stacktrace, 'git clone https://github.com/huxi/lilith.git ~/builds/lilith',
+  pushd ~/builds/lilith, git checkout $TRAVIS_BRANCH, ./gradlew --stacktrace install,
+  popd]
+after_success: [./gradlew --stacktrace cleanTest, ./gradlew --stacktrace jacocoRootReport,
+  ./gradlew --stacktrace coveralls, 'bash <(curl -s https://codecov.io/bash)']
+branches:
+  only: [huxi/sulky-6-origin]
