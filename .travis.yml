@@ -17,4 +17,4 @@ notifications:
     format: html
     rooms: {secure: WiQT1MnkaN41pXrDA/OFzpTU88K7UZZrV2ESGPD8Cz5KJOCJUeFZlmSlRZiwmVj5SBKP/7k2dVfmtoA/4exhKgRzei9UF63udwDBN63HCwb4CUGMWRbJYub99KB/QW5J52M4fsDd8w3p20I9L2ht9rZJMzqU+QPxcuNtkdEYZgA=}
 branches:
-  only: [ushahidi/SMSSync-500-origin]
+  only: [ushahidi/SMSSync-500-GRADLE_PARALLEL_TEST]
