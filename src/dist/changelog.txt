@@ -1,0 +1,225 @@
+Spring Social Twitter 1.1.2.RELEASE (October 16, 2015)
+======================================================
+Bug Fixes
+ * Reinstated old Tweet constructor that was removed in
+   1.1.1.RELEASE. (GitHub issue #91)
+
+Spring Social Twitter 1.1.1.RELEASE (August 20, 2015)
+=====================================================
+Improvements
+ * Add id_str to Tweet. (Pull request #75)
+ * Update to latest Spring IO plugin (Pull request #86)
+ * Add profileBannerUrl property to TwitterProfile (Pull request #73)
+ * Use media/upload and statuses/update endpoints instead of
+   deprecated statuses/update_with_media endpoint (GitHub issue #88)
+
+Bug Fixes
+ * Fix leaky executor in stream reader implementation. (SOCIALTW-82)
+ * Fix encoding problem by setting encoding to UTF-8. (SOCIALTW-37)
+
+
+Spring Social Twitter 1.1.0.RC1 (September 2, 2013)
+===================================================
+Improvments
+  * Added a catch-all getExtraData() method to all Twitter model
+    types to capture any data returned from Twitter that is otherwise
+    unmapped to known properties. (SOCIALTW-68)
+
+Spring Social Twitter 1.1.0 Milestone 4 (August 19, 2013)
+========================================================
+Compatibility Notes:
+  * StatusDetails and most of TimelineOperations.updateStatus() methods have
+    been deprecated in favor of the updateStatus() method that takes TweetData
+    as a parameter.
+
+Improvements
+  * Add a builder-style API for creating Tweets. (SOCIALTW-63)
+  * Add ability to specify a place ID when updating status. (SOCIALTW-35)
+  * Add favorite_count to Tweet class. (SOCIALTW-60)
+  * Add support for fetching Account Settings. (SOCIALTW-47)
+  * Add support for fetching Tweet as an oEmbed object. (SOCIALTW-61)
+  * Return retweet data when retweeting. (SOCIALTW-67)
+  * Include bounding box and geometry data in Place object. (SOCIALTW-36)
+  * Add convenient getUnmodifiedText() method to Tweet object to fetch
+    the unmodified text of a retweet. (SOCIALTW-69)
+
+Bug Fixes
+  * Escape star (*) per Twitter's non-standard URL encoding scheme.
+    (SOCIALTW-58)
+  * Use count parameter instead of old per_page parameter in user search.
+    (SOCIALTW-64) 
+
+Spring Social Twitter 1.1.0 Milestone 3 (July 8, 2013)
+======================================================
+Compatibility Notes:
+  * SearchMetadata's getSince_id() and getMax_id() methods were renamed
+    to remove the underscores. They are now getSinceId() and getMaxId().
+    (SOCIALTW-54)
+  * The default constructor has been removed from TwitterTemplate. Now
+    that Twitter API 1.1 no longer support unauthorized requests for
+    resources, the default constructor offered no value and using it
+    would certainly lead to a NotAuthorizedException. (SOCIALTW-50)
+
+Bug Fixes
+  * Properly deserialize languageCode from JSON. SOCIALTW-49
+  * Fix for missing authorization header in some Twitter API 1.1
+    calls. (SOCIALTW-51)
+  * Handle Twitter API 1.1's rate limit from an HTTP 429 status.
+    (SOCIALTW-53)
+  * SearchMetadata's since_id and max_id properties changed from int to
+    long. (SOCIALTW-55)
+  * Fix TwitterErrorHandler to better handle errors when the response
+    body isn't JSON. (SOCIALTW-57)
+  * UserTemplate.getRateLimitStatus() fixed to reference correct API
+    resource. (SOCIALTW-46)
+
+Improvements
+  * Upgraded to Jackson 2
+  * Support for Twitter's Streaming API (SOCIALTW-2)
+  * Support for Application-Only authorization (SOCIALTW-48)
+
+Spring Social Twitter 1.1.0 Milestone 2 (February 12, 2013)
+===================================================
+Miscellaneous
+  * Changes to support Spring Social/Spring Security integration.
+     (SOCIAL-232)
+
+Bug Fixes
+  * Set character set to UTF-8 for string parts of multipart messages to allow for
+    Korean and other characters to be posted in status updates. (SOCIALTW-37)
+
+Improvements
+   * Added ability to perform advanced searches, including searches that
+     specify the language of the Tweet. (SOCIALTW-41)
+   * Added favorited field to Tweet object. (SOCIALTW-43)
+   * Added ticker symbol pseudo-entity to Tweet's Entities object. (SOCIALTW-44)
+
+Spring Social Twitter 1.1.0 Milestone 1 (November 26, 2012)
+==================================================
+Compatibility Notes:
+   * Due to changes in Twitter's API between v1.0 and v1.1, Spring Social
+     Twitter's API binding was required to change to match. Consequently,
+     some methods and data available in Spring Social Twitter 1.0.x's API 
+     binding may be different or completely missing in v1.1.0. In those
+     cases, deprecation did not make sense in this case, since Twitter's 
+     API will no longer offer equivalent operations for backward 
+     compatibility. The only choice was to rework the API bindings.
+
+Improvements
+   * Updated API binding to comply with version 1.1 of Twitter's API.
+     (SOCIALTW-39)
+   * Added XML configuration support for Twitter connection factory and API
+     binding beans. (SOCIAL-292)
+   * Added Java configuration support for Twitter connection factory and API
+     binding beans. (SOCIAL-293)     
+   * Added a retweeted property on Tweet to indicate whether the user has
+     retweeted a status or not. (SOCIALTW-29)
+   * Support for entity data in Tweet object. (SOCIALTW-33)
+
+Spring Social Twitter 1.0.4 (June 6, 2013)
+==========================================
+This release was pushed as an emergency release to enable creation
+of a TwitterTemplate that supports application-only authorization.
+
+Twitter's 1.0 API will be retired on June 11, 2013 and the 1.1 API
+requires either user authorization or app authorization for all
+resources. This release enables application authorization as an option
+to user authorization for resources where application authorization is
+available (such as search).
+
+Improvements:
+   * Support application-only authorization (e.g., OAuth 2's
+     client credentials grant) in TwitterTemplate. (SOCIALTW-48)
+   * Sync-up Twitter API binding to what's current in
+     Spring Social Twitter 1.1.0.BUILD-SNAPSHOT.
+
+Spring Social Twitter 1.0.3 (February 12, 2013)
+===============================================     
+Improvements:
+   * Update API bindings to use Twitter's 1.1 API. (SOCIALTW-39)
+
+Spring Social Twitter 1.0.2 (January 23, 2012)
+===============================================
+Bug Fixes:
+   * Throw RateLimitExceededException when a user exceeds their
+     daily status update limit. (It was throwing
+     OperationNotPermittedException.) SOCIALTW-27
+
+Improvements:
+   * Capture "retweet_count" property on a Tweet object. SOCIALTW_26
+
+Spring Social Twitter 1.0.1 (December 15, 2011)
+===============================================
+Bug Fixes:
+   * Fixed the date format for daily trends (SOCIALTW-14)
+   * Check for a list of errors vs. a single string error when
+     consuming errors from Twitter's REST API (SOCIALTW-17)
+   * Fixed UserList.isPublic() to be bound to "mode" property in
+     JSON response (SOCIALTW-18)
+   * Exposed BlockOperations through Twitter interface
+     (SOCIALTW-20)
+
+Improvement:
+   * Added UserOperations.getRateLimitStatus() to API binding
+     to fetch the rate limit data. (SOCIALTW-16)
+   * Added restOperations() to Twitter interface to enable
+     consumption of Twitter endpoints that aren't yet covered
+     by the API binding (SOCIALTW-13)
+   * Removed unused userId parameter from ListOperations.
+     getListSubscribers(). (SOCIALTW-19)
+   * SearchOperations.createSavedSearch now returns the newly
+     created SavedSearch object. (SOCIALTW-21)
+   * DirectMessageOperations.sendDirectMessage() returns the
+     sent DirectMessage object. (SOCIALTW-22)
+   * Added getDirectMessage(id) method to DirectMessageOperations
+     (SOCIALTW-23)
+
+Compatibility Note:
+   * Twitter deprecated the current trends endpoint, and now 
+     returns and HTTP 410 if you attempt to use it. Therefore,
+     SearchOperations.getCurrentTrends() has been removed from the
+     API binding. (SOCIALTW-15)
+   * ListOperations.getListSubscribers() previous accepted a
+     userId parameter that was unused. That parameter has now been
+     removed.
+
+Spring Social Twitter 1.0.0 (September 8, 2011)
+===============================================
+Bug Fixes:
+   * Added a byte array message converter to fix errors when fetching
+     images from Twitter.
+
+Misc:
+   * Updated TwitterTemplate to match changes in AbstractOAuth1ApiBinding.
+
+Spring Social Twitter 1.0.0.RC3 (August 25, 2011)
+=================================================
+Improvements:
+   * Added support for Twitter's new media upload to enable photos
+     to be uploaded with status updates. (SOCIALTW-6)
+   * Changed signature of TimelineOperations.updateStatus() to return
+     a Tweet object for the newly created status; previously it returned
+     void. (SOCIALTW-8)
+   * Added an inReplyToStatusId property to StatusDetails so that tweets
+     may be posted that are in reply to an existing tweet.
+
+Spring Social Twitter 1.0.0 RC1 (July 26, 2011)
+===============================================
+Improvements:
+   * Support for paging and cursoring for operations that return
+     paged or cursored data lists. (SOCIALTW-5 and SOCIALTW-4)
+
+Compatibility Note:
+   * DuplicateTwitterException has been removed in favor of the more
+     general DuplicateStatusException added in Spring Social Core 1.0.0.RC2.
+
+
+Spring Social Twitter 1.0.0 RC1 (June 7, 2011)
+==============================================
+   * Spring Social Twitter extracted into a standalone project that can
+     progress and release independent of Spring Social releases.
+   * More API bindings:
+     * Block API
+
+Refer to Spring Social's changelog for a history of the Twitter module
+prior to it being extracted into its own project.
