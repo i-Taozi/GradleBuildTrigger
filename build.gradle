@@ -1,0 +1,310 @@
+import net.ltgt.gradle.errorprone.CheckSeverity
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
+plugins {
+    id "com.peterabeles.gversion" version "1.10" apply false
+    id "net.ltgt.errorprone" version "2.0.1" apply false
+}
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'com.peterabeles.gversion'
+
+    group = 'org.georegression'
+    version = '0.25-SNAPSHOT'
+}
+
+project.ext.errorprone_version = '2.10.0'
+project.ext.nullaway_version = '0.9.3'
+project.ext.lombok_version = '1.18.20'
+project.ext.jabel_version = '0.3.0'
+project.ext.junit_version = '5.8.1'
+
+gversion {
+    srcDir       = "main/src"
+    classPackage = "georegression"
+    className    = "GeoRegressionVersion"
+    annotate     = true
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+    apply plugin: 'net.ltgt.errorprone'
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
+        toolchain { languageVersion = JavaLanguageVersion.of(15) }
+    }
+
+    // Prevents tons of errors if someone is using ASCII
+    tasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }
+
+    // Creates Java 8 byte code
+    tasks.withType(JavaCompile).configureEach { options.release = 11 }
+
+    // Enable incremental compile. Should make single file changes faster
+    tasks.withType(JavaCompile) { options.incremental = true }
+
+    // To make ErrorProne and Kotlin plugins happy
+    configurations.configureEach {
+        resolutionStrategy {
+            force 'org.jetbrains:annotations:20.0.0'
+            force 'com.google.guava:guava:30.1-jre'
+            force "com.google.errorprone:error_prone_annotations:$project.errorprone_version"
+            force 'com.google.code.findbugs:jsr305:3.0.2'
+            force 'org.checkerframework:checker-qual:2.10.0'
+        }
+    }
+
+    // Fail on jar conflict
+    configurations.all { resolutionStrategy { failOnVersionConflict() } }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+
+        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url = 'https://jitpack.io' } // Allows annotations past Java 8 to be used
+    }
+
+    sourceSets {
+        main {
+            java { srcDir 'src' }
+            resources { srcDir 'resources/src' }
+        }
+
+        test {
+            java {
+                srcDir 'test'
+                srcDir 'generate'
+                srcDir 'benchmark'
+            }
+            resources { srcDir 'resources/test' }
+        }
+    }
+
+    dependencies {
+        implementation (group: 'org.ddogleg', name: 'ddogleg', version: '0.20')
+
+        compileOnly 'org.jetbrains:annotations:20.0.0' // @Nullable
+        compileOnly 'javax.annotation:jsr250-api:1.0'  // @Generated
+        testCompileOnly project.sourceSets.main.compileClasspath
+
+        testImplementation( "org.junit.jupiter:junit-jupiter-api:$project.junit_version" )
+        testRuntimeOnly( "org.junit.jupiter:junit-jupiter-engine:$project.junit_version" )
+
+        // needed to use Java 15+ syntax with Java 11 byte code
+        annotationProcessor("com.github.bsideup.jabel:jabel-javac-plugin:${project.jabel_version}")
+        testAnnotationProcessor("com.github.bsideup.jabel:jabel-javac-plugin:${project.jabel_version}")
+
+        errorprone("com.google.errorprone:error_prone_core:$project.errorprone_version")
+
+        compileOnly "org.projectlombok:lombok:${project.lombok_version}"
+        annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"  // @Getter @Setter
+
+        // even if it's not used you still need to include the dependency
+        // NOTE: nullaway is disabled due to switch expression bug https://github.com/uber/NullAway/issues/289
+        annotationProcessor "com.uber.nullaway:nullaway:$project.nullaway_version"
+        testAnnotationProcessor "com.uber.nullaway:nullaway:$project.nullaway_version"
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.errorprone.enabled = true
+        options.errorprone.disableWarningsInGeneratedCode = true
+        options.errorprone.disable("TypeParameterUnusedInFormals","StringSplitter","InconsistentCapitalization",
+                "HidingField", // this is sometimes done when the specific type is known by child. Clean up later.
+                "ClassNewInstance", // yes it's deprecated, but new version is more verbose with ignored errors
+                "FloatingPointLiteralPrecision", // too many false positives in test code
+                "MissingSummary","UnescapedEntity","EmptyBlockTag", "SameNameButDifferent")
+        options.errorprone.error("MissingOverride","MissingCasesInEnumSwitch","BadInstanceof",
+                "PublicConstructorForAbstractClass","EmptyCatch","NarrowingCompoundAssignment","JdkObsolete")
+
+        if( name.startsWith("compileTest") ) {
+            options.errorprone.disable("ReferenceEquality","IntLongMath","ClassCanBeStatic")
+        }
+
+        options.errorprone {
+            check("NullAway", CheckSeverity.ERROR)
+            option("NullAway:TreatGeneratedAsUnannotated", true)
+            option("NullAway:AnnotatedPackages", "georegression")
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        reports.html.enabled = false
+        // Make the error logging verbose to make debugging on CI easier
+        testLogging.showStandardStreams = true
+        testLogging.exceptionFormat TestExceptionFormat.FULL
+        testLogging.showCauses true
+        testLogging.showExceptions true
+        testLogging.showStackTraces true
+    }
+
+    javadoc {
+        configure(options) {
+            links = ['http://docs.oracle.com/javase/8/docs/api/',
+                     'http://ejml.org/javadoc/',
+                     'http://ddogleg.org/javadoc/']
+            failOnError = false
+            enabled = !project.version.contains("SNAPSHOT") // disable to stop it from spamming stdout
+        }
+
+        // https://github.com/gradle/gradle/issues/11182 Error introduced in JDK 11
+        if (JavaVersion.current().compareTo(JavaVersion.VERSION_1_9) >= 0) {
+            options.addStringOption("-release", "8")
+        }
+
+        if (JavaVersion.current().isJava9Compatible()) {
+            options.addBooleanOption('html5', true)
+        }
+    }
+
+    // Force the release build to fail if it depends on a SNAPSHOT
+    project.jar.dependsOn project.checkDependsOnSNAPSHOT
+
+    // Force publish to fail if trying to upload a stable release and git is dirty
+    project.publish.dependsOn failDirtyNotSnapshot
+
+    // Skip these codeless directories when publishing jars locally or to a remote destination
+    if (['examples','autocode'].contains(name)) {
+        project.jar.enabled = false
+        project.uploadArchives.enabled = false
+        project.tasks.publish.enabled = false
+    }
+
+    if (!project.tasks.publish.enabled)
+        return
+
+    // if Maven central isn't setup in ~/.gradle/gradle.properties fill in these variables to make it happy
+    if( !project.hasProperty('ossrhUsername') ) {
+        ext.ossrhUsername = "dummy"
+        ext.ossrhPassword = "dummy"
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                pom {
+                    name = 'GeoRegression'
+                    description = 'GeoRegression is a free Java based geometry library for scientific computing in fields such as robotics and computer vision with a focus on 2D/3D space.'
+                    url = 'http://georegression.org'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'pabeles'
+                            name = 'Peter Abeles'
+                            email = 'peter.abeles@gmail.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/lessthanoptimal/georegression.git'
+                        developerConnection = 'scm:git:git://github.com/lessthanoptimal/georegression.git'
+                        url = 'https://github.com/lessthanoptimal/GeoRegression'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
+                }
+            }
+        }
+    }
+
+    if (ext.ossrhUsername != "dummy") {
+        signing { sign publishing.publications.mavenJava }
+    }
+}
+
+// Creates a directory with all the compiled jars and the dependencies
+def mainProjects = [':georegression',":experimental"]
+task createLibraryDirectory( dependsOn: mainProjects.collect {[ it+':jar',it+':sourcesJar']}.flatten() ) {
+    doLast {
+        ext.listExternal = files(mainProjects.collect { project(it).configurations.compile })
+        ext.listInternal = files(mainProjects.collect { project(it).tasks.jar.archivePath })
+        ext.listSource = files(mainProjects.collect { project(it).tasks.sourcesJar.archivePath })
+
+        ext.listExternal = ext.listExternal - ext.listInternal
+
+        file('libraries').deleteDir()
+        file('libraries').mkdir()
+
+        copy {
+            from ext.listExternal
+            into 'libraries'
+        }
+
+        copy {
+            from ext.listInternal
+            from ext.listSource
+            into 'libraries'
+
+            rename { String fileName ->
+                "GeoRegression-" + fileName
+            }
+        }
+    }
+}
+
+def javadocProjects = [
+        ':georegression',
+]
+
+task alljavadoc(type: Javadoc) {
+    // only include source code in src directory to avoid including 3rd party code which some projects do as a hack
+    source = javadocProjects.collect { project(it).fileTree('src').include('**/*.java') }
+    classpath = files(javadocProjects.collect { project(it).sourceSets.main.compileClasspath })
+
+    destinationDir = file("${buildDir}/docs/javadoc")
+
+    // Hack for Java 8u121 and beyond. Comment out if running an earlier version of Java
+    options.addBooleanOption("-allow-script-in-comments", true)
+
+    // Flag is no longer around in later versions of Java but required before
+    if (JavaVersion.current().ordinal() < JavaVersion.VERSION_13.ordinal()) {
+        options.addBooleanOption("-no-module-directories", true)
+    }
+
+    // Add a list of uses of a class to javadoc
+    options.use = true
+
+    configure(options) {
+        failOnError = false
+        docTitle = "GeoRegression v$project.version"
+        links = [ 'https://docs.oracle.com/en/java/javase/11/docs/api/',
+                  'http://ejml.org/javadoc/',
+                  'http://ddogleg.org/javadoc/' ]
+    }
+}
+
+task javadocWeb() {
+    doFirst {
+        alljavadoc.options.bottom = file('docs/bottom.txt').text
+        alljavadoc.destinationDir = file("${buildDir}/docs/api-web")
+    }
+}
+javadocWeb.finalizedBy(alljavadoc)
+
+project(':georegression').compileJava.dependsOn(createVersionFile)
+
+wrapper {
+    distributionType = Wrapper.DistributionType.BIN
+    gradleVersion = '6.8.3'
+}

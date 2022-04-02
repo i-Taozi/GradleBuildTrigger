@@ -1,0 +1,446 @@
+YEAR-MONTH-DAY
+
+---------------------------------------------
+Date    : 2021
+Version : 0.25
+
+- Build
+ * Minimum version of Java is now 11. Was 8.
+ * Added Lombok
+ * Starting to standardize formatting
+- zero() added to many geometric primitives
+ * Zeros out all fields, typically this is the initial state
+
+---------------------------------------------
+Date    : 2021-Jul-09
+Version : 0.24
+
+- UtilPoint2D
+  * Added findClosestIdx()
+- UtilPoint3D
+  * Added findClosestIdx()
+- SePointOps
+  * Added expanded versions of transform for homogenous 3D coordinates
+- Vector3D
+  * Refactored cross functions to make their behavior more obvious
+  * Added new dot() variant
+- Intersection2D
+  * Added intersection of many points to a homogenous point
+- ClosestPoint3D
+  * Two line intersection in homogenous coordinates
+- GeometryMath
+  * Unrolled innerProd() functions that were creating new matrices internally
+- Added support for Special Orthogonal 3 (SO3)
+  * Fit SO3 to two point clouds
+
+---------------------------------------------
+Date    : 2020-Dec-19
+Version : 0.23
+
+- Build
+  * Static checks with Error Prone and NullAway
+  * Upgraded to 'maven-publish'
+- Refactoring
+  * Changed set() into setTo() for more structures
+- Area2D
+  * Includes functions for intersection-over-union a common quality of fit measure
+- Intersection2D
+  * Added containsConvex2() which includes points that lie along the border.
+- Iterative Closest Point (ICP)
+  * Fits 2D and 3D point clouds
+  * Moved over from Project BUBO
+- Added FitPolygon2D and FitPolygon3D
+  * Fit AABB for 2D and 3D
+  * Fit convex hull for 2D
+- UtilPolygon2D
+  * isSimple()
+  * triangulate()
+
+---------------------------------------------
+Date    : 2020-May-19
+Version : 0.22
+
+- Java 11 syntax
+- Upgraded JUnit
+- SePointOps.transform( 4D ) fixed/added
+- GeoTuple4D
+  * Added distance(x,y,z,w)
+- GeoTuple2D
+  * Added isNaN()
+- Flushed out GeoTuple2D_I32 more and added more functionality to its children
+- Updated for DDogleg's FastAccess, FastArray, and DogArray
+- Fixed bug in MotionSe3PointSVD where it threw an exception instead of returning false
+
+---------------------------------------------
+Date    : 2019-Dec-23
+Version : 0.21
+
+- UtilLine2D
+  * define a line from a point and angle
+- UtilAngle
+  * Added functions which can take in unbounded angles
+  * Added average of two angles
+- Intersection2D
+  * Intersection of two rays
+- ConvertFloatType
+  * LineSegment2D and LineSegment3D
+  * LinePolar2D
+
+---------------------------------------------
+Date    : 2019/07/02
+Version : 0.20
+
+- GeometryMath
+  * mult(4x4,4,4)
+- Fit parametric line using linear equation
+
+---------------------------------------------
+Date    : 2019/03/14
+Version : 0.19
+
+- SE3 applied to homogneous points
+- Added Hash Codes
+  * Requested by Nico Stuurman
+  * Points, Vectors, and Planes
+- Added cubic curve and fitting algorithm
+- UtilPoint2D
+  * Compute 2D normal distribution
+  * Generate 2D normal distribution
+
+---------------------------------------------
+Date    : 2018/12/26
+Version : 0.18
+
+- upgraded gradle wrapper
+- Fixed SpecialOrthogonalOps
+- Created UtilPoint4D_F64
+- GeometryMath
+  * Added mult cross transpose functions
+- Added equals()
+  * Line data structures
+- Distance2D
+  * Fixed numerical overflow in line distance. Thanks Charlie Hayes for pointing out this problem.
+
+---------------------------------------------
+Date    : 2018/10/15
+Version : 0.17
+
+- Vector3D
+  * Normalized rewritten to avoid numerical overflow
+- Se3
+  * convience functions added for heavily used operations
+- UtilPoint3D and 2D
+  * New function for adding noise
+  * Randomly generate points on a plane in 3D
+- SpecialEuclideanOps_F64
+  * Added bestFit()
+
+---------------------------------------------
+Date    : 2018/05/20
+Version : 0.16
+
+- Polygon2D
+  * functions to convert to and from a list
+  * Flushed out I32 functions more
+  * function for removing adjacent points which are duplicates
+- Quadrilateral2D
+  * functions to convert to and from a list
+- Added curves and fitting routines
+  * Moved ellipses into curves
+  * Quadratic
+  * Parabola
+  * Conic
+- GeometryMath
+  * improved addMult so that you can pass in the same point more than once
+  * added addMultTrans
+- Autocode
+  * move into it's own module
+- Point2D
+  * <= is used now instead of < for equality
+- Added GeoRegressionVersion file
+
+---------------------------------------------
+Date    : 2018/01/17
+Version : 0.15
+
+- Distance2D
+  * Added distance(x,y) to Point2D_I32
+  * Added distance(line,poing) I32
+  * Added distanceSq(line,x,y)
+- Added equals() support to the following
+  * GeoTuple
+  * Rectangle2D
+- Polygons 2D
+  * Added bounding rectangle
+  * Area of intersection between two
+- BoxLength3D
+  * added getCorner()
+
+---------------------------------------------
+Date    : 2017/10/12
+Version : 0.14
+
+- Updated for changes in EJML
+- Added I32 line fit 2D code
+- UtilVector3D
+  * Added perpendicularCanonical()
+- UtilPlane3D
+  * Added selectAxis2D()
+  * Added point3Dto2D()
+  * Added point2Dto3D()
+- Intersection3D
+  * Added intersection(Triangle3D,LineParametric3D)
+- Intersection2D
+  * Added intersection of two lines defined by 4 points.
+- Polygon2D
+  * Added getSideLength()
+- UtilCircle2D
+  * circle from 3 points
+
+---------------------------------------------
+Date    : 2017/08/13
+Version : 0.13
+
+- 32bit auto coding switched over to using auto64fto32f library
+- Added basic support for twist coordinates and conversion to their exponential format
+- added divide to tuple3
+- Uses new F32 operations in EJML
+  * Before it was forced to do math in F64 even if a data structure was F32
+- F32 verson of ellipse fitting operations
+
+---------------------------------------------
+Date    : 2016/11/30
+Version : 0.12
+
+- Added FitEllipseWeightedAlgebraic
+   * Weighted version of FitEllipseAlgebraic
+- Intersection2D
+  * point inside ellipse
+  * line ellipse intersection
+- Intersection3D
+  * line sphere intersection
+- Distance2D
+  * Euclidean distance of point from rotated ellipse
+- UtilAngle
+  * Added bound for -pi/2 and pi/2
+  * Added bound wrap for 0.0 to 1.0
+  * Added bound reflect for 0.0 to 1.0
+  * Fixed behavior of atanSafe for x == 0 case
+- UtilEllipse
+  * added computeTangent
+  * added tangentLines() - finds two lines which are tangent to the ellipse and pass through a point outside ellipse
+  * added tangentLines() - 4 lines which are tangent to two ellipses
+- UtilPolygons2D
+  * added removeAlmostParallel()
+- LineSegment2D_F64
+  * Added a toString() at the suggestion of thhart
+- Added ConvertCoordinates3D
+- angleToDegrees and degreesToAngle
+  * float versions
+  * short hand function calls
+
+---------------------------------------------
+Date    : 2016/06/09
+Version : 0.11
+
+- Average of Quaternion
+- Average of Rotation Matrix
+
+---------------------------------------------
+Date    : 2016/01/23
+Version : 0.10
+
+- UtilAngle
+  * Added function to change domain from -pi to pi into 0 to 2*pi
+- Fixed bug in Affine2D inverse
+  * storage for transform wasn't being used
+- Distance2D
+  * distance from origin for parametric line
+- UtilPoint2D_F
+  * Mean from array
+- Renamed RotationMatrixGenerator to ConvertRotation3D
+  * Broken up into F64 and F32
+- Added support for all 3-axis Euler angles
+- New equations for some conversions too and from rotation matrix
+
+---------------------------------------------
+Date    : 2015/11/07
+Version : 0.9
+
+- UtilPolygons2D
+  * Added convexHull()
+- UtilPoint2D
+  * Added mean for 2 points
+- UtilLine2D
+  * 2 point line segment into line general
+- Area2D
+  * Fixed concave Quadrilateral case
+  * removed polygon convex
+  * added polygon simple
+- Distance2D
+  * Added distance from point for normalized GeneralizedLine2D
+
+
+---------------------------------------------
+Date    : 2015/09/18
+Version : 0.8
+
+- Fixed issue with UtilAngle.distanceCW and distanceCCW
+  * Would return 2*PI instead of 0 if two inputs were identical
+- Added linear interpolation for Se2
+- Added dot product and acute angle to Vector2D
+- Added ClosestPoint3D.closestPointT() for line and plane
+  * Added LineParametric3D.setPointOnLine
+- Distance2D
+  * added line segment to line segment
+  * added quadrilateral to point
+  * added Polygon2D and point
+- UtilPolygons2D
+  * Center for Quadrilateral
+  * added vertexAve
+  * isConvex()
+  * isIdentical()
+  * isEquivalent()
+  * convert poly to quad
+  * flip()
+- Area2D
+  * Area convex polygon
+- Quadrilateral
+  * isEquals()
+  * get( index )
+- Rectangle2D
+  * enforceExtents()
+- Intersection2D_I32
+  * inside( rect , pt )
+- Intersection2D_F64
+  * intersectionArea( Rectangle2D_F64 a , Rectangle2D_F64 b )
+  * contains quadrilateral and a point
+- Math
+  * minus point output vector in 2D
+- RotationMatrixGenerator
+  * Rotations of PI degrees are now handled correctly
+
+---------------------------------------------
+Date    : 2014/09/17
+Version : 0.7
+
+- Switch build system over to Gradle
+- Cleared up which direction found transforms are going in MotionTransformPoint
+- Shapes added
+  * Point3D_I32
+  * Box3D_I32
+  * Renamed Cube_F* to Box_F*.  cube is too specific
+  * Triangle3D_F*
+- Se3
+  * added setTranslation() and setRotation() to make it more user friendly.
+  * removed setT() and setR() so that serialization doesn't get messed up.
+- Vectors and Points
+  * Added cross and minus inline to vector
+  * Added default addition and multiplication Tuple3D and Tuple2D
+  * Acute angle between two 3d vectors
+- ClosestPoint
+  * Added 2D line segment to point
+  * Added ClosestPoint3D.closestPointOrigin()
+  * Added closest point on line to a point in 3D parameterized as a scalar
+- Intersection
+  * Added 3D triangle and line segment
+  * Added contained2() for Rectangle2D_F* and Box2D_F* in which the upper extent is inclusive
+  * Added line general and line general for 2D point (homogeneous already existed)
+- UtilLine2D
+  * Added convert polar to general and general to polar
+  * Added convert line segment to general
+  * Added acuteAngle() and acuteAngleN() for computing the acute angle between the slope of two general lines
+- UtilPoint2D
+  * added bounding() for finding the bounding rectangle
+  * added orderCCW() for sorting a points on CCW order around their centroid
+- Added default plus and times operators to GeoTuple2D and GeoTuple3D
+- Added UtilPlane3D.planeToWorld()
+- Changed packages named homo to homography
+- Added Linear interpolation between two Se3.  InterpolateLinearSe3_*
+- MotionSe2PointSVD no longer throws RuntimeException if it fails.  returns false instead
+- Renamed Rectangle2D to RectangleLength2D and RectangleCorner2D to Rectangle2D for consistency with 3D Box format
+- Rectangle2D now uses points instead of regular variables
+- CovarianceToEllipse_F64 for computing containment ellipses from 2D covariance matrix
+- Area2D
+  * Added quadrilateral
+- Fixed bug in FitLine.polar(points,weights)
+
+---------------------------------------------
+Date    : 2014-06-18
+Version : 0.6
+
+- Auto code generator ignores the copyright notice.
+- Closest point and distance from a 3D triangle and a point
+- Fixed bug in distance and closest point from a point to a 3D line segment
+- Made InvertibleTransformSequence generic and moved to transform package
+- Made more structures implement Serializable so that they might be a Java Bean
+  * Haven't rigorously checked to see if they truly are
+- Fixed bug in UtilLine2D_F64.convert( Parametric , Polar )
+- Split up AffinePointOps into 32 and 64
+- Rectangle
+  * Removed image processing notation for top-left corner.  Replaced with lower-extend and upper-extent
+
+---------------------------------------------
+Date    : 2013-12-26
+Version : 0.5
+
+- Flushed out Quadrilateral
+- Added functions to Rectangle2D
+- Added Cube3D
+- Added Sphere3D
+- Added Cylinder3D
+- Added LineSegment3D
+- Added Intersection3D.contain(cube,point)
+- Least squares fitting
+  * Plane3D
+  * Sphere3D
+  * Cylinder3D
+- Made F64 and F32 variants of Rodrigues and Quaternion
+
+---------------------------------------------
+Date    : 2013-06-24
+Version : 0.4
+
+- Adding support for 3D planes
+  * converting between different formulations
+  * intersection of lines and planes
+  * intersection of two planes
+  * closest point and distance to point
+- Added ConvertStructureDataType for converting between 64bit and 32bit data structures and the reverse
+- Renamed Se2.tran to Se2.T for consistency with Se3
+- Fixed incorrect no constructor initialization in Se2
+
+---------------------------------------------
+Date    : 2013-04-11
+Version : 0.3
+
+- UtilPoint3D_F64
+  * Added distance() and distanceSq()
+- UtilPoint2D_I32
+  * distanceSq()
+- Added Circle2D
+- Added Ellipse
+- Various ellipse related algorithm
+  * Algebraic best fit to points
+  * Euclidean best fit to points 
+  * Euclidean distance from points
+- Intersection2D_F64.containConcave() tests to see if a point is contained in a concave polygon
+- Added dependency to DDogleg library
+
+
+---------------------------------------------
+Date    : 2013-02-16
+Version : 0.2
+
+- Added metric.Area2D
+  * Area of arbitrary triangle
+
+---------------------------------------------
+Date    : 2012-11-27
+Version : 0.1
+
+First versioned release and added to maven
+
+--------------------------
+
+- Early development release.  Changes kept track of inside GIT comments

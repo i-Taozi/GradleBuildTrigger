@@ -1,0 +1,8 @@
+dependencies {
+    implementation group: 'com.peterabeles', name: 'auto64fto32f', version: '2.1'
+}
+
+task(autogenerate, dependsOn: 'classes', type: JavaExec) {
+    main = 'georegression.Autocode64to32App'
+    classpath = sourceSets.main.runtimeClasspath
+}

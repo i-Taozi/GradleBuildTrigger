@@ -1,0 +1,4 @@
+include 'main', 'experimental', 'examples','autocode'
+
+
+project(':main').name = 'georegression'
