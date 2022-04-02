@@ -1,0 +1,4 @@
+language: java
+jdk: oraclejdk8
+branches:
+  only: [spring-projects/spring-social-facebook-284-origin]

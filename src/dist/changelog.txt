@@ -1,0 +1,295 @@
+Spring Social Facebook 2.0.3 (December 8, 2015)
+===============================================
+Improvements
+  * Allow profile image dimensions to be specified manually.
+    (SOCIALFB-146)
+
+Bug fixes
+  * Change video upload limits from int to long. (SOCIALFB-198)
+  * Remove `address` field from fields fetched for User and
+    deprecate the getAddress() method. (GitHub Issue #172)
+
+Spring Social Facebook 2.0.2 (August 19, 2015)
+==============================================
+Bug fixes
+  * Fix MappingInstantiationException for no default constructor
+    in Reference object. (GitHub pull request #153)
+  * Fix NullPointerException in FacebookErrorHandler. (GitHub
+    pull request #165)
+  * Fix issue with deserializing null values for primitive fields.
+    (SOCIALFB-189)
+  * Fix authentication failure due to unrecognized fields in
+    WorkEntry.Project object and only fetch necessary fields for
+    ConnectionValues. (GitHub issue #159 and pull requests #158, #160)
+
+Improvements
+  * Remove deprecated 'location' field in Event test JSON files.
+    (GitHub pull request #156)
+
+Misc
+  * Use the latest version of Spring IO plugin (GitHub pull request #164)
+
+Spring Social Facebook 2.0.1 (April 27, 2015)
+=============================================
+Bug Fixes
+  * Fix references to FacebookProfile in reference documentation. (SOCIALFB-183)
+  * Fix broken FacebookAdapterTest to properly test for user profile
+    link.
+  * Fix JSON parsing error for FriendTemplate.getTaggableFriends().
+    (GitHub issue #146, pull request #149)
+  * Fix profile URL for non-app-scoped user IDs (GitHub issue #150, pull
+    request #151)
+
+Improvements
+  * Make PagedListUtils public.
+
+Spring Social Facebook 2.0.0 (April 15, 2015)
+=============================================
+ See changelogs in JIRA:
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=14994
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=14864
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=14643
+
+Spring Social Facebook 1.1.1 (May 1, 2014)
+==========================================
+Bug Fixes
+  * Fix snapshot dependency for Spring Social to depend on 1.1.0.RELEASE.
+  * Remove bogus .javajava files from build artifacts.
+
+Spring Social Facebook 1.1.0 (April 23, 2014)
+=============================================
+ See changelogs in JIRA:
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=12742
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=14172
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=14171
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=13804
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=12756
+  * https://jira.spring.io/secure/ReleaseNote.jspa?projectId=10607&version=12338
+
+Spring Social Facebook 1.1.0.RC1 (September 2, 2013)
+====================================================
+Improvements
+  * Added a catch-all getExtraData() method to all Facebook model
+    types to capture any data returned from Facebook that is otherwise
+    unmapped to known properties. (SOCIALFB-125)
+
+Bug Fixes
+  * Flexibly deserialize a Location as either an object or as a String,
+    for the rare cases where the data in a checkin or place page appears
+    as a simple String. (SOCIALFB-138)
+
+Spring Social Facebook 1.1.0.M4 (August 19, 2013)
+=================================================
+Bug Fixes
+  * Remove authorization requirement for certain media-related operations
+    that do not strictly require authorization. (SOCIALFB-129)
+  * Fix CanvasSignInController to handle all possible requests coming
+    from Facebook, including deny-authorization case. (SOCIALFB-128)
+
+Improvements
+  * Ensure that application namespace is set on FacebookTemplate
+    when configured with @EnableFacebook or with
+    <facebook:config/> element. (SOCIALFB-83)
+  * Add pagination support to methods in LikeOperations. (SOCIALFB-133)
+
+Spring Social Facebook 1.1.0.M3 (July 8, 2013)
+==============================================
+Bug Fixes
+  * Change timezone on user profile from Integer to Float to support
+    half-timezones. (SOCIALFB-90)
+  * Changed Reference, WorkEntry, and EducationEntry to implement
+    Serializable so that FacebookProfile will truly be Serializable.
+    (SOCIALFB-111)
+  * Add FRIENDS privacy to Event.Privacy enum. (SOCIALFB-108)
+
+Improvements
+  * Updated comments structure to support Facebook's July 2013 API
+    changes. (SOCIALFB-116)
+  * Create and read checkins as Posts with a location to support
+    Facebook's July 2013 API changes. (SOCIALFB-115)
+  * Added several missing properties to the Page object. (SOCIALFB-122
+    and SOCIALFB-104)
+  * FriendOperations.getFriendProfiles() now returns all friends.
+    (SOCIALFB-105)
+  * Add ability to create invitations to an event. (SOCIALFB-112)
+  * Capture otherwise unbound properties for Page object in a new
+    'extraData' property. (SOCIALFB-73)
+  * Ability to create a new Post using a builder-style API.
+    (SOCIALFB-118)
+  * Ability to create a Post with a picture. (SOCIALFB-54)
+
+Spring Social Facebook 1.1.0.M2 (February 12, 2013)
+===================================================
+Miscellaneous
+  * Changes to support Spring Social/Spring Security integration.
+     (SOCIAL-232)
+
+Improvements
+  * New CanvasSignInController to handle authentication via signed_request
+    parameter in Facebook Canvas applications. (SOCIALFB-110)
+  * Updated spring-social-canvas sample to use new CanvasSignInController.
+    (SOCIALFB-65)
+  * Support for paging through API results with since and until parameters.
+    (SOCIALFB-45)
+
+Compatibility notes
+  * All API binding methods that take offset and limit for paging purposes are
+    deprecated effective this release. Instead, use the equivalent methods
+    that accept PagingParameters.
+
+Spring Social Facebook 1.1.0.M1 (November 26, 2012)
+===================================================
+Bug Fixes
+  * Handle HTTP 404 from Graph API by throwing ResourceNotFoundException
+    (SOCIALFB-42)
+  * Handle error where Facebook says that status is duplicate or similar
+    to a recent post to Twitter by throwing DuplicateStatusException
+    (SOCIALFB-57)
+  * Fixed handling of errors to throw an InsufficientPermissionException
+    when an OperationNotPermittedException was being thrown. (SOCIALFB-80)
+  * Fixed problem with Facebook image sizes after Facebook started sending
+    additional image sizes in the Graph API. (SOCIALFB-76)
+  * Fixed NullPointerException thrown in FqlResult.getList() when field value
+    is null. (SOCIALFB-75)
+  * Fixed duplicate invocation of FacebookTemplate.initialize() in constructor.
+    (SOCIALFB-97)
+
+Improvements
+  * Added XML configuration support for Facebook connection factory and API
+    binding beans. (SOCIAL-292)
+  * Added Java configuration support for Facebook connection factory and API
+    binding beans. (SOCIAL-293)
+  * Added a sharesCount attribute to Post. (SOCIALFB-56)
+  * Added a commentCount property to Post. (SOCIALFB-51)
+  * Added coverPhotoId property to Album class that can be used to retrieve
+    a Photo object. (SOCIALFB-68)
+  * Added support for getting the signed_request as a Spring MVC controller
+    argument. (SOCIALFB-23)
+  * Support for OpenGraph operations in API Binding (SOCIALFB-64)
+  * Added questions operations in API binding (SOCIALFB-37)
+  * New DisconnectController to handle deauthorization callback from Facebook
+    (SOCIALFB-69)
+  * Facebook Query Language (FQL) support in API binding. (SOCIALFB-8)
+  * Added getSubscribers() and getSubscribedTo() methods to FriendOperations
+    to read a user's subscribers/subscriptions. (SOCIALFB-58)
+  * Added getFamily() to FriendOperations to allow for fetching a list of a user's
+    family members. (SOCIALFB-61)
+  * Added getMutualFriends() method to FriendOperations to allow for fetching
+    of a list of friends that the authenticated user has in common with another
+    user. (SOCIALFB-62)
+  * Added getGames() to LikeOperations to retrieve a list of games that the
+    user has connections to. (SOCIALFB-35)
+  * Fetch list of users who have liked a post instead of just a count. (SOCIALFB-41)
+  * Added ability to configure the application namespace on the Facebook connection
+    factory. This makes it possible to use OpenGraph operations when working with
+    a FacebookTemplate provided via the connection factory. (SOCIALFB-96)
+
+Spring Social Facebook 1.0.3 (June 19, 2013)
+============================================
+Compatibility notes:
+  This release includes changes to enable Spring Social Facebook to work
+  after the July 2013 Breaking Changes. In order for this version of Spring
+  Social Facebook to work prior to July 10, 2013, you'll need to configure
+  your application at Facebook to enable the July 2013 Breaking Changes.
+  Within Facebook's application configuration, go to "Settings->Advanced"
+  and click the "Enabled" radio button next to "July 2013 Breaking Changes".
+
+Improvements
+  * Support July 2013 Breaking Changes in Facebook's Graph API. (SOCIALFB-116)
+  * Add several missing properties to Page object. (SOCIALFB-122)
+  * Change FriendOperations.getFriendProfiles() to return all friends.
+    (SOCIALFB-105)
+
+Bug Fixes
+  * Add FRIENDS constant to Privacy enum. (SOCIALFB-108)
+  * Make Reference, WorkEntry, and EducationEntry serializable so that
+    FacebookProfile will be serializable. (SOCIALFB-111)
+
+Spring Social Facebook 1.0.2 (September 3, 2012)
+================================================
+Bug Fixes
+  * Deserialize the "pictures" field of Page, Post, and Video returned
+    from Facebook as either a String or as an object in anticipation of
+    changes to the Facebook API to be applied on October 3, 2012. (SOCIALFB-92)
+  * Deserialize the likesCount property of Comment as being sent from
+    Facebook as either "likes" or "like_count" to reflect changes in
+    the Facebook API to be applied September 5, 2012. (SOCIALFB-93)
+
+Miscellaneous
+  * Deprecated the picture property of Page, Post, and Video classes; to
+    be replaced in Spring Social Facebook 1.1.0. (SOCIALFB-92)
+  * Deprecated the position property of the Photo class to reflect changes
+    in the Facebook API to be applied September 5, 2012. (SOCIALFB-94)
+
+Spring Social Facebook 1.0.1 (December 15, 2011)
+================================================
+Bug Fixes
+  * Handle unknown album types as AlbumType.UNKNOWN (SOCIALFB-50)
+  * Check for existence of "count" field before attempting to read
+    the likes count (SOCIALFB-33)
+  * Default album privacy to CUSTOM when an unrecognized privacy
+    is received from facebook. (SOCIALFB-38)
+
+Improvements
+  * Added middle name to FacebookProfile (SOCIALFB-29)
+  * Expose RestOperations through Facebook interface for access to
+    endpoints not yet covered by the API binding (SOCIALFB-32)
+  * Added GroupOperations.getMemberships() to retrieve a list of
+    groups that a user is a member of (SOCIALFB-49)
+  * Added a new FRIENDS_WALLS albums type to reflect a new album
+    type returned by the graph API (SOCIALFB-50)
+  * Added paging support (offset and limit) to FriendOperations.
+    getFriendProfiles()  (SOCIALFB-44)
+  * Added paging (offset and limit) to CommentOperations.getComments()
+    (SOCIALFB-25)
+  * Added story, storyTags, and messageTags properties to Post objects
+    to capture in-text tagging of stories and messages (SCOIALFB-36)
+
+Spring Social Facebook 1.0.0 (September 8, 2011)
+================================================
+ Misc:
+  * Updated FacebookTemplate to match changes in AbstractOAuth2ApiBinding.
+
+Spring Social Facebook 1.0.0.RC3 (August 25, 2011)
+==================================================
+Bug Fixes
+  * Treat false responses from Facebook's Graph API as errors indicating
+    insufficient privileges. This fixes a deserialization problem when
+    trying to deserialize "false" as an object. (SOCIALFB-18)
+  * Handle "Feed action request limit reached" errors by throwing
+    RateLimitExceededException. (SOCIALFB-19)
+
+Improvements
+  * New sample demonstrating how to use Spring Social in a Facebook
+    Canvas application. (SOCIALFB-20)
+
+Spring Social Facebook 1.0.0 RC2 (July 26, 2011)
+================================================
+Improvements
+  * Changed GraphApi.fetchConnections() to more intuitively work with
+    list element type rather than a list wrapper. (SOCIALFB-9)
+  * Handle duplicate status errors from Facebook by thrown a
+    DuplicateStatusException. (SOCIALFB-12)
+  * Added offset and limit parameters to many API methods to support
+    paging through results. (SOCIALFB-14)
+
+Bug Fixes
+  * Added SwfPost and MusicPost types and change post deserialization
+    to fall back to generic Post type when the type is unrecognized.
+    (SOCIALFB-2)
+  * FacebookErrorHandler now does default error handling first and
+    only reads the body of the response if it gets past the default
+    handling to avoid IOExceptions when using SimpleClientHttpRequestFactory.
+    (SOCIALFB-13)
+
+Spring Social Facebook 1.0.0 RC1 (June 22, 2011)
+================================================
+  * Spring Social Facebook extracted into a standalone project that can
+    progress and release independent of Spring Social releases.
+  * More API bindings:
+    * Upload photos and videos
+    * Fan pages, including posting to a page's feed as the page
+      administrator.
+
+Refer to Spring Social's changelog for a history of the Facebook module
+prior to it being extracted into its own project.
