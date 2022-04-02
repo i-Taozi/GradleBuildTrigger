@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="light_primary">#FFE0B2</color>
+    <color name="primary_text">#ffffff</color>
+    <color name="accent">#FF4081</color>
+    <color name="secondary_text">#727272</color>
+    <color name="divider">#CCCCCC</color>
+    <color name="highlight">#FFC107</color>
+    <color name="window_background">#EEEEEE</color>
+    <color name="control_highlight">#FFC107</color>
+
+    <color name="cardview_background">#FFFFFF</color>
+    <color name="connected">#4CAF50</color>
+    <color name="disconnected">#F44336</color>
+</resources>
