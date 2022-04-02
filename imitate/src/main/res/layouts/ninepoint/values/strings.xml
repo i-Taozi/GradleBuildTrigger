@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="back">返回</string>
+    <string name="title_name">chat</string>
+    <string name="send">发送</string>
+</resources>

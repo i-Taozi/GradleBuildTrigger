@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cpb_grey"
+    android:orientation="vertical"
+    tools:context=".ui.activity.HorizontalListActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list00"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:background="@color/cpb_white"
+            android:listDivider="@drawable/gradient_bg"
+            tools:itemCount="7"
+            tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/view_item_h_card_custom"
+            tools:orientation="horizontal" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list0"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:background="@color/cpb_white"
+            android:listDivider="@drawable/gradient_bg"
+            tools:itemCount="7"
+            tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/view_item_h_card"
+            tools:orientation="horizontal" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:background="@color/cpb_white"
+            android:listDivider="@drawable/gradient_bg"
+            tools:itemCount="7"
+            tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/view_item_h_square"
+            tools:orientation="horizontal" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list2"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:background="@color/cpb_white"
+            tools:itemCount="7"
+            tools:itemDecoration="com.engineer.imitate.ui.widget.DecorationOne"
+            tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/view_item_h"
+            tools:orientation="horizontal" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list3"
+            android:layout_width="match_parent"
+            android:layout_height="128dp"
+            android:background="@color/cpb_white"
+            tools:itemCount="7"
+            tools:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/view_item_h_image"
+            tools:orientation="horizontal" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+
+

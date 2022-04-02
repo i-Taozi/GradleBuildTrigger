@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.flipboard.bottomsheet.BottomSheetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomsheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".ui.fragments.EntranceFragment">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.skydoves.transformationlayout.TransformationLayout
+                android:id="@+id/transformationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:transformation_direction="auto"
+                app:transformation_duration="450"
+                app:transformation_fadeMode="cross"
+                app:transformation_fitMode="auto"
+                app:transformation_pathMode="arc">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/horizontal_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="horizontal_list"
+                    android:textColor="?android:attr/textColorSecondaryInverse" />
+
+
+            </com.skydoves.transformationlayout.TransformationLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/inflate_real"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="inflate_real"
+                android:textColor="?android:attr/textColorSecondaryInverse"
+                android:visibility="visible" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/gif_revert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="gif_revert"
+                android:textColor="?android:attr/textColorSecondaryInverse"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/constraintLayout_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="constraintLayout_layout"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/constraintLayout_ll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="constraintLayout_layout2"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/surface"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="surfaceview"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fragment_manager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="fragment_manager"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/game"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="game"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/self_draw_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="self_draw"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="shell"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nine_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="点 9 png 图"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/set_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="设置桌面"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="matisse choose"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bottom_sheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="bottom_sheet"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/bottom_sheet_google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="bottom_sheet_google"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/final_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="final_one"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fake_jike"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="fake_jike"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/expandable_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="expandable_listview"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/date_and_time_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="date_and_time_picker"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/screen_recorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="screen_recorder"
+                android:textColor="?android:attr/textColorSecondaryInverse" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</com.flipboard.bottomsheet.BottomSheetLayout>
