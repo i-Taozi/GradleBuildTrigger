@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/paper-card/paper-card.html">
+    <link rel="import" href="projector-formsection.html">
+    <link rel="import" href="projector-formaction.html">
+    <link rel="import" href="ui-blocker.html">
+</head>
+<dom-module id="projector-form">
+    <template>
+        <style>
+            paper-card {
+                max-width: 480px;
+                --paper-card-header: {
+                    background-color: lightcoral;
+                }
+            }
+
+            .form-wrapper {
+                margin: 24px;
+            }
+
+            .paper-font-subhead {
+                @apply(--paper-font-subhead);
+                color: gray;
+            }
+
+            .card-actions {
+                background-color: lightgrey;
+            }
+
+            .section:not(:first-child) {
+                margin-top: 32px;
+            }
+
+        </style>
+        <paper-card heading="[[form.title]]" class="form-wrapper">
+            <ui-blocker active="{{blocked}}"></ui-blocker>
+            <div class="card-content">
+                <div class="paper-font-subhead">[[form.description]]</div>
+                <template is="dom-repeat" items="{{form.sections}}">
+                    <div class="section">
+                        <projector-formsection
+                                section="{{item}}"
+                                on-dolphin-action="_onChildAction"></projector-formsection>
+                    </div>
+                </template>
+            </div>
+            <div class="card-actions">
+                <template is="dom-repeat" items="[[form.actions]]">
+                    <projector-formaction id="action-trigger" on-blocking="onBlocking" action="{{item}}" controller="{{controller}}"></projector-formaction>
+                </template>
+            </div>
+        </paper-card>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "projector-form",
+        properties: {
+            controller: Object,
+            form: Object
+        },
+        onBlocking: function(e) {
+            var actionNodes = Polymer.dom(this.root).querySelectorAll("#action-trigger");
+            var self = this;
+            var shouldBlock = false;
+            actionNodes.forEach(function(actionNode){
+                if(actionNode.running === true && actionNode.action.blockOnAction === true ) {
+                    shouldBlock = true;
+                }
+            });
+            self.set('blocked', shouldBlock);
+        }
+    });
+</script>

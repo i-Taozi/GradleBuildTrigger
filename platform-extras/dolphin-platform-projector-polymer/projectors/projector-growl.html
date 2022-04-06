@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+</head>
+<dom-module id="projector-growl">
+    <template>
+        <style is="custom-style">
+            .error-toast {
+                background-color: red;
+                color: white;
+            }
+            .warning-toast {
+                background-color: orange;
+                color: black;
+            }
+            .info-toast {
+                background-color: lightblue;
+                color: black;
+            }
+            .sucess-toast {
+                background-color: green;
+                color: white;
+            }
+        </style>
+        <paper-toast id="toast" class$="{{getToastStyleClass(notification)}}" text="[[notification.title]]">
+            [[notification.description]]
+        </paper-toast>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "projector-growl",
+        properties: {
+            notification: {
+                type: Object,
+                observer: '_notificationChanged',
+                notify: true
+            }
+        },
+        _notificationChanged: function (oldValue, newValue) {
+            if(newValue !== null && typeof newValue !== 'undefined') {
+                this.$.toast.close();
+                this.$.toast.open();
+            } else {
+                this.$.toast.close();
+            }
+        },
+        getToastStyleClass: function (notification) {
+            if(notification !== null && typeof notification !== 'undefined') {
+                var messageType = notification.messageType;
+                if(messageType === 'ERROR') {
+                    return 'error-toast';
+                } else if(messageType === 'WARNING') {
+                    return 'warning-toast';
+                } else if(messageType === 'INFO') {
+                    return 'info-toast';
+                } else if(messageType === 'SUCCESS') {
+                    return 'sucess-toast';
+                }
+            }
+            return '';
+        }
+    });
+</script>

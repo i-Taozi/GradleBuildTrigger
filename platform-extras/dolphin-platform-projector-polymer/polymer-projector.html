@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <link rel="import" href="projectors/projector-form.html">
+    <link rel="import" href="projectors/projector-graph.html">
+    <link rel="import" href="projectors/view-projector.html">
+    <link rel="import" href="projectors/growl-integration.html">
+</head>
+
+<dom-module id="polymer-projector">
+    <template>
+        <template is="dom-if" if="{{isForm(model)}}">
+            <projector-form form="{{model}}" controller="{{controller}}"></projector-form>
+        </template>
+        <template is="dom-if" if="{{isGraph(model)}}">
+            <projector-graph graph="{{model}}" controller="{{controller}}"></projector-graph>
+        </template>
+        <template is="dom-if" if="{{isView(model)}}">
+            <view-projector view="{{model}}" controller="{{controller}}"></view-projector>
+        </template>
+        <growl-integration></growl-integration>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "polymer-projector",
+        properties: {
+            controller: Object,
+            model: Object
+        },
+        getType: function (model) {
+            var id = clientContext.beanManager.classRepository.beanToDolphin.get(this.get('model'));
+            if (id !== null && typeof id !== 'undefined') {
+                var model = clientContext.dolphin.findPresentationModelById(id);
+                if (model !== null && typeof model !== 'undefined') {
+                    return model.presentationModelType;
+                }
+            }
+            return 'unknown';
+        },
+        isForm: function (model) {
+            return this.getType(model) === 'com.canoo.enterprise.form.FormBean';
+        },
+        isGraph: function (model) {
+            return this.getType(model) === 'com.canoo.enterprise.graph.GraphDataBean';
+        },
+        isView: function (model) {
+            return this.getType(model) === 'com.canoo.enterprise.view.ViewBean';
+        },
+        _onAction: function (e) {
+            this.fire('dolphin-action', {actionName: e.model.item.actionName});
+        },
+        _onChildAction: function (e) {
+            this.fire('dolphin-action', {actionName: e.detail.actionName});
+        }
+    });
+</script>

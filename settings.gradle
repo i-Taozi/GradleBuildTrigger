@@ -1,0 +1,69 @@
+rootProject.name = 'dolphin-platform'
+
+include 'platform/dolphin-platform-core'
+include 'platform/dolphin-platform-client'
+include 'platform/dolphin-platform-client-swing'
+include 'platform/dolphin-platform-client-javafx'
+include 'platform/dolphin-platform-server'
+include 'platform/dolphin-platform-server-javaee'
+include 'platform/dolphin-platform-server-spring'
+
+include 'platform/dolphin-platform-remoting-common'
+include 'platform/dolphin-platform-remoting-client'
+include 'platform/dolphin-platform-remoting-client-javafx'
+include 'platform/dolphin-platform-remoting-server'
+include 'platform/dolphin-platform-remoting-server-javaee'
+include 'platform/dolphin-platform-remoting-server-spring'
+include 'platform/dolphin-platform-spring-controller-tester'
+include 'platform/dolphin-platform-distributed-eventbus'
+
+include 'platform-extras/dolphin-platform-logger'
+include 'platform-extras/dolphin-platform-logger-widget-common'
+include 'platform-extras/dolphin-platform-logger-widget-client-javafx'
+include 'platform-extras/dolphin-platform-logger-widget-server'
+
+include 'platform-extras/dolphin-platform-bean-validation'
+include 'platform-extras/dolphin-platform-bean-validation-rest'
+
+include 'platform-extras/dolphin-platform-data'
+include 'platform-extras/dolphin-platform-data-jpa'
+include 'platform-extras/dolphin-platform-data-audit'
+include 'platform-extras/dolphin-platform-crud'
+include 'platform-extras/dolphin-platform-crud-jpa'
+
+include 'platform-extras/dolphin-platform-metrics'
+include 'platform-extras/dolphin-platform-metrics-server'
+include 'platform-extras/dolphin-platform-metrics-server-spring'
+include 'platform-extras/dolphin-platform-metrics-server-javaee'
+
+
+include 'platform-extras/dolphin-platform-reactive'
+include 'platform-extras/dolphin-platform-security-common'
+include 'platform-extras/dolphin-platform-security-client'
+include 'platform-extras/dolphin-platform-security-server'
+include 'platform-extras/dolphin-platform-security-server-javaee'
+include 'platform-extras/dolphin-platform-security-server-spring'
+
+include 'platform-extras/dolphin-platform-projector-common'
+include 'platform-extras/dolphin-platform-projector-client'
+include 'platform-extras/dolphin-platform-projector-server'
+
+include 'documentation'
+include 'platform-integration-tests/integration-common'
+include 'platform-integration-tests/integration-server'
+include 'platform-integration-tests/integration-tests-jee'
+include 'platform-integration-tests/integration-tests'
+
+include 'platform-examples/projector-sample/projector-sample-client'
+include 'platform-examples/projector-sample/projector-sample-server'
+
+rootProject.children.each { project ->
+    int slash = project.name.lastIndexOf('/')
+    String fileBaseName = project.name[(slash + 1)..-1]
+    String projectDirName = project.name
+    project.name = fileBaseName
+    project.projectDir = new File(settingsDir, projectDirName)
+    project.buildFileName = "${fileBaseName}.gradle"
+    assert project.projectDir.isDirectory()
+    assert project.buildFile.isFile()
+}

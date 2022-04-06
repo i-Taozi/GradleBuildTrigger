@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="projector-growl.html">
+</head>
+<dom-module id="growl-integration">
+    <template>
+        <projector-growl notification="{{model.notification}}"></projector-growl>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "growl-integration",
+        behaviors: [clientContext.createBehavior('GlobalNotificationsController')],
+        properties: {
+            clientContext: Object
+        }
+    });
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/google-chart/google-chart.html">
+</head>
+<dom-module id="projector-graph">
+    <template>
+        <style>
+            #chart {
+                width: 600px;
+                height: 400px;
+            }
+        </style>
+        <google-chart id="chart"
+                type='pie'
+                options='[[graph.title]]'
+                cols="[[_createCols(graph.keyLabel, graph.dataLabel)]]"
+                rows="[[_createRows(graph.values.*)]]">
+        </google-chart>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "projector-graph",
+        properties: {
+            graph: Object
+        },
+        observers: [
+            'graphChanged(graph.*)'
+        ],
+        graphChanged: function(changeRecord) {
+            this.$.chart.redraw();
+        },
+        _createCols: function (keyLabel, dataLabel) {
+            return [{"label":keyLabel, "type":"string"}, {"label":dataLabel, "type":"number"}];
+        },
+        _createRows: function () {
+            var rows = [];
+            for(var i in this.get('graph.values')) {
+                rows.push([this.get('graph.values')[i].name, this.get('graph.values')[i].value]);
+            }
+            return rows;
+        }
+    });
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../polymer-projector.html">
+</head>
+<dom-module id="view-projector">
+    <template>
+        <style>
+            .panel {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+        </style>
+        <div class="panel">
+            <template is="dom-repeat" items="{{view.content}}">
+                <polymer-projector model="{{item}}" controller="{{controller}}"></polymer-projector>
+            </template>
+        </div>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "view-projector",
+        properties: {
+            controller: Object,
+            view: Object
+        }
+    });
+</script>

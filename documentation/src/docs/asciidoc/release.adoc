@@ -1,0 +1,293 @@
+
+= Dolphin Platform release documentation
+The sources of the Dolphin Platform are seperated in several repositories:
+
+* https://github.com/canoo/dolphin-platform[GitHub repository of the Java API]
+* https://github.com/canoo/dolphin-platform-js[GitHub repository of the JavaScript basic client API]
+* https://github.com/canoo/dolphin-platform-polymer[GitHub repository of the Polymer client API]
+* https://github.com/canoo/dolphin-platform-angularjs[GitHub repository of the AngularJS client API]
+
+In addition we provide several repositories that contain jumpstarts for the Dolphin Platform. This repositories
+should be released with each release of the Dolphin Platform:
+
+* https://github.com/canoo/dolphin-platform-lazybones-templates[Dolphin Platform Lazybones template for a Spring
+based jumpstart]
+* https://github.com/canoo/dolphin-platform-spring-boot-archetype[Dolphin Platform Maven archetype for a Spring
+based jumpstart]
+* https://github.com/canoo/dolphin-platform-kumuluz-archetype[Dolphin Platform Maven archetype for a JavaEE
+based jumpstart]
+
+Based on this seperation a release for the Dolphin Platform is more complex than a release for a framework that is based
+on one single repository.
+
+There are 2 different release types for the Dolphin Platform:
+* The regular (major) release introduces new features and / or bugfixes. We currently try to create such a release in a
+periode of 2 weeks. This release will be created from the master branches of all repositories.
+* A bugfix (minor) release provides a critical bugfix and will be created based on a regular /major Dolphin Platform
+release. This release will normally be based on the release branch of the major release.
+
+To manage releases and the containing issues we use waffle.io as kanban board. You can find it
+https://waffle.io/canoo/dolphin-platform[here]
+
+== Install needed tools for the release
+In order to create a release the host system should have the following tools installed
+
+* http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[Java 8 SDK]
+* https://nodejs.org[NodeJS and NPM]
+** https://bower.io[Bower] `npm install -g bower`
+** https://www.polymer-project.org/2.0/docs/tools/polymer-cli[Polymer 2.0 CLI] `npm install -g polymer-cli`
+** https://gulpjs.com/[GulpJS] `npm install -g gulp-cli`
+* https://www.docker.com[Docker]
+
+== Major and Minor Release of the Dolphin Platform
+
+This chapter describes how a new major or minor release for the Dolphin Platform can be created.
+
+IMPORTANT: When doing a *major* release of the Dolphin Platform the first or second number in the version number should be updated.
+Based on this the next major release after `0.9.0` will be `0.10.0` and after `1.2.0` the next release will be `1.3.0`.
+
+IMPORTANT: When doing a *minor* release of the Dolphin Platform the third number in the version number should be updated.
+Based on this the next minor release after `0.9.0` will be `0.9.1` and after `1.2.1` the next release will be `1.2.2`.
+
+=== Release process
+
+The releases must be done in a pre-defined order.
+Even if you don't have changes in some of the projects. The project version should be updated.
+
+The order is:
+
+1. *JavaScript basic API*
+2. JavaScript Frameworks (*AngularJS API* and *Poylmer API*)
+3. Java examples (currently part of the Java API repository)
+4. Java API
+
+*Why is the order important?*
+
+The *JavaScript basic API* has no dependency to the other projects, but
+the JavaScript Frameworks depend on the *JavaScript basic API*.
+The Java Examples depend on the JavaScript Frameworks.
+And last but not least, the *Java API* currently depends on the Java examples.
+
+There are two ways to create a release. A script-based process and a manual process.
+
+==== Script-based process
+
+The Dolphin Platform provides a shell script to create a release for the different parts of the project.
+Currently only UNIX based operation systems are supported by the shell script.
+The script is located in the Java repository inside the _scripts_ folder.
+
+The repositories for all projects should be available in the same folder.
+
+[source,shell]
+----
+user@system ~ $ ls -laG
+total 6
+drwxr-xr-x  11 user  group   352 15 Feb 16:04 .
+drwxr-xr-x   8 user  group   256 23 Mar 13:27 ..
+drwxr-xr-x  28 user  group   896 26 Mar 09:47 dolphin-platform
+drwxr-xr-x  24 user  group   768 23 Mar 10:13 dolphin-platform-angularjs
+drwxr-xr-x  25 user  group   800 22 Mar 14:36 dolphin-platform-js
+drwxr-xr-x  19 user  group   608 22 Mar 15:48 dolphin-platform-polymer
+----
+
+The script expects some parameters. Calling the script without a parameter will print the help information.
+
+[source,shell]
+----
+Usage: prepare-release <package> <version> [candidate]
+
+package:    Possible packages are: javascript, js-frameworks, java-examples, java
+version:    The release version number in the format major.minor.patch, e.g. 1.0.0
+candidate:  Optional release candidate number, e.g 4
+----
+
+CAUTION: The script *must* be called outside the project directories because of the relative paths used in the script.
+
+===== Exmaple
+
+For version 1.0.0 with release candidate 4 the following command should be executed in the given order:
+
+    user@system ~ $ pwd
+    /home/user
+    user@system ~ $ dolphin-platform/scripts/prepare-release javascript 1.0.0 4
+    ...
+    user@system ~ $ dolphin-platform/scripts/prepare-release js-frameworks 1.0.0 4
+    ...
+    user@system ~ $ dolphin-platform/scripts/prepare-release java-examples 1.0.0 4
+    ...
+    user@system ~ $ dolphin-platform/scripts/prepare-release java 1.0.0 4
+    ...
+
+This will release *JavaScript basic API* and JavaScript Frameworks as `1.0.0-CR.4` and Java examples and *Java API* as `1.0.0.CR4`
+
+Full example output for the realase of *JavaScript basic API* as `1.0.0-CR.4`
+
+[source,shell]
+----
+user@system ~ $ dolphin-platform/scripts/prepare-release javascript 1.0.0 4
+Dolphin Platform Release preparation v1.0.0 (2018-02-15)
+
+Release will be created as version: 1.0.0, Release Candidate 4
+
+Java version will be: 1.0.0.CR4
+JavaScript versions will be: 1.0.0-CR.4
+
+Checking release requirements
+- Branch 'master' found for /home/user/dolphin-platform! Ok.
+- Branch 'master' found for /home/user/dolphin-platform-js! Ok.
+- Branch 'master' found for /home/userdolphin-platform-angularjs! Ok.
+- Branch 'master' found for /home/user/dolphin-platform-polymer! Ok.
+Build for dolphin-platform-js on master branch
+- Pull latest version of master for /home/user/dolphin-platform-js
+- Clean ok.
+- Install+Build ok.
+- Test ok.
+Create release for dolphin-platform-js on master branch
+- Set up version number 1.0.0-CR.4 for sonar-project.properties, package.json and bower.json
+- Commit changes to master
+- Creating branch release/1.0.0-CR.4 for /home/user/dolphin-platform-js
+- Switching branch release/1.0.0-CR.4 for /home/user/dolphin-platform-js
+- Create tag for 1.0.0-CR.4
+- Please check the new release manuelly in dolphin-platform-js
+  + Check files changed for the master branch with 'git show' and 'git log'
+  + Check files changed for the release/1.0.0-CR.4 branch with 'git show' and 'git log'
+  + Check the existence of the tag for '1.0.0-CR.4' with 'git tag'
+  + If the check is okay, upload the release to github.com. For the master do 'git push', for the branch do 'git push --set-upstream origin', and for the tag do 'git push origin 1.0.0-CR.4'
+Finished!
+----
+
+==== Manual step by step process
+
+CAUTION: For a release the repositories shoud be released in a defined order to create a accurate release. The following
+         documentation shows a step by step instruction to release all repositories. In general a release starts by releasing
+         the sources of the *JavaScript basic API* repositories followed by the JavaScript Frameworks and the Java repository. Once this is done the jumpstart related
+         repositories can be released in any order.
+
+===== Releasing the JavaScript basic API
+A developer *must* always start to release the *JavaScript basic API*. To do so several steps are needed:
+
+* The https://github.com/canoo/dolphin-platform-js[JavaScript basic API repository] must be check out on the local
+machine
+* Check out the master branch
+* Create a new branch `release/VERSION` where `VERSION` defines the version that should be released (like `release/0.10.x`), e.g. `git branch release/1.0.0-CR.4`
+* Check out the created release branch, e.g. `git checkout release/1.0.0-CR.4`
+* If a developer has checked out the repository for the first time he needs to call `npm install` in
+the root folder of the repository to install all the npm dependencies
+* In the root folder of the project the `npm run clean` command must be called to perform a clean up on the folders
+* In the root folder of the project the `npm test` command must be called to execute the unit tests
+* If the tests executes without any error the new version number for the release must be specified in the following
+files: `bower.json`, `package.json`, `sonar-project.properties`
+* In the root folder of the project the `npm run build` command must be called to create a new package
+* The changed files must be added to the branch, e.g. `git add <file>`
+* The changes must be committed, e.g. `git commit -m "Version updated to 1.0.0-CR.4"`
+* Once this is done the current state must be tagged, e.g. `git tag 1.0.0-CR.4`. The name of the tag must match the version of the new
+release.
+* The new branch and the new tag must be pushed to the remote repository
+* Once the tag is uploaded to the global repository at GitHub, the *JavaScript basic API* has been released
+* Push the changes to the master branch
+
+===== Releasing the JavaScript Frameworks
+
+As a next step the *Poylmer API* can be released. To do so several steps are needed:
+
+TIP: The *Polymer API* does not contain a build step, because a Polymer component has not build process at all.
+Only a Polymer application contains a build process.
+
+* The https://github.com/canoo/dolphin-platform-polymer[Polymer API repository] must be check out on the local
+machine
+* Check out the master branch
+* The dependency of the *JavaScript basic API* (`dolphin-platform-js`) must be set to the new version in the `bower.json` file
+* If a developer has checked out the repository for the first time he needs to call `npm install` in
+the root folder of the repository to install all the npm dependencies
+* If a developer has checked out the repository for the first time he needs to call `bower install` in
+the root folder of the repository to install all the bower dependencies
+* In the root folder of the project the `npm run lint` command must be called so Polymer can check the component
+* In the root folder of the project the `npm test` command must be called to execute the browser-based unit tests
+* The new version number for the release must be specified in the following
+files: `bower.json`, `package.json`, package-lock.json` and `sonar-project.properties` (currently
+`sonar-project.properties` is not part of the project)
+* If all is running commit all changes to master
+* Create a new branch `release/VERSION` where `VERSION` defines the version that should be released (like `release/0.10.x`), e.g. `git branch release/1.0.0-CR.4`
+* Check out the created release branch, e.g. `git checkout release/1.0.0-CR.4`
+* Once this is done the current state must be tagged, e.g. `git tag 1.0.0-CR.4`. The name of the tag must match the version of the new
+release.
+* The new branch and the new tag must be pushed to the remote repository
+* Once the tag is uploaded to the global repository at GitHub the *Polymer basic API* has been released
+* Push the changes to the master branch
+
+As a next step the *AngularJS API* can be released. To do so several steps are needed:
+
+* The https://github.com/canoo/dolphin-platform-angularjs[AngularJS API repository] must be check out on the local
+machine
+* Check out the master branch
+* The dependency of the *JavaScript basic API* (`dolphin-platform-js`) must be set to the new version in the `bower.json` file
+* If a developer has checked out the repository for the first time he needs to call `npm install` in
+the root folder of the repository to install all the npm dependencies
+* If a developer has checked out the repository for the first time he needs to call `bower install` in
+the root folder of the repository to install all the bower dependencies
+* The new version number for the release must be specified in the following
+files: `bower.json`, `package.json` and `sonar-project.properties`
+* As a next step the project must be build. To do so call `gulp clean verify build` in the root
+folder of the project.
+* If the build is running commit all changes to master
+* Create a new branch `release/VERSION` where `VERSION` defines the version that should be released (like `release/0.10.x`), e.g. `git branch release/1.0.0-CR.4`
+* Check out the created release branch, e.g. `git checkout release/1.0.0-CR.4`
+* Once this is done the current state must be tagged, e.g. `git tag 1.0.0-CR.4`. The name of the tag must match the version of the new
+release.
+* The new branch and the new tag must be pushed to the remote repository
+* Once the tag is uploaded to the global repository at GitHub the *AngularJS API* has been released
+* Push the changes to the master branch
+
+
+===== Releasing the Java repository
+
+* The https://github.com/canoo/dolphin-platform[Java repository] must be check out on the local
+machine
+* Check out the master branch
+* Update the dependencies to the JavaScript Fameworks of all web-based client modules in the `platform-examples` folder to the new version (in the `bower.json` file)
+* Start and check all examples (mostly the Todo, the Process-Monitor and the Security example)
+* Update the he changelog for current release in the documentation.
+* Commit the changes to master
+* Create a new branch `release/VERSION` where `VERSION` defines the version that should be released (like `release/0.10.x`), e.g. `git branch release/1.0.0-CR4`
+* Check out the created release branch, e.g. `git checkout release/1.0.0-CR4`
+* Call `./gradlew clean build` from the project folder to check that the build is working
+* Update the version number in the `gradle.properties` file
+* Call `./gradlew clean bintrayUpload` from the project folder. For this step the Bintray user name and API token
+must be configured in the gradle.properties file (`/userHome/.gradle/gradle.properties`). Add the properties `bintrayUsername` and `bintrayApiKey` to the file.
+* Create a tag from the release branch, e.g. `git tag 1.0.0-CR4` The name of the tag must match the version of the new
+release like `0.10.0`
+* The new branch and the new tag must be pushed to the remote repository
+* If this release changed the first number in the version number (like 1.X.X -> 2.X.X) we need to update the SNAPSHOT version in the master
+* Push the changes to the master branch
+* Login to Bintray and publish all artifacts to JCenter and Maven Central
+
+===== Releasing the jumpstart repository
+
+IMPORTANT: This steps apply to both jumpstart repositories
+
+* The https://github.com/canoo/dolphin-platform-spring-boot-archetype[SpringBoot jumpstart repository] or the https://github.com/canoo/dolphin-platform-kumuluz-archetype[Kumuluz jumpstart repository] must be check out on the local
+machine
+* Change the version number of Dolphin Platform in `src/main/resources/archetype-resources/pom.xml`
+* Change the version number of Dolphin Platform in `src/main/resources/archetype-resources/polymer-client/bower.json`, if available
+* Change the version number of Dolphin Platform in `src/main/resources/archetype-resources/angular-client/bower.json`, if available
+* Do `mvn clean install`
+* Create sample project by calling `mvn archetype:generate -Dfilter=com.canoo.dolphin-platform:` in separate folder
+* Check everything in the sample project
+* Create a new branch `release/VERSION` where `VERSION` defines the version that should be released (like `release/0.10.x`), e.g. `git branch release/1.0.0-CR4`
+* Check out the created release branch, e.g. `git checkout release/1.0.0-CR4`
+* Update version number in main `pom.xml`
+*  Call `mvn clean deploy` from the project folder. For step the bintray user name and api token
+  must be configured in the `.m2/setting.xml` Maven setting file.
+* Create a tag from the release branch, e.g. `git tag 1.0.0-CR4` The name of the tag must match the version of the new
+release.
+* The new branch and the new tag must be pushed to the remote repository
+* Push the changes to the master branch
+* Login to Bintray and publish all artifacts to JCenter and Maven Central
+
+===== General release steps
+
+* Next to the release of the software the version numbers of the latest stable should be updated in tutorials and
+readme.md files of the repos.
+* Create a release in GitHub (see https://github.com/canoo/dolphin-platform/releases[releases]) with the name of the
+released version and copy the changelog for the new version in it
+* The milestone in github must be closed (see https://github.com/canoo/dolphin-platform/milestones[milestones])

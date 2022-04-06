@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/paper-button/paper-button.html">
+    <link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+</head>
+<dom-module id="projector-formaction">
+    <template>
+        <style>
+            paper-button {
+                background: white;
+            }
+        </style>
+        <paper-button id="actionButton"
+                      raised
+                      disabled="{{_isDisabled(action.disabled, running, action.blockOnAction)}}"
+                      class="colorful"
+                      on-tap="_onAction">
+            <paper-tooltip for="actionButton">[[action.description]]</paper-tooltip>
+            [[action.title]]
+        </paper-button>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "projector-formaction",
+        properties: {
+            controller: Object,
+            action: Object,
+            running: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+                observer: '_runningChanged'
+            }
+        },
+        _runningChanged: function() {
+            if(this.get('action.blockOnAction') === true && this.get('running') === true) {
+                this.fire('blocking', {blocking: true});
+            } else {
+                this.fire('blocking', {blocking: false});
+            }
+        },
+        _onAction: function (e) {
+            this.set('running', true);
+            var self = this;
+            this.get('controller').invoke(this.get('action.actionName')).then(function() {
+                self.set('running', false);
+            });
+        },
+        _isDisabled: function (disabled, running, blockOnAction) {
+            if(disabled === true) {
+                return true;
+            }
+            if(blockOnAction === true && running === true) {
+                return true;
+            }
+            return false;
+        }
+    });
+</script>

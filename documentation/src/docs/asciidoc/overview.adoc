@@ -1,0 +1,221 @@
+
+= Overview
+
+The Dolphin Platform is an application framework for enterprise applications. It provides client and server APIs that helps developers to create modern application. The Dolphin Platform is not a competitor of frameworks like Spring or Angular but can be used on top of this enterprise frameworks. Here the Platform provides additional features that helps developers to create enterprise applications.
+
+image::client-server.png[]
+
+For the client the platform provides APIs for the following technologies & UI toolkits:
+
+* a general UI tookits agnostic Java client API
+* a JavaFX client API
+* a general framework agnostic JavaScript client API
+* a Angular 1 client API
+* a Polymer 1 client API
+* a Polymer 2 client API
+
+For the server the platform provides APIs for the following technologies & frameworks:
+
+* a general Java server framework
+* a JavaEE 6 based implementation
+* a Spring Boot based implementation
+
+== Modules
+
+The Platform is divided in several layers and modules. Most modules provides additional functionality and features on top of the core layer. For a small REST based application the core layer of the Platform can be easily used without any additional modules. The following image shows an overview of the internal dependencies of the core layer:
+
+image::base-layer.png[]
+
+The image only shows the dependencies for the Java server APIs and the Java client APIs. For a JavaScript based client the client needs to depend on the Platform JavaScript core module.
+
+Next to the core module the Platform provides several modules that are al based on the core modules and integrate theirself automatically based on severel plugin mechanisms that are provided by the core API. If you for example want to use the remoting features of the Platform you applications needs the remoting modules as dependencies. The following image shows an overview of the given modules:
+
+image::remoting-layer.png[]
+
+All this modules contains the general private and public APIs for the platform. For a concrete application you will normally be based on a specific enterprise framework and UI toolkit. Based on this all modules have specific shaping extension. The following images shows the specific extensions for the server side:
+
+image::server-layer.png[]
+
+This modules automatically provide the functionally of the Platform for the given framework. By doing so you can for example inject all provided classes of the Platform easily in managed containers by the underlying framework. All Platform classes will be handled as managed beans in that case.
+
+image::managed-beans.png[]
+
+=== API structure
+
+All modules of the Platform contains a public and a private API. Since the Platform is not based on Java 9 at the moment and not Java 9 specific builds are provided the private API can still be accessed from application developers. Once the Dolphin Platform provides Java 9 based builds with real Java module descriptions the private API will be hidden.
+The sources of the Platform are divided in 2 basic packages that defines the private and public API:
+
+* all sources under `com.canoo.platform.*` are part of the public API
+* all sources under `com.canoo.dp.impl.*` are part of the private API
+
+Mainly all functionalities of the public API is defined by interfaces and enums. Here the Platform uses more or less the same approaches as JSR based specifications does: The public interface is defined to be as user friendly as possible and hides concrete implementation details from any user. By doing so a new module / functionality of the Platform is quite easy to learn since a developer only need to know the functionality of the interfaces.
+
+Several features of the Platform depend on open source products that are state-of-the-art implementations of the given features and often used in software projects. The public APIs of the Platform hide the concrete product from a developer and provide generic APIs to use the feature. Based on that a concrete implementation or product can easily be replaced in future.
+
+== The core layer
+
+The core layer of the platform contains client and server specific APIs. All this APIs provide the core functionality of the Platform and general functionality that will help developers to create enterprise application without defining or depending on a specific architecture, remoting protocol or infrastructure.
+
+The core layer provides the following features and APIs on the client site:
+
+* configuration of clients by property files
+* a plugin system to provide and load services on the client
+* a http client with plugin support
+* JSON support
+* client session support
+
+The core layer provides the following features and APIs on the server site:
+
+* configuration of the server by property files
+* a general bootstrap API
+* a plugin system for additional modules
+* server timing support
+* CORS support
+* client session support
+
+=== The client scope
+
+One main feature of the core layer is the client scope. This scope is defined as a sub scope of the http session scope. When creating web based applications all tabs of a browser instance will share the same http session scope as shown in the following image:
+
+image::shared-session.png[]
+
+This behavior often ends in problems when developing applications that needs a state on the server. Since all tabs in a browser will share the same state it is quite hard to develop an application that works in several tabs.
+
+The Platform provides a special scope to solve this problem: The client scope provides a unique client session for each browser tab. By doing so the server can easily hold a state for each tab. The client scope is defined as a sub scope of the http session scope and all client sessions will automatically be destroyed once the http session is destroyed.
+
+image::client-session.png[]
+
+The server API provides functionality to directly work with the client scope. Like the servlet API does for the http session scope the Platform provides a `ClientSession` class that can easily be injected in any managed class and holds the complete context of a client session. Next to this scope annotations are provided to directly define managed objects in the client scope. The http client that is part of the Platform client API (in Java and JavaScript) automatically supports the client scope and each request that is done by using the client will automatically be assigned to a client session on the server.
+
+=== The http client
+
+The Platform provides http client APIs that can be used to do http based request (like REST calls) against a server. Against other http client libraries that can be found for Java the Platform API directly supports the ui thread of the used ui toolkit. Based on that the http client can be easily used to provide callbacks / promises that will automatically handled on the ui thread. The http client provides a fluent interface that can easily be used to define calls against an endpoint. By default the http client supports raw data (byte arrays), UTF-8 based strings and json.
+The http client is automatically registered as a service plugin and can easily be reached by using the Platform service loader.
+
+image::rest-plugin.png[]
+
+The http client provides its own plugin structure that can be used to mutate all requests and response automatically. Several Platform modules are based on this mechanism. If for example the security module is added on the client site a JWT security token will automatically be added to each http call that targets a secure endpoint.
+
+image::secure-rest.png[]
+
+NOTE: The http client API of the JavaScript client is currently in development.
+
+=== The configuration
+
+The Platform provides an easy way to configure clients and server instances. Since frameworks like JavaEE or JavaFX do not provide any APIs for a general configuration the Platform APIs can be used here. If the Platform is used on frameworks that already provide a configuration API like Spring Boot the Platform is integrated in this API and a single configuration can be used.
+
+The Platform supports property based configuration files that can have any UTF-8 based content that matches the syntax of a general property file. Many modules of the Platform provide custom properties that can be used to configure the specific module. This properties will automatically loaded from the configuration. Next to this application developers can easily add support for custom properties and read them at runtime.
+
+NOTE: At the moment the JavaScript client API do not provide a configuration API. This is one of the missing features that will be added in near future.
+
+== The security layer
+
+The Platform provides a security layer that is build on top of the http client. The complete security is based on open-id connect and JWT security tokens. At the moment the default security provider / implementation is based on keycloak. Here the server modules of the Platform provide a proxy to hide the keycloak server from the client. All security based requests (like login) can be done directly against the application server.
+
+image::security-proxy.png[]
+
+The server APIs provide functionality to access the current user for a session or to deny access to specific functionality for users that do not match given rights (like a missing role). Since the keycloak server will manage all users a ldpa or active directory can easily be added as a user database without changing 1 line of code.
+
+The client APIs of the Platform provide a simple way for login. Once a client has logged in the JWT security token will automatically added to any request. To do so a specific security plugin will automatically be installed to the http client.
+
+NOTE: At the moment the JavaScript client API do not provide build in security. To implement this feature the JavaScript http client must be finished first.
+
+== Logging
+
+TODO
+
+== Data & Auditing
+
+The Platform provides some server site modules that help developers to handle data. Here the Platform provides basic classes that can be extended for custom data types. In general the Platform provides support for 3 different types of data:
+
+* Generic data objects that are definied by a unique identifier
+* JPA based entities that extend the generic data objects
+* Beans of the Platform remoting modules
+
+For all this types the Platform provides generic abstract classes and services. By extending the abstract classes and interfaces for custom data types all the services can be used without any change and CRUD based operations will be provided out of the box. The services that are provided here can easily be mixed and integrated with other frameworks like Spring Data.
+
+Next to the basic functionality the Platform provides notifications for entity mutation. Any service or controller can easily be added as a listener to receive events once an entity of a specific type was created, mutated or deleted. Based on this it is quite easy to handle parallel mutation of entities.
+
+The Platform provides generic CRUD dialogs on top of the remoting layer that can be used to create a frontend for a specific data type within a minute. Since the frontend is based on the projection features of the platform such view can easily be integrated in a custom client and CI.
+
+The Platform supports audit functionality that can be used to crete and show change histories for any data type.
+
+NOTE: The CRUD and audit modules are still in development. Several features in this area are still experimental.
+
+== Monitoring & Tracing
+
+A general monitoring and tracing API should be part of the Platform in near future.
+
+The Platform supports the W3C server timing specification. On the server metrics can easily be traced that automatically will be added to http responses. By doing so a developer can directly see what parts of a long running server call will cost the most time. The following image shows how the result of a http response with server timing information will be displayed in chrome 65:
+
+image::server-timing.png[]
+
+NOTE: Currently the server timing support is the only monitoring API of the Platform. Since some general interfaces (like metric) are already defined in for this feature a general monitoring API is still missing.
+
+== The remoting layer
+
+The remoting modules of the Platform implement the remote presentation model pattern and provide a modern way to create dynamic widgets and applications.
+In the remoting layer, all models will automatically be synchronized between client and server. Thus, you don't need to think about any specific endpoints or requests.
+
+image::rpm-overview.png[]
+
+Based on this, the remoting layer defines server side controllers that contain all the controller logic for a specific view. The lifecycle of these controllers is automatically synchronized with the view lifecycle. With this approach you have a MVC group for each client view with a synchronized model and a managed controller.
+
+image::rpm-mvc.png[]
+
+On the server site the controller instances are completely managed by the underlying framework (like JavaEE or Spring). To easily show dynamic data on a client and update the view based on several events the remoting layer provides an event bus that can be used from any service (a REST endpoint, another remoting controller) to publish events to controllers. By doing so data in a frontend can be changed without any user interaction. So against any REST based application a user do not need to refresh the browser to see new data.
+
+image::rpm-eventbus.png[]
+
+The functionality of the remoting layer can be used to create complete applications. Next to this this feature can be easily integrated in any REST based application. By doing so a specific widget can be added to any application to show dynamic (real time) data in a frontend.
+
+image::rpm-widget.png[]
+
+== Validation
+
+TODO
+
+== Projection
+
+TODO
+
+== Functionality and modules that are planed for future releases
+
+TODO
+
+=== Angular 5 client API
+
+TODO
+
+=== Config server
+
+TODO
+
+=== Remote validation
+
+TODO
+
+== Monitoring & Tracing
+
+TODO
+
+=== Additional distribution features
+
+TODO
+
+=== Enterprise widget toolkit
+
+TODO
+
+=== MQTT broker
+
+TODO
+
+=== MQTT client
+
+TODO
+
+=== Kafka support
+
+TODO
+

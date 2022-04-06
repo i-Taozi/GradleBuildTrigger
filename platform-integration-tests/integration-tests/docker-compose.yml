@@ -1,0 +1,24 @@
+version: '2'
+services:
+  #paraya-integration:
+  #  image: dolphin-platform-integration-tests-paraya
+  #  build: ./docker-base/payara-integration/
+  #  ports:
+  #    - "8081:8080"
+
+  tomee-integration:
+    image: dolphin-platform-integration-tests-tomee
+    build: ./docker-base/tomee-integration/
+    ports:
+      - "8082:8080"
+
+  wildfly-integration:
+    image: dolphin-platform-integration-tests-wildfly
+    build: ./docker-base/wildfly-integration/
+    ports:
+      - "8083:8080"
+
+  # spring-boot:
+  #   build: ./docker-base/spring-boot/
+  #   ports:
+  #     - "8084:8080"

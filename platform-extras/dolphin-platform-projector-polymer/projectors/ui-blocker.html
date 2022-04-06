@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/polymer/polymer.html">
+    <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+</head>
+<dom-module id="ui-blocker">
+    <template>
+        <style is="custom-style">
+            .block-ui-container {
+                position: absolute;
+                z-index: 10000;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: 0;
+                overflow: hidden;
+                opacity: 0;
+                filter: alpha(opacity=00);
+            }
+
+            .block-ui-container {
+                height: 100%;
+                cursor: wait;
+            }
+        </style>
+        <template is="dom-if" if="{{active}}">
+            <div block-ui-container class="block-ui-container"></div>
+        </template>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "ui-blocker",
+        properties: {
+            active: Boolean
+        },
+    });
+</script>

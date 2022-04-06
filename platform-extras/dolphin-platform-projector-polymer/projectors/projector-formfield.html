@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
+</head>
+<dom-module id="projector-formfield">
+    <template>
+        <template is="dom-if" if="{{_isInput(field)}}">
+            <paper-input id="field"
+                         label="[[field.title]]"
+                         value="{{field.value}}"
+                         disabled="[[field.disabled]]"
+                         placeholder="[[field.description]]"
+                         readonly="[[field.editable]]"
+                         required="[[field.mandatory]]"></paper-input>
+            <paper-tooltip for="field">[[field.description]]</paper-tooltip>
+        </template>
+        <template is="dom-if" if="{{_isCheckbox(field)}}">
+            <paper-checkbox id="field"
+                            checked="{{field.value}}"
+                            disabled="[[field.disabled]]"
+                            placeholder="[[field.description]]"
+                            readonly="[[field.editable]]"
+                            required="[[field.mandatory]]">[[field.title]]
+            </paper-checkbox>
+            <paper-tooltip for="field">[[field.description]]</paper-tooltip>
+        </template>
+    </template>
+</dom-module>
+
+<script>
+    Polymer({
+        is: "projector-formfield",
+        properties: {
+            field: Object
+        },
+        _isInput: function (field) {
+            return (field.contentType === 'java.lang.String');
+        },
+        _isCheckbox: function (field) {
+            return (field.contentType === 'java.lang.Boolean');
+        }
+    });
+</script>
