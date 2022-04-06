@@ -9,4 +9,4 @@ before_script: [echo no | android create avd --force -n test -t android-19 --abi
     shell input keyevent 82 &]
 before_install: [sudo apt-get update -qq, sudo apt-get install -y python2.7]
 branches:
-  only: [getlantern/firetweet-159-origin]
+  only: [getlantern/firetweet-159-GRADLE_INCREMENTAL_COMPILATION]
