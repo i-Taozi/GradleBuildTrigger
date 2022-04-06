@@ -1,0 +1,393 @@
+<div>
+<h1>Guide d’utilisation</h1>
+
+<nav><p><a href="#Introduction">1. Introduction</a></p>
+<p><a href="#How-To">2. How to use I2P-Bote</a></p>
+<p><a href="#Starting">2.1. Starting I2P-Bote</a></p>
+<p><a href="#Creating-Identities">2.2. Création d’une identité</a></p>
+<p><a href="#Sending-Receiving">2.3. Envoyer et recevoir des courriels</a></p>
+<p><a href="#Address-Book">2.4. Carnet d’adresses local</a></p>
+<p><a href="#Settings">2.5. Les préférences de réglages (et ce qu’elles signifient)</a></p>
+<p><a href="#Gateway">2.6. Courriels de et vers Internet</a></p>
+<p><a href="#Considerations">3. Considérations sur l’anonymat</a></p>
+<p><a href="#Troubleshooting">4. Dépannage</a></p>
+<p><a href="#Technical-Concept">5. Concept technique</a></p>
+<p><a href="#Technical-Details">6. Détails techniques</a></p>
+<p><a href="#Terminology">7. Terminologie/Glossaire</a></p>
+<p><a href="#Credits">8. Crédits</a></p>
+</nav><h2 id="Introduction">1. Introduction</h2>
+
+<p>I2P-Bote est une application de courriel hautement anonyme et sécurisée pour I2P facile à utiliser. C’est un système sans serveur, entièrement décentralisé, qui établit et forme un réseau
+pair-à-pair construit sur le réseau d’anonymisation de pointe et à faible latence I2P, y ajoutant un transport à latence élevée facultatif semblable à Mixminion, évitant ainsi les inconvénients des réseaux à faible latence.</p>
+
+<p>I2P-Bote tire donc le meilleur de l’anonymat fourni par I2P, à quoi il
+apporte son propre niveau supplémentaire d’anonymat par l’ajout
+d’une autre couche d’anonymisation (sur-réseau).</p>
+
+<p>Ce concept d’anonymat en couches est ce qui rend I2P-Bote si souple : vous pouvez le configurer pour être extrêmement anonyme et lent, ou moins anonyme, mais plus rapide et plus efficace. Dans tous les cas, I2P-Bote procure toujours un très bon anonymat à l’expéditeur et au destinataire, ainsi qu’un chiffrement de bout en bout.
+À moins que vous n’envoyiez ou receviez des courriels vers/de l’Internet courant, TOUS les courriels – le corps, les fichiers joints et les en-têtes sauf l’adresse du destinataire (objet, date, heure, adresse de l’expéditeur&hellip;) du courriel sont automatiquement chiffrés de bout en bout de façon transparente. L’adresse du destinataire n’est visible que par le dernier nœud de la route qui stocke les paquets dans le réseau kad, ainsi que par les nœuds de stockage respectifs, mais ils
+ne peuvent pas lire le contenu du courriel ni qui l’a envoyé ni qui le récupéra.</p>
+
+<p>I2P-Bote vous offre l’option de rendre vos communications encore plus anonymes en activant les routes de courriel à latence élevée, en réduisant cependant les performances.
+Les utilisateurs qui souhaitent que leurs courriels anonymes arrivent au plus vite devront désactiver les routes de courriel et utiliser l’envoi « direct » par I2P. Il est garanti que vous ne serez jamais moins anonyme que l’anonymat fourni par les connexions I2P normales.</p>
+
+<p>Pour atteindre une convivialité élevée, nous lui avons permis d’être utilisé avec les clients de courriel habituels tels que Thunderbird, Evolution ou Kmail, sans avoir à se préoccuper des informations supplémentaires que ces applications envoient dans leurs en-têtes.
+De plus, il existe une interface Web qui vous permet d’envoyer et
+de lire les courriels ou de gérer vos paramètres et identités.</p>
+
+<h2 id="How-To">2. How to use I2P-Bote</h2>
+
+<h3 id="Starting">2.1. Starting I2P-Bote</h3>
+<p>Après son lancement, I2P-Bote a besoin d’un peu plus de trois minutes pour
+être entièrement opérationnel (Il est configuré pour démarrer
+automatiquement en même temps que le routeur).</p>
+
+<p>Donc regardez l’État du réseau sur la gauche. Il devrait indiquer Connecté</p>
+
+<p>Si vous utiliser I2P-Bote pour vous-même, il vous faut créer une identité.</p>
+
+<h3 id="Creating-Identities">2.2. Création d’une identité</h3>
+<p>Cliquez sur 'Identités' sur la gauche, puis sur le bouton 'Nouvelle
+identité'.</p>
+
+<p>Entrez au moins un 'Nom public' et cliquez sur 'Créer'. C’est tout ce qu’il
+faut faire pour créer une identité.</p>
+
+<p>Le nom public est le nom que vous voyez pour cette identité (utile quand
+vous en avez plusieurs, pour communiquer avec différents groupes d’utilisateurs
+ou pour des besoins différents) et il sera envoyé aux destinataires en tant que
+'nom d’expéditeur'. Il n’est pas nécessaire qu’il soit unique.</p>
+
+<p>(Comme vous pouvez choisir n’importe quel nom ici - n’importe qui pourrait s’y appeler HungryHobo. Cela ne convient pas pour être utilisé par le destinataire pour déterminer si deux courriels proviennent du même expéditeur. C’est pourquoi le nom enregistré dans le carnet d’adresses local (il ne peut y avoir qu’un nom par clé de destination) est affiché, s’il y en a un, et vous verrez une coche verte dans la colonne « Connu », indiquant que c’est le nom connu localement. Si une destination n’a aucune entrée dans le carnet d’adresses local, le nom indiqué par l’expéditeur sera affiché précédé de {UNK} dans les clients de courriel).</p>
+
+<p>Vous pouvez aussi compléter les autres champs, si vous le souhaitez :</p>
+
+<p>Description - ce champ est conservé localement, pas diffusé. Il ne sert qu’à
+vous : si vous voulez ajouter des informations supplémentaires à votre usage au
+sujet de cette identité, ce champ est prévu pour cela.</p>
+
+<p>Adresse courriel - ce champ n’est pas encore utilisé.</p>
+
+<p>Choisissez un des algorithmes de chiffrement proposés. En cas de doute, gardez celui qui est prédéfini.</p>
+
+<p>Vous pouvez cliquer sur le nom d’une de vos identités et copier la longue clé affichée sous « Destination de courriel ». C’est votre adresse courriel I2P-Bote. Si vous voulez que quelqu’un puisse vous envoyer un courriel bote, il faut que vous lui donniez cette longue clé.</p>
+
+<p>Vous pouvez maintenant envoyer et recevoir des courriels d’I2P-Bote.</p>
+
+<p>Mais vous devriez regarder les réglages d’I2P-Bote et vous assurer qu’il
+sont conformes à vos besoins.</p>
+
+<p>(Vous pouvez créer plusieurs identités et leur associer des réglages
+différents.)</p>
+
+<h3 id="Sending-Receiving">2.3. Envoi et réception de courriels</h3>
+<p>Vous devez avoir la clé de destination de courriel I2P-Bote du
+correspondant à qui vous voulez envoyer un courriel bote.</p>
+
+<p>Pour envoyer un courriel, cliquez sur « Nouveau », choisissez votre propre identité d’expéditeur ou « Anonyme » dans le champ « De : » et saisissez la clé de destination de courriel du destinataire ou encore une adresse dans le champ « À : ».</p>
+
+<p>(Autrement, vous pouvez cliquer sur le bouton « Carnet d’adresses » situé juste sous cette ligne afin de choisir parmi les destinations de courriel stockées localement dans votre carnet d’adresses : sélectionnez les utilisateurs auxquels vous voulez que votre courriel soit envoyé et cliquez sur le bouton « Ajouter des destinataires ».)</p>
+
+<p>Vous pouvez ajouter plusieurs destinataires et changer « À : » en « Cc : » ou « Cci : ».</p>
+
+<p>Le bouton '+' ajoute des lignes destinataires supplémentaires.</p>
+
+<p>Rédigez maintenant votre courriel bote et cliquez sur « Envoyer » pour
+l’envoyer, ou « Enregistrer » pour l’enregistrer comme brouillon dans votre dossier « Brouillons » ou tout autre dossier défini par l’utilisateur [pas encore implémenté].</p>
+
+<p>Cliquer sur « Envoyer » déplacera votre courriel dans le dossier « Boîte d’envoi » et vous pourrez continuer à utiliser I2P-Bote, p. ex. rédiger un autre courriel ou simplement faire d’autres choses.
+I2P-Bote enverra alors votre courriel. Une fois qu’il sera envoyé, il sera automatiquement retiré de la boîte d’envoi et stocké dans le dossier « Envoyé ». Cela signifie que votre courriel est bien en route vers sa destination (à moins que vous n’ayez défini un temps de retard, qui est désactivé pas défaut).</p>
+
+<p>Dans I2P-Bote, les courriels sont signés automatiquement (à moins qu’ils ne soient envoyés sans identité d’expéditeur).</p>
+
+<p>Vous pouvez aussi envoyer des courriels <em>sans</em> indiquer  d’identité d’expéditeur, de destination, d’adresse, juste en sélectionnant « Anonyme » dans le menu déroulant « De : ».</p>
+
+<p>Par défaut, I2P-Bote relève automatiquement les nouveaux courriels et tout ce que vous avez à faire pour savoir si vous en avez reçu est de regarder dans votre boîte de réception (lien « Boîte de réception » sur la gauche).</p>
+
+<p>Vous pouvez forcer une relève manuelle en cliquant sur le bouton « Relever les courriels ». C’est une relève globale qui tente de récupérer les nouveaux
+courriels destinés à toutes vos identités, à l’exception de celles que vous avez exclues de la relève globale  [pas encore mis en œuvre].</p>
+
+<p>Le nombre de courriels non lus est indiqué entre parenthèses à côté du nom du dossier dans la barre latérale.</p>
+
+<p>Cliquez sur « Boîte de réception » pour afficher une liste des courriels reçus. Vous verrez deux colonnes avec des x ou des coches vertes. Ils vous indiquent si un courriel contient une signature valide et est par conséquent authentique (Sig), et si la clé de destination de courriel de l’expéditeur est déjà connue localement, c.-à-d. déjà enregistrée dans votre carnet d’adresses (Connu). Donc, deux coches vertes situées à côté d’une entrée de courriel signifient que vous connaissez déjà cette identité courriel et que le courriel a été est signé par cette identité.</p>
+
+<p>Si vous avez un certain nom dans votre carnet d’adresses et que vous recevez un courriel d’une identité portant ce nom, alors que « Connu » n’affiche <em>pas</em> une coche verte, cela signifie que ce courriel a été envoyé et signé par une destination <em>différente</em> ; elle porte simplement le même nom que celui que vous avez choisi pour l’un de vos contacts.</p>
+
+<p>S’il y a une coche verte dans la colonne « Sig », le courriel est alors correctement signé par l’expéditeur et vous pouvez l’ajouter à votre carnet d’adresses sous un nom différent qui sera dès lors affiché comme expéditeur.</p>
+
+<p>Bien sûr, un courriel sans destination d’expéditeur (Anonyme est affiché
+comme expéditeur) aura deux x.</p>
+
+<p>Cliquer sur un des courriels affichés dans votre boîte de réception ouvrira ce courriel.</p>
+
+<p>Ceci vaut pour tous les autres dossiers.</p>
+
+<p>(En raison de la nature distribuée d’I2P-Bote, l’envoi et la relève de courriels prend quelques minutes, plus si les routes de courriel sont activées. Mais il est inutile de garder le navigateur ouvert pour cela, il suffit de laisser I2P-Bote s’exécuter comme processus d’arrière-plan, un avantage en terme d’anonymat.)</p>
+
+<h3 id="Address-Book">2.4. Carnet d’adresses local</h3>
+<p>Si vous avez la destination de courriel I2P-Bote de quelqu’un à qui vous
+souhaitez écrire plus fréquemment, il est pratique d’enregistrer cette destination dans votre carnet d’adresses local (lien sur la gauche), d’indiquer un nom que vous aurez choisi pour ce contact, de coller sa destination de courriel sur la ligne correspondante, puis d’enregistrer. </p>
+
+<p>Vous devriez normalement enregistrer les destinations dans votre carnet d’adresses, afin que la prochaine fois que vous recevrez un courriel du même destinataire, il sera affiché comme provenant du même expéditeur connu localement (« Loc » est coché), alors qu’un courriel envoyé par quelqu’un d’autre qui utilise seulement le même nom d’utilisateur ne sera PAS marqué comme connu localement (un x dans la colonne « Connu » de l’interface Web ou {UNK} avant l’adresse de l’expéditeur dans IMAP). Vous saurez ainsi que cet expéditeur est nouveau ou différent.</p>
+
+<h3 id="Settings">2.5. Les préférences de réglages (et ce qu’elles signifient)</h3>
+<p>Dans les paramètres, vous pouvez choisir la <em>langue</em> d’interface d’I2P-Bote et décider que même si vous choisissez une langue qui n’est pas l’anglais, tout ce qui sera ajouté automatiquement à un courriel restera cependant en anglais afin que le destinataire ne sache pas que votre I2P-Bote est réglé sur une langue différente. Autrement, le destinataire pourrait deviner votre nationalité, ce qui compromettrait votre anonymat.</p>
+
+<p>Vous pouvez aussi régler ici l’intervalle de <em>relève automatique</em> des courriels et décider si vous voulez envoyer ou non une <em>estampille temporelle</em> avec vos courriels, indiquant la date et l’heure d’envoi. Les estampilles temporelles sont toujours en UTC.</p>
+
+<p>(Quand vous utilisez les routes de courriel, les estampilles temporelles sont désactivées automatiquement.) [pas encore mis en œuvre]</p>
+
+<p>relève automatique des courriels : </p>
+
+<p>Par commodité, il existe l’option « Relever les courriels toutes les XX minutes ».</p>
+
+<p>Vous pouvez définir ici la fréquence des tentatives de relève des courriels non lus pour vos identités. Cela peut être défini pour chaque identité [pas encore mis en œuvre].</p>
+
+<p>Si vous définissez un décalage aléatoire, la relève n’aura pas lieu
+exactement toutes les XX minutes, mais toutes les (XX+/-décalage*XX) minutes,
+c’est à dire après un temps aléatoire compris entre (1-décalage)*XX minutes et
+(1+décalage)*XX minutes [pas encore implémenté].</p>
+
+<p>Vous pouvez également désactiver complètement la relève automatique pour une
+identité donnée.</p>
+
+<p>(Si vous n’êtes pas à l’aise avec ces réglages, les valeurs par défaut vous
+conviendront très bien.)</p>
+
+<p>Les <em>routes de courriel</em> sont des chaînes de nœuds I2P-Bote agissant en tant que routeurs, relais pour d’autres pairs et obéissant à des retards par saut, fournissant ainsi un transport à latence élevée garant d’un anonymat renforcé.</p>
+
+<p>Vous pouvez indiquer le nombre de nœuds (appelés ici sauts) qui devraient être utilisés pour constituer une route de courriel. Ensuite, chacun des paquets de courriel envoyés par l’identité qui a activé la fonction « Routes de courriel » passera par une route de courriel de n sauts avant d’être stocké. Vous pouvez définir individuellement un retard pour chaque saut, car aucun saut ne devrait savoir combien de temps le paquet attendra au niveau du saut suivant, ce qui rendrait impossible de prédire le temps d’acheminement. [Le réglage des délais par saut et par identité n’est pas encore mis en œuvre]</p>
+
+<p>Comme retard, vous pouvez définir un bloc de temps (p. ex. 60 à 600 minutes), puis un temps d’attente aléatoire entre ces deux valeurs sera choisi pour le paquet au niveau de ce saut, ou une heure fixe et le
+paquet sera réacheminé à cette heure fixe, p. ex. midi UTC, indépendamment du moment de son arrivée [les heures fixes ne sont pas encore mises en œuvre]</p>
+
+<p>(Quand vous utilisez les routes de courriel, les estampilles temporelles sont désactivées automatiquement.) [pas encore mis en œuvre]</p>
+
+<p>Sous <em>anonymat de mélange</em> (seuil minimal de paquets de relais qui seront envoyés) vous pouvez spécifier un seuil. Dans le mesure où votre nœud ne peut seulement agir de façon fiable comme mélange que s’il y a suffisamment de paquets étrangers à mélanger et y ajouter ses propres paquets, il accumulera les messages dont le délai d’attente est expiré, jusqu’à ce qu’il atteigne cette limite inférieure. Quand elle sera dépassée, votre nœud commencera à les envoyer aléatoirement. [Pas encore mis en œuvre]</p>
+
+<p><em>Exclure l’identité de la relève globale</em> [pas encore implémenté]</p>
+
+<p>Si vous activez cette option pour une de vos identités, elle ne sera pas alors pas prise en compte par la relève globale manuelle des courriels ni par les relèves automatiques.</p>
+
+<h3 id="Gateway">2.6. Courriels de et vers Internet</h3>
+<p>[NOT YET FULLY IMPLEMENTED!]</p>
+
+<p>Afin d’envoyer des courriels bote vers Internet et recevoir des courriels provenant d’Internet avec l’application I2P-Bote, vous devez d’abord vous inscrire auprès d’une passerelle de courriel appropriée. Il n’y en a actuellement qu’une seule : postman.</p>
+
+<ol>
+<li><p>D’abord, allez sur <a href="http://hq.postman.i2p/?page_id=16">
+http://hq.postman.i2p/?page_id=16</a> et créez un compte. Si vous en avez déjà
+un, ou si vous venez de le créer, passer à l’étape 2).</p></li>
+
+<li><p>Pour un compte existant, vous pouvez ajouter votre destination de courriel I2P-Bote afin que les courriels provenant d’Internet soient acheminés vers votre appli I2P-Bote. Pour ce faire, allez sur <a href="http://hq.postman.i2p/?page_id=74">
+http://hq.postman.i2p/?page_id=74</a> et indiquez les informations demandées.</p></li>
+</ol>
+<p>Maintenant, tous les courriels envoyés à cette adresse (<a href="mailto:nom@i2pmail.org">nom@i2pmail.org</a> de l’Internet externe ou <a href="mailto:nom@mail.i2p">nom@mail.i2p</a> pour les courriels provenant d’autres abonnés postman) seront transférés par le réseau I2P-Bote à votre appli I2P-Bote.</p>
+
+<p>(N.B. En utilisant les adresses <a href="mailto:nom@mail.i2p">nom@mail.i2p</a>
+ou <a href="mailto:nom@i2pmail.org">nom@i2pmail.org</a> au lieu des
+adresses longues, les courriels ne sont plus chiffrés de bout en bout. Par conséquence, il est recommandé d’échanger les clés de destination de courriel I2P-Bote pour une communication intraréseau. Postman a offert des services de grande qualité sur I2P depuis déjà assez longtemps, mais sachez qu’il s’agit d’un point centralisé qui pourrait un jour cesser de fonctionner, ou pire tomber sous le contrôle d’un malfaiteur qui altérera les courriels. Pour les courriels intraréseau, I2P-Bote garantit que si vous utilisez les clés de destination de courriel, personne ne pourra altérer les courriels que vous recevez ou envoyez.)</p>
+
+<p>Si vous voulez non seulement recevoir des courriels d’Internet, mais aussi permettre l’envoi de courriels d’I2P-Bote vers Internet, vous devez fournir la clé de destination de courriel de la passerelle au client I2P-Bote afin qu’I2P-Bote sache où envoyer ces courriels.</p>
+
+<p>Vous pouvez le faire dans les Paramètres. Cette passerelle permettra aux utilisateurs d’I2P-Bote de communiquer avec les utilisateurs de courriel « normaux » sur Internet et avec les utilisateurs du service i2pmail classique de postman (@mail.i2p).</p>
+
+<p>Pour combattre les abus, il y aura une limite du nombre de courriels que
+vous pourrez envoyer vers Internet, comme avec le service normal de courriel postman : si un utilisateur d’I2P-Bote dépasse le quota avec des courriels sortants, les courriels supplémentaires seront retournés.</p>
+
+<h2 id="Considerations">3. Considérations sur l’anonymat</h2>
+<p>Ne pas envoyer de renseignements signalétiques vous concernant (nom, adresse, emplacement géographique, fuseau horaire, âge, sites Web que vous venez de visiter ou au sujet desquels vous avez blogué, noms d’utilisateur, adresses IP, ID de routeur I2P, ID I2P-Bote, numéro de sécurité sociale, numéro de carte de crédit, copies de votre passeport, de votre permis de conduire, de votre bail de location de logement, photos (nu ou habillé), documents qui contiennent votre nom d’utilisateur dans les paramètres d’auteur, et bien d’autres encore) !</p>
+
+<p>Si possible,</p>
+<ul>
+<li><p>laissez I2P-Bote tourner 24h/24 7j/7,</p></li>
+<li><p>utiliser des routes de courriel avec des retards aléatoires par saut ou des heures fixes d’envoi par saut [pas encore <em>entièrement</em> mis en œuvre],</p></li>
+<li><p>utilisez un intervalle de relève long,</p></li>
+<li><p>utilisez un long retard pour vos propres paquets,</p></li>
+<li><p>utiliser une grande aléation d’intervalle de relève. [pas encore mis en œuvre]</p></li>
+</ul>
+<p>Vous pouvez supprimer l’envoi de la date et de l’heure des en-têtes de courriels.</p>
+
+<p>Quand vous répondez à un courriel, certains marqueurs sont ajoutés afin de montrer au destinataire que c’est une réponse, par exemple « Réf. : [l’objet du courriel auquel vous répondez] » ou « [nom d’utilisateur] a écrit : ». Ils sont différents selon la langue choisie dans vos paramètres de langue. Cependant, si vous ne voulez pas que le destinataire sache quelle langue vous avez choisie, vous pouvez empêcher la traduction de ces marqueurs et ils seront ainsi en anglais, quel que soit votre paramètre de langue. Pour ce faire, cochez « Utiliser l’anglais pour les textes ajoutés aux courriels sortants («Re: », « wrote: », etc.) ».</p>
+
+<p>Soyez prudent avec le contenu que vous envoyez ! N’incluez pas de renseignements personnels ni de renseignements que vous seul possédez. N’écrivez pas « Je vais au lit maintenant, il est tard » si vous incluez une estampille temporelle.</p>
+
+<p>La langue de rédaction de vos courriels, vos style et choix de mots peuvent aussi intéresser un assaillant.</p>
+
+<p>I2P-Bote offre aussi la possibilité d’utiliser différentes identités de courriel. Supposez qu’un de vos contacts découvre votre identité, car vous auriez oublié d’enlever des informations permettant de vous identifier d’un document secret que vous lui avez transmis. Maintenant, si ce destinataire de courriel collaborait avec d’autres de vos contacts, il pourrait leur révéler l’identité réelle reliée à l’adresse Bote qu’il connaît de vous. Ainsi, si vous communiquiez avec ces autres contacts en utilisant la même adresse Bote, ils sauraient qui vous êtes. Ce ne serait pas le cas si vous aviez utilisé une adresse différente pour leur envoyer des courriels.</p>
+
+<h2 id="Troubleshooting">4. Dépannage</h2>
+<h3 id="Unlimited-Strength-Crypto">4.1. Notification au sujet de "JCE Unlimited Strength Jurisdiction Policy files"</h3>
+<p>Si vous avez une notification au bas de votre écran au sujet de "JCE Unlimited Strength Jurisdiction Policy files", cela signifie que votre installation Java est restreinte à ne pas pouvoir utiliser la cryptographie forte qu’I2P-Bote exige.</p>
+
+<p>Vous pouvez permettre la cryptographie forte en suivant les étapes ci-dessous :</p>
+<ol>
+<li><p>Télécharger les fichiers "JCE Unlimited Strength Jurisdiction Policy" depuis le <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank">site web d’Oracle</a>. Vous pourriez avoir besoin d’utiliser votre navigateur classique.</p></li>
+<li><p>Décompressez le fichier zip téléchargé.</p></li>
+<li><p>Déplacez les fichiers <code>local_policy.jar</code> et <code>US_export_policy.jar</code> dans le dossier montré dans la notification sur votre écran. Écrasez n’importe quels fichiers existants qui auraient les mêmes noms.</p></li>
+<li><p>Redémarrer I2P</p></li>
+</ol>
+<p>Certains pays ont des restrictions concernant la force autorisée aux logiciels cryptographiques. Si vous n’êtes pas sûrs des restrictions dans votre pays, consultez un avocat.</p>
+
+<h2 id="Technical-Concept">5. Concept technique</h2>
+<p>I2P-Bote un système de courriel chiffré de bout en bout, intraréseau et entièrement décentralisé (sans serveur). Il prend en charge les
+identités multiples et n’expose pas les en-têtes des courriels. I2P-Bote est un logiciel en cours de développement. On peut y accéder par une console Web, prend en charge IMAP et SMTP et les courriels bote peuvent donc être rédigés et lus par les clients de courriel habituels. Il est prévu qu’il garantisse un anonymat renforcé en proposant une option de transport à latence élevée. Tous les courriels bote sont automatiquement chiffrés de bout en bout, il est donc inutile de mettre en place le chiffrement des courriels (bien que l’option existe) et les courriels bote sont authentifiés automatiquement. Comme le système est décentralisé, il n’y a pas de serveur de courriel qui pourrait relier des identités de courriel comme communiquant entre elles (<em>profilage</em>) : même les nœuds relayant les courriels ne pourront différencier les expéditeurs des destinataires, et seuls l’extrémité du tunnel de courriel à latence élevée et les nœuds de stockage sauront à qui (identité
+anonyme) le courriel est adressé. L’expéditeur original pourrait s’être déconnecté bien avant que le courriel devienne disponible à l’autre bout. Cela augmente encore le niveau d’anonymat qui peut être atteint avec I2P-Bote. Pour ceux qui ne veulent pas de longs retards : tous ces paramètres sont ajustables par l’utilisateur et chacun décide du niveau d’anonymat souhaité.</p>
+
+<p>Les nœuds I2P-Bote stockent les courriels chiffrés dans une table de
+hachage décentralisée Kademlia. Par conséquent, un courriel peut être envoyé en passant par de nombreux autres nœuds (relais) pour une sécurité accrue ou directement vers un jeu de nœuds de stockage pour une livraison plus rapide. Cela s’applique aussi à la relève des courriels.</p>
+
+<p>(Quand vous utilisez les routes de courriel, les estampilles temporelles sont désactivées automatiquement.) [La relève par relais n’est pas encore mis en œuvre]</p>
+
+<p>Tous les nœuds sont créés égaux : il n’y a pas de 'super-nœuds'
+ni de nœuds désignés comme relais ou stockeurs. Tout le monde agit
+en tant que relais et stockage potentiels. L’utilisation d’espace
+disque est configurable par l’utilisateur.</p>
+
+<p>Avant qu’un courriel ne soit envoyé à un relais, il est découpé en
+paquets et chiffré avec la clé publique du destinataire. Ces paquets
+sont stockés de façon redondante dans un table de hachage distribuée (DHT).</p>
+
+<p>Il sont conservés au moins 100 jours, pendant lesquels le destinataire
+peut les télécharger.</p>
+
+<p>Les paquets relayés expirent aussi après 100 jours ou plus.</p>
+
+<p>Si un nœud manque d’espace de stockage et qu’il n’y a pas de vieux
+paquets à supprimer, ce nœud refuse les requêtes de stockage.</p>
+
+<p>De plus, I2P-Bote nettoie les en-têtes des courriels et ne permet à aucune information inutile d’être transmise, permettant ainsi l’utilisation de clients de courriel sans vérification préalable de ce que ces clients ajoutent aux en-têtes des courriels.</p>
+
+<p>Tout le chiffrement, le choix des chemins et le profilage sont effectués
+localement en sorte qu’aucune tierce partie de confiance ne soit mise
+à contribution.</p>
+
+<p>Pour son démarrage, I2P-Bote ne dépend pas non-plus d’un nœud central
+car il utilise Seedless.</p>
+
+<p>Par une utilisation appropriée d’I2P-Bote, c’est à dire en gardant à
+l’esprit les considérations signalées plus haut relatives au bon
+sens, personne ne saura qui vous êtes ni où vous vous trouvez. Et
+si vous êtes déjà surveillé et que votre connexion Internet est
+sur écoutes, le nuisible ne pourra pas savoir ce que vous envoyez ou
+recevez, ni avec qui vous communiquez et où sont situés vos
+correspondants.</p>
+
+<p>Rentrons un peu dans les détails:</p>
+
+<h3>Ce qu’I2P-Bote <em>cache</em>:</h3>
+
+<p>I2P-Bote cache à la fois, l’identité et la situation de l’expéditeur et du
+ou destinataires, celles des nœuds intermédiaires (relais et
+stockage), le contenu des messages, leur taille, le nombre que vous
+envoyez.</p>
+
+<p>Seul le destinataire peut connaître l’adresse de l’expéditeur du message
+bote, et si ce dernier l’a décidé, même le destinataire peut être
+tenu dans l’ignorance de cette donnée.</p>
+
+<p>Même si vous envoyez des estampilles temporelles, votre fuseau horaire ne sera pas divulgué.</p>
+
+<p>De plus, I2P-Bote dissimule :</p>
+<ul>
+<li><p>le fait que vous utilisez I2P-Bote</p></li>
+<li><p>le fait que vous envoyez un courriel</p></li>
+<li><p>le fait que vous recevez un courriel</p></li>
+<li><p>l’heure d’envoi d’un courriel</p></li>
+<li><p>l’heure de réception d’un courriel</p></li>
+<li>
+<p>la limite supérieure du nombre de courriels qu’un utilisateur inconnu reçoit</p>
+<ul>
+<li><p>un utilisateur abstrait, pas un concret, extrapolant simplement son existence de celle de l’identité de courriel, car il pourrait toujours avoir plus d’une identité de courriel</p></li>
+</ul>
+</li>
+<li><p>la limite basse, car une identité envoie également des messages de test et des messages fictifs</p></li>
+</ul>
+<h3>Ce qu’I2P-Bote <em>masque partiellement</em>:</h3>
+
+<p>L’adresse I2P-Bote du destinataire n’est connue que par l’expéditeur et
+le(s) destinataire(s).</p>
+
+<p>En cas de destinataires multiples, chacun verra tous les autres destinataires auxquels le courriel a été adressé avec « À : » ou « Cc : ».</p>
+
+<p>Toutes les entrées sous « Cci : » ne seront visibles qu’à l’expéditeur et au destinataire particulier.</p>
+
+<p>L’heure d’expédition sera, le cas échéant, seulement visible par l’expéditeur et le destinataire.</p>
+
+<h3>Ce qu’I2P-Bote <em>peut masquer facultativement</em> :</h3>
+<ul>
+<li><p>Si les routes de courriel sont utilisées, l’heure d’envoi d’un courriel Bote</p></li>
+<li><p>Si les routes de courriel sont utilisées, l’heure de relève d’un courriel Bote. [pas encore mis en œuvre].</p></li>
+<li><p>Si l’expéditeur supprime les estampilles temporelles, seul l’expéditeur saura quand il a envoyé un courriel.</p></li>
+</ul>
+<h3>Ce qu’I2P-Bote <em>ne peut pas cacher</em>:</h3>
+<p>I2P-Bote ne peut pas masquer la fréquence de relève de nouveaux courriels d’une identité donnée ni le nombre de courriels reçus par une identité donnée.</p>
+
+<h2 id="Technical-Details">6. Détails techniques</h2>
+<p>Voir techdoc.txt</p>
+
+<h2 id="Terminology">7. Terminologie/Glossaire</h2>
+
+<h3>Identité du routeur/nœud I2P-Bote:</h3>
+<p>C’est l’identité par laquelle le routeur I2P-Bote est connu. Elle est
+utilisée pour contacter ce routeur, pour stocker, relayer et relever
+les messages, mais aussi pour le chiffrement par saut et le contacter
+via I2P, car c’est celle là même de la destination du tunnel I2P.
+Elle est affichée pour représenter le nœud I2P-Bote dans les
+statistiques.</p>
+
+<p>Ainsi donc, l’identité du routeur (I2P-Bote) correspond à la destination
+I2P (l’adresse d’un nœud I2P-Bote sur le réseau I2P – il n’y a
+pas de nécessité de la connaître, sauf en cas de problèmes de
+connexion aux autres nœuds I2P-Bote).</p>
+
+<h3>Destination de courriel I2P-Bote :</h3>
+<p>La destination de courriel I2P-Bote (clé) est un identifiant par
+lequel quelqu’un peut être joint avec I2P-Bote, donc comme son nom
+l’indique, une destination de courriel. C’est ainsi pour I2P-Bote ce
+qu’une adresse courriel représente dans les systèmes de courriel courants. La destination de courriel est l’adresse effective à laquelle envoyer des courriels, pour les stocker et pour les récupérer dans la DHT. Elle est aussi utilisée pour le chiffrement de bout en bout des courriels, des informations d’en-tête et des fichiers joints.</p>
+
+<p>Une destination de courriel I2P-Bote est une chaîne en base64 contenant une clé publique de chiffrement et une clé de vérification
+de signature. Par exemple :</p>
+<pre>uQtdwFHqbWHGyxZN8wChjWbCcgWrKuoBRNoziEpE8XDt8koHdJiskYXeUyq7JmpG
+    In8WKXY5LNue~62IXeZ-ppUYDdqi5V~9BZrcbpvgb5tjuu3ZRtHq9Vn6T9hOO1fa
+    FYZbK-FqHRiKm~lewFjSmfbBf1e6Fb~FLwQqUBTMtKYrRdO1d3xVIm2XXK83k1Da
+    -nufGASLaHJfsEkwMMDngg8uqRQmoj0THJb6vRfXzRw4qR5a0nj6dodeBfl2NgL9
+    HfOLInwrD67haJqjFJ8r~vVyOxRDJYFE8~f9b7k3N0YeyUK4RJSoiPXtTBLQ2RFQ
+    gOaKg4CuKHE0KCigBRU-Fhhc4weUzyU-g~rbTc2SWPlfvZ6n0voSvhvkZI9V52X3
+    SptDXk3fAEcwnC7lZzza6RNHurSMDMyOTmppAVz6BD8PB4o4RuWq7MQcnF9znElp
+    HX3Q10QdV3omVZJDNPxo-Wf~CpEd88C9ga4pS~QGIHSWtMPLFazeGeSHCnPzIRYD</pre>
+
+<p>Les ID de routeur, de nœud I2P-Bote et les destinations de courriel d’I2P-Bote se ressemblent, mais sont complètement indépendantes les unes des autres.</p>
+
+<h3>Adresse courriel :</h3>
+<p>Les adresses courriel dans I2P-Bote sont des raccourcis des destinations de courriel.</p>
+
+<p>Les mappages adresse courriel &lt;--&gt; destination de courriel sont stockées en deux endroits : le carnet d’adresses local et l’annuaire d’adresses distribué [ce dernier n’est pas encore implémenté].</p>
+
+<h3>Identité de courriel I2P-Bote :</h3>
+<p>L’identité de courriel I2P-Bote est un ensemble composé d’une clé de destination de courriel I2P-Bote, des clés privées correspondantes et d’un nom que lui a donné l’utilisateur. Ce nom sera envoyé avec la clé de destination si vous ne désactivez pas l’envoi d’informations sur l’expéditeur.</p>
+
+<p>Elle ne sera visible que par le destinataire s’il n’a pas déjà un nom pour
+cette destination dans son propre carnet d’adresses local.</p>
+
+<p>Techniquement parlant, une identité de courriel est constituée de
+quatre éléments :</p>
+<ul>
+<li><p>une destination de courriel (c.-à-d. deux clés publiques)</p></li>
+<li><p>deux clés privées pour la destination de courriel</p></li>
+<li><p>un nom public qui peut être montré aux autres dans les courriels</p></li>
+<li><p>une description qui n’est montrée à personne d’autre que vous (cela vous aide à vous souvenir de quelle identité de courriel vous utilisez pour quoi)</p></li>
+</ul>
+<p>Une identité de courriel n’est pas exigée pour envoyer des courriels (bien qu’alors, seul « Anonyme » peut être sélectionné pour le champ « expéditeur »).</p>
+
+<h3>Routes de courriel :</h3>
+<p>Les routes de courriel sont un transport à latence élevée supplémentaire pour I2P-Bote. Une chaîne de nœuds I2P-Bote est alors construite, agissant comme routeurs, relais pour les paquets et obéissant à des retard par saut. [les paramètres individuels de retard ne sont pas encore mis en œuvre]</p>
+
+<p><strong>ATTENTION !</strong> Si vous choisissez cette option, particulièrement avec de nombreux sauts ou de longs retards, ne soyez pas surpris si vos courriels n’arrivent pas rapidement à destination. Cela prendra bien sûr plus de temps, jusqu’à plusieurs jours !</p>
+
+<h2 id="Credits">8. Crédits</h2>
+<p>See <a href="about.jsp">the About page</a>.</p>
+
+<h2>ENJOY THE BOTE FEELING!!</h2>
+</div>

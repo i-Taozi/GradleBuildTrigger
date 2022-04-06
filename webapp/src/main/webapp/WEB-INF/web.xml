@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>i2pbote</display-name>
+
+    <!-- precompiled servlets -->
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <listener>
+        <listener-class>i2p.bote.web.ServiceInitializer</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.owasp.csrfguard.CsrfGuardServletContextListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.owasp.csrfguard.CsrfGuardHttpSessionListener</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>CSPApplier</filter-name>
+        <filter-class>i2p.bote.web.CSPApplier</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SameOriginFilter</filter-name>
+        <filter-class>i2p.bote.web.SameOriginFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>CSRFGuard</filter-name>
+        <filter-class>org.owasp.csrfguard.CsrfGuardFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>XSSFilter</filter-name>
+        <filter-class>net.i2p.servlet.filters.XSSFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>i2p.bote.web.CharsetFilter</filter-class>
+        <init-param>
+            <param-name>requestEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+	<filter>
+	    <description>
+	        Makes parameters in a multipart/form-data request accessible to JSP/Servlet code.
+	    </description>
+	    <filter-name>MultipartFilter</filter-name>
+	    <filter-class>i2p.bote.web.MultipartFilter</filter-class>
+	</filter>
+    <filter>
+        <description>
+            Redirects requests for themes not included in the .war, to ThemeServlet
+        </description>
+        <filter-name>ThemeFilter</filter-name>
+        <filter-class>i2p.bote.web.ThemeFilter</filter-class>
+        <init-param>
+            <param-name>themeServletPath</param-name>
+            <param-value>externalThemes</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CSPApplier</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SameOriginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CSRFGuard</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>XSSFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>MultipartFilter</filter-name>
+        <url-pattern>/newEmail.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>MultipartFilter</filter-name>
+        <url-pattern>/publishDestination.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>MultipartFilter</filter-name>
+        <url-pattern>/importIdentities.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ThemeFilter</filter-name>
+        <url-pattern>/themes/*</url-pattern>
+    </filter-mapping>
+    
+    <servlet>
+        <servlet-name>ShowAttachment</servlet-name>
+        <servlet-class>i2p.bote.web.ShowAttachment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExportIdentities</servlet-name>
+        <servlet-class>i2p.bote.web.ExportIdentities</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ThemeServlet</servlet-name>
+        <servlet-class>i2p.bote.web.ThemeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayChart</servlet-name>
+        <servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>ShowAttachment</servlet-name>
+        <url-pattern>/showAttachment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExportIdentities</servlet-name>
+        <url-pattern>/exportIdentitiesFile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ThemeServlet</servlet-name>
+        <url-pattern>/externalThemes/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayChart</servlet-name>
+        <url-pattern>/displayChart</url-pattern>
+    </servlet-mapping>
+</web-app>

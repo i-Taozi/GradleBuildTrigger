@@ -1,0 +1,258 @@
+plugins {
+    id 'war'
+    id "org.gretty" version "2.3.1"
+}
+
+apply from: "${project.rootDir}/gradle/i2p-make-plugin.gradle"
+
+archivesBaseName = 'i2pbote'
+
+configurations {
+    jasper
+}
+
+def jspcDir = "$buildDir/jspc"
+def webXmlFrag = "$buildDir/web-fragment.xml"
+
+task precompileJsp {
+    outputs.dir(jspcDir)
+    doLast {
+        ant.taskdef(classname: 'org.apache.jasper.JspC',
+                    name: 'jasper',
+                    classpath: sourceSets.jsp.compileClasspath.asPath)
+        ant.jasper(validateXml: false,
+                   package: 'i2p.bote.jsp',
+                   uriRoot: webAppDir,
+                   webXmlFragment: webXmlFrag,
+                   outputDir: jspcDir)
+    }
+}
+
+def messagesSrcDir = project.file("$buildDir/messages-src")
+def messagesClassesDir = project.file("$buildDir/messages-classes")
+sourceSets {
+    jsp {
+        compileClasspath += configurations.compile +
+                            sourceSets.main.output +
+                            configurations.jasper
+        java {
+            srcDir jspcDir
+        }
+    }
+    poupdate {
+        compileClasspath += configurations.compile
+    }
+    messages {
+        java {
+            srcDir messagesSrcDir
+        }
+        output.dir(messagesClassesDir, builtBy: 'generateMessagesJava')
+    }
+}
+
+precompileJsp.dependsOn compileJava
+compileJspJava.dependsOn precompileJsp
+
+dependencies {
+    jasper 'org.mortbay.jasper:apache-el:8.5.40'
+    jasper 'org.mortbay.jasper:apache-jsp:8.5.40'
+
+    compile project(':core')
+
+    implementation "net.i2p.client:mstreaming:$rootProject.i2pVersion"
+
+    implementation 'org.apache.tomcat:tomcat-jsp-api:8.5.40'
+    implementation 'org.apache.tomcat:tomcat-servlet-api:8.5.40'
+    compile 'org.jfree:jcommon:1.0.23'
+    compile 'org.jfree:jfreechart:1.0.19'
+    compile 'org.owasp:csrfguard:3.1.0'
+    compile('org.subethamail:subethasmtp:3.1.7') {
+        exclude group: 'javax.mail', module: 'mail'
+        exclude group: 'javax.activation', module: 'activation'
+    }
+    compile 'com.lambdaworks:scrypt:1.4.0'
+    compile 'com.sun.mail:smtp:1.5.6'
+
+    compile 'javax.servlet:jstl:1.2'
+
+    // Apache James IMAP server
+    compile 'org.apache.james:apache-james-mailbox-store:3.0.1'
+    compile 'org.apache.james:james-server-protocols-imap4:3.0.1'
+
+    runtime "net.i2p:servlet-i2p:$rootProject.i2pVersion"
+}
+
+def stringsDir = project.file("$buildDir/strings")
+def potFile = project.file("$stringsDir/test.pot")
+task createStringsDir {
+    doLast {
+        mkdir(stringsDir)
+    }
+}
+
+task javaStrings(type: Exec, dependsOn: [createStringsDir, compilePoupdateJava]) {
+    outputs.files potFile
+    executable 'xgettext'
+    args '-F',
+            '-L', 'java',
+            '--from-code=UTF-8',
+            '--keyword=_t',
+            '--keyword=_x',
+            '-o', potFile
+    args sourceSets.main.java.collect { File file ->
+        file.absolutePath.substring(projectDir.absolutePath.length()+1)
+    }
+}
+
+task jspStrings(type: JavaExec, dependsOn: javaStrings) {
+    main = 'i2p.bote.ant.JspStrings'
+    classpath = configurations.compile + sourceSets.poupdate.output
+    args webAppDirName
+    standardOutput = new ByteArrayOutputStream()
+    workingDir projectDir
+
+    doLast {
+        potFile.append(standardOutput.toString())
+        exec {
+            executable 'msguniq'
+            args '-o', potFile, potFile
+        }
+    }
+}
+
+task poupdate(dependsOn: jspStrings) {
+    doLast {
+        fileTree("$projectDir/src/main/locale").include('**/messages_*.po').each { File file ->
+            exec {
+                executable 'msgmerge'
+                args '-U',
+                        '--backup=none',
+                        file,
+                        potFile
+            }
+        }
+    }
+}
+
+task msgfmtSupportsSource(type: Exec) {
+    executable 'msgfmt'
+    args '-V'
+    standardOutput = new ByteArrayOutputStream()
+    ext.result = {
+        return standardOutput.toString().contains("0.19")
+    }
+}
+
+task generateMessagesJava {
+    doLast {
+        fileTree("$projectDir/src/main/locale").include('**/messages_*.po').each { File file ->
+            def lg = file.name.find(/messages_(.*).po/, { full, lang ->
+                lang
+            })
+            mkdir(messagesSrcDir)
+            if (msgfmtSupportsSource.result()) {
+                // fast way
+                exec {
+                    executable 'msgfmt'
+                    args '--java',
+                            '--statistics',
+                            '--source',
+                            '-r', 'i2p.bote.locale.Messages',
+                            '-l', lg,
+                            '-d', temporaryDir,
+                            file
+                }
+                copy {
+                    from temporaryDir
+                    into messagesSrcDir
+                }
+                delete(temporaryDir)
+            } else {
+                // slow way
+                mkdir(messagesClassesDir)
+                exec {
+                    executable 'msgfmt'
+                    args '--java',
+                            '--statistics',
+                            '-r', 'i2p.bote.locale.Messages',
+                            '-l', lg,
+                            '-d', messagesClassesDir,
+                            file
+                }
+            }
+        }
+    }
+}
+
+generateMessagesJava.dependsOn msgfmtSupportsSource
+compileMessagesJava.dependsOn generateMessagesJava
+
+war {
+    archiveName 'i2pbote.war'
+    exclude '*.jsp'
+    exclude 'WEB-INF/tags*'
+    exclude 'WEB-INF/tlds*'
+    classpath sourceSets.jsp.output
+    classpath sourceSets.messages.output
+    dependsOn jspClasses
+    filesMatching('**/*.xml') {
+        filter { String line ->
+            if (line == '    <!-- precompiled servlets -->')
+                new File(webXmlFrag).text
+            else
+                line
+        }
+    }
+    webInf {
+        from 'src/main/webapp/WEB-INF/tlds'
+    }
+}
+
+thinWar {
+    archiveName 'i2pbote.war'
+    exclude '*.jsp'
+    exclude 'WEB-INF/tags*'
+    exclude 'WEB-INF/tlds*'
+    classpath sourceSets.jsp.output
+    classpath sourceSets.messages.output
+    dependsOn jspClasses
+    filesMatching('**/*.xml') {
+        filter { String line ->
+            if (line == '    <!-- precompiled servlets -->')
+                new File(webXmlFrag).text
+            else
+                line
+        }
+    }
+    webInf {
+        from 'src/main/webapp/WEB-INF/tlds'
+    }
+}
+
+i2p {
+    plugin {
+        name 'i2pbote'
+        signer 'str4d@mail.i2p'
+        version project.version
+
+        author 'str4d@mail.i2p'
+        websiteUrl 'http://bote.i2p/'
+        su3UpdateUrl 'http://bote.i2p/i2pbote-update.su3'
+        license 'GPLv3'
+
+        minI2PVersion '0.9.30'
+        minJavaVersion '1.7'
+        minJettyVersion '9'
+
+        console {
+            webapp {
+                includeTaglib true
+            }
+        }
+    }
+}
+
+gretty {
+    contextPath "/$project.i2p.plugin.name"
+}
+

@@ -1,0 +1,774 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+ 
+<tlib-version>1.0</tlib-version>
+<short-name>i2pbote</short-name>
+<uri>I2pBoteTags</uri>
+
+<tag>
+    <name>csrfCheck</name>
+    <info>
+        Checks whether non-POST requests to the current page
+        have a valid CSRF token.
+        Runs the tag body if there is no valid token.
+    </info>
+    <tag-class>i2p.bote.web.CSRFCheckTag</tag-class>
+    <body-content>JSP</body-content>
+</tag>
+
+<tag>
+    <name>sendEmail</name>
+    <tag-class>i2p.bote.web.SendEmailTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <name>sender</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>subject</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>message</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>includeSentTime</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>recipient</name>
+    <info>
+        Adds an email recipient. Must be inside an ib:sendEmail tag.
+    </info>
+    <tag-class>i2p.bote.web.RecipientTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <name>type</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>address</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>attachment</name>
+    <info>
+        Adds an email attachment. Must be inside an ib:sendEmail tag.
+    </info>
+    <tag-class>i2p.bote.web.AttachmentTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <name>origFilename</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>tempFilename</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>checkForMail</name>
+    <tag-class>i2p.bote.web.CheckMailTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>key</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>showAttachments</name>
+    <info>
+        Displays links to all attachments in an email.
+    </info>
+    <tag-class>i2p.bote.web.ShowAttachmentsTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>email</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>folder</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>formatPlainText</name>
+    <tag-class>i2p.bote.web.FormatPlainTextTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>text</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>setEmailRead</name>
+    <tag-class>i2p.bote.web.SetEmailReadTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>folder</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>messageId</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>read</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>setEmailReplied</name>
+    <tag-class>i2p.bote.web.SetEmailRepliedTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>folder</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>messageId</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>replied</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>quote</name>
+    <tag-class>i2p.bote.web.QuoteTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>text</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>saveIdentities</name>
+    <tag-class>i2p.bote.web.SaveIdentitiesTag</tag-class>
+    <body-content>empty</body-content>
+</tag>
+
+<tag>
+    <name>importIdentities</name>
+    <tag-class>i2p.bote.web.ImportIdentitiesTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>identitiesFilename</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>password</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>overwrite</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>replace</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>publishDestination</name>
+    <tag-class>i2p.bote.web.PublishDestinationTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>destination</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+    <attribute>
+        <name>pictureFilename</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>text</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>connect</name>
+    <tag-class>i2p.bote.web.ConnectTag</tag-class>
+    <body-content>empty</body-content>
+</tag>
+
+<tag>
+    <name>peerInfo</name>
+    <tag-class>i2p.bote.web.PeerInfoTag</tag-class>
+    <body-content>empty</body-content>
+</tag>
+
+<tag>
+    <name>printException</name>
+    <tag-class>i2p.bote.web.PrintExceptionTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>exception</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>true</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>message</name>
+    <info>
+        Same as fmt:message, except that message keys in
+        the "en" locale translate to the message key itself.
+        The noextract attribute is only used by the JspStrings util.
+    </info>
+    <tag-class>i2p.bote.web.MessageTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <name>key</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>bundle</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>var</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>scope</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>hide</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>noextract</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>param</name>
+    <info>
+        Same as fmt:param. Must be inside an ib:message tag.
+    </info>
+    <tag-class>i2p.bote.web.ParamTag</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+        <name>value</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>saveConfiguration</name>
+    <info>
+        Saves the configuration to the config file.
+    </info>
+    <tag-class>i2p.bote.web.SaveConfigurationTag</tag-class>
+    <body-content>empty</body-content>
+</tag>
+
+<tag>
+    <name>requirePassword</name>
+    <info>
+        Forwards the current page to the password entry page
+        if the tag body throws a PasswordException.
+        When the user enters the correct password, the page
+        pointed to by the forwardTo parameter is loaded.
+        If forwardTo is not given, the original page is used instead;
+        all parameters in the query string are lost in this case.
+    </info>
+    <tag-class>i2p.bote.web.RequirePasswordTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+        <name>forwardUrl</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <name>clearPasswordCache</name>
+    <tag-class>i2p.bote.web.ClearPasswordCacheTag</tag-class>
+    <body-content>empty</body-content>
+</tag>
+
+<tag>
+    <info>
+        Changes the application password. If no password is
+        currently set, the old password is an empty string.
+    </info>
+    <name>setPassword</name>
+    <tag-class>i2p.bote.web.SetPasswordTag</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>oldPassword</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>newPassword</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+    <attribute>
+        <name>confirmNewPassword</name>
+        <rtexprvalue>true</rtexprvalue>
+        <required>false</required>
+    </attribute>
+</tag>
+
+<tag>
+    <info>
+        If the password is being changed (i.e. all files are being
+        reencrypted with a new password), this call blocks until
+        the password change is finished. If the password isn't being
+        changed, it returns immediately.
+        This tag produces no output.
+    </info>
+    <name>waitForPasswordChange</name>
+    <tag-class>i2p.bote.web.WaitForPasswordChangeTag</tag-class>
+    <body-content>empty</body-content>
+</tag>
+
+<function>
+    <name>csrfErrorMsg</name>
+    <description>
+        Returns the CSRF error message.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String csrfErrorMsg()
+    </function-signature>
+</function>
+
+<function>
+    <name>createOrModifyIdentity</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean createOrModifyIdentity(boolean, int, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Properties, boolean)
+    </function-signature>
+</function>
+
+<function>
+    <name>modifyIdentity</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean modifyIdentity(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Properties, boolean)
+    </function-signature>
+</function>
+
+<function>
+    <name>deleteIdentity</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean deleteIdentity(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getIdentity</name>
+    <description>
+        Looks up an EmailIdentity by destination key.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        i2p.bote.email.EmailIdentity getIdentity(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getContactFingerprint</name>
+    <description>
+        Returns the fingerprint of a Contact in a given locale.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getFingerprint(i2p.bote.packet.dht.Contact, java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getIdentityFingerprint</name>
+    <description>
+        Returns the fingerprint of an EmailIdentity in a given locale.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getFingerprint(i2p.bote.email.EmailIdentity, java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getCryptoImplementation</name>
+    <description>
+        Looks up a CryptoImplementation by ID number.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        i2p.bote.crypto.CryptoImplementation getCryptoImplementation(int)
+    </function-signature>
+</function>
+
+<function>
+    <name>saveContact</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean saveContact(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>deleteContact</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean deleteContact(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getContact</name>
+    <description>
+        Looks up a Contact in the address book by its Email Destination.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getContact(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getMailFolder</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        i2p.bote.EmailFolder getMailFolder(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getEmail</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        i2p.bote.email.Email getEmail(java.lang.String, java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getEmails</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.util.List getEmails(i2p.bote.folder.EmailFolder, i2p.bote.email.EmailAttribute, boolean)
+    </function-signature>
+</function>
+
+<function>
+    <name>getShortSenderName</name>
+    <description>
+        Returns up to maxLength characters of a "sender" header field.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getShortSenderName(java.lang.String, int)
+    </function-signature>
+</function>
+
+<function>
+    <name>getOneLocalRecipient</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getOneLocalRecipient(i2p.bote.email.Email)
+    </function-signature>
+</function>
+
+<function>
+    <name>getReplyAddress</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getReplyAddress(i2p.bote.email.Email, i2p.bote.email.Identities)
+    </function-signature>
+</function>
+
+<function>
+    <name>getEmailStatusText</name>
+    <description>
+        Returns the status of an email in the outbox. See OutboxProcessor.java.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String getEmailStatusText(i2p.bote.email.Email)
+    </function-signature>
+</function>
+ 
+<function>
+    <name>deleteEmail</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.boolean deleteEmail(java.lang.String, java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getNameAndDestination</name>
+    <description>
+        Returns a string containing the locally known name of the Email Destination
+        in the String argument, and the Base64-encoded Email Destination.
+        If the Email Destination is not locally known (if it doesn't exist in the
+        address book or any of the identities), the address is returned unaltered.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getNameAndDestination(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getNameAndShortDestination</name>
+    <description>
+        Returns a string containing the locally known name of the Email Destination
+        in the String argument, and the first 4 characters of the Base64-encoded Email
+        Destination.
+        If the Email Destination is not locally known (if it doesn't exist in the
+        address book or any of the identities), the address is returned unaltered.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String getNameAndShortDestination(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>extractName</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String extractName(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>extractEmailDestination</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        i2p.bote.email.EmailDestination extractEmailDestination(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getSortedRecipientParams</name>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.util.Map getSortedRecipientParams(java.util.Map)
+    </function-signature>
+</function>
+
+<function>
+    <name>mergeRecipientFields</name>
+    <description>
+        This method is used by newEmail.jsp. It adds the values of all
+        selectedContact keys as recipient addresses, and returns a List
+        containing the old recipient addresses as well as the new ones.
+        If the "action" parameter is set to "addRecipientField", a blank
+        recipient address is added additionally.
+        If the action is "removeRecipient" followed by a number, the
+        recipient field with that index is removed.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.util.List mergeRecipientFields(javax.servlet.ServletRequest)
+    </function-signature>
+</function>
+
+<function>
+    <name>isCheckingForMail</name>
+    <description>
+        Returns true if the specified Email Identity is currently being
+        checked for mail.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean isCheckingForMail(i2p.bote.email.EmailIdentity)
+    </function-signature>
+</function>
+
+<function>
+    <name>isKnown</name>
+    <description>
+        Returns true if a string contains a Base64-encoded Email Destination that
+        is either in the address book or among the Email Identities.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean isKnown(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>escapeQuotes</name>
+    <description>
+        Converts all double and single quotes in a string to HTML entities,
+        which makes the string safe to use in hidden form fields.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String escapeQuotes(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>machineDateFormat</name>
+    <description>
+        Returns a machine-readable Date format string.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        java.lang.String machineDateFormat()
+    </function-signature>
+</function>
+
+<function>
+    <name>tryPassword</name>
+    <description>
+        Tests whether a password is correct. If it is, it is
+        stored in the password cache and true is returned.
+        Otherwise, the password is not stored and false is
+        returned.
+    </description>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        boolean tryPassword(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getFileSize</name>
+    <description>
+        Returns the size of a file in a human-readable format.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String getFileSize(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>urlEncode</name>
+    <description>
+        URL-encodes a UTF-8 string.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String urlEncode(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>urlDecode</name>
+    <description>
+        URL-decodes a string.
+    </description>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String urlDecode(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>getLocalizedFilename</name>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String getLocalizedFilename(java.lang.String, javax.servlet.ServletContext)
+    </function-signature>
+</function>
+
+<function>
+    <name>getLocalizedThemeName</name>
+    <function-class>i2p.bote.web.JSPHelper</function-class>
+    <function-signature>
+        java.lang.String getLocalizedThemeName(java.lang.String)
+    </function-signature>
+</function>
+
+<function>
+    <name>lookupInDirectory</name>
+    <function-class>i2p.bote.util.GeneralHelper</function-class>
+    <function-signature>
+        i2p.bote.packet.dht.Contact lookupInDirectory(java.lang.String)
+    </function-signature>
+</function>
+
+<tag-file>
+    <name>printWithLineBreaks</name>
+    <path>/WEB-INF/tags/printWithLineBreaks.tag</path>
+</tag-file> 
+
+<tag-file>
+    <name>folderLink</name>
+    <path>/WEB-INF/tags/folderLink.tag</path>
+</tag-file> 
+
+<tag-file>
+    <name>address</name>
+    <path>/WEB-INF/tags/address.tag</path>
+</tag-file> 
+
+<tag-file>
+    <name>printDate</name>
+    <path>/WEB-INF/tags/printDate.tag</path>
+</tag-file> 
+
+<tag-file>
+    <name>copyParams</name>
+    <path>/WEB-INF/tags/copyParams.tag</path>
+</tag-file> 
+
+<tag-file>
+    <name>expandable</name>
+    <path>/WEB-INF/tags/expandable.tag</path>
+</tag-file> 
+
+</taglib>

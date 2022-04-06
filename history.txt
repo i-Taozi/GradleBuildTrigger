@@ -1,0 +1,224 @@
+I2P-Bote Version History
+------------------------
+
+0.4.8 (Released on May 16, 2019)
+  * Fixes to work on I2P 0.9.38 and above
+  * Removed kytv from bootstrap nodes :(
+  * Added a new bootstrap node run by idk (welcome!)
+
+0.4.7 (Released on April 9, 2018)
+  * Set default number of relay hops to 2
+  * IMAP and SMTP APIs now start immediately instead of waiting for tunnels
+  * Upgraded IMAP backend
+    * Known bug: attachments may not appear in IMAP
+
+0.4.6 (Released on May 3, 2017)
+  * Merged I2P-Bote and Bote Android codebases
+  * Migrate plugin to Jetty 9
+  * Dependency upgrades
+
+0.4.5 (Released on Jan 20, 2017)
+  * Security changes:
+    * Add a Content Security Policy to all pages
+    * Escape attachment filenames in emails (thanks Beardog!)
+    * Escape title on all pages
+  * Fix bugs caused by CSRF guards (ticket #1929)
+  * Catch IAEs when sorting a Folder (ticket #1931)
+
+0.4.4 (Released on Nov 28, 2016)
+  * Add CSRF guards to all forms (thanks Beardog for raising the issue!)
+  * Tweak error message to avoid XSS filter (ticket #1815)
+  * Improve identities list usability (thanks Jonathan!)
+  * Ensure CSS gets gets reloaded after updates
+
+0.4.3 (Released on Jan 28, 2016)
+  * Re-enabled IMAP (ticket #1678)
+  * Only bind IMAP to the configured address and port (ticket #1680)
+  * Enable I2CP tunnel options to be configured in i2pbote.config (ticket #1708)
+
+0.4.2 (Released on Nov 19, 2015)
+  * Added UI notification and guide about unlimited strength crypto policy files
+  * New: desktop notification when a new email arrives (only when JS enabled)
+  * Fixed bugs:
+    o AIOOBE on empty packets (ticket #1603)
+    o Crashing with Java 6 (ticket #1644)
+    o NPE when network and DHT aren't present (ticket #1662)
+    o Couldn't edit contact's text field (ticket #1667)
+    o Migrator running incorrectly (ticket #1693)
+    o CME when checking email (ticket #1703)
+    o NPE when checking email in text browser before init (ticket #1704)
+
+0.4.1 (Released on Sep 12, 2015)
+  * Fixed bugs:
+    o ConcurrentModificationException errors in logs
+    o User guide and FAQ not loading translations
+
+0.4 (Released on Aug 21, 2015)
+  * Fixed bugs:
+    o Email checking would get stuck if no new mail was found
+    o "Last checked" time was inconsistent for manual checks
+    o Anonymous emails would never send
+  * Removed build number from version
+  * Skipped 0.3.* series
+    o 0.3.1 is less than 0.3-b195; would need to go to 0.3.196
+
+0.3 (Released on Aug 15, 2015)
+  * New default theme based on Material design
+  * New features:
+     o Exclude individual identities from global email checking
+     o Manual per-identity email checking
+     o Import and export identities
+  * Strip prefixes, spaces and newlines from email destinations (to better
+    handle destinations pasted from different sources). Supported prefixes:
+     o mailto:
+     o bote:
+     o i2pbote:
+  * Translations for user guide and FAQ
+  * Use I2P XSSFilter on inputs
+  * Bundle BouncyCastle 1.51 crypto provider
+  * In-app update notification removed
+  * IMAP temporarily disabled due to bug
+  * Bug fixes
+
+0.2.10 (Released on Jul 23, 2014)
+  * Vanity destinations
+  * Security fix related to ElGamal email destinations
+  * IMAP fixes
+  * "After merging, IndexPacket is too big..." error fixed
+  * Numerous fixes and enhancements by str4d
+
+0.2.9 (Released on Feb 7, 2014)
+  * Experimental SMTP and IMAP support
+  * UI and IMAP improvements by str4d
+  * Misc. UI improvements
+
+0.2.8 (Released on Mar 8, 2013)
+  * Fixes and enhancements to the address directory
+
+0.2.7 (Released on Feb 13, 2013)
+  * Delivery confirmations
+  * Basic distributed address directory
+  * Datagram-only communication, streams no longer used;
+    smaller datagrams for better reliability
+  * More translations
+  * UI Themes
+  * Misc. UI improvements
+  * Bug fixes
+
+0.2.6 (Released on Apr 26, 2011)
+  * Password encryption of mail folders, identities, and contacts
+  * New translations (in chronological order):
+     o French by albat, redzara and magma
+     o Spanish by mixxy
+     o Dutch by KwukDuck
+     o Portuguese by mixxy
+     o Norwegian by nej
+     o Swedish by hottuna
+     o Chinese by walking
+     o Arabic by hamada
+  * In-app user guide and FAQ in English (by mixxy) and its French translation (by magma)
+  * Availability of updates now displayed in I2P-Bote itself
+  * NTRU encryption / GMSS signatures
+  * Big packets are now sent as streams (see http://trac.i2p2.de/ticket/346)
+  * Fix: Email files not deleted on Windows
+  * Fix: Emails in sent folder and outbox not signed
+  * Fix: Seedless not used if I2P-Bote is ready before Seedless
+  * Minor fixes and enhancements
+
+0.2.5 (Released on Oct 04, 2010)
+  * Email attachments
+  * Seedless peer exchange
+  * Russian translation by suhr
+  * All generated files are now read/writable by the owner only
+  * I2P-Bote always uses the router console language (if translation available)
+  * The network page now shows peers in b32 for I2P compatibility
+  * Address book and identities are now sorted alphabetically
+  * The "unknown" column has been inverted to a "known" column
+  * Signatures for sent emails are not shown because signatures are not saved
+  * Emails, including attachments, are compressed before sending
+  * Protocol version 4
+  * Improvements and fixes to relaying
+  * Fix for a bug that sometimes made emails to ECC destinations disappear
+  * Many more bugfixes and improvements. Thanks to mixxy and others for testing!
+
+0.2.4 (Released on Jun 14, 2010)
+  * Elliptic curve encryption
+  * Email can be sent via relays for added anonymity
+  * Experimental gateway (in/outproxy) support
+  * Protocol version 3, fixes two weaknesses
+  * Kademlia replication
+  * Fix: Error when trying to send anonymously
+
+0.2.3 (Released on May 10, 2010)
+  * Email signatures
+  * Multiple recipients / CC / BCC implemented
+  * A button on the "new email" page for adding a recipient to the address book
+  * Local names for Email Destinations are displayed automatically and
+    take priority over names chosen by senders
+  * Local names for Email Destinations are removed from emails before sending
+  * Sorted mail folders
+  * Outbox functionality; emails are now sent in the background
+  * Sent folder, Trash folder
+  * No more getting the same email over and over again
+  * New options on the Settings page:
+     o Enable/disable sending of date/time
+     o Enable/disable localization of text that recipients see, such as "Re:"
+     o UI language
+  * Misc UI enhancements
+  * Fix for a bug that caused excessive CPU usage
+  * Fix for a bug that hid the first row in a table (identities, inbox, etc.)
+
+0.2.2 (Released on Mar 22, 2010)
+  * German translation
+  * Automatic mail checking is now user-configurable
+  * Save peers.txt on exit
+  * Several minor changes
+  * Several bug fixes
+
+0.2.1 (Released on Mar 05, 2010)
+  * I2P-Bote can now be run as an I2P plugin (I2P 0.7.12 or newer required)
+  * Option to set a default Email Identity
+  * Address book
+  * Umlaute and other non-ASCII characters are now supported
+  * Increase k-bucket size to 20
+  * Several bug fixes
+
+0.2 (Released on Feb 01, 2010)
+  * Sending and retrieving now much faster
+  * Email packets are now deleted from storage nodes after retrieval
+  * Reply button
+  * Drop dead peers
+  * Automatically check for new email
+  * Inbox shows new emails in bold, number of new emails is shown
+  * "To" addresses are shown in the inbox and when displaying an email
+  * Network protocol changed to version 2, peers that use the old protocol are ignored
+  * "Network" page now shows peer info
+  * Several bug fixes and minor enhancements
+        
+0.1.5 (Released on Dec 19, 2009)
+  * Fixes a number of bugs in the Kademlia code
+  * Removed unimplemented HTML links
+  * Network-related UI elements are now disabled until tunnel is ready
+  * Emails can now be deleted from a folder
+  * "No Identity Defined" page didn't come up, fixed
+        
+0.1.4
+  * Do the 3-minute wait in the background
+  * Added a "Connect now" button to skip the wait
+  * Network Status panel now gives more useful information
+        
+0.1.3
+  * After startup, wait 3 minutes before connecting
+  * Change the paths in the build file from /opt/... to ../i2p/...
+  * Fix: "Check Mail" button doesn't show new emails, user has to reload inbox
+  * Fix: high cpu usage when sending or receiving
+  * Set tunnel names to "I2P-Bote"
+        
+0.1.2
+  Mostly a bug fix release. It adds two .jar files that were missing.
+  
+0.1.1
+  Fix: Clicking on an email in the inbox causes an error.
+  
+0.1 (Released on Dec 06, 2009)
+  First version. Lets a user create email identities and send/receive plain-text emails
