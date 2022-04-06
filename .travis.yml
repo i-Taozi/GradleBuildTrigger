@@ -8,4 +8,4 @@ after_success: [test -n "$TRAVIS_TAG" && ssh-keyscan -H repo.joist.ws >> ~/.ssh/
     && ./gradlew uploadArchives]
 jdk: [oraclejdk8]
 branches:
-  only: [stephenh/tessell-36-origin]
+  only: [stephenh/tessell-36-GRADLE_INCREMENTAL_COMPILATION]
