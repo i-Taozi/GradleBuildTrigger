@@ -7,4 +7,4 @@ services: [docker]
 script: [./gradlew clean jar prodWeb test]
 after_success: [.travis/deploy.sh]
 branches:
-  only: [SwellRT/swellrt-249-origin]
+  only: [SwellRT/swellrt-249-GRADLE_COMPILER_DAEMON]
