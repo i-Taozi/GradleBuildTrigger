@@ -12,4 +12,4 @@ script: [cd actor-apps, echo Building Core..., './gradlew :core:build :core-js:b
   gulp build --release, cd ../../, echo Building server..., cd actor-server, ./sbt
     dist, cd ..]
 branches:
-  only: [actorapp/actor-platform-1040-origin]
+  only: [actorapp/actor-platform-1040-GRADLE_COMPILER_DAEMON]
