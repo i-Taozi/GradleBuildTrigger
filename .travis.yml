@@ -7,4 +7,4 @@ install: true
 script: ./gradlew build
 notifications: {email: false}
 branches:
-  only: [LanternPowered/Lantern-64-origin]
+  only: [LanternPowered/Lantern-64-GRADLE_COMPILER_DAEMON]
