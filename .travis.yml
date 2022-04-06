@@ -1,4 +1,4 @@
 language: java
 jdk: [oraclejdk8]
 branches:
-  only: [aykutalparslan/Telegram-Server-31-origin]
+  only: [aykutalparslan/Telegram-Server-31-GRADLE_COMPILER_DAEMON]
