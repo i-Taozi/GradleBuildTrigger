@@ -1,4 +1,4 @@
 language: java
 jdk: oraclejdk8
 branches:
-  only: [spring-projects/spring-social-facebook-284-origin]
+  only: [spring-projects/spring-social-facebook-284-GRADLE_INCREMENTAL_COMPILATION]
