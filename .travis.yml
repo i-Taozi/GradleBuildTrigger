@@ -1,0 +1,9 @@
+language: java
+services: [rabbitmq, redis-server]
+sudo: false
+cache:
+  directories: [$HOME/.gradle]
+env: [TERM=dumb]
+script: [travis_wait ./gradlew --debug clean build -PtestLoggingStarted=true -PwikiBranch=origin/master]
+branches:
+  only: [spring-projects/spring-xd-1942-origin]
