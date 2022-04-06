@@ -7,4 +7,4 @@ install: [git lfs pull]
 before_install: grep -v '^#' assets/src/main/resources/META-INF/services/bisq.asset.Asset
   | sort --check --dictionary-order --ignore-case
 branches:
-  only: [bisq-network/bisq-5822-origin]
+  only: [bisq-network/bisq-5822-GRADLE_COMPILER_DAEMON]
