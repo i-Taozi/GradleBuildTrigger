@@ -1,0 +1,4 @@
+include 'jpos'
+
+rootProject.name = 'jpos'
+
