@@ -64,4 +64,4 @@ script:
      ./.travis-build.sh $GROUP"
 git: {depth: 9}
 branches:
-  only: [typetools/checker-framework-4955-origin]
+  only: [typetools/checker-framework-4955-GRADLE_COMPILER_DAEMON]
