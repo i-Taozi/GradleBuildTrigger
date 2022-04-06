@@ -1,0 +1,20 @@
+[
+{
+  "modid": "enderioendergy",
+  "name": "Ender IO endergy",
+  "description": "All the overpowered stuff to compete with other mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://enderio.com",
+  "updateUrl": "",
+  "authorList": [ "EpicSquid", "CrazyPants", "tterrag", "HenryLoenwind" ],
+  "credits": "By CrazyPants, with the help of many",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"enderio",
+  "dependencies": [
+        "enderio"
+  ]
+}
+]

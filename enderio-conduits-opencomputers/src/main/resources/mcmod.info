@@ -1,0 +1,20 @@
+[
+{
+  "modid": "enderioconduitsopencomputers",
+  "name": "Ender IO Open Computers Conduits",
+  "description": "I'm programming!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "http://enderio.com",
+  "updateUrl": "",
+  "authorList": [ "CrazyPants", "tterrag", "HenryLoenwind", "MatthiasM", "EpicSquid"],
+  "credits": "By CrazyPants, with the help of many",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"enderio",
+  "dependencies": [
+        "enderioconduits"
+  ]
+}
+]
