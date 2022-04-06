@@ -19,4 +19,4 @@ before_script: [echo no | android create avd --force -n test -t android-21 --abi
 script: [echo $ADB_INSTALL_TIMEOUT, android list target, ./gradlew test]
 after_script: ['cat ${TRAVIS_BUILD_DIR}/espresso/*/app/build/outputs/androidTest-results/connected/*']
 branches:
-  only: [fewlaps/flone-android-53-origin]
+  only: [fewlaps/flone-android-53-GRADLE_INCREMENTAL_COMPILATION]
