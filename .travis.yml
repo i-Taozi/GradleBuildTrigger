@@ -8,4 +8,4 @@ cache:
 install: [echo "Skipping 'gradle assemble' step"]
 script: [./gradle/ciBuild.sh]
 branches:
-  only: [spring-social/spring-social-google-123-origin]
+  only: [spring-social/spring-social-google-123-GRADLE_INCREMENTAL_COMPILATION]

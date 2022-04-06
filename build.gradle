@@ -144,3 +144,10 @@ tasks.withType(FindBugs) {
     html.stylesheet resources.text.fromFile("${rootDir}/gradle/findbugs.xsl")
   }
 }
+
+allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.incremental = true
+    }
+
+}
