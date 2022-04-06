@@ -2,4 +2,4 @@ language: java
 jdk: [oraclejdk8]
 os: [linux]
 branches:
-  only: [baratine/baratine-24-origin]
+  only: [baratine/baratine-24-GRADLE_COMPILER_DAEMON]
