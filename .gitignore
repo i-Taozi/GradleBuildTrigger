@@ -1,0 +1,55 @@
+# IDEA
+.idea
+*iml
+.DS_Store
+
+# gradle
+.gradle/
+build/
+
+# log
+logs/
+consensus-logs/
+
+# lombok
+out/
+
+# levelDB
+gsc-data/
+database*
+
+# database
+database/
+
+# docs
+docs/
+
+# gossip
+pernodedata.*
+ringstate.*
+shareddata.*
+
+# protobuf generated classes
+src/main/grpc
+
+src/main/java/META-INF/
+src/main/resources/META-INF/
+/bin/
+
+src/test/resources/solcDir/solc_v0.4.25
+src/test/resources/solcDir/solc_v0.5.4
+
+# Eclipse IDE specific files and folders
+/.project
+/.classpath
+/.settings/
+/.apt_generated/
+
+# gsc-db
+gsc-db/
+db*
+
+# vm_trace
+/vm_trace/
+
+/target/
