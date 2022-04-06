@@ -1,0 +1,20 @@
+language: android
+jdk: [oraclejdk7]
+cache:
+  directories: [$HOME/.m2]
+env:
+  global: [TERM=dumb]
+before_install: [chmod +x gradlew, export TERM=dumb, ./gradlew -v, uname -a]
+android:
+  components: [build-tools-21.1.2, platform-tools, tools, android-21, extra-google-m2repository,
+    extra-android-m2repository]
+  licenses: [android-sdk-license-.+, google-gdk-license-.+]
+notifications: {email: false}
+before_script: [echo no | android create avd --force --name test --target android-19
+    --abi armeabi-v7a, emulator -avd test -no-skin -no-audio -no-window &, android-wait-for-emulator,
+  adb shell input keyevent 82 &]
+script: ['mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=https://oss.sonatype.org/content/repositories/snapshots
+    -Dartifact=com.google.dagger:dagger:2.0', ./gradlew connectedAndroidTest -PdisablePreDex,
+  ./gradlew build -PdisablePreDex]
+branches:
+  only: [andnexus/android-testing-5-origin]
