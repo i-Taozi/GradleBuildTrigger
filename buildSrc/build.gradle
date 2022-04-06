@@ -1,0 +1,39 @@
+plugins {
+    id("groovy")
+    id("java-gradle-plugin")
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    gradlePluginPortal()
+}
+
+dependencies {
+    compile "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+    compile "com.adarshr:gradle-test-logger-plugin:2.1.0"
+
+    // for databases:
+    compile "com.bmuschko:gradle-docker-plugin:5.2.0"
+}
+
+gradlePlugin {
+    plugins {
+        bonitaShade {
+            id = "bonita-shade"
+            implementationClass = "org.bonitasoft.engine.gradle.ShadePlugin"
+        }
+        bonitaTests {
+            id = "bonita-tests"
+            implementationClass = "org.bonitasoft.engine.gradle.TestsPlugin"
+        }
+        bonitaHttpTests {
+            id = "bonita-http-test"
+            implementationClass = "org.bonitasoft.engine.gradle.HttpTestPlugin"
+        }
+        bonitaDatabaseTest {
+            id = "bonita-docker-database"
+            implementationClass = "org.bonitasoft.engine.gradle.docker.DockerDatabasePlugin"
+        }
+    }
+}

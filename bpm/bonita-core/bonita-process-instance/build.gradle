@@ -1,0 +1,64 @@
+configurations { schemagen }
+dependencies {
+    compile project(':bpm:bonita-common')
+    compile project(':bpm:bonita-core:bonita-process-definition')
+    compile project(':services:bonita-identity')
+    compile project(':services:bonita-persistence')
+    compile project(':services:bonita-commons')
+    compile project(':services:bonita-log')
+    compile project(':services:bonita-events')
+    compile project(':services:bonita-archive')
+    compile project(':services:bonita-data-instance')
+    compile project(':services:bonita-classloader')
+    compile project(':bpm:bonita-core:bonita-process-comment')
+    compile project(':services:bonita-builder')
+    compile project(':bpm:bonita-core:bonita-home-server')
+    compile project(':services:bonita-session')
+    compile project(':services:bonita-connector-executor')
+    compile project(':services:bonita-resources')
+    compile project(':services:bonita-time-tracker')
+    compile project(':services:bonita-expression')
+    compile project(':services:bonita-cache')
+    compile project(':bpm:bonita-core:bonita-contract-data')
+    testCompile "junit:junit:${Deps.junit4Version}"
+    testCompile "org.assertj:assertj-core:${Deps.assertjVersion}"
+    testCompile "org.mockito:mockito-core:${Deps.mockitoVersion}"
+    testCompile "com.github.stefanbirkner:system-rules:${Deps.systemRulesVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${Deps.logbackVersion}"
+
+    annotationProcessor "org.projectlombok:lombok:${Deps.lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${Deps.lombokVersion}"
+
+    schemagen(
+            "com.sun.xml.bind:jaxb-xjc:${Deps.jaxbVersion}",
+            "org.glassfish.jaxb:jaxb-runtime:${Deps.jaxbVersion}",
+            "javax.xml.bind:jaxb-api:${Deps.jaxbVersion}",
+            "org.glassfish.jaxb:jaxb-jxc:${Deps.jaxbVersion}",
+            "com.sun.activation:jakarta.activation:${Deps.activationVersion}")
+}
+
+task('schemagen') {
+    def destDir = file("$buildDir/schemas")
+    doLast {
+        destDir.mkdirs()
+        ant.taskdef(name: 'schemagen', classname: 'com.sun.tools.jxc.SchemaGenTask', classpath: configurations.schemagen.asPath)
+        try {
+            ant.schemagen(srcdir: new File('src/main/java/'), destdir: destDir, includeAntRuntime: false) {
+                classpath { pathelement(path: configurations.schemagen.asPath) }
+                include(name: 'org/bonitasoft/engine/core/connector/parser/*.java')
+            }
+        } catch (Exception e) {
+            def schema = file("$destDir/schema1.xsd")
+            if (!schema.exists()) throw e
+            schema.renameTo(file("$destDir/connectors-impl.xsd"))
+        }
+    }
+    inputs.dir('src/main/java/')
+    outputs.file("$destDir/connectors-impl.xsd")
+}
+
+processResources { from "$buildDir/schemas" }
+
+tasks.processResources.dependsOn tasks.schemagen
+
+tasks.schemagen.outputs.cacheIf { true }

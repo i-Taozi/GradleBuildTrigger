@@ -1,0 +1,129 @@
+plugins {
+    id 'groovy'
+}
+configurations { schemagen }
+dependencies {
+    compile project(':bpm:bonita-core:bonita-home-server')
+    compile project(':bpm:bonita-core:bonita-actor-mapping')
+    compile project(':bpm:bonita-core:bonita-category')
+    compile project(':bpm:bonita-core:bonita-process-instance')
+    compile project(':bpm:bonita-core:bonita-contract-data')
+    compile project(':bpm:bonita-core:bonita-user-filter')
+    compile project(':bpm:bonita-core:bonita-login')
+    compile project(':bpm:bonita-core:bonita-process-definition')
+    compile project(':bpm:bonita-core:bonita-process-comment')
+    compile project(':bpm:bonita-core:bonita-platform-login')
+    compile project(':bpm:bonita-core:bonita-core-data')
+    compile project(':bpm:bonita-core:bonita-supervisor-mapping')
+    compile project(':bpm:bonita-synchro-repository:bonita-synchro-service')
+    compile project(':services:bonita-builder')
+    compile project(':services:bonita-commons')
+    compile project(':services:bonita-archive')
+    compile project(':services:bonita-authentication')
+    compile project(':services:bonita-cache')
+    compile project(':services:bonita-classloader')
+    compile project(':services:bonita-command')
+    compile project(':services:bonita-connector-executor')
+    compile project(':services:bonita-data-definition')
+    compile project(':services:bonita-data-instance')
+    compile project(':services:bonita-events')
+    compile project(':services:bonita-expression')
+    compile project(':services:bonita-external-identity-mapping')
+    compile project(':services:bonita-identity')
+    compile project(':services:bonita-incident')
+    compile project(':services:bonita-lock')
+    compile project(':services:bonita-log')
+    compile project(':services:bonita-page')
+    compile project(':bpm:bonita-core:bonita-parameter')
+    compile project(':services:bonita-persistence')
+    compile project(':services:bonita-platform')
+    compile project(':services:bonita-platform-authentication')
+    compile project(':services:bonita-platform-command')
+    compile project(':services:bonita-platform-session')
+    compile project(':services:bonita-profile')
+    compile project(':services:bonita-scheduler')
+    compile project(':services:bonita-session')
+    compile project(':services:bonita-time-tracker')
+    compile project(':services:bonita-transaction')
+    compile project(':services:bonita-work')
+    compile project(':services:bonita-business-application')
+    compile project(':bpm:bonita-core:bonita-form-mapping')
+    compile project(':services:bonita-business-data:bonita-business-data-api')
+    compile project(':services:bonita-resources')
+    compile "com.fasterxml.jackson.core:jackson-databind:${Deps.jacksonDataBindingVersion}"
+    compile project(':platform:platform-resources')
+    compile "commons-io:commons-io:${Deps.commonsIOVersion}"
+    compile "org.springframework:spring-context:${Deps.springVersion}"
+    compile "org.codehaus.groovy:groovy:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-servlet:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-xml:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-json:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-jmx:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-nio:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-groovysh:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-datetime:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-dateutil:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-docgenerator:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-jsr223:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-sql:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-templates:${Deps.groovyVersion}"
+    compile "org.codehaus.groovy:groovy-yaml:${Deps.groovyVersion}"
+    compile "io.micrometer:micrometer-core:${Deps.micrometerVersion}"
+    // Dependency on javax.annotations as it is not provided anymore in Java 11:
+    compile("javax.annotation:javax.annotation-api:${Deps.javaxAnnotationsVersion}")
+
+    annotationProcessor "org.projectlombok:lombok:${Deps.lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${Deps.lombokVersion}"
+
+    testCompile "org.junit.jupiter:junit-jupiter-api:${Deps.junit5Version}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${Deps.junit5Version}"
+    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:${Deps.junit5Version}"
+    testAnnotationProcessor "org.projectlombok:lombok:${Deps.lombokVersion}"
+    testCompile "junit:junit:${Deps.junit4Version}"
+    testCompile "org.assertj:assertj-core:${Deps.assertjVersion}"
+    testCompile "org.mockito:mockito-junit-jupiter:${Deps.mockitoVersion}"
+    testCompile "com.github.stefanbirkner:system-rules:${Deps.systemRulesVersion}"
+    testCompile "org.springframework:spring-test:${Deps.springVersion}"
+    compileOnly project(':bpm:bonita-common')
+    testCompile project(':bpm:bonita-common')
+    testCompile "org.awaitility:awaitility:${Deps.awaitilityVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${Deps.logbackVersion}"
+
+    schemagen(
+            "com.sun.xml.bind:jaxb-xjc:${Deps.jaxbVersion}",
+            "org.glassfish.jaxb:jaxb-runtime:${Deps.jaxbVersion}",
+            "javax.xml.bind:jaxb-api:${Deps.jaxbVersion}",
+            "org.glassfish.jaxb:jaxb-jxc:${Deps.jaxbVersion}",
+            "com.sun.activation:jakarta.activation:${Deps.activationVersion}")
+}
+
+task('schemagen') {
+    def destDir = file("$buildDir/schemas")
+    doLast {
+        destDir.mkdirs()
+        ant.taskdef(name: 'schemagen', classname: 'com.sun.tools.jxc.SchemaGenTask', classpath: configurations.schemagen.asPath)
+        try {
+            ant.schemagen(srcdir: new File('src/main/java/'), destdir: destDir, includeAntRuntime: false) {
+                classpath { pathelement(path: configurations.schemagen.asPath) }
+                include(name: 'org/bonitasoft/engine/identity/xml/**/*.java')
+            }
+        } catch (Exception e) {
+            def schema = file("$destDir/schema1.xsd")
+            if (!schema.exists()) throw e
+            schema.renameTo(file("$destDir/organization.xsd"))
+        }
+    }
+    inputs.dir('src/main/java/')
+    outputs.file("$destDir/organization.xsd")
+}
+
+processResources { from "$buildDir/schemas" }
+
+tasks.processResources.dependsOn tasks.schemagen
+
+tasks.schemagen.outputs.cacheIf { true }
+
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,13 @@
+dependencies {
+    compile project(':bpm:bonita-common')
+    compile "junit:junit:${Deps.junit4Version}"
+    compile "org.assertj:assertj-core:${Deps.assertjVersion}"
+    compile "org.mockito:mockito-core:${Deps.mockitoVersion}"
+}
+
+// Used by Selenium tests:
+publishing {
+    publications {
+        mavenJava(MavenPublication) { from project.components.java }
+    }
+}

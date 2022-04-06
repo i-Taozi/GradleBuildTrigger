@@ -1,0 +1,36 @@
+plugins {
+    id("bonita-docker-database")
+}
+dependencies {
+    compile "junit:junit:${Deps.junit4Version}"
+    compile "org.assertj:assertj-core:${Deps.assertjVersion}"
+    compile "org.mockito:mockito-core:${Deps.mockitoVersion}"
+    compile project(':bonita-integration-tests:bonita-integration-tests-client')
+    compile project(':bpm:bonita-server')
+    compile "commons-io:commons-io:${Deps.commonsIOVersion}"
+    runtime "mysql:mysql-connector-java:${Deps.mysqlVersion}"
+    runtime "com.microsoft.sqlserver:mssql-jdbc:${Deps.mssqlVersion}"
+    runtime "org.postgresql:postgresql:${Deps.postgresqlVersion}"
+    testRuntimeOnly "ch.qos.logback:logback-classic:${Deps.logbackVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${Deps.lombokVersion}"
+    testCompile "org.projectlombok:lombok:${Deps.lombokVersion}"
+    testCompile "org.awaitility:awaitility:${Deps.awaitilityVersion}"
+}
+
+task testsJar(type: Jar) {
+    classifier = 'tests'
+    from(sourceSets.test.output)
+}
+
+group = 'org.bonitasoft.engine.test'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from project.components.java
+            artifact testsJar
+        }
+    }
+}
+
+databaseIntegrationTest { include "**/BDRepositoryLocalIT.class" }

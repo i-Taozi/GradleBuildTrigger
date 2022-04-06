@@ -1,0 +1,8 @@
+
+
+dependencies {
+    compile project(':services:bonita-commons')
+    compile project(':services:bonita-session')
+    testCompile "junit:junit:${Deps.junit4Version}"
+    testCompile "org.assertj:assertj-core:${Deps.assertjVersion}"
+}

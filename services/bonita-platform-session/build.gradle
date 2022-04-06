@@ -1,0 +1,6 @@
+
+
+dependencies {
+    compile project(':services:bonita-commons')
+    compile project(':services:bonita-builder')
+}

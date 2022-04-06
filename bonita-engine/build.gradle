@@ -1,0 +1,98 @@
+import org.bonitasoft.engine.gradle.PomUtils
+
+//this module is published to be imported as dependency management
+plugins {
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+}
+dependencyManagement {
+    dependencies {
+        imports {
+            mavenBom "com.fasterxml.jackson:jackson-bom:${Deps.jacksonDataBindingVersion}"
+        }
+        dependencySet(group: 'org.slf4j', version: Deps.slf4jVersion) {
+            entry 'slf4j-api'
+            entry 'slf4j-jdk14'
+        }
+        dependency "com.h2database:h2:${Deps.h2Version}"
+        dependency "net.sf.ehcache:ehcache:${Deps.ehcacheVersion}"
+
+        dependencySet(group: 'org.springframework', version: Deps.springVersion) {
+            entry 'spring-context'
+            entry 'spring-core'
+            entry 'spring-web'
+        }
+        dependencySet(group: "org.springframework.boot", version: Deps.springBootVersion) {
+            entry "spring-boot-starter-jdbc"
+            entry "spring-boot-autoconfigure"
+        }
+        dependency("org.hibernate:hibernate-core:${Deps.hibernateVersion}") {
+            exclude 'org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec'
+        }
+        dependency "org.hibernate:hibernate-ehcache:${Deps.hibernateVersion}"
+        dependency "commons-io:commons-io:${Deps.commonsIOVersion}"
+        dependency "commons-fileupload:commons-fileupload:${Deps.commonsFileupload}"
+        dependency("commons-beanutils:commons-beanutils:${Deps.commonsBeanutilsVersion}") { exclude 'commons-collections:commons-collections' }
+        dependency("commons-cli:commons-cli:${Deps.commonsCLIVersion}")
+        dependency "org.apache.commons:commons-lang3:${Deps.commonsLangVersion}"
+        dependency "org.apache.commons:commons-collections4:${Deps.commonsCollections4Version}"
+        dependency("org.apache.commons:commons-text:${Deps.commonsTextVersion}")
+        dependency "com.fasterxml.jackson.core:jackson-databind:${Deps.jacksonDataBindingVersion}"
+        dependency "javax.transaction:jta:${Deps.javaxJtaVersion}"
+        dependency "org.codehaus.groovy:groovy:${Deps.groovyVersion}"
+        // groovy-all is not pulled by the engine but we declare it in case a client app depends on groovy-all directly
+        // dependency "org.codehaus.groovy:groovy-all:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-servlet:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-xml:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-json:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-jmx:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-nio:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-groovysh:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-datetime:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-dateutil:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-docgenerator:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-jsr223:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-sql:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-templates:${Deps.groovyVersion}"
+        dependency "org.codehaus.groovy:groovy-yaml:${Deps.groovyVersion}"
+        dependency "org.javassist:javassist:${Deps.javassistVersion}"
+        dependencySet(group: 'org.apache.httpcomponents', version: Deps.httpComponentsVersion) {
+            entry 'httpclient'
+            entry 'httpmime'
+        }
+        dependency "com.thoughtworks.xstream:xstream:${Deps.xstreamVersion}"
+        dependency "org.apache.commons:commons-dbcp2:${Deps.commonsDbcp2Version}"
+        dependency "org.jboss.narayana.jta:narayana-jta:${Deps.narayanaVersion}"
+        dependency "javax.xml.bind:jaxb-api:${Deps.jaxbVersion}"
+        dependency "com.sun.activation:jakarta.activation:${Deps.activationVersion}"
+        dependency "org.mindrot:jbcrypt:${Deps.jbcryptVersion}"
+        dependency("org.quartz-scheduler:quartz:${Deps.quartzVersion}")
+        dependency "org.eclipse.jdt:ecj:${Deps.eclipseCompilerVersion}"
+        dependency("javax.annotation:javax.annotation-api:$Deps.javaxAnnotationsVersion")
+        dependencySet(group: "io.micrometer", version: Deps.micrometerVersion) {
+            entry "micrometer-core"
+            entry "micrometer-registry-jmx"
+            entry "micrometer-registry-prometheus"
+        }
+        dependencySet(group: 'com.hazelcast', version: Deps.hazelcastVersion) {
+            entry 'hazelcast'
+            entry 'hazelcast-spring'
+        }
+        dependency "com.hazelcast:hazelcast-aws:${Deps.hazelcastAWSVersion}"
+        dependency "com.hazelcast:hazelcast-kubernetes:${Deps.hazelcastKubernetesVersion}"
+        dependency "com.hazelcast:hazelcast-hibernate53:${Deps.hazelcastHibernateVersion}"
+        // declared here because it is used by web-extension and by distrib
+        dependency "javax.servlet:javax.servlet-api:${Deps.javaxServletVersion}"
+    }
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'bonita-engine'
+            pom { pom ->
+                name = "Bonita Engine"
+                description = "Bonita Engine is a workflow engine which can be embedded inside your own applications"
+                PomUtils.pomCommunityPublication(pom)
+            }
+        }
+    }
+}

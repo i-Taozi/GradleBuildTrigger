@@ -1,0 +1,152 @@
+import org.bonitasoft.engine.gradle.PomUtils
+
+configurations { schemagen }
+
+dependencies {
+    compile "commons-io:commons-io:${Deps.commonsIOVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${Deps.jacksonDataBindingVersion}"
+    compile "org.slf4j:slf4j-api:${Deps.slf4jVersion}"
+    compile "org.apache.commons:commons-lang3:${Deps.commonsLangVersion}"
+    compile "com.fasterxml.jackson.core:jackson-annotations:${Deps.jacksonDataBindingVersion}"
+    compile("javax.xml.bind:jaxb-api:${Deps.jaxbVersion}") {
+        exclude(group: "javax.activation") //replaced by jakarta
+    }
+    compile("org.glassfish.jaxb:jaxb-runtime:${Deps.jaxbVersion}") {
+        exclude(group: "javax.activation") //replaced by jakarta
+    }
+    runtime "com.sun.activation:jakarta.activation:${Deps.activationVersion}"
+    testCompile "junit:junit:${Deps.junit4Version}"
+    testCompile "org.assertj:assertj-core:${Deps.assertjVersion}"
+    testCompile "org.mockito:mockito-core:${Deps.mockitoVersion}"
+    testCompile 'org.jmockit:jmockit:1.44'
+    testCompile "net.javacrumbs.json-unit:json-unit-fluent:${Deps.jsonUnitVersion}"
+    testCompile "xmlunit:xmlunit:${Deps.xmlunitVersion}"
+    annotationProcessor "org.projectlombok:lombok:${Deps.lombokVersion}"
+    compileOnly "org.projectlombok:lombok:${Deps.lombokVersion}"
+    compileOnly project(':bpm:bonita-sap-jco-connector-api')
+    testCompile project(':bpm:bonita-sap-jco-connector-api')
+
+    schemagen(
+            "com.sun.xml.bind:jaxb-xjc:${Deps.jaxbVersion}",
+            "org.glassfish.jaxb:jaxb-runtime:${Deps.jaxbVersion}",
+            "javax.xml.bind:jaxb-api:${Deps.jaxbVersion}",
+            "org.glassfish.jaxb:jaxb-jxc:${Deps.jaxbVersion}",
+            "com.sun.activation:jakarta.activation:${Deps.activationVersion}")
+}
+
+def generateInfoProperties = task("generateInfoProperties") {
+    doFirst {
+        project.file("build/generated/main/resources").mkdirs()
+        project.file("build/generated/main/resources/info.properties").text = "version $project.version"
+    }
+    inputs.property "version", project.version
+    outputs.file project.file("build/generated/main/resources/info.properties")
+}
+tasks.processResources.dependsOn generateInfoProperties
+
+sourceSets {
+    main {
+        resources {
+            srcDir project.file("build/generated/main/resources")
+        }
+    }
+}
+task testsJar(type: Jar) {
+    classifier = 'tests'
+    from(sourceSets.test.output)
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier = 'javadoc'
+}
+
+task listDependencies(type: DependencyReportTask) {}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from project.components.java
+            artifact project.sourcesJar
+            artifact project.javadocJar
+            artifact project.testsJar
+            pom { pom ->
+                name = "Bonita Common"
+                description = "Bonita Common is the useful layer common to bonita-client and bonita-server"
+                PomUtils.pomCommunityPublication(pom)
+            }
+        }
+    }
+}
+
+task('schemagen') {
+    def destDir = file("$buildDir/schemas")
+    doLast {
+        destDir.mkdirs()
+        ant.taskdef(name: 'schemagen', classname: 'com.sun.tools.jxc.SchemaGenTask', classpath: configurations.schemagen.asPath)
+        try {
+            ant.schemagen(srcdir: new File('src/main/java/'), destdir: destDir, includeAntRuntime: false) {
+                classpath { pathelement(path: configurations.schemagen.asPath) }
+                include(name: 'org/bonitasoft/engine/bpm/bar/form/model/*.java')
+                include(name: 'org/bonitasoft/engine/form/*.java')
+            }
+        } catch (Exception e) {
+            def schema = file("$destDir/schema1.xsd")
+            if (!schema.exists()) throw e
+            schema.renameTo(file("$destDir/form-mapping.xsd"))
+        }
+        try {
+            ant.schemagen(srcdir: new File('src/main/java/'), destdir: destDir, includeAntRuntime: false) {
+                classpath { pathelement(path: configurations.schemagen.asPath) }
+                include(name: 'org/bonitasoft/engine/business/application/xml/**/*.java')
+                exclude(name: '**/*Builder.java')
+            }
+        } catch (Exception e) {
+            def schema = file("$destDir/schema1.xsd")
+            if (!schema.exists()) throw e
+            schema.renameTo(file("$destDir/application.xsd"))
+        }
+        try {
+            ant.schemagen(srcdir: new File('src/main/java/'), destdir: destDir, includeAntRuntime: false) {
+                classpath { pathelement(path: configurations.schemagen.asPath) }
+                include(name: 'org/bonitasoft/engine/bdm/model/**/*.java')
+                exclude(name: 'org/bonitasoft/engine/bdm/model/QueryParameterTypes.java')
+            }
+        } catch (Exception e) {
+            def schema = file("$destDir/schema1.xsd")
+            if (!schema.exists()) throw e
+            schema.renameTo(file("$destDir/bom.xsd"))
+        }
+        try {
+            ant.schemagen(srcdir: new File('src/main/java/'), destdir: destDir, includeAntRuntime: false) {
+                classpath { pathelement(path: configurations.schemagen.asPath) }
+                include(name: 'org/bonitasoft/engine/profile/xml/**/*.java')
+            }
+        } catch (Exception e) {
+            def schema = file("$destDir/schema1.xsd")
+            if (!schema.exists()) throw e
+            schema.renameTo(file("$destDir/profiles.xsd"))
+        }
+    }
+    inputs.dir('src/main/java/')
+    outputs.file("$destDir/form-mapping.xsd")
+    outputs.file("$destDir/application.xsd")
+    outputs.file("$destDir/bom.xsd")
+    outputs.file("$destDir/profiles.xsd")
+}
+
+processResources {
+    from "$buildDir/schemas"
+}
+
+tasks.processResources.dependsOn tasks.schemagen
+
+//tasks.processResources.dependsOn tasks.jaxbSchemaGenProcessdefinition
+tasks.schemagen.outputs.cacheIf { true }
+
+test { jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}" }
