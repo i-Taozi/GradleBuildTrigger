@@ -1,0 +1,221 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FlyActivity">
+
+    <LinearLayout
+        android:id="@+id/l_sensors_seekers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/gapLarge"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/fly_phone" />
+
+            <SeekBar
+                android:id="@+id/sb_phone_heading"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/sb_phone_pitch"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/sb_phone_roll"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/fly_drone" />
+
+            <SeekBar
+                android:id="@+id/sb_drone_heading"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/sb_drone_pitch"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/sb_drone_roll"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/fly_data_sent" />
+
+            <SeekBar
+                android:id="@+id/sb_data_sent_yaw"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="1000" />
+
+            <SeekBar
+                android:id="@+id/sb_data_sent_pitch"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="1000" />
+
+            <SeekBar
+                android:id="@+id/sb_data_sent_roll"
+                style="@style/SeekBarData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="1000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/l_sensors_seekers"
+        android:orientation="vertical">
+
+        <SeekBar
+            android:id="@+id/sb_delay"
+            style="@style/SeekBarData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gapMedium"
+            android:max="100" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/gapLarge"
+            android:layout_marginRight="@dimen/gapLarge">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/fly_delay" />
+
+            <TextView
+                android:id="@+id/tv_delay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                tools:text="42 ms" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_throttle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/throttle_area"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/gapLarge"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/rl_throttle_touchable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/gapXLarge">
+
+            <View
+                android:id="@+id/v_throttle_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/gapLarge"
+                android:layout_marginRight="@dimen/gapLarge"
+                android:background="@color/throttle_area_background" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:padding="@dimen/gapMedium"
+                android:text="@string/trottle_full"
+                android:textColor="@color/throttle_area_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:padding="@dimen/gapMedium"
+                android:text="@string/trottle_stop"
+                android:textColor="@color/throttle_area_text" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_throttle_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/gapMedium"
+            android:layout_marginRight="@dimen/gapMedium"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_throttle_control_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/gapLarge"
+                android:textColor="@color/throttle_text"
+                android:textStyle="bold"
+                tools:text="Throttle 0%" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/throttle_horizontal_line_height"
+                android:background="@color/throttle_line" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/throttle_area"
+        android:layout_alignParentBottom="true">
+
+        <include layout="@layout/disarmed" />
+    </FrameLayout>
+</RelativeLayout>

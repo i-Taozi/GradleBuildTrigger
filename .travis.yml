@@ -1,0 +1,22 @@
+language: android
+sudo: false
+cache:
+  directories: ['${TRAVIS_BUILD_DIR}/gradle/caches/', '${TRAVIS_BUILD_DIR}/gradle/wrapper/dists/']
+android:
+  components: [platform-tools, tools, build-tools-23.0.1, android-23, extra-google-google_play_services,
+    extra-google-m2repository, extra-android-m2repository, addon-google_apis-google-23,
+    sys-img-armeabi-v7a-android-21, sys-img-x86-android-17]
+env:
+  global: [INSTALL_PKGS='build-tools-21.1.2', 'UPDATE_PKGS=''platform-tools,tools,extra-android-m2repository,extra-google-m2repository''',
+    'GRADLE_USER_HOME="${TRAVIS_BUILD_DIR}/gradle"', ADB_INSTALL_TIMEOUT=8, 'AVD_DEBUG=''init,avd_config,nand_limits,keys,adb,adbserver,adbclient''',
+    'ANDROID_LOG_TAGS=''NetworkStats:S dalvikvm:S Zygote:S Resources:S *:D''', ANDROID_SERIAL='emulator-5554',
+    ANDROID_HOME='/usr/local/android-sdk', 'PATH="${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}"']
+before_install: [chmod +x gradlew]
+install: [./gradlew --version, ./gradlew clean, ./gradlew assemble]
+before_script: [echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a,
+  emulator -avd test -no-skin -no-audio -no-window &, adb wait-for-device, adb shell
+    input keyevent 82 &]
+script: [echo $ADB_INSTALL_TIMEOUT, android list target, ./gradlew test]
+after_script: ['cat ${TRAVIS_BUILD_DIR}/espresso/*/app/build/outputs/androidTest-results/connected/*']
+branches:
+  only: [fewlaps/flone-android-53-origin]
