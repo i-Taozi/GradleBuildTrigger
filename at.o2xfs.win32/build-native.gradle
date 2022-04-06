@@ -1,0 +1,114 @@
+/*
+ * Copyright (c) 2017, Andreas Fagschlunger. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   - Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   - Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+apply plugin: 'cpp'
+apply plugin: 'maven-publish'
+apply plugin: 'visual-studio'
+apply plugin: 'windows-resources'
+
+model {
+    platforms {
+        x86 {
+            architecture "x86"
+        }
+        x64 {
+            architecture "x86_64"
+        }
+    }
+    buildTypes {
+        debug
+        release
+    }
+
+    binaries {
+        all {
+            if (toolChain in VisualCpp && buildType == buildTypes.debug) {
+                cppCompiler.args '/Zi'
+                cppCompiler.define 'DEBUG'
+                linker.args '/DEBUG'
+            }
+        }
+    }
+
+    repositories {
+        libs(PrebuiltLibraries) {
+            jni {
+                def javaHome = System.getenv('JAVA_HOME')
+                if(project.hasProperty('org.gradle.java.home')) {
+                    javaHome = project.getProperty('org.gradle.java.home');
+                }
+                headers.srcDirs "${javaHome}/include", "${javaHome}/include/win32"
+            }
+        }
+    }
+
+    components {
+        'at.o2xfs.win32.dll'(NativeLibrarySpec) {
+            targetPlatform "x86"
+            targetPlatform "x64"
+
+            binaries.all {
+                lib library: "jni", linkage: "api"
+                rcCompiler.args "/v"
+                rcCompiler.define "FILE_VERSION=\"" + version.substring(0,3) + "\""
+                rcCompiler.define "COMMA_VERSION=" + version.substring(0,5).replace('.', ',') + ",0"
+                rcCompiler.define "ORG_FILENAME=\"at.o2xfs.win32.dll\""
+            }
+        }
+    }
+}
+
+task binariesJar(type: Jar) {
+    from ('build/libs/at.o2xfs.win32.dll/shared/x86/release/at.o2xfs.win32.dll') {
+        into 'x86'
+    }
+    from ('build/libs/at.o2xfs.win32.dll/shared/x64/release/at.o2xfs.win32.dll') {
+        into 'x86_64'
+    }
+}
+
+publishing {
+    publications {
+        x86(MavenPublication) {
+            groupId 'at.o2xfs'
+            artifactId 'o2xfs-win32-binaries'
+            version version
+
+            artifact binariesJar
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://repo.fagschlunger.co.at/artifactory/libs-snapshot-local"
+            credentials {
+                username = project.hasProperty('maven_username') ? project.getProperty('maven_username') : ''
+                password = project.hasProperty('maven_password') ? project.getProperty('maven_password') : ''
+            }
+        }
+    }
+}

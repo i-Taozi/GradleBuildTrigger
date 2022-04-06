@@ -1,0 +1,21 @@
+# Gradle work directory
+.gradle
+
+# Build output directies
+*/build
+*/bin
+/build/
+
+# Buildship
+org.eclipse.buildship.core.prefs
+
+.project
+.classpath
+/.settings
+
+.vs/
+*.sln
+*.db
+*.vcxproj
+*.vcxproj.filters
+*.opendb

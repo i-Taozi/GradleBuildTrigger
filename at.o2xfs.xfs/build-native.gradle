@@ -1,0 +1,154 @@
+/*
+ * Copyright (c) 2017, Andreas Fagschlunger. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   - Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   - Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in the
+ *     documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
+ * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+apply plugin: 'cpp'
+apply plugin: 'maven-publish'
+apply plugin: 'visual-studio'
+apply plugin: 'windows-resources'
+
+
+def findXfsSdk() {
+    def xfsSdk = 'C:/Program Files (x86)/Common Files/XFS/SDK'
+    if(!file(xfsSdk).exists()) {
+        xfsSdk = 'C:/XFS SDKs/SDK303/Common/XFS/SDK'
+    }
+    if(System.getenv('XFS_SDK') != null) {
+        xfsSdk = System.getenv('XFS_SDK')
+    } else if(project.hasProperty('xfsSdkDir')) {
+        xfsSdk = xfsSdkDir
+    }
+    return xfsSdk;
+}
+
+def xfsSdk = findXfsSdk()
+
+model {
+    platforms {
+        x86 {
+            architecture "x86"
+        }
+        x64 {
+            architecture "x86_64"
+        }
+    }
+    buildTypes {
+        debug
+        release
+    }
+
+
+    repositories {
+        libs(PrebuiltLibraries) {
+            jni {
+                def javaHome = System.getenv('JAVA_HOME')
+                if(project.hasProperty('org.gradle.java.home')) {
+                    javaHome = project.getProperty('org.gradle.java.home');
+                }
+                headers.srcDirs "${javaHome}/include", "${javaHome}/include/win32"
+            }
+            msxfs {
+                headers.srcDir "${xfsSdk}/INCLUDE"
+            }
+            'o2xfs-win32' {
+                headers.srcDir "../at.o2xfs.win32/src/at.o2xfs.win32.dll/headers"
+            }
+            xfs_conf {
+                headers.srcDir "${xfsSdk}/INCLUDE"
+            }
+        }
+    }
+
+    components {
+        'at.o2xfs.xfs.dll'(NativeLibrarySpec) {
+            targetPlatform "x86"
+            targetPlatform "x64"
+
+            binaries.all {
+                lib library: 'jni', linkage: 'api'
+                lib library: 'o2xfs-win32', linkage: 'api'
+                lib library: 'msxfs', linkage: 'api'
+                linker.args 'Gdi32.lib', 'User32.lib'
+                rcCompiler.args "/v"
+                rcCompiler.define "FILE_VERSION=\"" + version.substring(0,3) + "\""
+                rcCompiler.define "COMMA_VERSION=" + version.substring(0,5).replace('.', ',') + ",0"
+                rcCompiler.define "ORG_FILENAME="
+            }
+        }
+
+        'at.o2xfs.xfs.conf.dll'(NativeLibrarySpec) {
+            targetPlatform "x86"
+            targetPlatform "x64"
+
+            binaries.all {
+                lib library: 'jni', linkage: 'api'
+                lib library: 'o2xfs-win32', linkage: 'api'
+                lib library: 'xfs_conf', linkage: 'api'
+                rcCompiler.args "/v"
+                rcCompiler.define "FILE_VERSION=\"" + version.substring(0,3) + "\""
+                rcCompiler.define "COMMA_VERSION=" + version.substring(0,5).replace('.', ',') + ",0"
+                rcCompiler.define "ORG_FILENAME="
+            }
+        }
+    }
+}
+
+task binariesJar(type: Jar) {
+    from ('build/libs/at.o2xfs.xfs.dll/shared/x86/release/at.o2xfs.xfs.dll') {
+        into 'x86'
+    }
+    from ('build/libs/at.o2xfs.xfs.conf.dll/shared/x86/release/at.o2xfs.xfs.conf.dll') {
+        into 'x86'
+    }
+    from ('build/libs/at.o2xfs.xfs.dll/shared/x64/release/at.o2xfs.xfs.dll') {
+        into 'x86_64'
+    }
+    from ('build/libs/at.o2xfs.xfs.conf.dll/shared/x64/release/at.o2xfs.xfs.conf.dll') {
+        into 'x86_64'
+    }
+}
+
+publishing {
+    publications {
+        x86(MavenPublication) {
+            groupId 'at.o2xfs'
+            artifactId 'o2xfs-xfs-binaries'
+            version version
+
+            artifact binariesJar
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://repo.fagschlunger.co.at/artifactory/libs-snapshot-local"
+            credentials {
+                username = project.hasProperty('maven_username') ? project.getProperty('maven_username') : ''
+                password = project.hasProperty('maven_password') ? project.getProperty('maven_password') : ''
+            }
+        }
+    }
+}
