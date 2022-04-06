@@ -12,4 +12,4 @@ cards:
   enabled: [master, development]
   title: Toast
 branches:
-  only: [Open-RIO/ToastAPI-53-origin]
+  only: [Open-RIO/ToastAPI-53-GRADLE_INCREMENTAL_COMPILATION]
