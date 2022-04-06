@@ -16,4 +16,4 @@ before_script: [android list targets]
 script: [nice ./gradlew test -PdisablePreDex, ./gradlew assembleRelease]
 after_failure: [cat app/build/reports/tests/testDebugUnitTest/classes/*, cat app/build/reports/tests/testReleaseUnitTest/classes/*]
 branches:
-  only: [jamorham/xDrip-plus-122-origin]
+  only: [jamorham/xDrip-plus-122-GRADLE_COMPILER_DAEMON]
