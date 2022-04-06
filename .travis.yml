@@ -8,4 +8,4 @@ jdk: [openjdk8]
 script: ['./gradlew -Djava.security.egd=file:/dev/urandom warp10:pack']
 notifications: {email: false}
 branches:
-  only: [senx/warp10-platform-1041-origin]
+  only: [senx/warp10-platform-1041-GRADLE_COMPILER_DAEMON]
