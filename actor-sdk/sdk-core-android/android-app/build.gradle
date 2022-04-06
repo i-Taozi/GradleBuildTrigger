@@ -1,0 +1,49 @@
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.3'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath "com.google.gms:google-services:3.0.0"
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
+
+    defaultConfig {
+        applicationId "im.actor.develop"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':actor-sdk:sdk-core-android:android-sdk')
+    compile project(':actor-sdk:sdk-core-android:android-google-push')
+    compile project(':actor-sdk:sdk-core-android:android-google-maps')
+
+    compile 'com.roughike:bottom-bar:1.3.9'
+    compile 'com.android.support:multidex:1.0.1'
+}

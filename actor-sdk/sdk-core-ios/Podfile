@@ -1,0 +1,73 @@
+platform :ios, '8.0'
+use_frameworks!
+
+workspace 'ActorSDK'
+project 'ActorSDK.xcodeproj'
+project 'ActorApp.xcodeproj'
+
+inhibit_all_warnings!
+
+target 'ActorApp' do
+    project 'ActorApp.xcodeproj'
+
+    # Core Tools
+    pod 'RegexKitLite'
+    # pod 'CocoaAsyncSocket'
+    pod 'zipzap'
+    pod 'ReachabilitySwift', '~> 3'
+
+    # Main UI
+    pod 'TTTAttributedLabel'
+    pod 'RSKImageCropper'
+    pod 'JDStatusBarNotification'
+    pod 'YYImage'
+    pod 'YYImage/WebP'
+    pod 'YYWebImage'
+    pod 'YYCategories'
+    pod 'DZNWebViewController'
+
+    # Small UI
+    pod 'VBFPopFlatButton'
+    pod 'SZTextView'
+        
+    # Progress
+    pod 'M13ProgressSuite'
+    pod 'MBProgressHUD'
+    
+    # Calls
+    # pod 'libjingle_peerconnection'
+end
+
+target 'ActorSDK' do
+    project 'ActorSDK.xcodeproj'
+
+    # J2Objc Runtime
+    pod 'J2ObjC-Framework'
+
+    # Core Tools
+    pod 'RegexKitLite'
+    # pod 'CocoaAsyncSocket'
+    pod 'zipzap'
+    pod 'ReachabilitySwift', '~> 3'
+
+    # Main UI
+    pod 'TTTAttributedLabel'
+    pod 'RSKImageCropper'
+    pod 'JDStatusBarNotification'
+    pod 'YYImage'
+    pod 'YYImage/WebP'
+    pod 'YYWebImage'
+    pod 'YYCategories'
+    pod 'DZNWebViewController'
+
+    # Small UI
+    pod 'VBFPopFlatButton'
+    pod 'SZTextView'
+        
+    # Progress
+    pod 'M13ProgressSuite'
+    pod 'MBProgressHUD'
+    
+    # Calls
+    pod 'libjingle_peerconnection'
+end

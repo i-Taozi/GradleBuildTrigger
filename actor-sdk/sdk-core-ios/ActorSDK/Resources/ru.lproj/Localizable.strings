@@ -1,0 +1,762 @@
+//
+//  Copyright (c) 2014-2016 Actor LLC. <https://actor.im>
+//
+
+/*
+ * Main Screen
+ */
+
+"TabMessages" = "Сообщения";
+
+"TabPeople" = "Люди";
+
+"TabSettings" = "Настройки";
+
+"TabDiscover" = "Паблики";
+
+/*
+ * Contacts
+ */
+
+"ContactsAddHeader" = "Добавить контакт";
+
+"ContactsAddHint" = "Укажите номер телефона";
+
+"ContactsActionInvite" = "Пригласить друзей";
+
+"ContactsActionAdd" = "Добавить друга";
+
+"ContactsBack" = "Люди";
+
+/*
+ * Dialogs
+ */
+
+"DialogsHint" = "Проведите для удаления";
+
+"DialogsBack" = "Чаты";
+
+/*
+ * Settings
+ */
+
+"SettingsEdit" = "Изменить";
+
+"SettingsSetPhoto" = "Установить новое фото";
+
+
+"SettingsChangeName" = "Изменить имя";
+
+"SettingsEditHeader" = "Ваше имя";
+
+"SettingsEditHint" = "Укажите ваше настоящее имя, чтобы другие люди могли узнать вас.";
+
+"SettingsEditFieldHint" = "Введите ваше имя";
+
+
+"SettingsSecurity" = "Приватность и Безопасность";
+
+"SettingsWallpapers" = "Обои чата";
+
+"SettingsMedia" = "Настойки медиа";
+
+"SettingsUsernameTitle" = "Изменить ник";
+
+"SettingsNotifications" = "Оповещения и звуки";
+
+"SettingsAboutNotSet" = "Указать информацию";
+
+"SettingsUsernameNotSet" = "Указать ник";
+
+"SettingsUsernameTitle" = "Ник";
+
+"SettingsUsernameHintField" = "Введите свой ник";
+
+"SettingsUsernameHint" = "Вы можете выбрать ник в {appname}. Если вы это сделаете, то другие люди смогут найти вас без номера телефона.\n\nВы можете использовать латинские буквы, цифры и подчеркивание. Минимальная длина - 5 символов.";
+
+"SettingsChangeAboutTitle" = "О себе";
+
+"SettingsChangeAboutHint" = "Расскажите что-нибудь о себе";
+
+"SettingsAskQuestion" = "Задать вопрос";
+
+"SettingsAbout" = "О программе";
+
+"SettingsTwitter" = "Twitter";
+
+"SettingsAbout" = "Домашняя страница";
+
+"SettingsVersion" = "Версия {version}";
+
+"SettingsMobilePhone" = "Мобильный телефон";
+
+"SettingsGroupChats" = "Группы";
+
+"SettingsPrivateChats" = "Приватные чаты";
+
+/*
+ * Notifications
+ */
+
+"NotificationsTitle" = "Оповещения и звуки";
+
+"NotificationsEffectsTitle" = "Эффекты";
+
+"NotificationsMobileTitle" = "Мобильные оповещения";
+
+"NotificationsInAppTitle" = "Оповещения в приложении";
+
+"NotificationsNotificationHint" = "Вы можете выключить оповещения от конкретных людей или групп на страницах их профилей.";
+
+"NotificationsPrivacyTitle" = "Приватность";
+
+"NotificationsSoundEffects" = "Звуковые эффекты";
+
+"NotificationsEnable" = "Включить";
+
+"NotificationsSound" = "Звук";
+
+"NotificationsVibration" = "Вибрация";
+
+"NotificationsPreview" = "Предпросмотр сообщений";
+
+"NotificationsPreviewHint" = "Убрать текст сообщений из оповещений.";
+
+"NotificationSecretMessage" = "Новое сообщение";
+
+"NotificationsGroups" = "Групповые оповещения";
+
+"NotificationsOnlyMentions" = "Только с упоминанием";
+
+"NotificationsOnlyMentionsHint" = "Вы можете включить оповещения в группе только для сообщений, в которых упоминается ваш ник";
+
+/*
+ * Media
+ */
+
+"MediaTitle" = "Настройки медиа";
+
+"MediaPhotoDownloadHeader"= "Автоматичкская загрузка фото";
+
+"MediaAudioDownloadHeader"= "Автоматическая загрузка аудио";
+
+"MediaOtherHeader"= "Другие";
+
+"MediaAutoplayGif"= "Автопроигрывать GIF";
+
+/*
+ * Privacy
+ */
+
+"PrivacyTitle" = "Приватность и Безопасность";
+
+
+"PrivacyHeader" = "Приватность";
+
+"PrivacyLastSeen" = "Последняя активность";
+
+"PrivacyLastSeenHint" = "Укажите, кто может видеть вашу последнюю активность.";
+
+"PrivacyLastSeenEverybody" = "Все";
+
+"PrivacyLastSeenContacts" = "Контакты";
+
+"PrivacyLastSeenNone" = "Никто";
+
+
+"PrivacySecurityHeader" = "Безопасность";
+
+"PrivacyAllSessions" = "Активные сессии";
+
+"PrivacyTerminate" = "Удалить все другие сессии";
+
+"PrivacyTerminateAlert" = "Удалить другие сессии";
+
+"PrivacyTerminateAlertSingle" = "Удалить сессию";
+
+"PrivacyTerminateHint" = "Выйти из всех устройств, кроме этого.";
+
+/*
+ * Wallpapers
+ */
+
+"WallpapersTitle" = "Обои чата";
+
+"WallpapersPhoto" = "Выбрать из галереи";
+
+/*
+ * Calls
+ */
+
+"CallsStartAudio" = "Аудиозвонок";
+
+"CallsStartGroupAudio" = "Групповой аудиозвонок";
+
+"CallsAnswer" = "ответить";
+
+"CallsDecline" = "отменить";
+
+"CallsMute" = "выкл. звук";
+
+"CallsSpeaker" = "громк. связь";
+
+"CallsVideo" = "видео";
+
+"CallStateRinging" = "Исходящий звонок";
+
+"CallStateConnecting" = "Подключаемся";
+
+"CallStateIncoming" = "Входящий звонок";
+
+"CallPrivateTitle" = "Входящий звонок";
+
+"CallPrivateText" = "Вам звонит {name}";
+
+"CallGroupTitle" = "Входящий звонок";
+
+"CallGroupText" = "Групповой звонок {name}";
+
+/*
+ * Profile
+ */
+
+"ProfileEditHeader" = "Изменить имя";
+
+"ProfileSendMessage" = "Отправить сообщение";
+
+"ProfileNotifications" = "Оповещения";
+
+"ProfileNotificationsWarring" = "Вы уверены, что хотите отключить оповещения от этого человека? Это может привести к проблемам в отношениях с ним.";
+
+"ProfileNotificationsWarringAction" = "Выключить";
+
+"ProfileAddToContacts" = "Добавить в контакты";
+
+"ProfileRemoveFromContacts" = "Удалить из контактов";
+
+"ProfileRename" = "Переименовать контакт";
+
+"ProfileRenameMessage" = "Вы можете изменить имя контакта для более удобной организации своей телефонной книги. Все изменения будут видны только вам.";
+
+"ProfileRenameAction" = "Переименовать";
+
+"ProfileAbout" = "О себе";
+
+"ProfilePhone" = "Телефон";
+
+"ProfileUsername" = "Ник";
+
+"ProfileTitle" = "Информация";
+
+"ProfileBlockContact" = "Заблокировать Пользователя";
+
+"ProfileUnblockContact" = "Разблокировать пользователя";
+
+"CallNumber" = "Позвонить";
+
+"ShareNumber" = "Переслать номер";
+
+"CopyNumber" = "Скопировать номер";
+
+"NumberCopied" = "Номер скопирован в буфер обмена";
+
+/*
+ * Publics
+ */
+
+"JoinAlertMessage" = "Вы уверены, что хотите присоединиться к этой группе?";
+
+/*
+ * Group
+ */
+
+"GroupEditHeader" = "Тема";
+
+"GroupEditHint" = "Введите тему группы";
+
+"GroupSetPhoto" = "Изменить фото группы";
+
+"GroupSetTitle" = "Изменить тему группы";
+
+"GroupEditConfirm" = "Вы уверены, что хотите изменить тему группы?";
+
+
+"GroupEditConfirmAction" = "Изменить тему";
+
+"GroupNotifications" = "Оповещения";
+
+"GroupSettings" = "НАСТРОЙКИ";
+
+"GroupIntegrations" = "Интеграции";
+
+"GroupDescription" = "Описание";
+
+
+
+"GroupAdministration" = "Администрирование";
+
+"GroupTypeTitle" = "Тип группы";
+
+"GroupTypeTitleChannel" = "Тип канала";
+
+"GroupTypePublic" = "Публичная";
+
+"GroupTypePrivate" = "Приватная";
+
+"ChannelTypePublic" = "Публичный";
+
+"ChannelTypePrivate" = "Приватный";
+
+"GroupTypePublicFull" = "Публичная группа";
+
+"GroupTypePrivateFull" = "Приватная группа";
+
+"ChannelTypePublicFull" = "Публичный канал";
+
+"ChannelTypePrivateFull" = "Приватный канал";
+
+"GroupPermissionsHint" = "Управление тем что возможно делать в этой группе";
+
+"GroupPermissionsHintChannel" = "Управление тем что возможно делать в этом канале";
+
+"GroupTypeHintPublic" = "Публичные гурппы могут быть найдены в поиске и кто угодно может войти в нее";
+
+"GroupTypeHintPrivate" = "Вступить в приватную группу можно только по личному приглашению";
+
+"GroupTypeHintPublicChannel" = "Публичные каналы могут быть найдены в поиске и кто угодно может подписаться на него";
+
+"GroupTypeHintPrivateChannel" = "Вступить в приватный канал можно только по личному приглашению";
+
+"GroupTypeLinkHint" = "Ваши друзья могут делиться этой ссылкой или находить группу в поиске";
+
+"GroupTypeLinkHintChannel" = "Ваши друзья могут делиться этой ссылкой или находить канал в поиске";
+
+"GroupDeleteHint" = "Вы потеряете всех сообщения в этой группе";
+
+"GroupDeleteHintChannel" = "Вы потеряете все сообщения в этом канале";
+
+
+
+
+"GroupShareTitle" = "Общая история";
+
+"GroupShareEnabled" = "Включено";
+
+"GroupShareHint" = "Все участники увидят все сообщения группы";
+
+"GroupShareMessage" = "Вы уверены что хотите сделать все сообщениям общими? Это действие необратимо.";
+
+"GroupShareAction" = "Сделать Общими";
+
+
+
+"GroupEditTitle" = "Редактирование";
+
+"GroupEditTitleChannel" = "Редактирование";
+
+"GroupEditName" = "Название группы";
+
+"GroupEditNameChannel" = "Название канала";
+
+"GroupEditDescription" = "Описание";
+
+
+
+"GroupViewMembers" = "Участники";
+
+"GroupMemberAdmin" = "админ.";
+
+"GroupMemberInfo" = "Профиль";
+
+"GroupMemberMakeAdmin" = "Сделать администратором";
+
+"GroupMemberMakeMessage" = "Вы уверены, что хотите сделать {name} администратором группы?";
+
+"GroupMemberMakeAction" = "Да";
+
+"GroupMemberKick" = "Исключить из группы";
+
+"GroupMemberKickMessage" = "Вы уверены, что хотите исключить {name} из группы?";
+
+"GroupMemberKickAction" = "Исключить";
+
+"GroupMemberWrite" = "Написать";
+
+"GroupMemberCall" = "Позвонить";
+
+"GroupMemberCallNoPhones" = "Нет телефонных номеров у этого участника.";
+
+"GroupAddParticipant" = "Добавить в группу...";
+
+"GroupAddParticipantTitle" = "Контакты";
+
+"GroupAddParticipantUrl" = "Пригласить по ссылке";
+
+"GroupLeave" = "Покинуть группу";
+
+"GroupLeaveChannel" = "Leave channel";
+
+"GroupLeaveConfirm" = "Вы уверены, что хотите покинуть группу?";
+
+"GroupLeaveConfirmAction" = "Покинуть";
+
+"GroupInviteLinkPageTitle" = "Приглашение";
+
+"GroupInviteLinkTitle" = "ССЫЛКА";
+
+"GroupInviteLinkHint" = "Вы можете пригласить людей в эту группу, отправляя им ссылку для приглашения.";
+
+"GroupInviteLinkRevokeMessage" = "Вы уверены, что хотите сбросить ссылку? Как только Вы это сделаете, никто не сможет присоединиться к группе, пройдя по ней.";
+
+"GroupInviteLinkRevokeAction" = "Сбросить";
+
+
+
+"GroupJoinMessage" = "Вы уверены, что хотите вступить в группу?";
+
+"GroupJoinAction" = "Вступить";
+
+/*
+ * Compose
+ */
+
+"ComposeTitle" = "Новое сообщение";
+
+"CreateGroup" = "Новая группа";
+
+"CreateChannel" = "Новый канал";
+
+
+"CreateGroupTitle" = "Новая группа";
+
+"CreateGroupNamePlaceholder" = "Название группы";
+
+"CreateGroupHint" = "Укажите название группы и поставьте фотографию";
+
+
+"CreateChannelTitle" = "Новый канал";
+
+"CreateChannelHint" = "Укажите название канала и поставьте фотографию";
+
+"CreateChannelNamePlaceholder" = "Название канала";
+
+
+"CreateGroupMembersTitle" = "Пригласить участников";
+
+"CreateGroupMembersPlaceholders" = "Введите имена";
+
+/*
+ * Location
+ */
+
+"LocationTitle" = "Местоположение";
+
+
+/*
+ * Chat
+ */
+
+"ChatPlaceholder" = "Введите текст...";
+
+"ChatSend" = "Отпр.";
+
+"ChatNoGroupAccess" = "Вы не состоите в группе";
+
+"ChatDeleted" = "Этот чат был удален владельцем.";
+
+"ChatJoin" = "Присоединиться";
+
+/*
+ * Chat attachment menu
+ */
+
+"AttachmentsSendPhoto" = "Отправить {count} фото";
+
+"AttachmentsSendPhotos" = "Отправить {count} фото";
+
+/*
+ * Find
+ */
+
+"FindTitle" = "Поиск людей";
+
+"FindFieldHint" = "Телефон, почта или ник";
+
+"FindHint" = "Для поиска введите номер телефона, адрес электронной почты или ник.";
+
+"FindNotFound" = "К сожалению, мы не смогли никого найти по этому запросу.";
+
+/*
+ * Placeholders
+ */
+
+"Placeholder_Empty_Title" = "Пригласите своих друзей";
+
+"Placeholder_Empty_Message" = "Никто из ваших контактов не использует {appname}. Используйте кнопку ниже чтобы пригласить их.";
+
+"Placeholder_Empty_Action" = "РАССКАЗАТЬ ДРУЗЬЯМ";
+
+"Placeholder_Empty_Message2" = "или добавьте контакт вручную";
+
+"Placeholder_Empty_Action2" = "ДОБАВИТЬ КОНТАКТ";
+
+"Placeholder_Loading_Title" = "Синхронизируемся";
+
+"Placeholder_Loading_Message" = "Пожалуйста, подождите пока мы инициализируем приложение.";
+
+"Placeholder_Contacts_Title" = "Пригласите своих друзей";
+
+"Placeholder_Contacts_Message" = "Никто из ваших контактов не использует {appname}. Используйте кнопку ниже чтобы пригласить их.";
+
+"Placeholder_Contacts_Action" = "РАССКАЗАТЬ ДРУЗЬЯМ";
+
+"Placeholder_Contacts_Message2" = "или добавьте контакт вручную через кнопку \"плюс\" в правом верхнем углу экрана";
+
+"Placeholder_Dialogs_Title" = "Начать общение";
+
+"Placeholder_Dialogs_Message" = "Выберите контакт из списка или нажмине кнопку \"написать\" для начала общения.";
+
+"Placeholder_Group_Title" = "Не участник группы";
+
+"Placeholder_Group_Message" = "К сожалению, вы больше не являетесь участником этой группы.";
+
+"Placeholder_Location_Title" = "Включите геолокацию";
+
+"Placeholder_Location_Message" = "Чтобы поделиться местоположением, пожалуйста, дайте приложению доступ к Службам геолокации в настройках вашего устройства.";
+
+/*
+ * Welcome
+ */
+
+"WelcomeTitle" = "Добро пожаловать!";
+
+"WelcomeTagline" = "Беслпатное, быстрое и безопасное общение.";
+
+"WelcomeSignUp" = "Регистрация";
+
+"WelcomeLogIn" = "Вход";
+
+
+/*
+ * Auth
+ */
+
+"AuthCountryTitle" = "Страна";
+
+"AuthUnsupported" = "Этот аккаунт не поддерживается текущей версией {app_name}. Пожалуйста, обновите приложение.";
+
+"AuthLoginTitle" = "Вход в {app_name}";
+
+"AuthLoginPhone" = "Телефон";
+
+"AuthLoginEmail" = "Почта";
+
+"AuthLoginPhoneEmail" = "Телефон или e-mail";
+
+"AuthNameTitle" = "Привет! Как вас зовут?";
+
+"AuthNamePlaceholder" = "Ваше полное имя";
+
+"AuthPhoneTitle" = "Ваш номер телефона?";
+
+"AuthPhoneHint" = "Нам необходим номер телефона, чтобы вас авторизовать и защитить вашу персональную информацию.";
+
+"AuthPhonePlaceholder" = "Ваш номер телефона";
+
+"AuthPhoneUseEmail" = "Вход через e-mail";
+
+"AuthEmailTitle" = "Ваш e-mail адрес?";
+
+"AuthEmailHint" = "Мы не рассылаем спам.";
+
+"AuthEmailPlaceholder" = "Ваш e-mail";
+
+"AuthEmailUsePhone" = "Вход через телефонный номер";
+
+"AuthDisclaimer" = "Регистрируясь, вы соглашаетесь с Terms of Service и Privacy Policy.";
+
+"AuthDisclaimerTosOnly" = "Регистрируясь, вы соглашаетесь с Terms of Service.";
+
+"AuthDisclaimerPrivacyOnly" = "Регистрируясь, вы соглашаетесь с Privacy Policy.";
+
+"AuthDisclaimerToS" = "Terms of Service";
+
+"AuthDisclaimerPrivacy" = "Privacy Policy";
+
+"AuthOTPEmailTitle" = "Подтвердите e-mail";
+
+"AuthOTPPhoneTitle" = "Подтвердите номер телефона";
+
+"AuthOTPEmailHint" = "Мы отправили вам письмо с кодом активации.\nПожалуйста, введите их ниже.";
+
+"AuthOTPPhoneHint" = "Мы отправили вам СМС с кодом активации.\nПожалуйста, введите их ниже.";
+
+"AuthOTPPlaceholder" = "Код активации";
+
+"AuthOTPNoCode" = "Не получили код?";
+
+"AuthOTPCallHint" = "{app_name} позвонит вам через {time}";
+
+/*
+ * Common Elements
+ */
+
+"CurrentLocale" = "Ru";
+
+"InviteText" = "Привет! Давай продолжим наше общение в {appname} {link}";
+
+"PhotoRemove" = "Удалить фото";
+
+"PhotoRemoveGroupMessage" = "Вы уверены, что хотите удалить фото группы?";
+
+"PhotoCamera" = "Снять фото/видео";
+
+"PhotoLibrary" = "Выбрать фото/видео";
+
+"ShareLocation" = "Местоположение";
+
+"SendDocument" = "Документ";
+
+"ShareContact" = "Контакт";
+
+/*
+ *  Navigation
+ */
+
+"NavigationEdit" = "Изменить";
+
+"NavigationDone" = "Готово";
+
+"NavigationCancel" = "Отмена";
+
+"NavigationBack" = "";
+
+"NavigationNext" = "Далее";
+
+"NavigationSave" = "Сохранить";
+
+"NavigationFind" = "Найти";
+
+/*
+ *  Alerts
+ */
+
+"AlertCancel" = "Отмена";
+
+"AlertNext" = "Далее";
+
+"AlertSave" = "Сохранить";
+
+"AlertSet" = "Установить";
+
+"AlertOk" = "Ok";
+
+"AlertYes" = "Да";
+
+"AlertNo" = "Нет";
+
+"AlertError" = "Ошибка";
+
+"AlertTryAgain" = "Повторить";
+
+"AlertInvite" = "Пригласить";
+
+"UnsupportedContent" = "Сообщение не поддерживается в этой версии. Пожалуйста, подождите обновления приложения.";
+
+/*
+ * Actions
+ */
+
+"ActionCopyLink" = "Скопировать ссылку";
+
+"ActionRevokeLink" = "Сбросить ссылку";
+
+"ActionShareLink" = "Поделиться ссылкой";
+
+"AlertLinkCopied" = "Ссылка скопирована в буфер обмена.";
+
+"ActionOpenLink" = "Открыть ссылку";
+
+"ActionCancel" = "Отмена";
+
+"ActionAddPhoto1" = "добавить";
+
+"ActionAddPhoto2" = "фото";
+
+"ActionOpenCode" = "Посмотреть код";
+
+"ActionMute" = "Заглушить";
+
+"ActionUnmute" = "Включить оповещения";
+
+"ActionDelete" = "Удалить";
+
+"ActionDeleteChannel" = "Удалить канал";
+
+"ActionDeleteChannelMessage" = "Стой! Удаление этого канала исключит всех подписчиков и все сообщения будут потеряны. Продолжить все равно?";
+
+"ActionDeleteGroup" = "Удалить группу";
+
+"ActionDeleteGroupMessage" = "Стой! Удаление этой группы исключит всех участников и все сообщения будут потеряны. Продолжить все равно?";
+
+"ActionDeleteAndExit" = "Удалить и выйти";
+
+"ActionClearHistory" = "Очистить историю";
+
+
+
+"ActionDelete" = "Удалить";
+
+"ActionDeleteMessage" = "Вы уверены что хотите удалить чат?";
+
+
+"ActionDeleteChannel" = "Удалть канал";
+
+"ActionDeleteChannelMessage" = "Стой! Удаление этого канала исключит всех подписчиков и все сообщения будут потеряны. Продолжить все равно?";
+
+"ActionDeleteGroup" = "Удалить группу";
+
+"ActionDeleteGroupMessage" = "Стой! Удаление этой группы исключит всех участников и все сообщения будут потеряны. Продолжить все равно?";
+
+
+"ActionLeaveChannel" = "Покинуть канал";
+
+"ActionLeaveChannelMessage" = "Вы уверены, что хотите выйти из канала?";
+
+"ActionLeaveChannelAction" = "Выйти";
+
+
+"ActionDeleteAndExit" = "Удалить и выйти";
+
+"ActionDeleteAndExitMessage" = "Вы уверены, что хотите хотите выйти из группы и удалить все сообщения?";
+
+"ActionDeleteAndExitAction" = "Выйти";
+
+
+"ActionClearHistory" = "Очистить историю";
+
+"ActionClearHistoryMessage" = "Вы уверены что хотите очистить историю?";
+
+"ActionClearHistoryAction" = "Очистить";
+
+/*
+ * Network
+ */
+
+"StatusConnecting" = "Подключение...";
+
+"StatusSyncing" = "Синхронизация...";
+
+/*
+ * Errors
+ */
+
+"ErrorPhoneIncorrect" = "Неправильный номер телефона. Пожалуйста, повторите попытку.";
+
+"ErrorCodeExpired" = "Код устарел. Пожалуйста, авторизуйтесь снова.";
+
+"ErrorAlreadyJoined" = "Вы уже участник группы";
+
+"ErrorUnableToJoin" = "Невозможно вступить в группу";
+
+"ErrorUnableToCall" = "Невозможно позвонить на этот номер";

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="im.actor.sdk">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.LOCATION_HARDWARE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+
+    <application>
+
+        <!-- Auth -->
+
+        <activity
+            android:name=".controllers.auth.AuthActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".controllers.auth.PickCountryActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Chat -->
+
+        <activity
+            android:name=".controllers.root.RootActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@style/MainActivityTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="quit.email"
+                    android:pathPrefix="/join/"
+                    android:scheme="https" />
+                <data
+                    android:host="actor.im"
+                    android:pathPrefix="/join/"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="actor" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name=".controllers.share.ShareActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/MainActivityTheme"
+            android:windowSoftInputMode="adjustResize">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+
+        </activity>
+
+        <activity
+            android:name="im.actor.sdk.controllers.conversation.ChatActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/ChatActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profiles -->
+
+        <activity
+            android:name=".controllers.profile.ProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/ProfileActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
+
+        </activity>
+
+        <activity
+            android:name=".controllers.group.GroupInfoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/ProfileActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.group.GroupEditActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.group.GroupAdminActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.group.GroupTypeActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.group.GroupPermissionsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.group.MembersActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.settings.MyProfileActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/ProfileActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <!-- Compose -->
+
+        <activity
+            android:name=".controllers.compose.ComposeActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".controllers.group.AddMemberActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".controllers.group.InviteLinkActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".controllers.contacts.InviteActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".controllers.compose.CreateGroupActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateVisible" />
+
+        <activity
+            android:name=".controllers.contacts.ContactsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Settings -->
+
+        <activity
+            android:name=".controllers.settings.NotificationsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.settings.ChatSettingsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name="im.actor.sdk.controllers.fragment.help.HelpActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.settings.SecuritySettingsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name=".controllers.settings.BlockedListActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <!-- Media -->
+
+        <activity
+            android:name="im.actor.sdk.controllers.fragment.preview.ViewAvatarActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustNothing|stateAlwaysHidden" />
+
+        <activity
+            android:name="im.actor.sdk.controllers.fragment.preview.PictureActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/PictureFullscreenTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="im.actor.sdk.controllers.fragment.preview.CodePreviewActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Actions -->
+        <activity
+            android:name=".controllers.settings.EditNameActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+
+        <activity
+            android:name=".controllers.settings.PickWallpaperActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".controllers.settings.EditAboutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+
+        <activity
+            android:name=".controllers.contacts.AddContactActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/CommonActivityTheme"
+            android:windowSoftInputMode="adjustResize|stateAlwaysVisible" />
+
+        <!-- Misc -->
+        <activity
+            android:name=".controllers.pickers.TakePhotoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:theme="@style/Theme.Transparent" />
+
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
+
+        <activity
+            android:name="im.actor.sdk.controllers.pickers.file.FilePickerActivity"
+            android:label="@string/picker_file_activity_title"
+            android:theme="@style/PickerTheme.FilePicker" />
+
+        <activity
+            android:name=".controllers.shortcuts.ShortcutActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/AppcompatNoDisplay">
+            <intent-filter>
+                <action android:name="im.actor.action.botMessageShortcut" />
+
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".controllers.calls.CallActivity"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
+            android:theme="@style/CallTheme" />
+
+        <service
+            android:name="im.actor.sdk.services.KeepAliveService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name="im.actor.sdk.push.ActorPushService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":actor_push" />
+
+        <receiver
+            android:name=".receivers.ChromeCustomTabReceiver"
+            android:enabled="true" />
+
+        <receiver
+            android:name="im.actor.sdk.receivers.SDKPushReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="im.actor.push.intent.RECEIVE" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
