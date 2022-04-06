@@ -29,6 +29,10 @@ ext {
 }
 
 allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.incremental = true
+    }
+
 	group = 'org.springframework.integration.samples'
 
 	repositories {
@@ -1526,4 +1530,3 @@ sonarqube {
 		property 'sonar.links.scm_dev', linkScmDevConnection
 	}
 }
-
