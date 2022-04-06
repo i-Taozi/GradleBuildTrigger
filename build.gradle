@@ -1,0 +1,512 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'biz.aQute.bnd:biz.aQute.bnd.gradle:4.3.0'
+  }
+}
+
+plugins {
+    id 'com.athaydes.osgi-run' version '1.6.0'
+    id 'java'
+    id 'org.ajoberstar.grgit' version '3.1.1'
+    id 'nebula.ospackage' version '8.5.6'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'edu.sc.seis.macAppBundle' version '2.3.0'
+    id 'edu.sc.seis.launch4j' version '2.4.6'
+}
+
+allprojects {
+    group = 'org.mucommander'
+    version = '0.9.8'
+    ext.release = 'snapshot'
+    configurations {
+        compileOnly.extendsFrom comprise
+    }
+}
+
+subprojects {
+    apply plugin: 'biz.aQute.bnd.builder'
+    apply plugin: 'java-library'
+    compileJava.options.compilerArgs += ['--release', '8']
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+compileJava.options.compilerArgs += ['--release', '8']
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.felix:org.apache.felix.main:6.0.3'
+    implementation 'com.beust:jcommander:1.78'
+
+    osgiRuntime project('mucommander-core')
+    osgiRuntime project('mucommander-command')
+    osgiRuntime project('mucommander-commons-collections')
+    osgiRuntime project('mucommander-commons-conf')
+    osgiRuntime project('mucommander-commons-file')
+    osgiRuntime project('mucommander-commons-io')
+    osgiRuntime project('mucommander-commons-runtime')
+    osgiRuntime project('apache-bzip2')
+    osgiRuntime project('mucommander-encoding')
+    osgiRuntime project('mucommander-preferences')
+    osgiRuntime project('mucommander-process')
+    osgiRuntime project('mucommander-translator')
+
+    osgiRuntime project('mucommander-protocol-ftp')
+    osgiRuntime project('mucommander-protocol-sftp')
+    osgiRuntime project('mucommander-format-rar')
+    osgiRuntime project('mucommander-protocol-http')
+    osgiRuntime project('mucommander-protocol-dropbox')
+    osgiRuntime project('mucommander-protocol-gdrive')
+    osgiRuntime project('mucommander-protocol-nfs')
+    osgiRuntime project('mucommander-protocol-smb')
+    osgiRuntime project('mucommander-protocol-vsphere')
+    osgiRuntime project('mucommander-format-ar')
+    osgiRuntime project('mucommander-format-sevenzip')
+    osgiRuntime project('mucommander-format-zip')
+    osgiRuntime project('mucommander-format-tar')
+    osgiRuntime project('mucommander-format-bzip2')
+    osgiRuntime project('mucommander-format-gzip')
+    osgiRuntime project('mucommander-format-xz')
+    osgiRuntime project('mucommander-format-iso')
+    osgiRuntime project('mucommander-format-lst')
+    osgiRuntime project('mucommander-archiver')
+//    osgiRuntime project('mucommander-hadoop')
+    osgiRuntime project('mucommander-protocol-s3')
+    osgiRuntime project('mucommander-protocol-registry')
+    osgiRuntime project('mucommander-protocol-ovirt')
+    osgiRuntime project('mucommander-format-libguestfs') // Note that this is a work-in-progress
+
+    osgiRuntime project('mucommander-viewer-text')
+    osgiRuntime project('mucommander-viewer-image')
+    osgiRuntime project('mucommander-viewer-pdf')
+    osgiRuntime project('mucommander-viewer-binary')
+
+    osgiRuntime project('mucommander-os-api')
+    osgiRuntime project('mucommander-os-macos')
+    // osgiRuntime project('mucommander-os-macos-java8')
+    osgiRuntime project('mucommander-os-linux')
+    osgiRuntime project('mucommander-os-win')
+    osgiRuntime project('mucommander-os-openvms')
+}
+
+createBundlesDir.doLast {
+   ant.move file: "${buildDir}/osgi/bundle/${project('mucommander-core').jar.archiveName}",
+            todir: "${buildDir}/osgi/app"
+   copy {
+       from "build/libs"
+       include project(':').jar.archiveName
+       into "${buildDir}/osgi"
+   }
+   copy {
+       from "package"
+       include "logback.xml"
+       into "${buildDir}/osgi/conf"
+   }
+}
+
+runOsgi {
+    javaArgs = '-Djava.library.path=/usr/local/lib' // for Libguestfs
+    def port = System.getenv('DEBUG')
+    if (port) {
+        javaArgs += ' -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=' + port
+    }
+    configSettings = 'felix'
+    osgiMain = project(':')
+    config += [
+        'org.osgi.framework.storage': 'felix-cache',
+        'felix.auto.deploy.dir': 'bundle',
+        'mucommander.app.dir': 'app',
+        'mucommander.conf.dir': 'conf',
+    ]
+    wrapInstructions {
+        manifest("httpclient.*") {
+            // enable httpclient to instantiate factories that reside in jets3t
+            instruction 'DynamicImport-Package', 'org.jets3t.service.utils', '*'
+        }
+        manifest("sdk-.*") {
+            instruction 'Bundle-Name', 'ovirt-sdk'
+        }
+        manifest("google-api-services.*") {
+            instruction 'Bundle-Version', '1.23.0'
+        }
+        manifest("google-oauth-client-[0-9].*") {
+            instruction 'Export-Package', 'com.google.api.client.auth.oauth2', '*'
+        }
+        manifest("google-http-client.*") {
+            instruction 'Import-Package', 'com.google.api.client.auth.oauth2', '*'
+        }
+    }
+}
+
+task run(dependsOn: 'runOsgi')
+
+ext {
+    // Open the Git repository in the project's root directory.
+    git = grgit.open(dir: project.rootDir)
+    // Get commit id of HEAD.
+    revision = git.head().id
+    // Whether or not to bundle the JRE in order to create a 'standalone' executable
+    bundleJRE = project.hasProperty('mucommanderBundleJRE') ? mucommanderBundleJRE.toBoolean() : false
+}
+
+shadowJar.archiveClassifier = null
+
+jar {
+    manifest {
+        attributes("Main-Class": "com.mucommander.main.muCommander",
+                   "Specification-Title": "muCommander",
+                   "Specification-Vendor": "Arik Hadas",
+                   "Specification-Version": project.version+'-'+project.ext.release,
+                   "Implementation-Title": "muCommander",
+                   "Implementation-Vendor": "Arik Hadas",
+                   "Implementation-Version": revision.substring(0, 7),
+                   "Build-Date": new Date().format('yyyyMMdd'),
+                   "Build-URL": "https://www.mucommander.com/version/nightly.xml")
+    }
+}
+
+jar.enabled = false
+
+test.useTestNG()
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+ospackage {
+    release = project.ext.release
+
+    postInstall file('package/unix/postinst')
+    postUninstall file('package/unix/postrm')
+
+    maintainer = 'Arik Hadas <arik.hadas1@gmail.com>'
+    summary = 'a lightweight, cross-platform file manager'
+
+    from ('package') { include 'license.txt', 'readme.txt' }
+    from ('package/unix/mucommander.sh') {
+        filter(ReplaceTokens, tokens: [MU_VERSION: project.version])
+    }
+    into '/usr/share/mucommander'
+
+    from ("$buildDir/osgi/") {
+        include '*.jar'
+        into '/usr/share/mucommander'
+    }
+    from ("$buildDir/osgi/bundle") {
+        include '*.jar'
+        exclude 'osgiaas*'
+        exclude 'jline*'
+        exclude 'mucommander-os-macos*'
+        exclude 'mucommander-os-openvms*'
+        exclude 'mucommander-os-win*'
+        into '/usr/share/mucommander/bundle'
+    }
+    from ("$buildDir/osgi/app") {
+        include '*.jar'
+        into '/usr/share/mucommander/app'
+    }
+    from ("$buildDir/osgi/conf") {
+        include '*'
+        into '/usr/share/mucommander/conf'
+    }
+    from ('mucommander-core/src/main/resources/images/mucommander') {
+        include 'icon128_24.png'
+        rename 'icon128_24.png', 'mucommander.png'
+        addParentDirs false
+        into '/usr/share/pixmaps'
+    }
+    from ('package/unix') {
+        include 'mucommander.desktop'
+        addParentDirs false
+        into '/usr/share/applications'
+    }
+
+    directory('/usr/share/mucommander/felix-cache')
+}
+
+// RPM packaging
+buildRpm {
+    dependsOn createBundlesDir
+    requires('java')
+    os = LINUX
+}
+
+// Debian packaging
+buildDeb {
+    dependsOn createBundlesDir
+    suggests('openjdk-11-jre')
+    recommends('java-virtual-machine')
+}
+
+macAppBundle {
+    appName = "muCommander"
+    dmgName = 'mucommander-'+project.version+'-'+project.ext.release
+    mainClassName = "com.mucommander.main.muCommander"
+    appStyle = "Oracle"
+    bundleJRE = true
+    jreHome = "jre/macOS/Contents/Home"
+    bundleIdentifier = "com.mucommander.muCommander"
+    jvmVersion = "1.6+"
+    icon = "package/osx/icon.icns"
+    bundleAllowMixedLocalizations = "true"
+    bundleExtras.put("NSHighResolutionCapable", "true")
+    bundleExtras.put("NSSupportsAutomaticGraphicsSwitching", "true")
+    backgroundImage = "package/osx/bg.gif"
+    backgroundImageWidth = 450
+    backgroundImageHeight = 475
+    appIconX = 225
+    appIconY = 75
+    appFolderX = 225
+    appFolderY = 350
+    backgroundScript = """
+    tell application "Finder"
+      tell disk "\${VOL_NAME}"
+           open
+           set current view of container window to icon view
+           set toolbar visible of container window to false
+           set statusbar visible of container window to false
+           set the bounds of container window to { 0, 0, \${IMAGE_WIDTH}, \${IMAGE_HEIGHT} }
+           set the position of the container window to {400, 100}
+           set viewOptions to the icon view options of container window
+           set arrangement of viewOptions to not arranged
+           set icon size of viewOptions to 72
+           set background picture of viewOptions to file ".background:\${DMG_BACKGROUND_IMG}"
+           set extension hidden of item "change_jre.command" of container window to true
+           set extension hidden of item "license.txt" of container window to true
+           set extension hidden of item "readme.txt" of container window to true
+           set position of item "\${APP_NAME}.app" of container window to { \${APPICONX}, \${APPICONY} }
+           set position of item "Applications" of container window to { \${APPFOLDERX}, \${APPFOLDERY} }
+           set position of item "license.txt" of container window to { 75, 75 }
+           set position of item "readme.txt" of container window to { 375, 75 }
+           set position of item "change_jre.command" of container window to { 375, 350 }
+           close
+           open
+           update without registering applications
+           delay 2
+      end tell
+    end tell
+    """
+
+    runtimeConfigurationName = 'shadow'
+    jarTask = 'shadowJar'
+
+    //javaProperties.put("java.system.class.loader", "com.mucommander.commons.file.AbstractFileClassLoader")
+    javaProperties.put("com.apple.smallTabs", "true")
+    javaProperties.put("com.apple.hwaccel", "true")
+    javaProperties.put("apple.laf.useScreenMenuBar", "true")
+    javaProperties.put("file.encoding", "UTF-8")
+}
+
+copyToResourcesJava.dependsOn createBundlesDir
+copyToResourcesJava.doLast {
+    copy {
+        from "build/osgi"
+        include 'app/**'
+        include 'bundle/**'
+        include 'conf/**'
+        exclude 'bundle/osgiaas*'
+        exclude 'bundle/jline*'
+        exclude 'bundle/mucommander-os-linux*'
+        exclude 'bundle/mucommander-os-openvms*'
+        exclude 'bundle/mucommander-os-win*'
+        into project.file("${->project.buildDir}/${->project.macAppBundle.appOutputDir}/${->project.macAppBundle.appName}.app/Contents/${->project.macAppBundle.jarSubdir}")
+    }
+}
+
+task copyInfoToAppOutputDir(type: Copy) {
+    from "package"
+    include "license.txt"
+    include "readme.txt"
+    into "${->project.buildDir}/${->project.macAppBundle.appOutputDir}/"
+}
+copyInfoToAppOutputDir.doFirst {
+    from "package/osx"
+    include "change_jre.command"
+    into "${->project.buildDir}/${->project.macAppBundle.appOutputDir}/"
+}
+createDmg.dependsOn copyInfoToAppOutputDir
+
+launch4j {
+    icon = "$projectDir/package/windows/mucommander.ico"
+    mainClassName = "com.mucommander.main.muCommander"
+    copyConfigurable = project.tasks.shadowJar.outputs.files
+    jar = "${project.tasks.shadowJar.archiveFileName.get()}"
+    dontWrapJar = true
+    classpath = ['.']
+    headerType = "gui"
+    jreMinVersion = "1.8"
+    if (project.ext.bundleJRE) {
+        bundledJre64Bit = true
+        bundledJrePath = "jre"
+    } else {
+        bundledJrePath = '%JAVA_HOME%'
+        bundledJreAsFallback = true
+    }
+    outfile = "mucommander.exe"
+}
+
+// Windows installer
+task nsis(type: Copy, dependsOn: [createExe, createBundlesDir]) {
+    from("$buildDir/launch4j/") {
+        include 'mucommander.exe'
+    }
+    if (project.ext.bundleJRE) {
+        from('jre/win') {
+            into "jre"
+        }
+    }
+    from("$buildDir/osgi/") {
+        include '*.jar'
+    }
+    from('package/windows') {
+        include 'mucommander.ico'
+    }
+    from('package/windows') {
+        include project.ext.bundleJRE ? 'mucommander-bundled.nsi' : 'mucommander.nsi'
+        filter(ReplaceTokens, tokens: [MU_VERSION: project.version,
+                                       MU_ICON: 'mucommander.ico',
+                                       MU_LICENSE: 'license.txt',
+                                       MU_README: 'readme.txt',
+                                       MU_OUT: 'mucommander-'+project.version+'-'+project.ext.release+'-setup.exe',
+                                       MU_EXE: 'mucommander.exe',
+                                       MU_JAR: project.tasks.shadowJar.archiveFileName.get()])
+    }
+    from ('package') {
+        include 'license.txt', 'readme.txt'
+    }
+    from("$buildDir/osgi/app") {
+        include '*.jar'
+        into "app"
+    }
+    from("$buildDir/osgi/bundle") {
+        include '*.jar'
+        exclude 'osgiaas*'
+        exclude 'jline*'
+        exclude 'mucommander-os-linux*'
+        exclude 'mucommander-os-macos*'
+        exclude 'mucommander-os-openvms*'
+        into "bundle"
+    }
+    from("$buildDir/osgi/conf") {
+        include '*'
+        into "conf"
+    }
+    into "$buildDir/tmp/nsis"
+}
+
+// Portable packaging
+task portable(dependsOn: [createExe, createBundlesDir], type: Zip) {
+    from ("$buildDir/launch4j") {
+        include 'mucommander.exe'
+    }
+    from ("$buildDir/osgi") {
+        include '*.jar'
+    }
+    from ('package') { include 'license.txt', 'readme.txt' }
+    def tempDir = File.createTempDir()
+    tempDir.deleteOnExit()
+    from ({ new File(temporaryDir, '.portable').createNewFile(); new File(temporaryDir, 'felix-cache').mkdirs(); temporaryDir }) {
+        include '.portable'
+        include 'felix-cache'
+        dirMode 0777
+    }
+    from ('package/unix/mucommander.sh') {
+        filter(ReplaceTokens, tokens: [MU_VERSION: project.version])
+    }
+    into ""
+    from ("$buildDir/osgi/bundle") {
+        include '*.jar'
+        exclude 'osgiaas*'
+        exclude 'jline*'
+        into 'bundle'
+    }
+    from ("$buildDir/osgi/app") {
+        include '*.jar'
+        into 'app'
+    }
+    from ("$buildDir/osgi/conf") {
+        include '*'
+        into 'conf'
+    }
+
+    archiveClassifier = 'portable'
+    archiveVersion = project.version+'-'+project.ext.release
+}
+
+// Unix packaging
+task tgz(dependsOn: createBundlesDir, type: Tar) {
+    from ("$buildDir/osgi") {
+        include '*.jar'
+    }
+    from ('package') { include 'license.txt', 'readme.txt' }
+    def tempDir = File.createTempDir()
+    tempDir.deleteOnExit()
+    from ({ new File(temporaryDir, 'felix-cache').mkdirs(); temporaryDir }) {
+        include 'felix-cache'
+        dirMode 0777
+    }
+    from ('package/unix/mucommander.sh') {
+        filter(ReplaceTokens, tokens: [MU_VERSION: project.version])
+    }
+    into ""
+
+    from ("$buildDir/osgi/bundle") {
+        include '*.jar'
+        exclude 'osgiaas*'
+        exclude 'jline*'
+        into 'bundle'
+    }
+    from ("$buildDir/osgi/app") {
+        include '*.jar'
+        into 'app'
+    }
+    from ("$buildDir/osgi/conf") {
+        include '*'
+        into 'conf'
+    }
+
+    archiveExtension = 'tgz'
+    compression = Compression.GZIP
+    archiveVersion = project.version+'-'+project.ext.release
+}
+
+task(afterEclipseImport).doLast {
+    File f = file('.settings/org.eclipse.core.resources.prefs')
+    f.write('eclipse.preferences.version=1\n')
+    f.append('encoding//src/main/resources/languages.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ar.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_be.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ca.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_cs.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_da.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_de.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_en.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_en_GB.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_es.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_fr.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_hu.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_it.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ja.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ko.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_nb.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_nl.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_pl.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_pt_BR.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ro.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ru.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_sk.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_sl.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_sv.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_tr.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_ua.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_zh_CN.properties=UTF-8\n')
+    f.append('encoding//src/main/resources/dictionary_zh_TW.properties=UTF-8\n')
+}
+

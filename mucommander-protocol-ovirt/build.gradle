@@ -1,0 +1,30 @@
+dependencies {
+    api project(':mucommander-commons-file')
+    api project(':mucommander-commons-util')
+    api project(':mucommander-protocol-api')
+    api project(':mucommander-translator')
+    implementation 'org.ovirt.engine.api:sdk:4.4.5'
+    implementation 'org.osgi:osgi.core:7.0.0'
+
+    testImplementation 'org.testng:testng:6.11'
+    testImplementation files(project(':mucommander-commons-file').sourceSets.test.output)
+}
+
+repositories.jcenter()
+
+jar {
+   bnd ('Bundle-Name': 'muCommander-oVirt',
+        'Bundle-Vendor': 'muCommander',
+        'Bundle-Description': 'Plugin for browsing/uploading/downloading virtual disks from oVirt',
+        'Bundle-DocURL': 'https://www.mucommander.com',
+        'Export-Package': 'com.mucommander.commons.protocol.ovirt',
+        'Bundle-Activator': 'com.mucommander.commons.file.protocol.ovirt.Activator',
+        'Specification-Title': "muCommander",
+        'Specification-Vendor': "Arik Hadas",
+        'Specification-Version': project.version+'-'+project.ext.release,
+        'Implementation-Title': "muCommander",
+        'Implementation-Vendor': "Arik Hadas",
+        'Implementation-Version': revision.substring(0, 7),
+        'Build-Date': new Date().format('yyyyMMdd'),
+        'Build-Url': "https://www.mucommander.com/version/nightly.xml")
+}
