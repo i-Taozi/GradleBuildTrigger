@@ -1,0 +1,12 @@
+NAME
+       ballerina-search - Search Ballerina Central for packages
+
+SYNOPSIS
+       bal search <keyword>
+
+
+DESCRIPTION
+       Search Ballerina Central for the given keyword appearing
+       in the organization name, package name, or package descriptions.
+
+       The keyword is treated as case-insensitive when the search is executed.

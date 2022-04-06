@@ -1,0 +1,34 @@
+NAME
+       ballerina-push - Push the Ballerina Archive (BALA) of the current package to Ballerina 
+       Central or to a local repository
+
+SYNOPSIS
+       bal push
+       bal push [--repository=local]
+       bal push <bala-path>
+
+
+DESCRIPTION
+       Push the BALA of the current package to Ballerina
+       Central or to a local repository. Once the package is pushed to Ballerina Central, 
+       it becomes public and sharable and will be permanent.
+
+       For more information, go to 
+       https://ballerina.io/learn/user-guide/ballerina-packages/sharing-a-library-package/#publishing-a-library-package-to-ballerina-central.
+
+
+OPTIONS
+       --repository
+           Push the BALA of the current package to a custom repository. Only the 'local' is allowed.
+
+
+EXAMPLES
+       Push the BALA of the current package to Ballerina Central after
+       building it.
+           $ bal push
+
+       Push the BALA of the current package to the local repository for testing.
+           $ bal push --repository=local
+
+       Push the specified bala in the provided bala path.
+           $ bal push <bala-path>

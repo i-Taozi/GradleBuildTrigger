@@ -1,0 +1,33 @@
+{
+  "position": {
+    "line": 22,
+    "character": 80
+  },
+  "source": "expression_context/source/annotation_access_ctx_source4.bal",
+  "items": [
+    {
+      "label": "a1",
+      "kind": "Property",
+      "detail": "Annotation",
+      "sortText": "AR",
+      "insertText": "a1",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "serviceAnnotation1",
+      "kind": "Property",
+      "detail": "Annotation",
+      "sortText": "AR",
+      "insertText": "serviceAnnotation1",
+      "insertTextFormat": "Snippet"
+    },
+    {
+      "label": "serviceAnnotation2",
+      "kind": "Property",
+      "detail": "Annotation",
+      "sortText": "AR",
+      "insertText": "serviceAnnotation2",
+      "insertTextFormat": "Snippet"
+    }
+  ]
+}

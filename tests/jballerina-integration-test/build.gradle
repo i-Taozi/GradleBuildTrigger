@@ -1,0 +1,144 @@
+/*
+ * Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+apply from: "$rootDir/gradle/javaProject.gradle"
+apply from: "$rootDir/gradle/ballerinaLangLibLoad.gradle"
+
+configurations {
+    testLibs {
+        transitive false
+    }
+    balRuntime
+    jballerinaTools
+    ballerina {
+        transitive false
+    }
+    testUtils {
+        transitive false
+    }
+    observeTestUtilsBala {
+        transitive false
+    }
+    observeTestUtilsJar {
+        transitive false
+    }
+    launchListenerTestUtils {
+        transitive false
+    }
+}
+
+dependencies {
+    implementation 'org.ballerinalang:ballerina-lang:0.992.0-m2-SNAPSHOT'
+    implementation project(':ballerina-core')
+    implementation project(':ballerina-lang')
+    implementation project(':ballerina-lang:annotations')
+    implementation project(':ballerina-runtime')
+    implementation project(':ballerina-cli')
+//    implementation project(':ballerina-http')
+//    implementation project(':ballerina-transactions')
+    implementation project(':ballerina-cli')
+//    implementation project(':ballerina-transactions')
+    implementation project(':ballerina-observability')
+    implementation project(':ballerina-observability-internal')
+    implementation project(':ballerina-lang:jballerina.java')
+    implementation project(':observability-test-utils')
+    implementation project(path: ':ballerina-test-utils', configuration: 'shadow')
+    implementation 'org.slf4j:slf4j-api'
+    implementation 'com.google.protobuf:protobuf-java'
+
+    balRuntime project(':ballerina-runtime')
+
+//    balaTestImplementation project(path: ':ballerina-http', configuration: 'balaImplementation')
+//    balaTestImplementation project(path: ':ballerina-transactions', configuration: 'balaImplementation')
+    testRuntime project(path: ':ballerina-observability', configuration: 'distributionBirJar')
+    testRuntime project(path: ':ballerina-observability-internal', configuration: 'distributionBirJar')
+    testRuntime project(path: ':ballerina-lang:annotations', configuration: 'distributionBirJar')
+    testRuntime project(path: ':observability-test-utils', configuration: 'distributionBirJar')
+
+    testCompile 'org.slf4j:slf4j-jdk14'
+    testCompile 'io.netty:netty-transport'
+    testCompile 'io.netty:netty-codec-http'
+    testCompile 'io.netty:netty-codec-http2'
+    testCompile 'io.netty:netty-handler'
+    testCompile 'org.yaml:snakeyaml'
+    testCompile 'org.awaitility:awaitility'
+    testCompile 'org.hsqldb:hsqldb'
+    testCompile 'com.h2database:h2'
+    testCompile 'io.ballerina.messaging:broker-amqp'
+    testCompile 'org.apache.commons:commons-text'
+    testCompile 'org.testng:testng'
+
+    testUtils project(path: ':ballerina-test-utils', configuration: 'shadow')
+    jballerinaTools project(path: ':jballerina-tools', configuration: 'zip')
+    observeTestUtilsBala project(path: ':observability-test-utils', configuration: 'distributionBala')
+    observeTestUtilsJar project(path: ':observability-test-utils', configuration: 'shadow')
+
+    launchListenerTestUtils project(':test-launch-listener-01')
+    launchListenerTestUtils project(':test-launch-listener-02')
+    launchListenerTestUtils project(':test-launch-listener-03')
+    launchListenerTestUtils project(':test-launch-listener-04')
+
+    testLibs 'org.hsqldb:hsqldb:2.4.1'
+}
+
+task createBre(type: Copy) {
+    from configurations.balRuntime
+    into '$buildDir/bre/lib'
+}
+
+test {
+    // make sure ballerina zip is built before test run
+    dependsOn ':jballerina-tools:build'
+    systemProperty 'enableJBallerinaTests', 'true'
+
+    maxParallelForks = 1
+    systemProperty 'basedir', "$buildDir"
+    systemProperty 'libdir', "$buildDir"
+    systemProperty 'server.zip', configurations.jballerinaTools.asPath
+    systemProperty 'jballerina.server.zip', configurations.jballerinaTools.asPath
+    systemProperty 'java.util.logging.config.file', "$buildDir/resources/test/logging.properties"
+    systemProperty 'ballerina.agent.path', configurations.testUtils.asPath
+    systemProperty 'observability.test.utils.bala', configurations.observeTestUtilsBala.asPath
+    systemProperty 'observability.test.utils.jar', configurations.observeTestUtilsJar.asPath
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
+    }
+}
+
+clean.doFirst {
+    delete 'data'
+}
+
+description = 'Ballerina - Integration Test'
+
+configurations.all {
+    resolutionStrategy.preferProjectModules()
+}
+
+task copyToLib(type: Copy) {
+    into "${buildDir}/libs"
+    from configurations.testLibs
+}
+
+test.dependsOn(copyToLib)
+
+task createLaunchListenerUtilsLib(type: Copy) {
+    from configurations.launchListenerTestUtils
+    into "${buildDir}/launch-listener/libs"
+}
+
+test.dependsOn(createLaunchListenerUtilsLib)

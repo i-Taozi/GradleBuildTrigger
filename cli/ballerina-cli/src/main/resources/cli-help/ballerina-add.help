@@ -1,0 +1,33 @@
+NAME
+       ballerina-add - Add a new module to the current Ballerina package
+
+SYNOPSIS
+       bal add <module-name> [-t | --template] <template-name>
+
+
+DESCRIPTION
+       Add a new directory inside the 'modules' directory of the package
+       and initialize a Ballerina module in it. 
+       The command should be run from within the package root.
+
+       A template can also be specified when creating the new module.
+
+       There are two built-in templates named 'lib' and 'service''.
+       The default template is 'lib'.
+
+OPTIONS
+       -t <template-name>, --template <template-name>
+          Create a package using a predefined template.
+
+                 There are three built-in templates named:
+                 1. `main`
+                 2. `service`
+                 3. `lib`
+
+
+EXAMPLES
+       Add a module.
+          $ bal add hello
+
+       Add a module with a Ballerina service (template).
+          $ bal add helloservice -t service

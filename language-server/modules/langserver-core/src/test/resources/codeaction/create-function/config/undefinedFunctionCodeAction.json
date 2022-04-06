@@ -1,0 +1,28 @@
+{
+  "line": 3,
+  "character": 3,
+  "expected": [
+    {
+      "title": "Create function 'addTwoIntegers(...)'",
+      "command": {
+        "title": "Create function 'addTwoIntegers(...)'",
+        "command": "CREATE_FUNC",
+        "arguments": [
+          {
+            "key": "node.range",
+            "value": {
+              "start": {
+                "line": 3,
+                "character": 3
+              },
+              "end": {
+                "line": 3,
+                "character": 23
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

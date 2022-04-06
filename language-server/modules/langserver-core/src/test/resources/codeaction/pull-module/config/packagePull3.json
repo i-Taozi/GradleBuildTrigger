@@ -1,0 +1,19 @@
+{
+  "line": 0,
+  "character": 26,
+  "expected": [
+    {
+      "title": "Pull unresolved modules",
+      "command": {
+        "title": "Pull unresolved modules",
+        "command": "PULL_MODULE",
+        "arguments": [
+          {
+            "key": "module",
+            "value": "ballerina/http as ht"
+          }
+        ]
+      }
+    }
+  ]
+}

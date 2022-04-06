@@ -1,0 +1,15 @@
+NAME
+       ballerina-clean - Remove the artifacts created during the build
+
+SYNOPSIS
+       bal clean
+       bal clean [--target-dir] <target-directory-path>
+
+
+DESCRIPTION
+       Remove the `target` directory created during the build.
+
+
+OPTIONS
+       --target-dir
+           Target directory path.
