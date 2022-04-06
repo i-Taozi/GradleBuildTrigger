@@ -1,0 +1,72 @@
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+*/server.config
+*/_sessions
+*/_accounts
+*/_deltas
+*/_attachments
+*/_certificates
+*/_indexes
+*/sessions
+*/accounts
+*/deltas
+*/attachments
+*/certificates
+*/indexes
+*/gwt-unitCache
+war/WEB-INF
+*.old
+.DS_Store
+wave/.gitignore
+pst/.gitignore
+*.log.*
+### IntelliJ Idea
+.idea
+*.iml
+*.eml
+*.ipr
+*.iws
+.settings/
+
+### Eclipse
+*.project
+*.classpath
+*/.settings/
+
+### Gradle
+.gradle
+build/
+wave/wiab-server.log.*
+wave/*.crt
+wave/*.key
+wave/build/
+wave/war/WEB-INF/
+wave/war/webclient/
+wave/war/org*
+wave/war/swellrt/
+wave/war/swellrt_beta/
+pst/build/
+distributions/
+### Reports
+reports/
+### Generated Sources
+**/generated/
+### Gwt Testing
+### config
+wave/local.net.cfg.lua
+wave/config/wave.conf
+### Vagrant
+.vagrant/
+
+### Backup files
+*~

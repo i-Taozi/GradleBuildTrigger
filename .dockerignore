@@ -1,0 +1,14 @@
+.git
+.gradle
+.settings
+build/
+distributions/
+gradle/
+pst/
+scripts/
+!scripts/docker
+wave/
+!wave/build/libs
+!wave/config
+!wave/war
+!wave/webapp
