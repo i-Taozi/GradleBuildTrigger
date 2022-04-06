@@ -5,4 +5,4 @@ android:
 before_install: [yes | sdkmanager "platforms;android-27"]
 script: [./gradlew check]
 branches:
-  only: [orhanobut/hawk-245-origin]
+  only: [orhanobut/hawk-245-GRADLE_INCREMENTAL_COMPILATION]
