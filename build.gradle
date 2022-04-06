@@ -1,0 +1,288 @@
+//
+//   Copyright 2018-2021  SenX S.A.S.
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+//
+
+plugins {
+    id 'io.codearte.nexus-staging' version '0.22.0'
+}
+
+//
+// Check git repo status and used properties to be compatible with publication
+//
+task checkPublicationState {
+    doLast {
+        //
+        // Check all files are commited
+        //
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            // Check for uncommited as well as untracked files.
+            commandLine 'git', 'status', '--porcelain'
+            standardOutput = stdout
+        }
+
+        if (0 != stdout.toString().trim().size()) {
+            throw new GradleException("Cannot upload archive: local repo contains uncommited files (git status)")
+        }
+
+        //
+        // Check nogit property is not used
+        //
+        if (null != System.getProperty("nogit")) {
+            throw new GradleException("Cannot upload archive: -Dnogit cannot be used.")
+        }
+    }
+}
+// Get the version once
+def versionFromGit = getVersionFromGit()
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+    apply plugin: 'signing'
+
+
+    version = versionFromGit
+    group = 'io.warp10'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    //
+    // Repositories for dependency resolution for all subprojects
+    //
+    repositories {
+        mavenCentral()
+        //mavenLocal()
+    }
+
+    //
+    // Force versions
+    //
+    configurations.all {
+        resolutionStrategy {
+            // fail eagerly on version conflict (includes transitive dependencies)
+            // e.g. multiple different versions of the same dependency (group and name are equal)
+            //failOnVersionConflict()
+
+            // force certain versions of dependencies (including transitive)
+            //  *append new forced modules:
+            // This is needed to force Guava to 15.0 and not 17.0 as Renjin pulls
+            // HBase does not work with > 15.0
+            force 'com.google.guava:guava:15.0'
+        }
+    }
+
+    //
+    // Compile options
+    //
+    compileJava {
+        if (null != System.getProperty("nojvmDebug")) {
+            options.compilerArgs << '-g:none'
+        } else {
+            options.compilerArgs << '-g'
+        }
+
+        //options.debug = false;
+        //options.optimize = false;
+        //options.debugOptions.debugLevel = ''
+    }
+
+    // Disable crazy-strict fail-fast javadoc checks
+    javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+    // Adds sourceJar and javadocJar task
+    java {
+        withSourcesJar()
+        withJavadocJar()
+    }
+
+    //
+    // IDE confs
+    //
+    idea {
+        module {
+            inheritOutputDirs = true
+        }
+    }
+    eclipse {
+        classpath {
+            //customizing the classes output directory:
+            defaultOutputDir = file('build-eclipse')
+
+            //default settings for downloading sources and Javadoc:
+            downloadSources = true
+            downloadJavadoc = false
+        }
+    }
+
+    //
+    // Generate thrift classes, used by token and warp10.
+    //
+    task generateThrift {
+        def thriftOutputDir = new File(project.projectDir, 'src/generated/thrift')
+        def thriftFiles = fileTree(dir: 'src/main/thrift').matching { include '**/*.thrift' }
+
+        outputs.dir(thriftOutputDir)
+        inputs.files(thriftFiles)
+
+        doLast {
+            // Delete the thrift dir if exists
+            if (thriftOutputDir.exists()) {
+                thriftOutputDir.deleteDir()
+            }
+            thriftOutputDir.mkdirs()
+
+            thriftFiles.collect {
+                def file = relativePath(it)
+                exec {
+                    executable = (null != System.getenv('THRIFT_HOME')) ? System.getenv('THRIFT_HOME') + '/bin/thrift' : 'thrift'
+                    args = ['--gen', 'java:private-members', '-I', '.', '-o', thriftOutputDir, file]
+                }
+            }
+        }
+    }
+
+    clean {
+        delete generateThrift
+    }
+
+    //
+    // Update REVISION File
+    //
+    task updateRevision {
+        doLast {
+            File versionFile = new File(rootProject.projectDir, "warp10/src/main/resources/REVISION")
+            versionFile.write(project.version)
+        }
+    }
+
+    //
+    // Common jar conf
+    //
+    tasks.withType(Jar) {
+        zip64 = true
+
+        manifest {
+            attributes(
+                // "Implementation-Title": to be set by each sub-project
+                "Implementation-Vendor": "Warp 10",
+                "Implementation-Version": project.version)
+        }
+    }
+
+    //
+    // Sign maven publication only if signing key name is in the properties
+    //
+    if (project.hasProperty("signing.gnupg.keyName")) {
+        signing {
+            useGpgCmd()
+            sign publishing.publications
+        }
+    }
+
+    //
+    // Default publishing conf for subprojects publishing on a maven repo
+    //
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+                pom {
+                    // name = to be set by each sub-project
+                    // description = to be set by each sub-project
+                    url = 'https://warp10.io/'
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'senx'
+                            name = 'SenX'
+                            email = 'contact@senx.io'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com:senx/warp10-platform.git'
+                        developerConnection = 'scm:git:git://github.com:senx/warp10-platform.git'
+                        url = 'https://github.com/senx/warp10-platform'
+                    }
+                }
+            }
+        }
+        repositories {
+            if (project.hasProperty("ossrhUsername")) {
+                maven {
+                    url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                    credentials {
+                        username ossrhUsername
+                        password ossrhPassword
+                    }
+                }
+            }
+            if (project.hasProperty("nexusUsername")) {
+                maven {
+                    name "nexus"
+                    url "$nexusHost/repository/maven-releases/"
+                    credentials {
+                        username nexusUsername
+                        password nexusPassword
+                    }
+                }
+            }
+        }
+    }
+
+    processResources.dependsOn updateRevision
+}
+
+if (project.hasProperty("ossrhUsername")) {
+    nexusStaging {
+        packageGroup = "io.warp10"
+        username ossrhUsername
+        password ossrhPassword
+    }
+}
+
+
+// ------------------------------------------------------------------
+//                    AUTO RELEASE MANAGEMENT
+// Gets the version name from the latest Git tag
+// if no commit occurs -> the name of the tag likes 0.0.1
+// if commit occurs -> 0.0.1-12-aabb1122 (number of commits + version number)
+// ------------------------------------------------------------------
+def getVersionFromGit() {
+    def nogit = System.getProperty("nogit")
+    if (null != nogit) {
+        // Override version with the property value. To remove the version altogether use '-Dnogit' without value.
+        return nogit
+    } else {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags', '--always'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+}
+
+task version {
+    println getVersionFromGit()
+}

@@ -1,0 +1,64 @@
+//
+//   Copyright 2019-2020  SenX S.A.S.
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+//
+
+/////////////////////////////////////////////////////////////////////////////////////////
+//
+// E G R E S S
+//
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//
+// 128/192/256 bits AES key for encrypting GTSSplit instances.
+// Valid formats are hex:..., base64:... or, when using OSS, wrapped:....
+//
+#egress.fetcher.aes = hex:hhhhhh...
+
+//
+// Maximum age of a valid GTSSplit (in ms)
+//
+#egress.fetcher.maxsplitage =
+
+//
+// Should the egress exec handler expose its store/directory clients?
+//
+// When the Warp 10 Accelerator is used, the methods cache/nocache and persist/nopersist
+// of the class StandardAcceleratedStoreClient should be called prior to calling fetch
+//
+egress.clients.expose = false
+
+//
+// Number of GTS to batch when retrieving datapoints (to mitigate responseTooSlow errors)
+//
+#egress.fetch.batchsize = 100000
+
+//
+// Maximum execution time of requests to the /exec endpoint (in ms).
+// This value may be overriden by specifying a token with the capability specified in
+// warpscript.timebox.maxtime.capname set to a limit in ms and passing this token in
+// the X-Warp10-Capabilities header.
+// By default the maximum execution time is not bounded.
+// 
+#egress.maxtime = 1000
+
+//
+// Maximum validity of runner nonces (in ms). Runner scripts are submitted to the /exec endpoint
+// with the header X-Warp10-Runner-Nonce set to a nonce containing the time of execution in ns since
+// the epoch. If the nonce is correct and less than this many ms in the past, the time boxing is
+// waived for the execution.
+// The default value if 1000 ms
+//
+#egress.runner.nonce.validity = 1000
+

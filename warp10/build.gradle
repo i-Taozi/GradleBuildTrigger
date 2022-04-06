@@ -1,0 +1,297 @@
+import java.nio.charset.StandardCharsets
+
+//
+//   Copyright 2018-2021  SenX S.A.S.
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+//
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src/generated/thrift/gen-java'
+        }
+    }
+}
+
+dependencies {
+    //
+    // io.warp10 dependencies
+    //
+    api project(':crypto')
+    api project(':token')
+    api project(':hbaseFilters')
+    api 'io.warp10:sensision:1.0.24'
+
+    api 'joda-time:joda-time:2.2'
+    api 'org.apache.commons:commons-lang3:3.6'
+    api 'org.apache.commons:commons-math3:3.6'
+    api 'org.bouncycastle:bcprov-jdk15on:1.68'
+
+    //
+    // Processing
+    //
+    api 'org.processing:core:3.0'
+
+    //
+    // Commons CLI
+    //
+    api 'commons-cli:commons-cli:1.3.1'
+
+    //
+    // HBase 1.0.0
+    //
+    api('org.apache.hbase:hbase-client:1.0.0') {
+        // commons-beanutils:commons-beanutils-core is an alias of commons-beanutils:commons-beanutils, which is already a transitive dependency.
+        exclude group: 'commons-beanutils', module: 'commons-beanutils-core'
+    }
+    // For BulkDeleteProtos
+    api('org.apache.hbase:hbase-examples:1.0.0') {
+        // This dependency is only for a single class, avoid pulling all the useless dependencies.
+        transitive = false
+    }
+    // For Standalone(Chunked)MemoryStore
+    api('org.apache.hadoop:hadoop-hdfs:2.5.1')
+
+    api 'org.eclipse.jetty:jetty-server:9.4.2.v20170220'
+    api 'org.eclipse.jetty.websocket:websocket-server:9.4.2.v20170220'
+    api 'org.eclipse.jetty.websocket:websocket-client:9.4.2.v20170220'
+    api 'com.netflix.curator:curator-x-discovery:1.3.3'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
+    api 'org.slf4j:slf4j-api:1.7.5'
+
+    constraints {
+        api('commons-beanutils:commons-beanutils:1.9.0') {
+            because '1.7.x and 1.8.x versions include some classes of org.apache.commons.collections which conflicts with commons-collections'
+        }
+    }
+
+    //
+    // FFT
+    //
+    api 'com.github.rwl:jtransforms:2.4.0'
+
+    //
+    // Pyrolite
+    //
+    api 'net.razorvine:pyrolite:4.10'
+
+    //
+    // LevelDB
+    //
+    api 'org.fusesource.leveldbjni:leveldbjni:1.8'
+    api 'org.fusesource.leveldbjni:leveldbjni-osx:1.8'
+    api 'org.fusesource.leveldbjni:leveldbjni-linux32:1.8'
+    api 'org.fusesource.leveldbjni:leveldbjni-linux64:1.8'
+    api 'org.fusesource.leveldbjni:leveldbjni-win32:1.8'
+    api 'org.fusesource.leveldbjni:leveldbjni-win64:1.8'
+    api('org.openlabtesting.leveldbjni:leveldbjni-linux64-aarch64:1.8') {
+        // Same as org.fusesource.leveldbjni:leveldbjni
+        exclude group: 'org.openlabtesting.leveldbjni', module: 'leveldbjni'
+    }
+
+    // Use uber version to have access to more native libraries
+    api 'org.iq80.leveldb:leveldb:0.12:uber'
+
+    //
+    // Worf
+    //
+    // This jar includes all jansi and some hawtjni classes instead of declaring them as dependencies. Remove/update when possible.
+    // See configurations.all below for jansi.
+    api 'jline:jline:2.13'
+
+    //
+    // Mustache
+    //
+    api 'com.github.spullara.mustache.java:compiler:0.9.1'
+
+    //
+    // Geo
+    //
+    // There are several jts-core (aka jts) packaging. The most up-to-date is org.locationtech.jts:jts-core but the versions
+    // of the libs below use com.vividsolutions:jts/jts-core.
+    api('io.senx:geoxplib:1.0.4')
+    api('org.wololo:jts2geojson:0.10.0') {
+        // Conflicts with com.vividsolutions:jts pulled by io.senx:geoxplib
+        exclude group: 'com.vividsolutions', module: 'jts-core'
+    }
+
+    //
+    // Java Merge Sort
+    //
+    api 'com.fasterxml.util:java-merge-sort:1.0.0'
+
+    api 'org.apache.kafka:kafka_2.11:0.8.2.2'
+
+    //
+    // Testing
+    //
+    testImplementation 'junit:junit:4.6'
+}
+
+configurations.all {
+    // leveldb-0.12-uber.jar already contains leveldb-api
+    exclude group: 'org.iq80.leveldb', module: 'leveldb-api'
+    // leveldb-0.12-uber.jar already contains snappy-java
+    exclude group: 'org.xerial.snappy', module: 'snappy-java'
+    // jline-2.13.jar already contains all jansi classes on top of declaring it as dependencies, thus duplicating classes.
+    exclude group: 'org.fusesource.jansi', module:'jansi'
+    // Unused
+    exclude group: 'org.mortbay.jetty', module: 'servlet-api'
+    exclude group: 'org.mortbay.jetty', module: 'servlet-api-2.5'
+    exclude group: 'javax.servlet', module: 'servlet-api'
+}
+
+task pack(type: Jar) {
+    // Can be used to check for conflicts in dependencies.
+//     duplicatesStrategy = DuplicatesStrategy.WARN
+    // Duplicates must be kept in order not to remove the copyright notice of each dependency.
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    zip64 = true
+    archiveAppendix = (null != System.getProperty('warp')) ? System.getProperty('warp') : ""
+
+    manifest {
+        attributes(
+            "Main-Class": "io.warp10.standalone.Warp",
+        )
+    }
+
+    from files(sourceSets.main.output.classesDirs)
+    from files(sourceSets.main.resources.srcDirs)
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it :zipTree(it)
+        }
+    } {
+        // Exclude unused files
+        exclude 'META-INF/*.DSA'
+        exclude 'META-INF/*.RSA' // Dependency signatures must be removed otherwise repackaged classes may fail to be validated
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/maven/**'
+        exclude 'hbase-webapps/**'
+        exclude 'about.html'
+        exclude 'jetty-dir.css'
+        exclude '**/junit/**'
+        exclude 'module-info.class'
+    }
+}
+
+//
+// Exec task to create the Warp 10 tar.gz file
+//
+task createTarArchive(type: Exec, dependsOn: pack) {
+    workingDir '.'
+    commandLine "${projectDir}/src/main/sh/package.sh", version, projectDir
+    outputs.file "${buildDir}/libs/warp10-${version}.tar.gz"
+}
+
+//
+// Set jars title
+//
+tasks.withType(Jar) {
+    manifest.attributes.put("Implementation-Title", "Warp 10")
+}
+
+//
+// Customize POM name and description.
+//
+publishing {
+    publications {
+        maven(MavenPublication) {
+            pom {
+                name = "Warp 10"
+                description = "Warp 10 platform for time series storage and analysis"
+            }
+        }
+    }
+}
+
+task generateChangelog(type: Exec) {
+    workingDir '.'
+
+    String separator = "\uBEEF\uC0DE";
+
+    commandLine 'git', 'log', '--first-parent', '--decorate=short', '--decorate-refs=refs/tags/', '--format=%cs' + separator + '%D' + separator + '%s' + separator + '%b'
+
+    standardOutput = new ByteArrayOutputStream()
+
+    File changelogFile = new File(project.parent.projectDir, "CHANGELOG.md")
+    outputs.file changelogFile
+
+    doLast {
+        changelogFile.write("# Warp 10 Changelog\n")
+
+        boolean firstLine = true
+        BufferedReader br = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(standardOutput.toByteArray())));
+
+        for (String line; (line = br.readLine()) != null;) {
+            String[] splittedLine = line.trim().split(separator)
+
+            if (splittedLine.length < 3) {
+                // Skip invalid lines, usually the last empty line.
+                continue
+            }
+
+            // Release
+            if (!"".equals(splittedLine[1])) {
+                // There can be several tags for the same commit (rc for instance).
+                String[] tags = splittedLine[1].split(",")
+                changelogFile.append("##")
+                // Last tag is last created, so scan from the end.
+                for (int i = tags.length - 1; i >= 0; i--) {
+                    if (i < tags.length - 1) {
+                        changelogFile.append(",")
+                    }
+                    changelogFile.append(tags[i].trim().substring(4))
+                }
+                // Add date of tagged commit.
+                changelogFile.append(" (" + splittedLine[0] + ")\n")
+            } else if (firstLine) {
+                // First line but no tag, add "Unreleased" section.
+                changelogFile.append("## Unreleased\n")
+            }
+
+            // Commit
+            String commitMessage
+            if (splittedLine.length < 4) {
+                // Not a PR
+                commitMessage = splittedLine[2]
+            } else {
+                // Most probably a PR
+                commitMessage = splittedLine[3]
+                if (splittedLine[2].startsWith("Merge pull request")) {
+                    // Definitively a PR, add link
+                    int prNumberStartIndex = splittedLine[2].indexOf("#") + 1
+                    int prNumberEndIndex = splittedLine[2].indexOf(" ", prNumberStartIndex)
+                    String prNumber = splittedLine[2].substring(prNumberStartIndex, prNumberEndIndex)
+                    commitMessage += " [#" + prNumber + "](https://github.com/senx/warp10-platform/pull/" + prNumber + ")"
+                }
+            }
+            if (commitMessage.startsWith("#")) {
+                commitMessage = "\\" + commitMessage
+            }
+            changelogFile.append("* " + commitMessage + "\n")
+
+            firstLine = false
+        }
+    }
+}
+
+//
+// Tasks dependencies
+//
+compileJava.dependsOn("generateThrift")
+createTarArchive.dependsOn("generateChangelog")
+pack.dependsOn(":crypto:jar")
+pack.dependsOn(":token:jar")
+pack.dependsOn(":hbaseFilters:jar")
