@@ -11,4 +11,4 @@ install: [./gradlew setupCIWorkspace -S]
 script: [./gradlew build]
 notifications: {email: false}
 branches:
-  only: [ForestryMC/Binnie-672-origin]
+  only: [ForestryMC/Binnie-672-GRADLE_COMPILER_DAEMON]
