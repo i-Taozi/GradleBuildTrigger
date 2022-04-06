@@ -10,4 +10,4 @@ script: ['docker run -v $(pwd):/root/overlap2d underwaterapps/overlap2d /bin/bas
     --make-pidfile --background --exec /usr/bin/Xvfb -- +extension RANDR :99 -ac -screen
     0 1280x1024x16;./gradlew clean check''', ./gradlew checkTest]
 branches:
-  only: [UnderwaterApps/overlap2d-443-origin]
+  only: [UnderwaterApps/overlap2d-443-GRADLE_INCREMENTAL_COMPILATION]
