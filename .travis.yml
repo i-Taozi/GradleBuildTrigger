@@ -6,4 +6,4 @@ before_cache: [rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock, rm -fr $HOM
 cache:
   directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
 branches:
-  only: [mucommander/mucommander-527-origin]
+  only: [mucommander/mucommander-527-GRADLE_COMPILER_DAEMON]
