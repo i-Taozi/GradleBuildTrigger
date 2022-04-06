@@ -23,4 +23,4 @@ deploy:
   true: {tags: true, condition: '$TRAVIS_TAG =~ ^releasebuild_[0-9]+.*$'}
 after_deploy: [./gradlew publishPlugin]
 branches:
-  only: [mplushnikov/lombok-intellij-plugin-1077-origin]
+  only: [mplushnikov/lombok-intellij-plugin-1077-GRADLE_COMPILER_DAEMON]
