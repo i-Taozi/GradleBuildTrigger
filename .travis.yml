@@ -9,4 +9,4 @@ install: gradle assemble --stacktrace
 after_success: [test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master"
     && gradle uploadArchives]
 branches:
-  only: [ClearVolume/clearvolume-83-origin]
+  only: [ClearVolume/clearvolume-83-GRADLE_INCREMENTAL_COMPILATION]
