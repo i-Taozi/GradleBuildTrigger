@@ -1,0 +1,87 @@
+---
+layout: root
+title: Tessell
+---
+
+<div id="featurecontainer">
+  <div id="maincontainer">
+    <h2>Tessell is a GWT reactive application framework</h2>
+
+    <ul>
+      <li>Follows a Model View Presenter architecture</li>
+      <li>Less boilerplate <small>(10x less LOC than hand-coded MVP)</small></li>
+    </ul>
+
+    <div class="leftcol">
+      <h2>Features</h2>
+      <ul>
+        <li><a href="./viewgeneration.html">View generation</a> of the MVP/UiBinder interfaces/implementations that allow for fast, DOM-decoupled unit tests but that suck to code by hand</li>
+        <li><a href="./richmodels.html">Rich models</a> to make your application's presenter/business logic more declarative and have less spaghetti/inner class code</li>
+        <li><a href="./dispatch.html">Dispatch</a>-style server/client AJAX communication</li>
+        <li><a href="./stubs.html">Stubs</a> for awesome, out-of-the-box <a href="./tests.html">tests</a></li>
+        <li>Conventions for <a href="forms.html">forms</a>, <a href="rowtable.html">row tables</a>, and <a href="celltable.html">cell tables</a></li>
+      </ul>
+    </div>
+
+    <div class="rightcol">
+      <h2>Download</h2>
+
+      <p>Tessell is available in the <a href="http://repo.tessell.org"><code>repo.tessell.org</code></a> repository:</p>
+
+      <ul>
+        <li><code>org.tessell</code> <code>tessell-user</code></li>
+        <li><code>org.tessell</code> <code>tessell-dev</code></li>
+        <li><code>org.tessell</code> <code>tessell-apt</code></li>
+      </ul>
+
+      <p><i>Note Tessell has very frequent releases, so check the repo for the latest versions.</i></p>
+
+      <p>For integrating Tessell into your project, see <a href="./gettingstarted.html">getting started</a>.</p>
+    </div>
+
+  </div>
+</div>
+
+<div id="contentcontainer">
+  <div id="maincontainer">
+    <h2>Screencast</h2>
+
+    <p>
+      <a href="http://www.tessell.org/casts/tessell-third.flv" style="display:block;width:520px;height:330px;margin-left:1em;" id="player"></a>
+      <script type="text/javascript"><!--
+        flowplayer("player", "casts/flowplayer-3.2.7.swf", { clip: { autoPlay: false } });
+      --></script>
+    </p>
+
+    <p>
+      <i>
+        Note if you have problems on FF/Ubuntu with stream not found, you might try installing the Flash-Aid extension and using a Flayer directly from Adobe.
+        See this <a href="http://flowplayer.org/forum/8/76252">forum thread</a> about FF/Flowplayer issues.
+      </i>
+    </p>
+
+    <h2>Community</h2>
+
+    <ul>
+      <li><a href="https://groups.google.com/forum/?#!forum/tessell">Tessell mailing list</a></li>
+      <li><a href="http://www.draconianoverlord.com/2011/12/10/todomvc-in-gwt-mpv.html">todomvc ported to Tessell blog post</a></li>
+      <li><a href="http://draconianoverlord.com/2012/08/30/tessell-gets-member-changed-events.html">Tessell gets MemberChangedEvents blog post</a></li>
+
+    </ul>
+
+    <h2>Open Source</h2>
+
+    <p>Tessell is licensed under the Apache Software License and available on github: <a href="https://github.com/stephenh/tessell">tessell</a>.</p>
+
+    <p>Following the github project is also the best way to stay in the loop on changes.</p>
+
+    <h2>Credits</h2>
+
+    <ul>
+      <li><a href="http://www.bizo.com">Bizo</a> for their initial and continued support of Tessell (originally called <code>gwt-mpv</code>)</li>
+      <li><a href="http://code.google.com/p/gwt-pectin/">gwt-pectin</a> inspired the binding DSL, which was previously very ugly</li>
+      <li><a href="http://code.google.com/p/gwt-dispatch/">gwt-dispatch</a> for the initial implementation of the dispatch pattern from Ray Ryan's I/O talk</li>
+      <li><a href="http://paulruxton.com/">Paul Ruxton</a> for the awesome logo and website design</li>
+    </ul>
+  </div>
+</div>

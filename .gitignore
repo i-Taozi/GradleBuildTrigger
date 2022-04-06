@@ -1,0 +1,5 @@
+/examples-workspace
+.gwt
+.gradle
+.checkstyle
+build
