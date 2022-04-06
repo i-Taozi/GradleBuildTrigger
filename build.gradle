@@ -63,6 +63,10 @@ ext {
 }
 
 allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+    }
+
     apply plugin: 'base'
     apply plugin: 'idea'
     apply plugin: 'com.github.ben-manes.versions'
