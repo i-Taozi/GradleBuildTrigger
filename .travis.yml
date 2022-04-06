@@ -9,4 +9,4 @@ jobs:
       checkstyle}
 env: {global: TERM=dumb}
 branches:
-  only: [BuildCraft/BuildCraft-4661-origin]
+  only: [BuildCraft/BuildCraft-4661-GRADLE_COMPILER_DAEMON]
