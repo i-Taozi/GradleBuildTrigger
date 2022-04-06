@@ -2,4 +2,4 @@ language: java
 script: ./gradlew
 jdk: [openjdk13]
 branches:
-  only: [mzmine/mzmine2-942-origin]
+  only: [mzmine/mzmine2-942-GRADLE_COMPILER_DAEMON]
