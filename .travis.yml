@@ -23,4 +23,4 @@ matrix:
   - {jdk: openjdk9}
   - {jdk: openjdk10}
 branches:
-  only: [jpos/jPOS-461-origin]
+  only: [jpos/jPOS-461-GRADLE_COMPILER_DAEMON]
