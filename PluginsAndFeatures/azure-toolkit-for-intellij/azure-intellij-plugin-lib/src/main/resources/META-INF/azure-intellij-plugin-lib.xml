@@ -1,0 +1,26 @@
+<idea-plugin>
+    <resource-bundle>com.microsoft.azure.toolkit.operation.title.action</resource-bundle>
+    <extensionPoints>
+        <extensionPoint name="actions" interface="com.microsoft.azure.toolkit.ide.common.IActionsContributor"/>
+    </extensionPoints>
+    <extensions defaultExtensionNs="com.microsoft.tooling.msservices.intellij.azure">
+        <actions implementation="com.microsoft.azure.toolkit.ide.common.action.ResourceCommonActionsContributor"/>
+        <actions implementation="com.microsoft.azure.toolkit.intellij.common.action.IntellijActionsContributor"/>
+        <actions implementation="com.microsoft.azure.toolkit.intellij.common.action.IntellijAccountActionsContributor"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <webHelpProvider implementation="com.microsoft.azure.toolkit.intellij.common.help.AzureWebHelpProvider"/>
+        <applicationService serviceImplementation="com.microsoft.azure.toolkit.intellij.common.settings.IntellijStore"/>
+        <preloadingActivity implementation="com.microsoft.azure.toolkit.intellij.common.preload.AzurePreloadingActivity"/>
+    </extensions>
+    <actions>
+        <action id="Actions.WhatsNew"
+                class="com.microsoft.azure.toolkit.intellij.common.action.WhatsNewAction" text="What's New in Azure Toolkit for Java"
+                description="Show new features of Azure Toolkit for Java"/>
+        <action id="AzureToolkit.AzureSDK.DeprecatedNotification.NeverShowAgain"
+                class="com.microsoft.azure.toolkit.intellij.common.messager.IntellijNeverShowAgainAction"
+                text="Never Show Again"
+                description="Never show again">
+        </action>
+    </actions>
+</idea-plugin>
