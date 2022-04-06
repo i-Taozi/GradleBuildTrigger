@@ -1,7 +1,7 @@
 language: java
 jdk: oraclejdk7
 branches:
-  only: [2dxgujun/AndroidTagGroup-86-origin]
+  only: [2dxgujun/AndroidTagGroup-86-GRADLE_INCREMENTAL_COMPILATION]
 env:
   matrix: [ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a]
 before_install: [sudo apt-get update -qq, 'if [ `uname -m` = x86_64 ]; then sudo apt-get
