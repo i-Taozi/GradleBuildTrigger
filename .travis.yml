@@ -23,4 +23,4 @@ after_success: [./gradlew coveralls, 'if [ "$TRAVIS_BRANCH" == "master" ]; then 
     "Deploy to GitHub Pages"; echo ''Push to Github Pages repo''; git push --force
     "https://${GH_TOKEN}@${GH_REF}" master:gh-pages; echo ''Done''; fi']
 branches:
-  only: [canoo/dolphin-platform-916-origin]
+  only: [canoo/dolphin-platform-916-GRADLE_INCREMENTAL_COMPILATION]
