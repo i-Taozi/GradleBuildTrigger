@@ -1,0 +1,10 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:p='urn:import:fr.putnami.gradle.sample.multimodule.person.client'
+	>
+	
+	<g:HTMLPanel>
+		<p:PersonEditor ui:field="personEditor"/>
+		<g:Button ui:field="clickMe">Click me</g:Button>
+  </g:HTMLPanel>
+</ui:UiBinder>

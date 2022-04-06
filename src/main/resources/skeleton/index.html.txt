@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Code">
+<head>
+	<title>__APP_NAME__</title>
+	<script type="text/javascript" src="__APP_NAME__/__APP_NAME__.nocache.js"></script>
+</head>
+<body>
+    <noscript>Your browser does not support JavaScript!</noscript>
+</body>
+</html>

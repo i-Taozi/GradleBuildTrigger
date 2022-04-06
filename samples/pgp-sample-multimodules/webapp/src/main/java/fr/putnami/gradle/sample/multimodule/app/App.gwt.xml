@@ -1,0 +1,7 @@
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.7.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.7.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to="App">
+  <inherits name="com.google.gwt.user.User"/>
+  <inherits name="fr.putnami.gradle.sample.multimodule.person.Person"/>
+
+  <entry-point class="fr.putnami.gradle.sample.multimodule.app.client.App"/>
+</module>

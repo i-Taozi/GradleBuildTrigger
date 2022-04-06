@@ -1,0 +1,13 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui'
+	xmlns:p='urn:import:fr.putnami.gradle.sample.multimodule.person.client'
+	>
+	
+	<g:HTMLPanel>
+		<h1>__APP_NAME__</h1>
+		<div>Please enter your name:</div>
+		<g:TextBox ui:field="name" />
+		<g:Button ui:field="sayHi">Say hi!</g:Button>
+		<g:FlowPanel ui:field="outDiv" />
+  </g:HTMLPanel>
+</ui:UiBinder>

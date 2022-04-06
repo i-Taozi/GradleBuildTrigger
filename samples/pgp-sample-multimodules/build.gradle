@@ -1,0 +1,20 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath 'fr.putnami.gwt:putnami-gradle-plugin:0.5.0-SNAPSHOT'
+		classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
+	}
+}
+
+allprojects {
+	group = 'fr.putnami.pwt.gradle.samples'
+	version = '0'
+
+	repositories {
+		mavenCentral()
+	}
+}

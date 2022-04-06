@@ -1,0 +1,35 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		jcenter()
+	}
+	dependencies {
+		classpath 'fr.putnami.gwt:putnami-gradle-plugin:0.5.0-SNAPSHOT'
+		classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
+	}
+}
+
+apply plugin: 'fr.putnami.gwt-lib'
+//plugins {
+//  id "fr.putnami.gwt-lib" version "0.4.0"
+//}
+
+group = 'fr.putnami.pwt.gradle.samples'
+version = '0-SNAPSHOT'
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+putnami{
+	module 'fr.putnami.gradle.sample.webapp.App'
+	gwtVersion='2.8.0-beta1'
+	compile {
+		sourceLevel = '1.8'
+	}
+}
