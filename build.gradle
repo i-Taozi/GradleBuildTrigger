@@ -1,0 +1,46 @@
+buildscript {
+    apply from: file('gradle/buildscript.gradle'), to: buildscript
+}
+
+plugins {
+    id 'com.gradle.build-scan' version '1.15.2'
+}
+
+buildScan {
+    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+    licenseAgree = 'yes'
+    publishAlways()
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+project(":catnap-core") {
+    ext.artifact = 'catnap-core'
+}
+
+project(":catnap-jaxrs") {
+    ext.artifact = 'catnap-jaxrs'
+}
+
+project(":catnap-spring") {
+    ext.artifact = 'catnap-spring'
+
+    repositories {
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+}
+
+project(":catnap-springboot") {
+    ext.artifact = 'catnap-springboot'
+
+    repositories {
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+}

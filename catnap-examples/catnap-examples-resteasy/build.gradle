@@ -1,0 +1,29 @@
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:1.2.4'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.github.gregwhitaker:catnap-jaxrs:2.2.1'
+    compile 'org.jboss.resteasy:resteasy-jaxrs:3.0.16.Final'
+    compile 'org.jboss.resteasy:resteasy-jaxb-provider:3.0.16.Final'
+    compile 'org.jboss.resteasy:resteasy-jackson2-provider:3.0.16.Final'
+}
+
+gretty {
+    port = 8080
+    contextPath = '/'
+    servletContainer = 'jetty9'
+}
