@@ -1,0 +1,42 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'com.bmuschko:gradle-nexus-plugin:2.2'
+  }
+}
+
+plugins {
+  id 'me.champeau.gradle.jmh' version '0.2.0'
+}
+
+def custom = { "$rootDir/gradle/${it}.gradle" } //find custom plugins locally
+
+
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'simple-react', 'Implementation-Version': version
+  }
+}
+
+
+subprojects {
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+  if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+      tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+      }
+    }
+  }
+
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.14.1'
+}
