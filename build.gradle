@@ -1,0 +1,285 @@
+buildscript {
+  repositories {
+	  mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath group: 'org.ajoberstar', name: 'grgit', version: '1.1.0'
+  }
+}
+
+plugins {
+  id 'java'
+  id 'idea'
+  id 'eclipse'
+  id 'maven'
+  id 'jaci.openrio.gradle.GradleRIO' version '2017.0.5'
+}
+apply plugin: BuildGradle
+
+ext {
+    git = org.ajoberstar.grgit.Grgit.open(file('.'))      //Used for Toast's internal versioning system
+}
+
+frc {
+  frc.robotClass = "jaci.openrio.toast.core.Toast"    //The class for the main Robot Class. Used in manifest
+  frc.team = "9999"                                   //Your FRC team number (e.g. 5333 for team 'Can't C#', or 47 for Chief Delphi)
+}
+
+[compileJava, compileTestJava]*.options.collect {options -> options.encoding = 'UTF-8'}   //Keep things in the proper encoding otherwise things get messed up on some compilers
+
+repositories {
+  maven {
+    name = "Jaci"
+    url = "http://dev.imjac.in/maven"
+  }
+  mavenCentral()
+}
+
+eclipse {
+    classpath {
+        file.whenMerged { cp ->
+            def src_patch = new org.gradle.plugins.ide.eclipse.model.SourceFolder('patches/src/main/java', "build/pat_out")
+            // def src_patch_f = new org.gradle.plugins.ide.eclipse.model.SourceFolder('patches_full/src/main/java', "build/pat_out")           // Commented until we actually get global patches to stop eclipse from complaining
+
+            if (cp.entries.find() { it.path == src_patch.path } == null)
+              cp.entries.add(src_patch)
+            // if (cp.entries.find() { it.path == src_patch_f.path } == null)
+            //   cp.entries.add(src_patch_f)
+        }
+    }
+}
+
+idea {
+    module {
+        sourceDirs += file('patches/src/main/java')
+        sourceDirs += file('patches_full/src/main/java')
+    }
+}
+
+task dummy() {}
+
+def maven = true
+
+try {
+  ext.mavenProps = file "../maven.properties"
+  mavenProps.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.mavenProps = new ConfigSlurper().parse prop
+  }
+} catch (Exception e) {
+  println "Could not load Maven Properties... You are not a developer!"
+  maven = false
+}
+
+ext.settings = file "build.settings"
+settings.withReader {
+  def prop = new Properties()
+  prop.load(it)
+  project.ext.settings = new ConfigSlurper().parse prop
+}
+
+configurations {
+    deployerJars
+}
+
+dependencies {
+  compile fileTree(dir: 'libs/', include: '*.jar')
+
+  compile wpilib()
+  compile talonSrx()
+
+  compile 'jaci.openrio.delegate:NetworkDelegate:1.2.1'
+  compile 'com.grack:nanojson:+'
+  deployerJars 'org.apache.maven.wagon:wagon-ssh:2.4'
+}
+
+archivesBaseName = "Toast"
+version = settings.toast.version
+group = "jaci.openrio.toast"
+
+def robotManifest = {
+  //attributes 'Main-Class': 'edu.wpi.first.wpilibj.RobotBase'
+  attributes 'Main-Class': 'jaci.openrio.toast.core.ToastBootstrap'
+  attributes 'Robot-Class': frc.robotClass
+}
+
+jar.doFirst {
+  from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  manifest robotManifest
+}
+
+task genJavadoc(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+task generateExternalPatches(type: GradleBuild) {
+  dir = 'patches'
+  tasks = ['build', 'genPatches']
+}
+
+task generateExternalFullPatches(type: GradleBuild) {
+  dir = 'patches_full'
+  tasks = ['build', 'genPatches']
+}
+
+generateExternalPatches.finalizedBy generateExternalFullPatches
+
+task genPatches << {
+  try {
+    ant.copy(todir: "build/resources/main/assets/toast/patches/") {
+      ant.fileset(dir: "patches/build/patches")
+    }
+	ant.copy(todir: "build/resources/main/assets/toast/patches/") {
+      ant.fileset(dir: "patches_full/build/patches")
+    }
+  } catch (Exception e) {}
+}
+
+task deletePatches << {
+  try {
+    ant.delete(includeemptydirs: "true") {
+      ant.fileset(dir: "build/resources/main/assets/toast/patches/") {
+        ant.include(name: "**/*")
+        ant.exclude(name: "patches.txt")
+      }
+    }
+  } catch (Exception e) {}
+}
+
+task genVersion << {
+  try {
+    new File("src/main/resources/assets/toast/toast.version").withWriter {
+      it.writeLine(settings.toast.version)
+    }
+    
+    new File("src/main/resources/assets/toast/toast.git_info").withWriter {
+      it.writeLine(git.head().id)
+      it.writeLine(git.head().abbreviatedId)
+    }
+  } catch (Exception e) {
+  }
+}
+
+task updateLatest << {
+  ant.delete(dir: "build/latest/")
+  ant.copy(file: "${jar.archivePath}", todir: "build/latest")
+}
+
+task genMetrics << {
+  javaexec {
+    workingDir = file('tools')
+    args = ["Documentation.jar", "../src/main/java"]
+    main = "-jar"
+  }
+}
+
+genPatches.dependsOn deletePatches
+compileJava.dependsOn genPatches
+compileJava.dependsOn genVersion
+build.finalizedBy updateLatest
+
+task src(type: Jar, dependsOn: classes) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+  // project.getConfigurations().wpi_source.resolve().each {
+  //   from(zipTree(it))
+  // }
+}
+
+task raw(type: Jar, dependsOn: classes) {
+  classifier = 'raw'
+  from sourceSets.main.output
+}
+
+artifacts {
+  //archives genJavadoc
+  archives raw
+  archives src
+}
+
+def isPrerelease(project) {
+  println "Project Version: ${project.version}"
+  def m = project.version =~ /(\d+)\.(\d+)\.(\d+)-(\d+[a-zA-Z])/
+  if (!m) return false
+  return true
+}
+
+task prerelease << {
+  println isPrerelease(project) ? "Project is a prerelease" : "Project is not a prerelease"
+}
+
+uploadArchives {
+  if (maven) {
+    repositories.mavenDeployer {
+      configuration = configurations.deployerJars
+      repository(url: mavenProps.jaci.url) {
+        authentication(userName: mavenProps.jaci.user, password: mavenProps.jaci.auth)
+      }
+
+      pom {
+	      groupId = project.group
+		    version = project.version
+        if (isPrerelease(project))
+          artifactId = project.archivesBaseName + '-pre'
+        else
+		      artifactId = project.archivesBaseName
+		    project {
+			    name project.archivesBaseName
+			    packaging 'jar'
+			    description 'Toast API Module Loader '
+		    }
+		    pom*.whenConfigured { pom -> pom.dependencies.clear() }
+      }
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+   gradleVersion = '3.3'
+}
+
+
+class BuildGradle implements Plugin<Project> {
+  void apply(Project project) {
+    //jaci.openrio.gradle.ToastIDE.init(project)
+
+    project.getConfigurations().maybeCreate('verify')
+    project.task('verify') {
+      doLast {
+        File toast_dir = new File('run/verification')
+        if (toast_dir.exists()) {
+          project.ant.delete(dir: toast_dir.getAbsolutePath())
+        }
+
+        toast_dir.mkdirs()
+        File modules_dir = new File(toast_dir, "toast/modules")
+        modules_dir.mkdirs()
+
+        println "Beginning Assets Copying..."
+        File toast = new File(toast_dir, 'Toast.jar')
+        String archive = project.jar.archivePath
+        project.ant.copy(tofile: toast.getAbsolutePath(), file: archive)
+
+        project.getConfigurations().verify.resolve().each {
+          File file = it
+          File toFile = new File(modules_dir, file.getName())
+          project.ant.copy(tofile: toFile.getAbsolutePath(), file: file.getAbsolutePath())
+        }
+
+        println "Assets Copied..."
+        println "Beginning Verification..."
+
+        project.javaexec {
+          workingDir = toast_dir.getAbsolutePath()
+          args = ["Toast.jar", "-verify"]
+          main = '-jar'
+        }
+
+        println "Verification Complete..."
+      }
+    }
+  }
+}

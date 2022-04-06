@@ -1,0 +1,15 @@
+language: java
+addons:
+  apt:
+    sources: [ubuntu-toolchain-r-test]
+    packages: [libstdc++6]
+install: [./gradlew build, ./gradlew generateExternalPatches, ./gradlew build, ./gradlew
+    genMetrics, ruby tools/setup.rb, ruby tools/inspector.rb, ruby tools/imports.rb,
+  ./gradlew verify]
+jdk: [oraclejdk8]
+notifications: {email: false}
+cards:
+  enabled: [master, development]
+  title: Toast
+branches:
+  only: [Open-RIO/ToastAPI-53-origin]
