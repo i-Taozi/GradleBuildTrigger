@@ -8,7 +8,7 @@ cache:
   directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/, $HOME/.m2]
 before_install: [export MAVEN_OPTS="-Xmx4096M"]
 branches:
-  only: [microsoft/azure-tools-for-java-6071-origin]
+  only: [microsoft/azure-tools-for-java-6071-GRADLE_COMPILER_DAEMON]
 install: skip
 script: [' ./gradlew buildAll --quiet']
 dist: trusty
