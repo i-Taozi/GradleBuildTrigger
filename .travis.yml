@@ -1,0 +1,4 @@
+language: java
+jdk: [oraclejdk8]
+branches:
+  only: [aykutalparslan/Telegram-Server-31-origin]

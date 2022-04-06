@@ -1,0 +1,59 @@
+
+                            Telegram Server
+                            ===============
+
+Copyright 2015 Aykut Alparslan KOÇ
+
+Telegram Server licenses this file to you under GNU GPL v. 3 or later.
+You should have received a copy of the license in this archive (see LICENSE).
+
+-------------------------------------------------------------------------------
+This product contains The Netty Project
+
+  * LICENSE:
+    * Apache License Version 2.0
+  * HOMEPAGE:
+    * http://netty.io
+
+This product contains a modified portion of Nikolai Kudashov's 'Telegram for Android v. 2.x.x.'
+ which can be obtained at:
+
+  * LICENSE:
+    * GNU GPL v. 2 or later
+  * HOMEPAGE:
+    * https://github.com/DrKLO/Telegram
+
+This product contains a modified portion of Korshakov Stepan's 'Java MTProto Implementation'
+ which can be obtained at:
+
+  * LICENSE:
+    * The MIT License (MIT)
+  * HOMEPAGE:
+    * https://github.com/ex3ndr/telegram-mt
+
+
+This product contains Bouncy Castle
+ which can be obtained at:
+
+  * LICENSE:
+    * The MIT License (MIT)
+  * HOMEPAGE:
+    * https://www.bouncycastle.org/
+
+
+This product contains DataStax Java Driver for Apache Cassandra
+ which can be obtained at:
+
+  * LICENSE:
+    * Apache License Version 2.0
+  * HOMEPAGE:
+    * https://github.com/datastax/java-driver
+
+
+This product includes software developed by the Hazelcast Project (http://www.hazelcast.com).
+ which can be obtained at:
+
+  * LICENSE:
+    * The MIT License (MIT)
+  * HOMEPAGE:
+    * http://hazelcast.org/
