@@ -12,4 +12,4 @@ notifications:
   email: [dev@tapestry.apache.org]
 addons: {firefox: latest-esr}
 branches:
-  only: [apache/tapestry-5-32-origin]
+  only: [apache/tapestry-5-32-GRADLE_COMPILER_DAEMON]
