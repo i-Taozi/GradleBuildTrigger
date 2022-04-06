@@ -1,0 +1,163 @@
+apply plugin: 'application'
+
+mainClassName = 'com.caucho.v5.cli.baratine.BaratineCommandLine'
+
+allprojects {
+  group="io.baratine"
+  
+  version=System.properties['version'] ?: "1.0.2-SNAPSHOT"
+  
+  apply plugin: 'java'
+  apply plugin: 'eclipse'
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  repositories {
+    mavenCentral();
+
+    maven {
+      url "http://repo.gradle.org/gradle/libs-releases-local"
+    }
+  }
+
+  javadoc.options.links("http://docs.oracle.com/javase/8/docs/api/");
+  javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
+  eclipse.project {
+    natures 'org.eclipse.buildship.core.gradleprojectnature'
+  }
+
+  eclipse.classpath {
+    defaultOutputDir = file('build/classes/main')
+  }
+}
+
+javadoc {
+  title = 'Baratine ' + version
+
+  options.links("http://docs.oracle.com/javase/8/docs/api/");
+  options.addStringOption('Xdoclint:none', '-quiet')
+
+  source = subprojects.sourceSets.main.allJava
+}
+
+task javadocIoBaratine(type: Javadoc) {
+  title = 'Baratine ' + version
+
+  options.links("http://docs.oracle.com/javase/8/docs/api/");
+  options.addStringOption('Xdoclint:none', '-quiet')
+
+  ArrayList mySources = new ArrayList();
+
+  subprojects.sourceSets.main.allJava.each{ sourceSet ->
+    mySources << sourceSet.filter{ file ->
+      return file.toString().contains('io/baratine');
+    }
+  }
+
+  source = mySources;
+}
+
+task javadocIoBaratineJar(type: Jar) {
+  classifier = 'javadoc'
+  from javadocIoBaratine
+}
+
+
+apply from: 'maven.gradle'
+
+project(':core') {
+  dependencies {
+    compile project(':api')
+  }
+}
+
+project(':web') {
+  dependencies {
+    compile project(':api')
+    compile project(':core')
+  }
+}
+
+project(':kraken') {
+  dependencies {
+    compile project(':api')
+    compile project(':core')
+    compile project(':web')
+  }
+}
+
+project(':framework') {
+  apply plugin: 'application'
+
+  dependencies {
+    compile project(':api')
+    compile project(':core')
+    compile project(':web')
+    compile project(':kraken')
+//    compile project(':hessian')
+  }
+
+  mainClassName = 'com.caucho.v5.cli.baratine.BaratineCommandLine'
+}
+
+project(':test') {
+  dependencies {
+    testCompile project(':api')
+    testCompile project(':core')
+    testCompile project(':web')
+    testCompile project(':kraken')
+    testCompile project(':framework')
+    testCompile project(':plugins')
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hibernate:hibernate-validator:5.2.4.Final'
+    testCompile 'javax.el:javax.el-api:2.2.4'
+  }
+}
+
+configurations {
+  provided
+  compile.extendsFrom provided
+}
+
+distributions.each {
+  def copySpec = it.contents
+  
+  copySpec.filesMatching('*.jar', {
+    // exclude all non-baratine dependencies
+    if (! it.file.parent.endsWith('build/libs')) {
+      it.exclude()
+    }
+    
+    // only include baratine.jar for now
+    if (! it.name.equals('baratine-' + version + '.jar')) {
+      it.exclude()
+    }
+  })
+}
+  
+dependencies {
+  compile project(':api')
+  compile project(':core')
+  compile project(':web')
+//  compile project(':hessian')
+  compile project(':framework')
+  compile project(':plugins')
+}
+
+jar {
+  dependsOn configurations.compile
+
+  from subprojects.jar.source exclude 'MANIFEST.MF'
+
+  manifest {
+    attributes "Main-Class" : mainClassName,
+               "Implementation-Version" : version
+  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.11'
+}
