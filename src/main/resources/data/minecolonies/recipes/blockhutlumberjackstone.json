@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XTX",
+    "XAX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "minecraft:planks"
+    },
+    "A": {
+      "item": "minecraft:stone_axe"
+    },
+    "T": {
+      "item": "structurize:sceptergold"
+    }
+  },
+  "result": {
+    "item": "minecolonies:blockhutlumberjack",
+    "count": 2
+  }
+}

@@ -1,0 +1,19 @@
+<window size="190 244" pause="false" lightbox="false">
+
+    <layout source="minecolonies:gui/layouthuts/layouthutpageactionsmin.xml"/>
+    <label size="164 11" pos="13 32" color="black" textalign="MIDDLE"
+           label="$(com.minecolonies.coremod.gui.workerhuts.barbpoints.current):"/>
+    <label id="current" size="164 11" pos="13 43" color="black" textalign="MIDDLE"/>
+    <label size="164 11" pos="13 54" color="black" textalign="MIDDLE"
+           label="$(com.minecolonies.coremod.gui.workerhuts.barbpoints):"/>
+    <list id="positions" size="164 45" pos="13 65">
+        <box size="100% 11" linewidth="1">
+            <label id="pos" size="100% 11" color="black"/>
+        </box>
+    </list>
+
+    <buttonimage id="hireSpies" size="129 17" pos="30 129" textcolor="black"
+                 source="minecolonies:textures/gui/builderhut/builder_button_medium_large.png"
+                 label="$(com.minecolonies.coremod.gui.workerHuts.spies)"/>
+    <itemicon id="hireSpiesIcon" size="15 15" pos="130 129"/>
+</window>

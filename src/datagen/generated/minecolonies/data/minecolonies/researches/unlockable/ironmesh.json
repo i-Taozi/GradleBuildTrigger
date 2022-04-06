@@ -1,0 +1,20 @@
+{
+  "branch": "minecolonies:unlockable",
+  "parentResearch": "minecolonies:unlockable/flintmesh",
+  "researchLevel": 3,
+  "icon": "minecolonies:sifter_mesh_string",
+  "requirements": [
+    {
+      "mandatory-building": "sifter",
+      "level": 4
+    }
+  ],
+  "hidden": true,
+  "autostart": true,
+  "instant": true,
+  "effects": [
+    {
+      "minecolonies:effects/sifterironunlock": 1
+    }
+  ]
+}

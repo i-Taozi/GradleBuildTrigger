@@ -1,0 +1,8 @@
+language: java
+sudo: false
+jdk: oraclejdk8
+install: ./travis/build.sh
+script: [./travis/javadoc.sh, ./travis/sonar.sh]
+after_success: [./travis/dropbox.sh, ./travis/solder.sh]
+branches:
+  only: [ldtteam/minecolonies-7763-origin]

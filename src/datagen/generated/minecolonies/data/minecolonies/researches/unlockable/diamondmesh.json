@@ -1,0 +1,20 @@
+{
+  "branch": "minecolonies:unlockable",
+  "parentResearch": "minecolonies:unlockable/ironmesh",
+  "researchLevel": 4,
+  "icon": "minecolonies:sifter_mesh_string",
+  "requirements": [
+    {
+      "mandatory-building": "sifter",
+      "level": 5
+    }
+  ],
+  "hidden": true,
+  "autostart": true,
+  "instant": true,
+  "effects": [
+    {
+      "minecolonies:effects/sifterdiamondunlock": 1
+    }
+  ]
+}

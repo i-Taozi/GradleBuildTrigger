@@ -1,0 +1,53 @@
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+    maven {
+        name 'LDTTeam - Modding'
+        url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+    }
+    maven {
+        url 'https://www.dogforce-games.com/maven/'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+    maven {
+        url 'https://dvs1.progwml6.com/files/maven/'
+    }
+    maven {
+        url "https://harleyoconnor.com/maven/"
+    }
+    maven {
+        name "JourneyMap"
+        url "https://jm.gserv.me/repository/maven-public/"
+    }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${project.minecraftVersion}-${project.forgeVersion}"
+
+    library fg.deobf("com.ldtteam:structurize:${project.structurize_version}")
+    library "com.ldtteam:datagenerators:${project.dataGeneratorsVersion}"
+    library fg.deobf("mezz.jei:jei-${project.minecraftVersion}:${project.jei_version}")
+
+    apiLibrary fg.deobf("com.ldtteam:structurize:${project.structurize_version}")
+    apiLibrary "com.ldtteam:datagenerators:${project.dataGeneratorsVersion}"
+    apiLibrary fg.deobf("mezz.jei:jei-${project.minecraftVersion}:${project.jei_version}")
+
+    compileOnly fg.deobf("info.journeymap:journeymap-api:${project.minecraftVersion}-${project.jmapApiVersion}")
+    if (project.hasProperty("runWithJourneymap") && project.runWithJourneymap.toBoolean()) {
+        runtimeOnly fg.deobf("flat:journeymap:${project.minecraftVersion}-${project.jmapVersion}")
+    }
+
+    // optional compat mods (not included in test environment by default)
+    // replace "compileOnly" with "library" when you want to include it for testing
+    compileOnly fg.deobf("com.resourcefulbees:ResourcefulBees:${project.minecraftVersion}-${project.resourceFullBeesVersion}")
+    compileOnly fg.deobf("com.ferreusveritas.dynamictrees:DynamicTrees-${project.minecraftVersion}:${project.dynamicTreesVersion}")
+    compileOnly fg.deobf("slimeknights.tconstruct:TConstruct:${project.minecraftVersion}-${project.tinkersConstructVersion}")
+    compileOnly fg.deobf("slimeknights.mantle:Mantle:${project.minecraftVersion}-${project.mantleVersion}")
+    apiCompileOnly fg.deobf("com.resourcefulbees:ResourcefulBees:${project.minecraftVersion}-${project.resourceFullBeesVersion}")
+    apiCompileOnly fg.deobf("slimeknights.mantle:Mantle:${project.minecraftVersion}-${project.mantleVersion}")
+    apiCompileOnly fg.deobf("slimeknights.tconstruct:TConstruct:${project.minecraftVersion}-${project.tinkersConstructVersion}")
+    apiCompileOnly fg.deobf("com.ferreusveritas.dynamictrees:DynamicTrees-${project.minecraftVersion}:${project.dynamicTreesVersion}")
+}
