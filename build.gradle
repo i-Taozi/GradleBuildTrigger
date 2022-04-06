@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.diffplug.spotless:spotless-plugin-gradle:5.14.2"
+        classpath "com.github.jxnu-liguobin:leetcode-helper:0.1.4"
+    }
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'com.diffplug.spotless'
+    apply plugin: 'com.github.jxnu-liguobin.leetcode-helper'
+
+    group = 'io.github.dreamylost'
+    version = '2.0.1'
+
+    description = "Recording Learning, Work, Interview, Summary and Reflection"
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    repositories {
+        mavenLocal()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        jcenter()
+        // 先从url中下载jar若没有找到，则在artifactUrls中寻找
+        maven {
+            url "https://maven.aliyun.com/nexus/content/groups/public/"
+            artifactUrls "https://central.maven.org/maven2/"
+        }
+        maven {
+            name "spring"
+            url "https://repo.spring.io/libs-milestone/"
+        }
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.7'
+    }
+
+    build.dependsOn 'spotlessCheck'
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    //使用： gradle scala-leetcode:leetcodeCodegenService -Pq=top-k-frequent-elements
+    //参数说明：gradle任务必须指定模块，否则会每个子模块都执行一次。
+    task leetcodeCodegenService(type: com.github.dreamylost.task.LeetcodeGradleTask) {
+        questionTitle = rootProject.getProperties().get("q").toString()
+        generatedLanguage = com.github.dreamylost.GeneratedLanguage.Scala
+        String s = rootProject.getProperties().get("p").toString()
+        packageName = s == null ? "io.github.dreamylost" : s
+        prefix = "Leetcode_"
+        serverConfig = com.github.dreamylost.invoker.ServerConfig.defaultConfig()
+    }
+}

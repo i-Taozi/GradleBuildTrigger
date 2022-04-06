@@ -1,0 +1,15 @@
+[package]
+name = "rust-exercise"
+version = "0.1.0"
+authors = ["梦境迷离 <dreamylost@outlook.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+#新增随机数支持依赖，该数字0.5.5实际上是的简写^0.5.5，表示“具有与0.5.5版兼容的公共API的任何版本。”
+rand = "0.5.5"
+
+[profile.release]
+panic = 'abort' #发布模式下因恐慌(panic，不可恢复的错误，类似Java的error)而中止，通过将RUST_BACKTRACE环境变量设置为除0以外的任何值来获得错误的确切原因的回溯
+

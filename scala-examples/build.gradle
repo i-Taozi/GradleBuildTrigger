@@ -1,0 +1,6 @@
+plugins{
+    id 'custom.scala'
+}
+dependencies {
+    implementation 'com.typesafe.play:play_2.13:2.8.8'
+}

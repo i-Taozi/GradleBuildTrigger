@@ -1,0 +1,6 @@
+language: scala
+scala: [2.12.2]
+after_success: ['bash <(curl -s https://codecov.io/bash)']
+jdk: [openjdk8]
+branches:
+  only: [jxnu-liguobin/cs-summary-reflection-113-origin]
