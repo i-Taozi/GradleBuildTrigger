@@ -1,0 +1,146 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    maven { url 'https://plugins.gradle.org/m2/' }
+    maven { url 'http://repo.spring.io/plugins-release' }
+  }
+
+  dependencies {
+    classpath 'com.netflix.nebula:gradle-extra-configurations-plugin:3.1.0'
+    classpath 'io.spring.gradle:spring-release-plugin:0.2.0'
+    classpath 'org.ow2.asm:asm:5.2'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'io.spring.release'
+apply plugin: 'nebula.optional-base'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+  jcenter()
+  mavenCentral()
+  maven { url 'https://repo.spring.io/libs-milestone' }
+  maven { url 'https://repo.spring.io/libs-snapshot' }
+}
+
+ext {
+  jacksonVersion = findProperty('jacksonVersion') ?: '2.8.6'
+
+  springBootVersion = findProperty('springBootVersion') ?: '1.5.3.RELEASE'
+  springSocialVersion = findProperty('springSocialVersion') ?: '1.1.4.RELEASE'
+  springVersion = findProperty('springVersion') ?: '4.3.8.RELEASE'
+
+  jsonVersion = findProperty('jsonVersion') ?: '20170516'
+  junitVersion = findProperty('junitVersion') ?: '4.12'
+  mockitoVersion = findProperty('mockitoVersion') ?: '2.8.9'
+}
+
+group = 'com.github.spring-social'
+description = 'Google API for Spring Social'
+
+contacts {
+  'michael@laccetti.com' {
+    moniker 'Michael Laccetti'
+    github 'mlaccetti'
+  }
+}
+
+license {
+  includes(["**/*.java", "**/*.properties"])
+}
+
+publishing {
+  publications {
+    SpringSocialGooglePublication(MavenPublication) {
+      from components.java
+      artifact tasks.sourceJar
+      artifact tasks.javadocJar
+
+
+      pom.withXml {
+        asNode().with {
+          appendNode('licenses').with {
+            appendNode('license').with {
+              appendNode('name', 'Apache-2.0')
+              appendNode('url', 'https://opensource.org/licenses/Apache-2.0')
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+bintray {
+  publications = ['SpringSocialGooglePublication']
+
+  pkg {
+    userOrg = 'spring-social'
+    labels = ['spring', 'spring-social', 'google']
+  }
+}
+
+[compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:all', '-Xlint:-processing', '-Werror']
+
+test.systemProperty('java.awt.headless', 'true')
+
+dependencies {
+  compile("org.springframework.boot:spring-boot-starter:$springBootVersion", optional)
+  compile("org.springframework.boot:spring-boot-configuration-processor:$springBootVersion", optional)
+
+  compile("org.springframework.social:spring-social-core:$springSocialVersion")
+  compile("org.springframework.social:spring-social-config:$springSocialVersion")
+  compile("org.springframework.social:spring-social-security:$springSocialVersion", optional)
+
+  compile("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
+  compile("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+  compile("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+
+  testCompile("junit:junit:$junitVersion")
+  testCompile("org.mockito:mockito-core:$mockitoVersion")
+  testCompile("org.springframework:spring-test:$springVersion")
+  testCompile("org.json:json:$jsonVersion")
+}
+
+checkstyle {
+  toolVersion = "7.7"
+
+  configFile = file("${rootDir}/gradle/checkstyle.xml")
+
+  maxErrors = 0
+  maxWarnings = 0
+
+  showViolations = false
+  ignoreFailures = false
+}
+
+tasks.withType(Checkstyle) {
+  source = "src/main/java"
+
+  reports {
+    xml.enabled false
+    html.enabled true
+    html.stylesheet resources.text.fromFile("${rootDir}/gradle/checkstyle.xsl")
+  }
+}
+
+findbugs {
+  toolVersion = "3.0.1"
+  excludeFilter = file("${rootDir}/gradle/findbugs.xml")
+  ignoreFailures = false
+}
+
+tasks.withType(FindBugs) {
+  reports {
+    xml.enabled false
+    html.enabled true
+    html.stylesheet resources.text.fromFile("${rootDir}/gradle/findbugs.xsl")
+  }
+}
