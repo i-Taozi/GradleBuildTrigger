@@ -1,0 +1,6 @@
+archivesBaseName = 'extratrees-api-' + mcversion
+
+dependencies {
+	compile project(":core-api")
+	compile project(":design-api")
+}

@@ -1,0 +1,9 @@
+archivesBaseName = 'all-' + mcversion
+
+dependencies {
+	runtimeOnly project(":botany")
+	runtimeOnly project(":core")
+	runtimeOnly project(":extrabees")
+	runtimeOnly project(":extratrees")
+	runtimeOnly project(":genetics")
+}

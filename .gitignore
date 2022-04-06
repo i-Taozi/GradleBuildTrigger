@@ -1,0 +1,13 @@
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# folders
+.gradle/
+classes/
+build/
+run/
+out/
+/changelog.html
