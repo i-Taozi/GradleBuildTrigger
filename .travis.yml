@@ -17,4 +17,4 @@ script: ['mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl
     -Dartifact=com.google.dagger:dagger:2.0', ./gradlew connectedAndroidTest -PdisablePreDex,
   ./gradlew build -PdisablePreDex]
 branches:
-  only: [andnexus/android-testing-5-origin]
+  only: [andnexus/android-testing-5-GRADLE_INCREMENTAL_COMPILATION]
