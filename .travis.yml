@@ -16,4 +16,4 @@ before_script: [android list targets]
 script: [nice ./gradlew test -PdisablePreDex, ./gradlew assembleRelease]
 after_failure: [cat app/build/reports/tests/testDebugUnitTest/classes/*, cat app/build/reports/tests/testReleaseUnitTest/classes/*]
 branches:
-  only: [NightscoutFoundation/xDrip-1875-origin]
+  only: [NightscoutFoundation/xDrip-1875-GRADLE_COMPILER_DAEMON]
