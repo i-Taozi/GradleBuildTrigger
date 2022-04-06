@@ -52,4 +52,4 @@ deploy:
   script: ELASSANDRA_TAG=${TRAVIS_TAG:1} ./ci/docker.sh
   true: {tags: true, branch: v6.8.4-strapdata, repo: strapdata/elassandra}
 branches:
-  only: [strapdata/elassandra-399-origin]
+  only: [strapdata/elassandra-399-GRADLE_COMPILER_DAEMON]
