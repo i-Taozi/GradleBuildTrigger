@@ -9,4 +9,4 @@ cache:
 install: true
 script: [./gradlew check --refresh-dependencies --no-daemon]
 branches:
-  only: [spring-projects/spring-integration-3646-origin]
+  only: [spring-projects/spring-integration-3646-GRADLE_COMPILER_DAEMON]
