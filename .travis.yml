@@ -7,4 +7,4 @@ before_cache: [rm -f $HOME/.gradle/caches/*/*.lock]
 install: [./gradlew assemble]
 script: [./gradlew check]
 branches:
-  only: [SleepyTrousers/EnderIO-5549-origin]
+  only: [SleepyTrousers/EnderIO-5549-GRADLE_COMPILER_DAEMON]
