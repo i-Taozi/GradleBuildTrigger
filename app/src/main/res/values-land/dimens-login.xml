@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <dimen name="login_toolbar_height">60dp</dimen>
+  <dimen name="login_prompt_margin_bottom">12dp</dimen>
+
+</resources>

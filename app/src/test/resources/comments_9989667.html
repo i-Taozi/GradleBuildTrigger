@@ -1,0 +1,163 @@
+<html op="item">
+<head>
+    <meta name="referrer" content="origin">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="news.css?IEuWteaiGioI1QAvdcrW">
+    <link rel="shortcut icon" href="favicon.ico">
+    <title>GPU Ray Tracing the Wrong Way | Hacker News</title>
+</head>
+<body>
+<center>
+    <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+        <tbody>
+        <tr>
+            <td bgcolor="#ff6600">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="padding:2px">
+                    <tbody>
+                    <tr>
+                        <td style="width:18px;padding-right:4px"><a href="http://www.ycombinator.com"><img src="y18.gif" width="18" height="18" style="border:1px white solid;"></a></td>
+                        <td style="line-height:12pt; height:10px;"><span class="pagetop"><b class="hnname"><a href="news">Hacker News</a></b> <a href="newest">new</a> | <a href="threads?id=malmstein">threads</a> | <a href="newcomments">comments</a> | <a href="show">show</a> | <a href="ask">ask</a> | <a href="jobs">jobs</a> | <a href="submit">submit</a> </span></td>
+                        <td style="text-align:right;padding-right:4px;"><span class="pagetop"> <a href="user?id=malmstein">malmstein</a> (1) | <a href="logout?auth=669f0e0bf2c7b66eb6a9e5bcbc6ff8721dae45b0&amp;goto=item%3Fid%3D12423794">logout</a> </span></td>
+                    </tr>
+                    </tbody>
+                </table></td>
+        </tr>
+        <tr style="height:10px"></tr>
+        <tr>
+            <td>
+                <table border="0">
+                    <tbody>
+                    <tr class="athing" id="12423794">
+                        <td align="right" valign="top" class="title"><span class="rank"></span></td>
+                        <td valign="top" class="votelinks">
+                            <center>
+                                <a id="up_12423794" onclick="return vote(this, &quot;up&quot;)" href="vote?id=12423794&amp;how=up&amp;auth=cc66a84d11061fa3d32103b4ad57e64f48b0ec7a&amp;goto=item%3Fid%3D12423794">
+                                    <div class="votearrow" title="upvote"></div></a>
+                            </center></td>
+                        <td class="title"><a href="http://www.joshbarczak.com/blog/?p=1197" class="storylink">GPU Ray Tracing the Wrong Way</a><span class="sitebit comhead"> (<a href="from?site=joshbarczak.com"><span class="sitestr">joshbarczak.com</span></a>)</span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td class="subtext"> <span class="score" id="score_12423794">48 points</span> by <a href="user?id=ingve" class="hnuser">ingve</a> <span class="age"><a href="item?id=12423794">4 hours ago</a></span> <span id="unv_12423794"></span> | <a href="hide?id=12423794&amp;goto=item%3Fid%3D12423794&amp;auth=cc66a84d11061fa3d32103b4ad57e64f48b0ec7a">hide</a> | <a href="https://hn.algolia.com/?query=GPU%20Ray%20Tracing%20the%20Wrong%20Way&amp;sort=byDate&amp;dateRange=all&amp;type=story&amp;storyText=false&amp;prefix&amp;page=0" class="hnpast">past</a> | <a href="https://www.google.com/search?q=GPU%20Ray%20Tracing%20the%20Wrong%20Way">web</a> | <a href="item?id=12423794">3&nbsp;comments</a> | <a href="fave?id=12423794&amp;auth=cc66a84d11061fa3d32103b4ad57e64f48b0ec7a">favorite</a> </td>
+                    </tr>
+                    <tr style="height:10px"></tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td>
+                            <form method="post" action="comment">
+                                <input type="hidden" name="parent" value="12423794">
+                                <input type="hidden" name="goto" value="item?id=12423794">
+                                <input type="hidden" name="hmac" value="a434970e130baf4bd5da9135491f1f3f437612e4">
+                                <textarea name="text" rows="6" cols="60"></textarea>
+                                <br>
+                                <br>
+                                <input type="submit" value="add comment">
+                            </form> </td>
+                    </tr>
+                    </tbody>
+                </table><br><br>
+                <table border="0" class="comment-tree">
+                    <tbody>
+                    <tr class="athing comtr " id="12424346">
+                        <td>
+                            <table border="0">
+                                <tbody>
+                                <tr>
+                                    <td class="ind"><img src="s.gif" height="1" width="0"></td>
+                                    <td valign="top" class="votelinks">
+                                        <center>
+                                            <a id="up_12424346" onclick="return vote(this, &quot;up&quot;)" href="vote?id=12424346&amp;how=up&amp;auth=5d903ad552b6780de0f4c944d58aff3ba0b830d4&amp;goto=item%3Fid%3D12423794#12424346">
+                                                <div class="votearrow" title="upvote"></div></a>
+                                        </center></td>
+                                    <td class="default">
+                                        <div style="margin-top:2px; margin-bottom:-10px;">
+                                            <span class="comhead"> <a href="user?id=fulafel" class="hnuser">fulafel</a> <span class="age"><a href="item?id=12424346">2 hours ago</a></span> <span id="unv_12424346"></span><span class="par"></span> <a class="togg" n="3" href="javascript:void(0)" onclick="return toggle(12424346)"></a> <span class="storyon"></span> </span>
+                                        </div><br>
+                                        <div class="comment">
+                <span class="c00">Makes you wonder how many cool things people would have written for the native Intel GPU instruction set if there existed supported interfaces for it. All the programming information has been out there in Intel-provided open source drivers for many many years.<span> </span>
+                 <div class="reply">
+                  <p><font size="1"> <u><a href="reply?id=12424346&amp;goto=item%3Fid%3D12423794%2312424346">reply</a></u> </font> </p>
+                 </div></span>
+                                        </div></td>
+                                </tr>
+                                </tbody>
+                            </table></td>
+                    </tr>
+                    <tr class="athing comtr " id="12424791">
+                        <td>
+                            <table border="0">
+                                <tbody>
+                                <tr>
+                                    <td class="ind"><img src="s.gif" height="1" width="40"></td>
+                                    <td valign="top" class="votelinks">
+                                        <center>
+                                            <a id="up_12424791" onclick="return vote(this, &quot;up&quot;)" href="vote?id=12424791&amp;how=up&amp;auth=260cfa2cb057f5d0852cab57848244062991d345&amp;goto=item%3Fid%3D12423794#12424791">
+                                                <div class="votearrow" title="upvote"></div></a>
+                                        </center></td>
+                                    <td class="default">
+                                        <div style="margin-top:2px; margin-bottom:-10px;">
+                                            <span class="comhead"> <a href="user?id=nn3" class="hnuser">nn3</a> <span class="age"><a href="item?id=12424791">46 minutes ago</a></span> <span id="unv_12424791"></span><span class="par"></span> <a class="togg" n="2" href="javascript:void(0)" onclick="return toggle(12424791)"></a> <span class="storyon"></span> </span>
+                                        </div><br>
+                                        <div class="comment">
+                <span class="c00">I don't think that person wrote his own assembler, so there must be existing assembler toolkits for GEN already.<p>Some googling finds <a href="https://software.intel.com/en-us/articles/introduction-to-gen-assembly" rel="nofollow">https://software.intel.com/en-us/articles/introduction-to-ge...</a><span> </span></p>
+                 <div class="reply">
+                  <p><font size="1"> <u><a href="reply?id=12424791&amp;goto=item%3Fid%3D12423794%2312424791">reply</a></u> </font> </p>
+                 </div></span>
+                                        </div></td>
+                                </tr>
+                                </tbody>
+                            </table></td>
+                    </tr>
+                    <tr class="athing comtr " id="12425045">
+                        <td>
+                            <table border="0">
+                                <tbody>
+                                <tr>
+                                    <td class="ind"><img src="s.gif" height="1" width="80"></td>
+                                    <td valign="top" class="votelinks">
+                                        <center>
+                                            <a id="up_12425045" onclick="return vote(this, &quot;up&quot;)" href="vote?id=12425045&amp;how=up&amp;auth=15c9be10b951afd4bf734b3716b437f60bfc7972&amp;goto=item%3Fid%3D12423794#12425045">
+                                                <div class="votearrow" title="upvote"></div></a>
+                                        </center></td>
+                                    <td class="default">
+                                        <div style="margin-top:2px; margin-bottom:-10px;">
+                                            <span class="comhead"> <a href="user?id=exDM69" class="hnuser">exDM69</a> <span class="age"><a href="item?id=12425045">4 minutes ago</a></span> <span id="unv_12425045"></span><span class="par"></span> <a class="togg" n="1" href="javascript:void(0)" onclick="return toggle(12425045)"></a> <span class="storyon"></span> </span>
+                                        </div><br>
+                                        <div class="comment">
+                <span class="c00">He does mention writing an assembler called HAXWell, and there are code snippets of it in the article.<span> </span>
+                 <div class="reply">
+                  <p><font size="1"> <u><a href="reply?id=12425045&amp;goto=item%3Fid%3D12423794%2312425045">reply</a></u> </font> </p>
+                 </div></span>
+                                        </div></td>
+                                </tr>
+                                </tbody>
+                            </table></td>
+                    </tr>
+                    </tbody>
+                </table><br><br> </td>
+        </tr>
+        <tr>
+            <td><img src="s.gif" height="10" width="0">
+                <table width="100%" cellspacing="0" cellpadding="1">
+                    <tbody>
+                    <tr>
+                        <td bgcolor="#ff6600"></td>
+                    </tr>
+                    </tbody>
+                </table><br>
+                <center>
+                    <span class="yclinks"><a href="newsguidelines.html">Guidelines</a> | <a href="newsfaq.html">FAQ</a> | <a href="mailto:hn@ycombinator.com">Support</a> | <a href="https://github.com/HackerNews/API">API</a> | <a href="security.html">Security</a> | <a href="lists">Lists</a> | <a href="bookmarklet.html">Bookmarklet</a> | <a href="dmca.html">DMCA</a> | <a href="http://www.ycombinator.com/apply/">Apply to YC</a> | <a href="mailto:hn@ycombinator.com">Contact</a></span>
+                    <br>
+                    <br>
+                    <form method="get" action="//hn.algolia.com/">
+                        Search:
+                        <input type="text" name="q" value="" size="17" autocorrect="off" spellcheck="false" autocapitalize="off" autocomplete="false">
+                    </form>
+                </center></td>
+        </tr>
+        </tbody>
+    </table>
+</center>
+<script type="text/javascript" src="hn.js?IEuWteaiGioI1QAvdcrW"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "425485975639",
+    "firebase_url": "https://yahnac-258e1.firebaseio.com",
+    "project_id": "yahnac-258e1",
+    "storage_bucket": "yahnac-258e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425485975639:android:7cb1a0970e379524",
+        "android_client_info": {
+          "package_name": "com.malmstein.yahnac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425485975639-bthrk3438k75r4uslfi3sklc2e104vu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.malmstein.yahnac",
+            "certificate_hash": "F153F3B0E7674DA5806C983ED723E96FB433EAE8"
+          }
+        },
+        {
+          "client_id": "425485975639-lo674jouj19lfp2k2p3i7491u7deo60j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZTus15KGChQTy5JaBtYa4Qr1GP1yNdgw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-66355927-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425485975639-lo674jouj19lfp2k2p3i7491u7deo60j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

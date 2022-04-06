@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <dimen name="snackbar_height">48dp</dimen>
+  <dimen name="snackbar_shadow_height">4dp</dimen>
+  <dimen name="snackbar_label_text">14sp</dimen>
+  <dimen name="snackbar_label_action">14sp</dimen>
+  <dimen name="snackbar_padding_left">24dp</dimen>
+  <dimen name="snackbar_padding_right">24dp</dimen>
+  <dimen name="snackbar_padding_top">16dp</dimen>
+  <dimen name="snackbar_padding_bottom">12sp</dimen>
+
+</resources>
