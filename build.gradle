@@ -1,0 +1,347 @@
+// Gradle plugins
+buildscript {
+    dependencies {
+        classpath files('gradle/lanterngradle-1.0.3.jar')
+    }
+}
+
+plugins {
+    id 'net.minecrell.licenser' version '0.4'
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'org.spongepowered.plugin' version '0.8.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.30'
+}
+
+apply from: rootProject.file('gradle/lantern.gradle')
+
+// Apply plugins
+apply plugin: 'org.lanternpowered.gradle'
+
+// Basic project information
+archivesBaseName = 'lanternserver'
+version = '1.0.0-SNAPSHOT'
+
+sourceSets {
+    java6 {
+        compileClasspath += main.compileClasspath + main.output
+        runtimeClasspath += main.runtimeClasspath + main.output
+    }
+}
+
+compileJava6Java {
+    sourceCompatibility = '1.6'
+    targetCompatibility = '1.6'
+}
+
+// The java6 sourceset
+idea.module.sourceDirs += file('src/java6/java')
+
+// Disable some tasks to make the building go faster and
+// disable the wrapper task to avoid that we turn the
+// dependency dirty when we call this on our project.
+[api.tasks.javadoc,
+ api.tasks.javadocJar,
+ api.tasks.checkstyleMain,
+ api.tasks.checkstyleTest,
+ api.tasks.wrapper]*.enabled = false
+
+configurations {
+    // A configuration that will be excluded
+    // in the generated pom file
+    compileExcluded
+    compileTinyJson
+    compile.extendsFrom(compileExcluded, compileTinyJson)
+}
+
+// Project dependencies
+dependencies {
+    // Add the sponge api
+    compileExcluded api
+    // Add a tiny json library just to read the library files
+    compileTinyJson 'com.googlecode.json-simple:json-simple:1.1.1'
+
+    // Kotlin
+    compile 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    compile 'org.jetbrains.kotlin:kotlin-reflect'
+
+    // Launch Options
+    compile 'net.sf.jopt-simple:jopt-simple:5.0.4'
+
+    // Useful libraries
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'com.google.guava:guava:21.0'
+
+    // Injection
+    compile 'com.google.inject:guice:4.1.0'
+
+    // Json library
+    compile 'com.google.code.gson:gson:2.8.0'
+
+    // Network
+    compile 'io.netty:netty-all:4.1.24.Final'
+
+    // Lambda generation
+    compile 'org.lanternpowered:lmbda:1.0.0'
+
+    // Logging
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.0'
+    compile 'org.apache.logging.log4j:log4j-core:2.11.0'
+    compile 'org.apache.logging.log4j:log4j-api:2.11.0'
+    compile 'org.apache.logging.log4j:log4j-iostreams:2.11.0'
+    compile 'com.lmax:disruptor:3.4.2'
+
+    // Console
+    compile 'net.minecrell:terminalconsoleappender:1.1.1'
+    compile 'net.java.dev.jna:jna:4.5.2'
+
+    // Fastutil
+    compile 'it.unimi.dsi:fastutil:8.1.1'
+
+    // Database connectors
+    compile 'com.zaxxer:HikariCP:3.1.0'
+    compile 'org.mariadb.jdbc:mariadb-java-client:2.2.3'
+    compile 'org.xerial:sqlite-jdbc:3.21.0.1'
+    compile 'com.h2database:h2:1.4.197'
+
+    // Scripting
+    compile 'org.codehaus.groovy:groovy-all:2.4.15'
+
+    // Asm
+    compile 'org.ow2.asm:asm-all:5.2'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile 'org.mockito:mockito-core:2.8.47'
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile)*.kotlinOptions {
+    jvmTarget = '1.8'
+    languageVersion = '1.3'
+    freeCompilerArgs = [
+            '-Xuse-experimental=kotlin.ExperimentalUnsignedTypes',
+            '-Xuse-experimental=kotlin.contracts.ExperimentalContracts'
+    ]
+}
+
+// Always print full stack trace if something goes wrong in the unit tests
+test.testLogging.exceptionFormat = 'full'
+
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+import groovy.json.JsonBuilder
+
+processResources {
+    // Minimize the json files
+    doLast {
+        fileTree(dir: outputs.files.asPath, include: 'internal/*.json').each { File file ->
+            file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
+        }
+    }
+}
+
+////////////////////////////////////
+/// Collect Dependency Artifacts ///
+////////////////////////////////////
+
+def ignoredDependencyArtifacts = new HashSet<>()
+// Don't include the api again
+ignoredDependencyArtifacts.add "$api.group:$api.name"
+// We already include 'asm-all'
+ignoredDependencyArtifacts.add 'org.ow2.asm:asm'
+ignoredDependencyArtifacts.add 'junit:junit'
+ignoredDependencyArtifacts.add 'org.hamcrest:hamcrest-core'
+ignoredDependencyArtifacts.add 'org.hamcrest:hamcrest-library'
+ignoredDependencyArtifacts.add 'org.mockito:mockito-core'
+
+def dependencyArtifacts = new ArrayList<>()
+
+configurations.compile.resolvedConfiguration.resolvedArtifacts.each { ResolvedArtifact a ->
+    def id = a.moduleVersion.id
+    def e = "$id.group:$id.name"
+    // Check if we want the artifact, check for the java (String) and groovy strings (GString)
+    if (!ignoredDependencyArtifacts.contains(e) && !ignoredDependencyArtifacts.contains((String) e)) {
+        dependencyArtifacts.add(a)
+    }
+}
+
+/////////////////////////////////////////////////
+/// Generate the jar with all the lantern and ///
+///  sponge classes, and all their resources. ///
+/////////////////////////////////////////////////
+
+jar.enabled = false
+
+task theJar(type: ShadowJar) {
+    classifier = ''
+    duplicatesStrategy = 'EXCLUDE'
+    includeEmptyDirs = false
+
+    exclude 'log4j2.xml'
+    rename 'log4j2_prod.xml', 'log4j2.xml'
+    // Only enable async logging outside dev mode, using async in combination
+    // with code location logging is disabled by default to avoid performance
+    // issues, but in dev we want to see the locations, so no async here
+    // See https://logging.apache.org/log4j/2.x/manual/async.html @ Location, location, location...
+    rename 'log4j2_prod.component.properties', 'log4j2.component.properties'
+
+    // Include the lantern classes
+    from sourceSets.main.output
+    // Include the api classes
+    from api.sourceSets.main.output
+    // Include generated event classes
+    from fileTree(api.tasks.genEventImpl.outputs.files.first())
+
+    // Include the tiny json library
+    from zipTree(project.configurations.compileTinyJson.first())
+    // Relocate the library
+    relocate('org.json.simple', 'org.lanternpowered.launch.org.json.simple')
+
+    // Include the java 6 classes
+    from sourceSets.java6.output
+
+    /////////////////////////////////////////
+    /// Generate a json file with all the ///
+    //    dependencies and repositories.  ///
+    /////////////////////////////////////////
+
+    def dependencyEntries = new ArrayList<>()
+    dependencyArtifacts.each { ResolvedArtifact a -> dependencyEntries.add(a.moduleVersion.id.toString()) }
+
+    def data = new HashMap<>()
+    data['repositories'] = []
+    if (project.hasProperty('lanternRepo')) {
+        data['repositories'].add(project.lanternRepo)
+    }
+    data['dependencies'] = dependencyEntries
+
+    def librariesFile = new File(buildDir, 'dependencies.json')
+    librariesFile.text = new JsonBuilder(data).toPrettyString()
+
+    from librariesFile
+}
+// Run theJar on build
+assemble.dependsOn theJar
+
+/////////////////////////////////////////
+/// Generate a fat jar which includes ///
+///     all the dependency jars.      ///
+/////////////////////////////////////////
+
+task fatJar(type: Jar, dependsOn: theJar) {
+    // Include the default jar
+    from zipTree(theJar.archivePath)
+
+    // Always update the fat jar
+    outputs.upToDateWhen { false }
+
+    // Generate the dependencies
+    classifier = 'fat'
+
+    dependencyArtifacts.each { ResolvedArtifact a ->
+        Dependency d = dependencies.create(a.moduleVersion.id.toString())
+        from (a.file, { spec ->
+            spec.rename {
+                "dependencies/${d.group.replace('.', '/')}/$d.name/$d.version/$d.name-${d.version}.jar"
+            }
+        })
+    }
+}
+// Run fatJar on build
+assemble.dependsOn fatJar
+
+/////////////////////////////////////////////
+/// Apply manifest file properties to the ///
+///        fat and normal jars.           ///
+/////////////////////////////////////////////
+
+afterEvaluate {
+    [theJar, fatJar]*.manifest {
+        attributes(
+                'Main-Class': 'org.lanternpowered.launch.VersionCheckingMain',
+                'Implementation-Name': project.name,
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': project.url,
+                'Specification-Name': api.name,
+                'Specification-Version': api.version,
+                'Specification-Vendor': api.url
+        )
+        if (commit) attributes['Git-Commit'] = commit
+        if (branch) attributes['Git-Branch'] = branch
+    }
+}
+
+////////////////////////////////////////////////////
+/// Generate a source jar which includes all the ///
+//    sources from lantern and the sponge api.   ///
+////////////////////////////////////////////////////
+
+sourceJar {
+    from sourceSets.java6.allSource
+
+    from api.sourceSets.main.allSource
+    from api.sourceSets.ap.allSource
+}
+
+artifacts {
+    archives theJar
+    archives sourceJar
+}
+
+////////////////////////////////////////////////////////////////
+/// Upload artifacts and dependencies to a maven repository. ///
+////////////////////////////////////////////////////////////////
+
+if (project.hasProperty('lanternRepo')) {
+    apply plugin: 'maven-publish'
+
+    publishing {
+        publications {
+            main(MavenPublication) {
+                groupId project.group
+                artifactId project.archivesBaseName
+                version project.version
+
+                artifact theJar
+                artifact sourceJar
+            }
+        }
+        repositories {
+            maven {
+                url project.lanternRepo
+                if (project.hasProperty('lanternUsername') && project.hasProperty('lanternPassword')) {
+                    authentication(userName: project.lanternUsername, password: project.lanternPassword)
+                }
+            }
+        }
+    }
+
+    // Upload all the dependency artifacts
+    dependencyArtifacts.each { ResolvedArtifact a ->
+        Dependency d = dependencies.create(a.moduleVersion.id.toString())
+        publishing.publications.create(d.group + '_' + d.name, MavenPublication) {
+            groupId d.group
+            artifactId d.name
+            version d.version
+            artifact a.file
+        }
+    }
+}
+
+////////////////////////////////////
+/// Gradle Wrapper update tasks. ///
+////////////////////////////////////
+
+// Gradle version used for generating the Gradle wrapper
+wrapper {
+    gradleVersion = '4.10.2'
+}
+
+// A custom update wrapper task, using a custom task prevents
+// intellij from updating the wrapper constantly through
+// the wrapper task
+task updateWrapper(dependsOn: wrapper)
+
+gradle.taskGraph.whenReady { TaskExecutionGraph graph ->
+    // Only enable the wrapper task if the updateWrapper task is run
+    wrapper.enabled = graph.allTasks.contains(updateWrapper)
+}
