@@ -5,4 +5,4 @@ install: ./travis/build.sh
 script: [./travis/javadoc.sh, ./travis/sonar.sh]
 after_success: [./travis/dropbox.sh, ./travis/solder.sh]
 branches:
-  only: [ldtteam/minecolonies-7763-origin]
+  only: [ldtteam/minecolonies-7763-GRADLE_COMPILER_DAEMON]
