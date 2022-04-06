@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="settings">設定</string>
+  <string name="send">送信</string>
+  <string name="advanced">詳細設定</string>
+  <string name="about">Lanternについて</string>
+  <string name="url">URL</string>
+  <string name="refresh">更新する</string>
+  <string name="retry">リトライ</string>
+  <string name="more">More</string>
+  <string name="proxy">プロキシ</string>
+  <string name="finish">完了する</string>
+  <string name="back">戻る</string>
+  <string name="add">追加</string>
+  <string name="search">検索する</string>
+  <!--'Tweet' here is a verb-->
+</resources>

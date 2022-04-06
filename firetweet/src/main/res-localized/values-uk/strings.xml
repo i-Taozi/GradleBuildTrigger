@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="settings">Параметри</string>
+  <string name="send">Надіслати</string>
+  <string name="advanced">Додатково</string>
+  <string name="about">Про нас</string>
+  <string name="url">Адреса</string>
+  <string name="refresh">Поновити</string>
+  <string name="retry">Повторити</string>
+  <string name="more">Більше</string>
+  <string name="proxy">Проксі</string>
+  <string name="wizard_page_welcome_yes">Так</string>
+  <string name="finish">Завершити</string>
+  <string name="back">Назад</string>
+  <string name="add">Додати</string>
+  <string name="search">Пошук</string>
+  <!--'Tweet' here is a verb-->
+</resources>

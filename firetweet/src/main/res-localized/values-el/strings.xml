@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="settings">Ρυθμίσεις</string>
+  <string name="send">Αποστολή</string>
+  <string name="advanced">Για προχωρημένους</string>
+  <string name="about">Σχετικά</string>
+  <string name="url">URL</string>
+  <string name="refresh">Ανανέωση</string>
+  <string name="retry">Επαναπροσπάθεια</string>
+  <string name="more">More</string>
+  <string name="proxy">Διακομιστής</string>
+  <string name="wizard_page_welcome_yes">Ναι </string>
+  <string name="finish">Τέλος</string>
+  <string name="back">Πίσω</string>
+  <string name="add">Προσθήκη</string>
+  <string name="search">Αναζήτηση</string>
+  <!--'Tweet' here is a verb-->
+</resources>

@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="compose">Vormen</string>
+  <string name="add_account">Account toevoegen</string>
+  <string name="settings">Instellingen</string>
+  <string name="send">Versturen</string>
+  <string name="initial_tweet">Ik gebruik FireTweet voor ongelimiteerde content op Twitter Android! Download het nu: http://firetweet.io @GetFireTweet #UnblockedTweeting</string>
+  <string name="try_firetweet">Bekijk Firetweet: Een Twitter app voor Android dat geblokkeerde tweets van over de hele wereld toestaat!  https://firetweet.io</string>
+  <string name="powered_by">Mede mogelijk gemaakt door Lantern</string>
+  <string name="add_location">Locatie toevoegen</string>
+  <string name="add_image">Afbeelding toevoegen</string>
+  <string name="take_photo">Foto maken</string>
+  <string name="remove_location">Locatie verwijderen</string>
+  <string name="remove_image">Afbeelding verwijderen</string>
+  <string name="remove_photo">Foto verwijderen</string>
+  <string name="status_hint">Actueel</string>
+  <string name="sign_up">Inschrijven</string>
+  <string name="sign_in">Inloggen</string>
+  <string name="not_now">Niet nu</string>
+  <string name="install_update">Update</string>
+  <string name="error_update">Fout Downloaden Update</string>
+  <string name="manual_update">Installeer handmatig de laatste versie van &lt;a href="https://firetweet.io"&gt;hier&lt;/a&gt;</string>
+  <string name="update_available">Er is een nieuwe versie van FireTweet beschikbaar. Wilt u deze nu updaten?</string>
+  <string name="should_send_autotweet">AutoTweet: Deel FireTweet met je vrienden</string>
+  <string name="welcome_to_firetweet">Welkom bij FireTweet</string>
+  <string name="sign_in_twitter">Gebruik je Twitter login gegevens</string>
+  <string name="rest_base_url">REST Base URL</string>
+  <string name="oauth_base_url">OAuth Base URL</string>
+  <string name="signing_oauth_base_url">Signing OAuth Base URL</string>
+  <string name="signing_rest_base_url">Signing REST Base URL</string>
+  <string name="api_url_format">API URL Format</string>
+  <string name="same_oauth_signing_url">Gebruik beide URL voor OAuth signing</string>
+  <string name="auth_type">Authenticatie type</string>
+  <string name="oauth">OAuth</string>
+  <string name="xauth">xAuth</string>
+  <string name="basic">Basic</string>
+  <string name="twip_o">twip O Mode</string>
+  <string name="advanced">Geavanceerd</string>
+  <string name="save">Opslaan</string>
+  <string name="edit">Bewerken</string>
+  <string name="edit_api">Bewerk API</string>
+  <string name="home">Home</string>
+  <string name="mentions">Vermelding</string>
+  <string name="error_occurred">Er is een fout opgetreden, probeer opnieuw.</string>
+  <string name="error_already_logged_in">U bent al ingelogd</string>
+  <string name="no_account_selected">Geen account geselecteerd</string>
+  <string name="empty_account_selection_disallowed">Selecteer een account a.u.b</string>
+  <string name="error_unknown_error">Foutmelding: Onbekende fout, dit is waarschijnlijk een bug.</string>
+  <string name="error_message">Fout: &lt;xliff:g id="message"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="error_message_with_action">Fout wanneer &lt;xliff:g id="action"&gt;%1$s&lt;/xliff:g&gt;: &lt;xliff:g id="message"&gt;%2$s&lt;/xliff:g&gt;</string>
+  <string name="error_message_rate_limit">Twitter\'s limiet bereikt, probeer opnieuw &lt;xliff:g id="time"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="error_message_rate_limit_with_action">Twitter\'s limiet bereikt terwijl &lt;xliff:g id="action"&gt;%1$s&lt;/xliff:g&gt;, probeer opnieuw &lt;xliff:g id="time"&gt;%2$s&lt;/xliff:g&gt;</string>
+  <string name="select_account">Selecteer account</string>
+  <string name="username">Gebruikersnaam</string>
+  <string name="password">Wachtwoord</string>
+  <string name="label_tweetstore_provider">FireTweer database leverancier</string>
+  <string name="label_refresh_service">Ververs server</string>
+  <string name="label_background_operation_service">Achtergrondservice</string>
+  <string name="open_in_browser">Open in browser</string>
+  <string name="tap_to_load_more">Klik om meer te laden</string>
+  <string name="delete">Verwijder</string>
+  <string name="retweet">Retweet</string>
+  <string name="retweets">Retweets</string>
+  <string name="cancel_retweet">Retweet verwijderen</string>
+  <string name="favorite">Favoriet</string>
+  <string name="unfavorite">Favoriet ongedaan maken</string>
+  <string name="reply">Beantwoorden</string>
+  <string name="share">Delen</string>
+  <string name="view_image">Afbeelding</string>
+  <string name="view_map">Map</string>
+  <string name="view_status">Bekijk Tweet</string>
+  <string name="view_user_profile">Gebruikersprofiel</string>
+  <string name="browser">Browser</string>
+  <string name="pick_from_gallery">Kiezen uit gallerij</string>
+  <string name="statuses">Tweets</string>
+  <string name="followers">Volgers</string>
+  <string name="following">Volgend</string>
+  <string name="about">Over</string>
+  <string name="open_source_license">Open Source licentie</string>
+  <string name="api">API</string>
+  <string name="default_api_settings">Standaard API instellingen</string>
+  <string name="default_api_settings_summary">Deze instellingen gelden alleen voor nieuw ingelogde accounts</string>
+  <string name="consumer_secret">Klantgeheim</string>
+  <string name="ignore_ssl_error">Negeer SSL fout</string>
+  <string name="ignore_ssl_error_summary">Negeer SSL-fout, sta toe wanneer er problemen zijn met custom API server.</string>
+  <string name="gzip_compressing">GZip compressing</string>
+  <string name="storage">Opslag</string>
+  <string name="database_item_limit">Database size limit</string>
+  <string name="database_item_limit_summary">Bovengrens van de items die zijn opgeslagen in databases voor elk account, ingesteld op een lagere waarde om ruimte te besparen en verhogen laadsnelheid.</string>
+  <string name="clear_cache">Cache legen</string>
+  <string name="clear_cache_summary">Leeg cache profielafbeelding </string>
+  <string name="clear_databases">Database legen</string>
+  <string name="clear_databases_summary">Leeg alle tweets, profielen en berichten. Uw accountgegevens gaan niet verloren</string>
+  <string name="look_and_feel">Uitstraling</string>
+  <string name="display_profile_image">Toon profielafbeelding</string>
+  <string name="in_reply_to_name">In reactie tot &lt;xliff:g id="user_name"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="name_retweeted">&lt;xliff:g id="user_name"&gt;%s&lt;/xliff:g&gt; retweeted</string>
+  <string name="name_and_another_retweeted">&lt;xliff:g id="user_name"&gt;%1$s&lt;/xliff:g&gt; en nog iemand retweeted</string>
+  <string name="name_and_count_retweeted">&lt;xliff:g id="user_name"&gt;%1$s&lt;/xliff:g&gt; and &lt;xliff:g id="retweet_count"&gt;%2$d&lt;/xliff:g&gt; anderen hebben geretweet</string>
+  <string name="N_retweeted_quantity_one">&lt;xliff:g id="retweet_count"&gt;%d&lt;/xliff:g&gt; retweet</string>
+  <string name="N_retweeted_quantity_other">&lt;xliff:g id="retweet_count"&gt;%d&lt;/xliff:g&gt; retweets</string>
+  <string name="retweeted_by_name">Geretweet door &lt;xliff:g id="user_name"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="retweeted_by_name_with_count">Geretweet door &lt;xliff:g id="user_name"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="retweet_count"&gt;%2$d&lt;/xliff:g&gt; anderen</string>
+  <string name="retweeted_by_count">Geretweet door &lt;xliff:g id="retweet_count"&gt;%d&lt;/xliff:g&gt; gebruikers</string>
+  <string name="users_retweeted_this">Geretweet door</string>
+  <string name="users_favorited_this">Gefavoriet door</string>
+  <string name="reply_to">Reageer naar &lt;xliff:g id="user_name"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="quote_user">Quote &lt;xliff:g id="user_name"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="time_source">&lt;xliff:g id="time"&gt;%1$s&lt;/xliff:g&gt; · &lt;xliff:g id="source"&gt;%2$s&lt;/xliff:g&gt;</string>
+  <string name="source">&lt;xliff:g id="source"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="filters">Filters</string>
+  <string name="users">Gebruikers</string>
+  <string name="user">Gebruiker</string>
+  <string name="keywords">Trefwoorden</string>
+  <string name="sources">Bronnen</string>
+  <string name="content">Content</string>
+  <string name="customize">Aanpassen</string>
+  <string name="set_nickname">Nickname instellen</string>
+  <string name="set_color">Kleur instellen</string>
+  <string name="clear">Legen</string>
+  <string name="pick_color">Kleur kiezen</string>
+  <string name="follow">Volgen</string>
+  <string name="unfollow">Ontvolgen</string>
+  <string name="bottom_send_button">Beneden \"verzend\" knop</string>
+  <string name="load_item_limit">Laad item limiet</string>
+  <string name="load_item_limit_summary">Stel item limiet per load in</string>
+  <string name="load_more_automatically">Laad meer content automatisch</string>
+  <string name="load_more_automatically_summary">Laad meer content (zoals foto\'s, maps, tweets) automatisch</string>
+  <string name="quote">Quote</string>
+  <string name="add_rule">Regel toevoegen</string>
+  <string name="text_size">Textgrootte</string>
+  <string name="text_size_summary">Textgrootte tweets</string>
+  <string name="cannot_get_location">Kan uw locatie niet verkrijgen</string>
+  <string name="drafts">Kladjes</string>
+  <string name="description">Omschrijving</string>
+  <string name="location">Locatie</string>
+  <string name="url">URL</string>
+  <string name="favorites">Favorieten</string>
+  <string name="name">Naam</string>
+  <string name="refresh">Verversen</string>
+  <string name="retry">Opnieuw proberen</string>
+  <string name="more">More</string>
+  <string name="quote_format">Qoute formaat</string>
+  <string name="quote_format_summary">\"[TEXT]\" = Tweet text\n\"[NAME]\" = Twitter username</string>
+  <string name="direct_messages">Berichten</string>
+  <string name="blocked_users">Geblokkeerde gebruikers</string>
+  <string name="set_as_default">Stel in als standaard</string>
+  <string name="search_users">Gebruikers zoeken</string>
+  <string name="search_statuses">Tweets zoeken</string>
+  <string name="created_at">Gemaakt op</string>
+  <string name="search_hint">Zoek tweets of gebruikers</string>
+  <string name="remember_position">Herrinner positie</string>
+  <string name="remember_position_summary">Herrinner lijst/tab positie voor afsluiten FireTweet</string>
+  <string name="user_blocked">Blokkeer deze gebruiker</string>
+  <string name="users_blocked">Blokkeer deze gebruikers</string>
+  <string name="user_unblocked">Onblokkeer deze gebruiker.</string>
+  <string name="reported_user_for_spam">Meld deze gebruiker wegens spam.</string>
+  <string name="reported_users_for_spam">Meld deze gebruikers vanwege spam.</string>
+  <string name="filename_hint">Bestandsnaam</string>
+  <string name="please_wait">Wacht a.u.b.</string>
+  <string name="saved_to_gallery">Opgeslagen in gallerij</string>
+  <string name="proxy">Proxy</string>
+  <string name="http_proxy">HTTP Proxy</string>
+  <string name="http_proxy_summary">Gebruik HTTP Proxy voor alle netwerk aanvragen.</string>
+  <string name="proxy_host">Proxy Host</string>
+  <string name="proxy_port">Proxy Port</string>
+  <string name="block">Blokkeren</string>
+  <string name="unblock">Onblokkeren</string>
+  <string name="report_for_spam">Meld spam</string>
+  <string name="twitter_mute_user">Demp gebruiker</string>
+  <string name="twitter_muted_users">Demp gebruikers</string>
+  <string name="message_user_unmuted">Verwijder deze gebruiker van de filterlijst</string>
+  <string name="inbox">Inbox</string>
+  <string name="load_images">Afbeeldingen laden</string>
+  <string name="other_settings">Andere instellingen</string>
+  <string name="auto_refresh">Auto verversen</string>
+  <string name="refresh_interval">Ververs interval</string>
+  <string name="content_to_refresh">Ververs content</string>
+  <string name="content_to_notify">Ververs notificaties</string>
+  <string name="notifications_type">Notificatie type</string>
+  <string name="sound">Geluid</string>
+  <string name="ringtone">Ringtone</string>
+  <string name="vibration">Vibratie</string>
+  <string name="light">Licht</string>
+  <string name="notifications">Notificaties</string>
+  <string name="screen_name">Gebruikersnaam</string>
+  <string name="refresh_on_start">Ververs start</string>
+  <string name="refresh_on_start_summary">Ververs tijdlijn en vermeldingen.</string>
+  <string name="refresh_after_status_updated">Ververs na het verzenden van tweet</string>
+  <string name="refresh_after_status_updated_summary">Ververs tijdlijn en vermeldingen na verzenden tweet</string>
+  <string name="list_timeline">Tijdlijn lijst</string>
+  <string name="list_members">Lijst members</string>
+  <string name="list_subscribers">Lijst geabonneerden</string>
+  <string name="lists">Lijsten</string>
+  <string name="users_lists">Gebruikerslijsten</string>
+  <string name="lists_following_user">Lijst volgers</string>
+  <string name="lists_following_you">Lijst volgers</string>
+  <string name="item_3_minutes">3 minuten</string>
+  <string name="item_5_minutes">5 minuten</string>
+  <string name="item_10_minutes">10 minuten</string>
+  <string name="item_15_minutes">15 minuten</string>
+  <string name="item_30_minutes">30 minuten</string>
+  <string name="item_1_hour">1 uur</string>
+  <string name="item_2_hours">2 uur</string>
+  <string name="item_4_hours">4 uur</string>
+  <string name="display_image_preview">Beeldweergave voorvertoning</string>
+  <string name="following_you">Volgt jou</string>
+  <string name="user_list">Lijst</string>
+  <string name="user_lists">Lijsten</string>
+  <string name="trends_location">Trends locatie</string>
+  <string name="trends_location_summary">Stel locatie lokale trends in.</string>
+  <string name="trends">Trends</string>
+  <string name="accounts">Accounts</string>
+  <string name="account">Account</string>
+  <string name="mention_this_user">Benoem deze gebruiker</string>
+  <string name="mention_user_name">Benoem &lt;xliff:g id="name"&gt;%1$s&lt;/xliff:g&gt;</string>
+  <string name="signing_in_please_wait">Log in, wacht of druk BACK on te stoppen.</string>
+  <string name="connectivity">Connectiviteit</string>
+  <string name="add_member">Lid toevoegen</string>
+  <string name="new_user_list">Nieuwe lijst</string>
+  <string name="is_public">Publiek</string>
+  <string name="send_direct_message">Stuur DM</string>
+  <string name="extensions">Extensies</string>
+  <string name="uninstall">Verwijderen</string>
+  <string name="saved_searches">Opgeslagen zoekopdrachten</string>
+  <string name="tabs">Tabs</string>
+  <string name="add_tab">Tab toevoegen</string>
+  <string name="edit_tab">Tab bewerken</string>
+  <string name="invalid_settings">Ongeldige gegevens gevonden</string>
+  <string name="icon">Pictogram</string>
+  <string name="pick_file">Kies bestand</string>
+  <string name="user_timeline">Tijdlijn gebruiker</string>
+  <string name="notification_ringtone">Ringtone</string>
+  <string name="notification_light_color">Lichte kleur</string>
+  <string name="share_format">Deel formaat</string>
+  <string name="share_format_summary">\"[TITLE]\" = Content title\n\"[TEXT]\" = Content text</string>
+  <string name="network">Netwerk</string>
+  <string name="content_and_storage">Content &amp; Opslag</string>
+  <string name="image_uploader">Afbeelding uploader</string>
+  <string name="media_uploader">Media uploader</string>
+  <string name="image_uploader_default">Standaard (Twitter)</string>
+  <string name="home_refresh">Ververs in hoofd tijdlijn</string>
+  <string name="error_message_image_upload_failed">Afbeelding uploaden mislukt.</string>
+  <string name="error_message_image_uploader_not_found">Afbeelding uploader niet gevonden, misschien is deze verwijderd.</string>
+  <string name="image_upload_format">Tweet formaat met afbeelding</string>
+  <string name="image_upload_format_summary">\"[LINK]\" = Image link\n\"[TEXT]\" = Tweet content\n(Extension only)</string>
+  <string name="status_shortener">Tweet verkleinen</string>
+  <string name="status_shortener_default">Niets (verzenden annuleren)</string>
+  <string name="error_message_status_too_long">Tweet is te lang</string>
+  <string name="error_message_no_content">Geen content</string>
+  <string name="error_message_tweet_shorten_failed">Tweet verkorten mislukt</string>
+  <string name="error_message_tweet_shortener_not_found">Tweet verkleiner niet gevonden, misschien is deze verwijderd.</string>
+  <string name="multimedia_contents">Multimedia content</string>
+  <string name="show_absolute_time">Toon werkelijke tijd</string>
+  <string name="show_absolute_time_summary">Toon werkelijke tijd in tweets</string>
+  <string name="user_mentions">Gebruikers bedoelingen</string>
+  <string name="quick_send">Druk \"Enter\" om te verzenden</string>
+  <string name="quick_send_summary">Verstuur tweet met \"Enter\"</string>
+  <string name="discard">Verwijderen</string>
+  <string name="Nitems_selected_quantity_one">1 item geselecteerd</string>
+  <string name="Nitems_selected_quantity_other">&lt;xliff:g id="items"&gt;%d&lt;/xliff:g&gt; items selecteerd</string>
+  <string name="custom_host_mapping">Aangepaste host mapping</string>
+  <string name="custom_host_mapping_summary">Host mapping zoals /etc/hosts, maar zijn geen extra bevoegheden voor nodig</string>
+  <string name="host_mapping_host">Host</string>
+  <string name="host_mapping_address">Adres (Kan een andere host adres zijn)</string>
+  <string name="add_host_mapping">Host mapping toevoegen</string>
+  <string name="tcp_dns_query">TCP DNS Query</string>
+  <string name="tcp_dns_query_summary">Gebruik TCP Protocol om DNS aanvragen te maken, waardoor DNS Cache Poisoning kunnen  kan worden vermeden.</string>
+  <string name="dns_server">DNS Server</string>
+  <string name="dns_server_summary">Stel DNS Server voor API aanvragen in.</string>
+  <string name="activities_about_me">Activiteiten over mij</string>
+  <string name="activities_by_friends">Activiteiten van vrienden</string>
+  <string name="activity_about_me_favorite">&lt;xliff:g id="user"&gt;%s&lt;/xliff:g&gt; favoriiet je tweet.</string>
+  <string name="activity_about_me_favorite_multi">&lt;xliff:g id="user"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="other"&gt;%2$s&lt;/xliff:g&gt; favoritieten je tweet.</string>
+  <string name="activity_about_me_favorited_retweet">&lt;xliff:g id="user"&gt;%s&lt;/xliff:g&gt; heeft je retweet gefavoriet.</string>
+  <string name="activity_about_me_favorited_retweet_multi">&lt;xliff:g id="user"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="other"&gt;%2$s&lt;/xliff:g&gt; hebben je retweet gefavoriet.</string>
+  <string name="activity_about_me_follow">&lt;xliff:g id="user"&gt;%s&lt;/xliff:g&gt; volgt je nu.</string>
+  <string name="activity_about_me_follow_multi">&lt;xliff:g id="user"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="other"&gt;%2$s&lt;/xliff:g&gt; volgen je nu.</string>
+  <string name="activity_about_me_retweet">&lt;xliff:g id="user"&gt;%s&lt;/xliff:g&gt; heeft je tweet geretweet.</string>
+  <string name="activity_about_me_retweet_multi">&lt;xliff:g id="user"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="other"&gt;%2$s&lt;/xliff:g&gt; hebben je tweet geretweet.</string>
+  <string name="status_not_updated">Tweet niet verstuurd.</string>
+  <string name="status_not_updated_summary">Tweet niet verstuurd, opgeslagen als klad.</string>
+  <string name="incoming_friendships">Volgverzoek afwachten</string>
+  <string name="send_follow_request">Stuur volgverzoek</string>
+  <string name="follow_request_sent">Volgverzoek versturen</string>
+  <string name="status">Tweet</string>
+  <string name="preview">Preview</string>
+  <string name="connection_timeout">Connectie time-out</string>
+  <string name="both">Beide</string>
+  <string name="browser_sign_in">Browser inloggen</string>
+  <string name="stop_auto_refresh_when_battery_low">Stop auto herladen wanneer batterij laag is</string>
+  <string name="notification_status_multiple">Nieuwe Tweet door &lt;xliff:g id="user"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="count"&gt;%2$d&lt;/xliff:g&gt; anderen</string>
+  <string name="notification_mention">&lt;xliff:g id="user"&gt;%s&lt;/xliff:g&gt; heeft jou genoemd.</string>
+  <string name="notification_mention_multiple">&lt;xliff:g id="user"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="count"&gt;%2$d&lt;/xliff:g&gt; hebben jouw genoemd.</string>
+  <string name="notification_direct_message">&lt;xliff:g id="user"&gt;%s&lt;/xliff:g&gt; heeft je een direct bericht gestuurd.</string>
+  <string name="action_getting_status">tweet krijgen</string>
+  <string name="action_updating_status">tweet verzenden</string>
+  <string name="action_sending_direct_message">direct bericht verzenden</string>
+  <string name="action_refreshing_home_timeline">ververs home tijdlijn</string>
+  <string name="action_refreshing_mentions">ververs benoemingen</string>
+  <string name="action_refreshing_direct_messages">ververs directe berichten</string>
+  <string name="action_favoriting">favoriet maken</string>
+  <string name="action_unfavoriting">onfavorieten</string>
+  <string name="action_deleting">verwijderen</string>
+  <string name="action_updating_profile">profiel bijwerken</string>
+  <string name="action_updating_details">details updaten</string>
+  <string name="action_blocking">blokkeren</string>
+  <string name="action_unblocking">Onblokkeren</string>
+  <string name="action_following">Volgend</string>
+  <string name="action_unfollowing">Ontvolgen</string>
+  <string name="action_creating_list">lijst creeren</string>
+  <string name="action_adding_member">Lid toevoegen</string>
+  <string name="action_signing_in">Inloggen</string>
+  <string name="action_retweeting">Retweeten</string>
+  <string name="action_reporting_for_spam">rapporteren wegens spam</string>
+  <string name="action_subscribing_to_list">abonneren op lijst</string>
+  <string name="action_unsubscribing_from_list">afmelden voor lijst</string>
+  <string name="action_saving_search">zoekopdracht opslaan</string>
+  <string name="action_deleting_search">zoekopdracht verwijderen</string>
+  <string name="action_accepting_follow_request">Volgverzoek accepteren</string>
+  <string name="action_denying_follow_request">Volgverzoek weigeren</string>
+  <string name="status_is_duplicate">Je tweet is dubbel</string>
+  <string name="silent_notifications">Stille notificaties</string>
+  <string name="silent_notifications_summary">Ringtone/vibratie uitschakelen voor notificaties</string>
+  <string name="disable_background_service">Achtergrondservice uitschakelen</string>
+  <string name="disable_background_service_summary">FireTweet zal geen achtergrondservice uitvoeren wanneer auto verversen en data profileren uitgeschakeld is.</string>
+  <string name="text_copied">Tekst gekopieerd naar kladbord</string>
+  <string name="hashtag">Hashtag</string>
+  <string name="links">Links</string>
+  <string name="edit_profile">Profiel bewerken</string>
+  <string name="delete_N_users_from_list_confirm_quantity_one">Verwijder &lt;xliff:g id="items"&gt;%1$d&lt;/xliff:g&gt; gebruikers van lijst "&lt;xliff:g id="list"&gt;%2$s&lt;/xliff:g&gt;"?</string>
+  <string name="subscribe">Abonneren</string>
+  <string name="unsubscribe">Afmelden</string>
+  <string name="original_status">Originele tweet</string>
+  <string name="theme_light">Licht</string>
+  <string name="highlight">Highlight</string>
+  <string name="underline">Onderstrepen</string>
+  <string name="name_first">Toon naam eerst</string>
+  <string name="next">Volgende</string>
+  <string name="wizard_page_welcome_title">Welkom</string>
+  <string name="wizard_page_welcome_text">Bedankt voor het kiezen van FireTweet. \nWil je nu alles instellen?</string>
+  <string name="wizard_page_welcome_yes">Ja</string>
+  <string name="wizard_page_welcome_not_now">Niet n</string>
+  <string name="wizard_page_welcome_import_settings">Import instellingen</string>
+  <string name="wizard_page_theme_text">Kies een thema</string>
+  <string name="wizard_page_hints_text">Hier zijn wat handige tips.</string>
+  <string name="wizard_page_finished_title">Klaar</string>
+  <string name="wizard_page_finished_text">FireTweet is gereed.</string>
+  <string name="invalid_tab">Ongeldige tab</string>
+  <string name="send_crash_report">Stuur foutrapportage naar FireTweet</string>
+  <string name="add_to_filter">Toevoegen aan filter</string>
+  <string name="developed_by">Ontwikkeld door</string>
+  <string name="project_account">Project account</string>
+  <string name="translators">Vertalers</string>
+  <string name="translate">Vertaal</string>
+  <string name="sponsored_by">Gesponsord door</string>
+  <string name="special_thanks_to">Extra bedankje aan</string>
+  <string name="contributors_list_summary">Stuur uw profielnaam als we uw echte naam niet konden vinden.</string>
+  <string name="account_options">Account opties</string>
+  <string name="show_in_timeline">Toon in tijdlijn</string>
+  <string name="no_tab_hint">Geen tab</string>
+  <string name="delete_user">Verwijder gebruiker &lt;xliff:g id="name"&gt;%s&lt;/xliff:g&gt;</string>
+  <string name="delete_users">Verwijder gebruikers</string>
+  <string name="delete_user_confirm_message">Verwijder &lt;xliff:g id="name"&gt;%s&lt;/xliff:g&gt;? Dit kan niet ongedaan gemaakt worden.</string>
+  <string name="toggle">Schakel</string>
+  <string name="general">Algemeen</string>
+  <string name="hints">Hints</string>
+  <string name="finish">Klaar</string>
+  <string name="background">Achtergrond</string>
+  <string name="theme_background_default">Standaard</string>
+  <string name="theme_background_solid">Puur wit/zwart</string>
+  <string name="theme_background_transparent">Transparant</string>
+  <string name="theme_dark_actionbar">Donkere Actiebar</string>
+  <string name="wizard_hint_compose_select_account">Klik hier om account te selecteren terwijl je een tweet typt.</string>
+  <string name="view_replies">Bekijk beantwoorde</string>
+  <string name="tab_display_option_icon">Pictogram</string>
+  <string name="back">Terug</string>
+  <string name="import_settings">Import instellingen</string>
+  <string name="card_highlight_option_highlight">Highlight</string>
+  <string name="image_preview_scale_type_crop">Inkorten</string>
+  <string name="add">Toevoegen</string>
+  <string name="save_to_gallery">Opslaan in gallerij</string>
+  <string name="ellipsis">…</string>
+  <string name="import_export_settings">Import/Export instellingen</string>
+  <string name="no_tab">Geen tab</string>
+  <string name="no_account">Geen account</string>
+  <string name="usage_statistics_notification_summary">Help ons FireTweet verbeteren!</string>
+  <string name="from_name">Van &lt;xliff:g id="name"&gt;%1$s&lt;/xliff:g&gt;</string>
+  <string name="from_name_and_name">Van &lt;xliff:g id="name"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="name"&gt;%2$s&lt;/xliff:g&gt;</string>
+  <string name="from_name_and_N_others">Van &lt;xliff:g id="name"&gt;%1$s&lt;/xliff:g&gt; en &lt;xliff:g id="name"&gt;%2$d&lt;/xliff:g&gt; anderen</string>
+  <string name="projects_we_took_part">Deelgenomen projecten</string>
+  <string name="activated_accounts">Geactiveerde accounts</string>
+  <string name="search">Zoeken</string>
+  <string name="crop">Inkorten</string>
+  <string name="scale">Schalen</string>
+  <string name="user_type_verified">Bevestigt</string>
+  <string name="user_type_protected">Beveiligd</string>
+  <string name="tweet_hashtag">Tweet #&lt;xliff:g id="text"&gt;%1$s&lt;/xliff:g&gt;</string>
+  <string name="share_status">Tweet delen</string>
+  <string name="pebble_notifications">Pebble notificaties</string>
+  <string name="pebble_notifications_summary">Stuur notificatie naar je Pebble</string>
+  <!--'Tweet' here is a verb-->
+  <string name="tweet_from_name">Tweet vanaf &lt;xliff:g id="text"&gt;%1$s&lt;/xliff:g&gt;</string>
+  <string name="permission_label_shorten_status">Tweet verkorten</string>
+  <string name="permission_label_upload_media">Upload media</string>
+  <string name="permission_label_sync_timeline">Sync tijdlijn</string>
+  <string name="thumbor_integration">Thumbor integratie</string>
+  <string name="server_address">Server adres</string>
+  <string name="security_key">Sleutelbeveiliging</string>
+</resources>

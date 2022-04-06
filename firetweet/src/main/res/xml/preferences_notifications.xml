@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/notifications">
+
+    <org.getlantern.firetweet.preference.NotificationAccountsListPreference
+        android:key="cat_accounts"
+        android:title="@string/accounts"
+        app:switchDefault="true"
+        app:switchKey="notification"/>
+
+    <PreferenceCategory
+        android:key="cat_general"
+        android:title="@string/general">
+        <org.getlantern.firetweet.preference.SilentNotificationsPreference
+            android:key="silent_notifications"
+            android:summary="@string/silent_notifications_summary"
+            android:title="@string/silent_notifications"/>
+
+        <org.getlantern.firetweet.preference.AutoFixCheckBoxPreference
+            android:defaultValue="false"
+            android:key="background_toast_notification"
+            android:summary="@string/background_toast_notification_summary"
+            android:title="@string/background_toast_notification"/>
+
+        <org.getlantern.firetweet.preference.AutoFixCheckBoxPreference
+            android:defaultValue="false"
+            android:key="pebble_notifications"
+            android:summary="@string/pebble_notifications_summary"
+            android:title="@string/pebble_notifications"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

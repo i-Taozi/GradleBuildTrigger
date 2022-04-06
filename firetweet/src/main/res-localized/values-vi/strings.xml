@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string name="settings">Thiết lập</string>
+  <string name="send">Gửi</string>
+  <string name="advanced">Nâng cao</string>
+  <string name="about">Thông tin</string>
+  <string name="url">Đường dẫn liên kết</string>
+  <string name="refresh">Cập nhật lại</string>
+  <string name="retry">Thử lại</string>
+  <string name="more">More</string>
+  <string name="proxy">Proxy</string>
+  <string name="finish">Đã hoàn tất</string>
+  <string name="back">Quay lại</string>
+  <string name="add">Add</string>
+  <string name="search">Tìm kiếm</string>
+  <!--'Tweet' here is a verb-->
+</resources>

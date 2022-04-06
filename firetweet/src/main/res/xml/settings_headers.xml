@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header android:title="@string/appearance"/>
+    <header
+        android:fragment="org.getlantern.firetweet.fragment.SettingsDetailsFragment"
+        android:icon="@drawable/ic_action_view_quilt"
+        android:title="@string/settings_interface">
+        <extra
+            android:name="resid"
+            android:value="@xml/preferences_interface"/>
+    </header>
+    <header
+        android:fragment="org.getlantern.firetweet.fragment.SettingsDetailsFragment"
+        android:icon="@drawable/ic_action_storage"
+        android:title="@string/storage">
+        <extra
+            android:name="resid"
+            android:value="@xml/preferences_storage"/>
+    </header>
+    <header
+        android:fragment="org.getlantern.firetweet.fragment.SettingsDetailsFragment"
+        android:icon="@drawable/ic_action_refresh"
+        android:title="@string/refresh">
+        <extra
+            android:name="resid"
+            android:value="@xml/preferences_refresh"/>
+    </header>
+    <header
+        android:fragment="org.getlantern.firetweet.fragment.SettingsDetailsFragment"
+        android:icon="@drawable/ic_action_notification"
+        android:title="@string/notifications">
+        <extra
+            android:name="resid"
+            android:value="@xml/preferences_notifications"/>
+    </header>
+
+</preference-headers>
