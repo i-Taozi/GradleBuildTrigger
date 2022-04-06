@@ -12,4 +12,4 @@ addons:
   hosts: [myshorthost]
   hostname: myshorthost
 branches:
-  only: [jphp-group/jphp-424-origin]
+  only: [jphp-group/jphp-424-GRADLE_COMPILER_DAEMON]
