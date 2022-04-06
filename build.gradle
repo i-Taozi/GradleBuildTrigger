@@ -1,0 +1,185 @@
+def javaVersion = '1.8';
+def projectVersion = '0.9.3';
+
+apply from: "$rootDir/exts/ext-template.gradle"
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:4.0.3"
+    }
+}
+
+task genExtension() {
+    doLast {
+        createJPHPExtension(rootProject)
+    }
+}
+
+allprojects {
+    apply plugin: 'idea'
+    apply plugin: 'signing'
+    apply plugin: 'java'
+
+    project.group = 'org.develnext.jphp'
+    project.version = projectVersion
+    project.ext.isSnapshot = !Boolean.getBoolean("release");
+
+    if (project.ext.isSnapshot) {
+        version += '-SNAPSHOT'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    task sourcesJar(type: Jar, dependsOn: 'classes') {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    configurations {
+        provided
+        jppmCompile
+        compileMaven
+    }
+
+    sourceSets {
+        main {
+            compileClasspath += configurations.provided + configurations.jppmCompile + configurations.compileMaven
+        }
+
+        test {
+            compileClasspath += configurations.provided + configurations.jppmCompile + configurations.compileMaven
+        }
+    }
+}
+
+configure(subprojects) {
+    apply plugin: 'java'
+    apply from: "$rootDir/jppm.gradle"
+
+    if (it.name.endsWith("-ext") || it.name.startsWith("jphp-")) {
+        apply plugin: 'maven'
+
+        install.repositories.mavenInstaller.pom.scopeMappings.addMapping(100, configurations.compileMaven, 'compile')
+
+        dependencies {
+            testCompile 'junit:junit:4.+'
+            testCompile project(':jphp-runtime')
+            testCompile project(':exts:jphp-zend-ext')
+        }
+    }
+
+    apply plugin: 'com.github.johnrengelman.shadow'
+
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    sourceSets {
+        main.java.srcDirs = ['src/main/java']
+        main.resources.srcDirs = ['src/main/resources', 'src-php']
+
+        test.java.srcDirs = ["src/main/tests"]
+        test.resources.srcDirs = ["src/main/tests"]
+    }
+
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    if (new File(project.projectDir.path + "/package.php.yml").exists()) {
+
+        /*try {
+            project.tasks.getByName('install').dependsOn += jppmPublish
+        } catch (UnknownTaskException e) {
+
+        }*/
+
+        task docBuild(type: Exec) {
+            def cmdArgs = ['jppm', 'doc:build']
+
+            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                cmdArgs.add(0, "/c");
+                cmdArgs.add(0, "cmd");
+            }
+
+            commandLine cmdArgs
+            workingDir = project.projectDir
+        }
+
+        task hubPublish(type: Exec, dependsOn: [docBuild, jar]) {
+            def cmdArgs = ['jppm', 'hub:publish', '-yes', '-force']
+
+            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                cmdArgs.add(0, "/c");
+                cmdArgs.add(0, "cmd");
+            }
+
+            commandLine cmdArgs
+            workingDir = project.buildDir.path + "/jppm/dist"
+
+            doFirst {
+                jppmDist(project)
+            }
+        }
+
+        task localPublish(type: Exec, dependsOn: [docBuild, jar]) {
+            def cmdArgs = ['jppm', 'publish', '-yes', '-force']
+
+            if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+                cmdArgs.add(0, "/c");
+                cmdArgs.add(0, "cmd");
+            }
+
+            commandLine cmdArgs
+            workingDir = project.buildDir.path + "/jppm/dist"
+
+            doFirst {
+                jppmDist(project)
+            }
+        }
+    }
+
+    def extDir = "exts/";
+
+    if (it.name.startsWith("jphp-")) {
+        task jppmDist(dependsOn: 'jar') {
+            doLast { jppmDist(project) }
+        }
+
+        task jppmInstall(dependsOn: ['install', 'jppmDist']) {
+            doLast { jppmInstall(project) }
+        }
+    }
+
+    if (it.name.startsWith(extDir)) {
+        def pr = it
+
+        install {
+
+            repositories.mavenInstaller {
+                configurations.compileMaven.allDependencies.each { dep ->
+                    //pom.dependencies.add(dep)
+                }
+
+                if (pr.name.startsWith(extDir)) {
+                    pom.artifactId = pr.name.substring(extDir.length())
+                }
+            }
+        }
+
+        def installer = install.repositories.mavenInstaller
+
+        [installer]*.pom*.whenConfigured { pom ->
+            pom.dependencies.each { dep ->
+                if (dep.artifactId.startsWith(extDir)) {
+                    dep.artifactId = dep.artifactId.substring(extDir.length())
+                }
+            }
+        }
+    }
+}

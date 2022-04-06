@@ -1,0 +1,15 @@
+dist: trusty
+language: java
+jdk: [openjdk11, openjdk8, oraclejdk8]
+services: [mongodb]
+env: [null, JPHP_TEST_COMPILED=1, JPHP_TEST_CONCURRENT=1]
+before_install: [export TZ=, 'wget https://github.com/sormuras/bach/raw/master/install-jdk.sh',
+  cat /etc/hosts, sudo hostname "$(hostname | cut -c1-63)", sed -e "s/^\\(127\\.0\\.0\\.1.*\\)/\\1
+    $(hostname | cut -c1-63)/" /etc/hosts | sudo tee /etc/hosts, cat /etc/hosts, chmod
+    +x gradlew]
+script: ./gradlew check --stacktrace --info -Dfile.encoding=UTF-8
+addons:
+  hosts: [myshorthost]
+  hostname: myshorthost
+branches:
+  only: [jphp-group/jphp-424-origin]

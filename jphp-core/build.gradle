@@ -1,0 +1,20 @@
+apply plugin: 'maven'
+
+sourceSets {
+    main.java.srcDirs = ['src']
+    main.resources.srcDirs = ['resources']
+    test.java.srcDirs = ["tests"]
+    test.resources.srcDirs = ["tests"]
+}
+
+dependencies {
+    compileMaven project(':jphp-runtime')
+    compile group: 'org.ow2.asm', name: 'asm-commons', version: '7.3.1'
+    compile group: 'org.ow2.asm', name: 'asm-util', version: '7.3.1'
+
+    testCompile 'junit:junit:4.+'
+    testCompile 'org.assertj:assertj-core:3.12.2'
+    testCompile project(':jphp-runtime')
+    testCompile project(':exts:jphp-zend-ext')
+    testCompile project(':exts:jphp-json-ext')
+}

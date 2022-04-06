@@ -1,0 +1,29 @@
+name: hello-world
+version: 1.0.0
+
+plugins: [App]
+
+deps:
+  jphp-core: ^1.1.1
+  jphp-zend-ext: '*'
+
+app:
+  bootstrap: index.php
+  encoding: UTF-8
+  metrics: false
+  trace: false
+  build:
+    bytecode: 'jvm'
+    type: multi-jar
+  launcher:
+    enabled: true # enable launcher scripts
+    types: [sh, bat]
+    java:
+      # jdk: 'path-to-embedded-jdk' # path to jdk with JRE or jmods
+      #embedded: true # add jvm via jlink + jdeps
+
+sources:
+- src
+
+includes:
+- index.php

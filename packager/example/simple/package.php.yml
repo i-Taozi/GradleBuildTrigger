@@ -1,0 +1,32 @@
+name: simple
+version: 1.0.0
+deps:
+  jphp-core: '*'
+  jppm-helloworld: github.com/jphp-compiler/jppm-helloworld#dev
+  jphp-mysql-ext: '*'
+plugins:
+- Doc
+- Hub
+- App
+
+app:
+  disable-launcher: '1'
+  bootstrap: index.php
+  encoding: UTF-8
+  metrics: ''
+  trace: ''
+
+sources:
+- src
+
+doc:
+  langs:
+    en: English
+    ru: Русский
+config:
+  build-dir: ./build
+  vendor-dir: ./vendor
+  archive-dir: ./../
+  archive-format: zip
+  ignore:
+  - /vendor/**

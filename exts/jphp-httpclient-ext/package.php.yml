@@ -1,0 +1,20 @@
+
+name: jphp-httpclient-ext
+version: 1.0.2
+description: Http Client library.
+
+plugins: [Doc, Hub]
+
+deps:
+  jphp-json-ext: '>=1.0.0'
+
+sources:
+- src-php
+
+doc:
+  url-prefix: 'https://github.com/jphp-compiler/jphp/blob/master/exts/%name%/api-docs/'
+  stub-dirs: ['./src-php']
+  langs: {en: English, ru: Русский}
+
+config:
+  ignore: ['/api-docs/**', '/package.hub.yml']

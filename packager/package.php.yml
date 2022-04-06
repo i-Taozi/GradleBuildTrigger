@@ -1,0 +1,39 @@
+name: jppm
+version: 0.6.7
+
+plugins: [GitHub, Hub, Doc]
+
+deps:
+  jphp-dffi-ext: 2.0.0 # copy libs to dffi dir in root if you want to upgrade dffi ext
+
+hub:
+  login: d.zayceff@gmail.com
+
+github:
+  address: 'https://github.com/jphp-group/jphp'
+  tag-prefix: '%name%-'
+  title: '%name% %version%'
+  description: |
+    > JPHP Package Manager v%version%
+
+    **What's new**
+    + Add JPPM_OS_BUILD env option.
+
+    **Downloads**
+    + For Windows: [JPPM Windows Installer](%github.address%/releases/download/jppm-%version%/jppm-setup-%version%.exe)
+    + For Linux: [JPPM Linux Distributive](%github.address%/releases/download/jppm-%version%/jppm-%version%.tar.gz)
+
+    **How To Install**
+    + For Windows: Run jppm-setup-%version%.exe and that's is all!
+    + For Linux:
+    ```bash
+    wget -O - %github.address%/releases/download/jppm-%version%/jppm-setup-%version%.sh | bash
+    ```
+
+  assets:
+    - {file: '../jppm-setup-%version%.exe', contentType: 'application/octet-stream', ifExists: true}
+    - {file: '../jppm-setup-%version%.sh', contentType: 'application/octet-stream'}
+
+
+config:
+  ignore: ['/package.github.yml', '/package.hub.yml', '/example/**', '/installer/**']

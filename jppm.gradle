@@ -1,0 +1,134 @@
+
+def jppmDist(Project project) {
+    def jarsDir = file(project.buildDir.path + "/jppm/dist/jars")
+    def sdkDir = file(project.buildDir.path + "/jppm/dist/sdk")
+    def packageFile = file(project.buildDir.path + "/jppm/dist/package.php.yml")
+
+    def version = project.ext.hasProperty('jppmVersion') ? project.ext.jppmVersion : project.version
+
+    copy {
+        from project.configurations.compile
+        from project.jar.archivePath
+        into jarsDir
+    }
+
+    copy {
+        from project.projectDir.path + "/src/main/resources/JPHP-INF/sdk"
+        into sdkDir
+    }
+
+    copy {
+        from project.projectDir.path + "/README.md"
+        into project.buildDir.path + "/jppm/dist/"
+    }
+
+    copy {
+        from project.projectDir.path + "/api-docs"
+        into project.buildDir.path + "/jppm/dist/api-docs"
+    }
+
+    copy {
+        from project.projectDir.path + "/api-docs-extra"
+        into project.buildDir.path + "/jppm/dist/api-docs-extra"
+    }
+
+    if (new File(rootDir.path, "/package.hub.yml").exists()) {
+        copy {
+            from rootProject.rootDir.path + "/package.hub.yml"
+            into project.buildDir.path + "/jppm/dist/"
+        }
+    }
+
+    if (packageFile.isFile()) {
+        packageFile.delete()
+    }
+
+    packageFile.parentFile.mkdirs()
+
+    if (new File(project.projectDir.path + "/package.php.yml").isFile()) {
+        copy {
+            from project.projectDir.path + "/package.php.yml"
+            into packageFile.parentFile.path
+        }
+
+        /*def jars = []
+
+        jarsDir.listFiles().each { file ->
+            if (file.name.endsWith(".jar")) {
+                jars.add(file.name)
+            }
+        }
+
+        if (!jars.empty) {
+            packageFile.setText(packageFile.getText('UTF-8') + "\n\njars: ['" + jars.join("', '") + "']\n", 'UTF-8')
+        }*/
+    } else {
+        if (!packageFile.isFile()) {
+            packageFile.createNewFile()
+        }
+
+        def name = project.name
+
+        if (name.startsWith("exts/")) {
+            name = name.substring(5)
+        }
+
+        def jppmVersion = version.toString().replace("-SNAPSHOT", "+SNAPSHOT");
+
+        def text = "name: '$name'\nversion: $jppmVersion\n"
+        def jars = []
+
+        def deps = project.configurations.compile.getAllDependencies().withType(ProjectDependency) + project.configurations.jppmCompile.getAllDependencies().withType(ProjectDependency)
+
+        if (!deps.empty) {
+            text += "deps:\n"
+            def ver = version.toString().split("\\-")[0];
+            ver = ver.split("\\+")[0];
+
+            deps.each {
+                text += "  ${file(it.name).name}: '>=$ver'\n"
+
+                delete "$jarsDir/${file(it.name).name}-${version}.jar"
+            }
+        }
+
+        //text += "\ndeps:\n" + deps.join(": $project.version\n") + "\n";
+
+        /*jarsDir.listFiles().each { file ->
+            if (file.name.endsWith(".jar")) {
+                jars.add(file.name)
+            }
+        }
+
+        if (!jars.empty) {
+            text += "\njars: ['" + jars.join("', '") + "']\n"
+        }*/
+
+        packageFile.text = text;
+    }
+}
+
+def jppmInstall(project) {
+    def repoDir = System.getProperty("user.home") + "/.jppm/repo"
+    def name = file(project.name).name;
+    def version = project.ext.hasProperty('jppmVersion') ? project.ext.jppmVersion : project.version
+
+    version = version.toString().replace("-SNAPSHOT", "+SNAPSHOT");
+
+    delete "$repoDir/$name/$version"
+    delete "$repoDir/$name/${version}.tar.gz"
+
+    copy {
+        from file(project.buildDir.path + "/jppm/dist/")
+        into "$repoDir/$name/$version"
+    }
+
+    println("Install jppm package to: $repoDir/$name/$version")
+
+    return "$repoDir/$name/$version"
+}
+
+ext {
+    jppmDist = this.&jppmDist
+    jppmInstall = this.&jppmInstall
+}

@@ -1,0 +1,19 @@
+name: bench
+version: 1.0.0
+
+plugins: [App]
+
+deps:
+  jphp-core: '*'
+  jphp-zend-ext: '*'
+  jphp-json-ext: '*'
+  jphp-httpserver-ext: '*'
+
+app:
+  encoding: UTF-8
+
+sources:
+  - src
+
+includes:
+  - 'bench.php'

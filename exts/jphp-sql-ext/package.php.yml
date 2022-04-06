@@ -1,0 +1,12 @@
+
+name: jphp-sql-ext
+version: 1.0.0
+description: Basic SQL extension for any JDBC drivers.
+
+
+plugins: [Doc, Hub]
+
+doc:
+  url-prefix: 'https://github.com/jphp-compiler/jphp/blob/master/exts/%name%/api-docs/'
+  stub-dirs: ['./src/main/resources/JPHP-INF/sdk']
+  langs: {en: English, ru: Русский}

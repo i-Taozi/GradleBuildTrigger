@@ -1,0 +1,203 @@
+apply plugin: 'maven'
+
+def jppmVersion = version.toString()
+def jppmRepoAddress = 'https://github.com/jphp-group/jphp'
+
+file("$projectDir.path/package.php.yml").readLines().each { line ->
+    if (line.startsWith("version:")) {
+        jppmVersion = line.replace("version:", "").trim()
+    }
+}
+
+version = jppmVersion
+
+sourceSets {
+    main.java.srcDirs = ['src']
+    main.resources.srcDirs = ['src-php']
+}
+
+dependencies {
+    compile project(':jphp-core')
+    compile project(':jphp-runtime')
+    compile project(':exts:jphp-zend-ext')
+    compile project(':exts:jphp-yaml-ext')
+    compile project(':exts:jphp-compress-ext')
+    compile project(':exts:jphp-json-ext')
+    compile project(':exts:jphp-jsoup-ext')
+    compile project(':exts:jphp-semver-ext')
+    compile project(':exts:jphp-text-ext')
+    compile project(':exts:jphp-httpclient-ext')
+    compile project(':exts:jphp-git-ext')
+    compile project(':exts:jphp-parser-ext')
+
+    compile fileTree(include: '*.jar', dir: 'dffi')
+}
+
+shadowJar {
+    archiveName = 'packager-all.jar'
+
+    mergeServiceFiles()
+}
+
+task dist(dependsOn: 'shadowJar') {
+    doLast {
+        delete "$buildDir.path/dist/update"
+        delete "$buildDir.path/dist/vendor"
+
+        delete fileTree("$buildDir.path/dist/") {
+            include 'jppm-*.tar.gz'
+            include 'jppm-*.json'
+        }
+
+        copy {
+            from "$buildDir.path/libs/$shadowJar.archiveName"
+            from "$projectDir.path/scripts/"
+
+            into "$buildDir.path/dist/"
+        }
+
+        copy {
+            from "$projectDir.path/package.php.yml"
+            from "$projectDir.path/package.github.yml"
+            into "$buildDir.path/dist/"
+        }
+
+        copy {
+            from "$projectDir.path/buildSrc/"
+            into "$buildDir.path/dist/buildSrc"
+        }
+    }
+}
+
+
+task distArch(type: Tar, dependsOn: ['clean', 'dist', 'distArchZip']) {
+    from("$buildDir.path/dist") {
+        exclude('jppm')
+    }
+
+    from("$buildDir.path/dist") {
+        include('jppm')
+
+        fileMode = 0755
+    }
+
+    baseName = "jppm-dist"
+    destinationDir = buildDir
+    extension = 'tar.gz'
+
+    compression = Compression.GZIP
+}
+
+task distArchZip(type: Zip, dependsOn: 'dist') {
+    from("$buildDir.path/dist")
+
+    baseName = "jppm-dist"
+    destinationDir = buildDir
+    extension = 'zip'
+}
+
+def buildISS = { issFile ->
+    def innoSetupBin = "$innoSetupDir/ISCC.exe".replace("\\", "/")
+
+    if (!file(innoSetupBin).isFile()) {
+        throw new GradleException("Failed to find inno setup 5 dir, $innoSetupBin, please set 'innoSetupDir' property.")
+    }
+
+    if (System.properties['os.name'].toLowerCase().contains('linux')) {
+        exec {
+            commandLine 'wine', innoSetupBin, '/Qp', issFile
+        }
+    } else {
+        exec {
+            commandLine innoSetupBin, '/Qp', issFile
+        }
+    }
+}
+
+task distSetupExe(dependsOn: 'dist') {
+    doLast {
+        copy {
+            from "$projectDir.path/installer/innosetup.iss"
+            into "$buildDir.path/"
+        }
+
+        def issText = file("$buildDir.path/innosetup.iss").text.replace("{{version}}", jppmVersion);
+        file("$buildDir.path/innosetup.iss").text = issText
+
+        buildISS("$buildDir.path/innosetup.iss")
+    }
+}
+
+task publish(type: Exec, dependsOn: ['dist']) {
+    doFirst {
+        def sh = [
+                '#!/usr/bin/env sh',
+                'cd ~',
+                "wget -O jppm-${jppmVersion}.tar.gz $jppmRepoAddress/releases/download/jppm-$jppmVersion/jppm-${jppmVersion}.tar.gz",
+                "mkdir -p /opt/jppm-$jppmVersion && tar -xzf ~/jppm-${jppmVersion}.tar.gz -C /opt/jppm-$jppmVersion/",
+                "export PATH=/opt/jppm-${jppmVersion}/:\$PATH",
+                "sudo ln -sfn /opt/jppm-${jppmVersion}/jppm /usr/local/bin/jppm && chmod +x /opt/jppm-${jppmVersion}/jppm",
+                "echo \"----------------------------------------------\"",
+                "echo \"JPPM $jppmVersion has been installed.\"",
+                "echo \"-> try 'jppm version' to check it.\"",
+                "echo \"-> try 'jppm init' to start new project.\"",
+        ];
+
+        file("$buildDir/jppm-setup-${jppmVersion}.sh").text = sh.join("\n")
+    }
+
+    def osName = System.getProperty("os.name").toLowerCase()
+    workingDir "$buildDir.path/dist"
+
+    if (osName.contains("win")) {
+        commandLine "cmd", "/c", "jppm.bat", "github:publish", "-f", "-y"
+    } else {
+        commandLine "sh", "jppm", "github:publish", "-f", "-y"
+    }
+}
+
+def innoSetupBin = "$innoSetupDir/ISCC.exe".replace("\\", "/")
+
+if (new File(innoSetupBin).isFile()) {
+    publish.dependsOn = ['dist', 'distSetupExe']
+}
+
+
+task installDist(dependsOn: 'dist') {
+    doLast {
+        def installDist = file(System.getProperty('user.home') + '/.jppm/dist')
+        installDist.mkdirs()
+
+        copy {
+            from "$buildDir.path/dist/buildSrc/"
+            into "$installDist.path/buildSrc"
+        }
+
+        copy {
+            from "$buildDir.path/dist/jppm"
+            from "$buildDir.path/dist/jppm.bat"
+            from "$buildDir.path/dist/packager-all.jar"
+            from "$buildDir.path/dist/package.php.yml"
+
+            into installDist
+        }
+
+        def osName = System.getProperty("os.name").toLowerCase()
+        file("$installDist/jppm").setExecutable(true)
+
+        if (osName.contains("linux") || osName.contains("unix")) {
+            exec {
+                commandLine "ln", "-sfn", "$installDist/jppm", "/usr/bin"
+            }
+        } else if (osName.contains("windows")) {
+            /*exec {
+                commandLine "powershell", "-command", "Start-Process jppm-setpath.bat -Verb runas"
+                workingDir installDist
+            }*/
+        }
+    }
+}
+
+install {
+    dependsOn installDist
+}

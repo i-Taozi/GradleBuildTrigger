@@ -1,0 +1,18 @@
+
+
+include 'jphp-runtime',
+        'jphp-core',
+        'jphp-native',
+        'jphp-scripting',
+
+        'jphp-debugger',
+        'packager',
+
+        'sandbox'
+
+
+file("$rootDir.path/exts").listFiles().each { file ->
+    if (file.directory && file.name.startsWith("jphp-") && file.name.endsWith("-ext")) {
+        include "exts:$file.name"
+    }
+}
