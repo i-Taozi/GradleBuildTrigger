@@ -4,4 +4,4 @@ jdk: [oraclejdk7]
 script: [./gradlew build rpm]
 after_success: [./gradlew coveralls]
 branches:
-  only: [verisign/storm-graphite-43-origin]
+  only: [verisign/storm-graphite-43-GRADLE_INCREMENTAL_COMPILATION]
