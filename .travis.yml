@@ -10,4 +10,4 @@ notifications:
     on_failure: always
     on_start: false
 branches:
-  only: [yavijava/yavijava-286-origin]
+  only: [yavijava/yavijava-286-GRADLE_COMPILER_DAEMON]
