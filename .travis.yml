@@ -17,4 +17,4 @@ install: ['wget -O "gradle-5.1.1-bin.zip" "https://services.gradle.org/distribut
     PATH=/opt/gradle/gradle-5.1.1/bin:${PATH}', gradle --version, gradle wrapper,
   chmod +x ./gradlew, ./gradlew all]
 branches:
-  only: [lindenb/jvarkit-194-origin]
+  only: [lindenb/jvarkit-194-GRADLE_COMPILER_DAEMON]
