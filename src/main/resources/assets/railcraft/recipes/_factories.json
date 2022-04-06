@@ -1,0 +1,13 @@
+{
+  "conditions": {
+    "module": "mods.railcraft.common.util.crafting.ModuleCondition$Factory",
+    "ore_exists": "mods.railcraft.common.util.crafting.OreTagCondition$Factory"
+  },
+  "ingredients": {
+    "fluid": "mods.railcraft.common.util.crafting.FluidIngredient$Factory"
+  },
+  "recipes": {
+    "crafting_shaped": "mods.railcraft.common.util.crafting.ShapedRailcraftRecipe$Factory",
+    "crafting_shapeless": "mods.railcraft.common.util.crafting.ShapelessRailcraftRecipe$Factory"
+  }
+}
