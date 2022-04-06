@@ -29,6 +29,10 @@ group = "com.headlamp-games" // http://maven.apache.org/guides/mini/guide-naming
 archivesBaseName = "railcraft"
 
 allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.fork = true
+    }
+
     version = project.version
 }
 

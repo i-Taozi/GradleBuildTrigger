@@ -12,4 +12,4 @@ script: ./gradlew build test
 env: {global: TERM=dumb}
 notifications: {email: false, irc: irc.esper.net#railcraft}
 branches:
-  only: [Railcraft/Railcraft-2033-origin]
+  only: [Railcraft/Railcraft-2033-GRADLE_COMPILER_DAEMON]
