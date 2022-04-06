@@ -6,4 +6,4 @@ cache:
 env: [TERM=dumb]
 script: [travis_wait ./gradlew --debug clean build -PtestLoggingStarted=true -PwikiBranch=origin/master]
 branches:
-  only: [spring-projects/spring-xd-1942-origin]
+  only: [spring-projects/spring-xd-1942-GRADLE_INCREMENTAL_COMPILATION]
