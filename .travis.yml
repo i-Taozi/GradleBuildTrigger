@@ -5,4 +5,4 @@ android:
     extra-android-m2repository]
 script: [./gradlew assembleDebug]
 branches:
-  only: [ramack/ActivityDiary-306-origin]
+  only: [ramack/ActivityDiary-306-GRADLE_FORK_TEST]
