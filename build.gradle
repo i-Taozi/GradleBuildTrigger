@@ -1,0 +1,126 @@
+plugins {
+  id "application"
+  id "com.github.johnrengelman.shadow" version "2.0.1"
+}
+
+group 'com.billyyccc'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+mainClassName = 'io.vertx.core.Launcher'
+
+ext {
+  //dependencies
+  junitVersion = '4.12'
+  vertxVersion = '3.6.2'
+  slf4jVersion = '1.7.25'
+  log4jVersion = '2.9.1'
+  pgClientVersion = '0.11.2'
+  mockitoVersion = '2.12.0'
+  testcontainerVersion = '1.7.1'
+}
+
+def mainVerticleName = 'com.billyyccc.MainVerticle'
+def watchForChange = 'src/**/*'
+def doOnChange = './gradlew classes'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+repositories {
+  jcenter()
+  maven {
+    url "https://oss.sonatype.org/content/repositories/releases"
+  }
+}
+
+dependencies {
+  compile "io.vertx:vertx-core:$vertxVersion"
+  compile "io.vertx:vertx-web:$vertxVersion"
+  compile "io.reactiverse:reactive-pg-client:$pgClientVersion"
+  compile "io.vertx:vertx-service-proxy:$vertxVersion"
+  compile "io.vertx:vertx-codegen:$vertxVersion"
+  compile "io.vertx:vertx-rx-java2:$vertxVersion"
+  compile "io.vertx:vertx-rx-java2-gen:$vertxVersion"
+  compile "io.vertx:vertx-web-api-contract:$vertxVersion"
+  compile "io.vertx:vertx-web-client:$vertxVersion"
+
+  // Logging Dependencies
+  compile "org.slf4j:slf4j-api:$slf4jVersion"
+  compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion"
+  compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
+  compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
+
+  // Testing Suite Dependencies
+  testCompile "junit:junit:$junitVersion"
+  testCompile "io.vertx:vertx-unit:$vertxVersion"
+  testCompile "org.mockito:mockito-core:$mockitoVersion"
+  testCompile "org.testcontainers:database-commons:$testcontainerVersion"
+}
+
+def generatedSrcPath = "${projectDir}/src/main/generated"
+def generatedSrcDir = file(generatedSrcPath)
+
+idea {
+  module {
+    generatedSourceDirs += generatedSrcDir
+  }
+}
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ["src/main/java"]
+      srcDirs += generatedSrcPath
+    }
+    resources {
+      srcDirs = ["src/main/resources"]
+    }
+
+  }
+}
+
+task generateServiceProxy(type: JavaCompile, group: 'build', description: 'Generates the Vertx service proxies') {
+  source = sourceSets.main.java
+  classpath = configurations.compile + configurations.compileOnly
+  options.compilerArgs = [
+    "-proc:only",
+    "-processor", "io.vertx.codegen.CodeGenProcessor", // vertx processor here
+    "-Acodegen.output=${generatedSrcDir.absolutePath}"
+  ]
+  destinationDir = generatedSrcDir
+}
+
+compileJava {
+  dependsOn(generateServiceProxy)
+  // specify javac arguments
+  options.compilerArgs = [
+    "-Acodetrans.output=${projectDir}/src/main"
+  ]
+}
+
+shadowJar {
+  classifier = 'fat'
+  manifest {
+    attributes "Main-Verticle": mainVerticleName
+  }
+  mergeServiceFiles {
+    include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+  }
+}
+
+clean {
+  delete += generatedSrcDir
+}
+
+run {
+  args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '4.7'
+}
