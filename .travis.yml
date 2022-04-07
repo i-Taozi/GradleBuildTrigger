@@ -4,4 +4,4 @@ cache:
   directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
 after_success: ['bash <(curl -s https://codecov.io/bash)']
 branches:
-  only: [NovaCrypto/BIP39-46-origin]
+  only: [NovaCrypto/BIP39-46-GRADLE_FORK_TEST]
