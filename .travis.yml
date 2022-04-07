@@ -1,0 +1,5 @@
+language: java
+jdk: [oraclejdk8]
+notifications: {email: true}
+branches:
+  only: [JamesZBL/FS-Blog-29-origin]
