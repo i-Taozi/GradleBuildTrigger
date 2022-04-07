@@ -5,4 +5,4 @@ android:
     extra-google-m2repository, extra-android-m2repository]
 script: ./gradlew checkstyle build
 branches:
-  only: [pedrovgs/Lynx-40-origin]
+  only: [pedrovgs/Lynx-40-GRADLE_INCREMENTAL_COMPILATION]
