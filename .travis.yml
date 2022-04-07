@@ -6,4 +6,4 @@ cache:
   directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
 script: ./gradlew build --refresh-dependencies --no-daemon
 branches:
-  only: [spring-projects/spring-security-oauth2-boot-353-origin]
+  only: [spring-projects/spring-security-oauth2-boot-353-GRADLE_FORK_TEST]
