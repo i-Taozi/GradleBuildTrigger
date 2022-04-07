@@ -1,0 +1,227 @@
+0-----------------------------------------------------------------------------0
+|                                  Changelog:                                 |
+0-----------------------------------------------------------------------------0
+
+2.1.3:
+------
+  * Features
+    - A button was added in the settings to redetect installed apps and their
+      version. This should solve issues for situations where Apktrack is
+      unable to start at boot time and/or receive intents, or otherwise made
+      to hibernate.
+  * Translations
+    - Malaysian translation contributed by antuketot76. Thanks!
+    - German translation reworked by Olf. Thanks!
+  * Update source
+    - Added the official Signal website as an update source for the
+      application of the same name (contributed by Keith Z-G - thanks!).
+    - Fixed APK downloads for the F-Droid update source.
+  * Bugfix
+    - Oreo's new application icons are now rendered properly.
+    - Detection of updated apps should now work way better on Oreo.
+    - Fixed a crash on 4.4.2 devices caused by posting a notification with an
+      SVG icon.
+
+2.1.2:
+------
+  * Features
+    - You can now configure a proxy in the settings. It will be used to check
+      for updates, but *NOT* for APK downloads and searches.
+    - Downloaded APKs can now be cleaned from the settings screen.
+    - Added an option to ignore apps for which no update source could be found.
+  * Update Sources & Search Engines
+    - Timeouts between version checks have been reduced, which makes the
+      process of checking all apps much faster.
+    - Updated the direct download regexp for F-Droid as their layout had
+      slightly changed.
+    - Added a new search engine, APK-DL.
+  * Translations
+    - Japanese translation contributed by Naofumi F. Thanks!
+  * Permissions
+    - A new permission (REQUEST_INSTALL_PACKAGES) is required to be able to
+      install APKs on Oreo.
+  * Supported Devices
+    - ApkTrack should work on Android O.
+  * Bugfix
+    - Fixes a major bug caused by ProGuard in F-Droid builds which prevented
+      users from entering the settings.
+
+2.1.1:
+------
+  * UI
+    - The app's design was materialized by Tetsuo55.
+    - Icons have been vectorized (also by Tetsuo55).
+    - The last check date is now relative (i.e. "10 minutes ago").
+  * Update Sources
+    - Removed the Nightly (Firefox) update source, because their website keeps
+      changing and the app has built-in update capabilities anyway.
+    - The AppBrain source has been renamed to ApkTrack Proxy to reflect that
+      different websites are now queried. A lot more direct links to APKs are
+      provided, including Signal and Firefox.
+    - Fixed the WhatsApp update source. Support has also been added directly in
+      the proxy and this source will be phased out in later versions.
+  * Version Checks:
+    - Version checks for Google Play Services now ignore the part of the
+      version number identifying the architecture and DPI of the device.
+  * Supported Devices:
+    - ApkTrack now works on Android N.
+
+2.1.0:
+------
+
+  * APK Downloads
+    - The OS' download service is now used directly instead of proxying
+      requests through the installed browser.
+    - Downloads respect the user's preference regarding which networks are
+      OK to use (WiFi / mobile data).
+    - Downloaded APKs can be installed directly from ApkTrack's UI.
+  * Permissions
+    - ApkTrack needs a new permission (WRITE_EXTERNAL_STORAGE) to write
+      downloaded APKs to the sdcard.
+  * UI
+    - Fixed a longstanding issue where the last check date could overlap
+      the action icon (that one really bugged me).
+  * Settings
+    - Added options to ignore all system / Xposed apps in a single click.
+      A screen dedicated to managing ignored apps is still warranted.
+    - Added a preference allowing users who enabled background checks to
+      automatically download new APKs when they become available.
+  * Update Sources
+    - Merged the 9Folders update source (only used for com.ninefolders.hd3)
+      into the AppBrain proxy, because of new anti-scraping countermeasures.
+
+2.0.4:
+------
+
+  * Source detection
+    - ApkTrack will set the right update source for itself (upstream or
+      F-Droid) depending on who signed the APK.
+    - The source for all Xposed modules is now detected automatically.
+    - The F-Droid app is now correctly handled by the F-Droid source.
+  * Miscellaneous
+    - Moved the ApkTrack APKs to a server with more bandwidth.
+    - Version checks for ApkTrack now take place over HTTPS.
+    - Updated German translation.
+  * Bugfixes
+    - Fixed  a widespread crash triggered during the initialization
+      of the app.
+    - Fixed a problem with icon resizing for devices with uncommon DPI.
+    - Minor bugfixes for crashes reported through ACRA.
+
+2.0.3:
+------
+
+  * Security
+    - Communications with the AppBrain proxy and crash report service now take
+      place over HTTPS.
+    - Certificates used by those websites are bundled with ApkTrack to prevent
+      man in the middle attacks.
+  * Translations
+    - Updated Polish translation.
+    - Added Italian translation.
+  * Bugfixes
+    - Resolved a race condition potentially leading to random crashes.
+    - The AppBrain update source returned a malformed result when it doesn't
+      have version information for particular apps (i.e. org.eff.actioncenter).
+      This is now handled gracefully so other update sources can be tried.
+    - Fixed the "currently updating" icon getting hidden because of screen
+      rotations.
+
+2.0.2:
+------
+
+  * Automated crash reports
+    - ACRA has been integrated to the app in order to submit stacktraces when
+      ApkTrack crashes (no data is sent without user consent).
+    - New settings were created to control whether bug reports should be sent.
+    - A privacy policy was written to describe how bug data and user data is
+      handled in general.
+  * Bugfixes
+    - Fixed a bug introduced in 2.0.1 triggered when trying to resize
+      non-square icons.
+    - Fixed a bug causing a crash with VectorDrawables for devices without
+      Lollipop.
+    - Fixed a bug where trying to determine the network type (WiFi / data) would
+      cause a crash.
+
+2.0.1:
+------
+
+  * Miscellaneous bugfixes
+    - Oversized icons no longer break the UI.
+    - Download URLs for Xposed apps are now obtained correctly.
+    - App uninstallations now also delete stored icons in the database.
+
+2.0.0:
+------
+
+ * Ignoring irrelevant apps
+    - When detecting apps present on the device, disabled apps are ignored by
+      default.
+    - Apps can be swiped to indicate that they should stop being displayed in
+      the UI and be ignored in subsequent update checks.
+    - An option was added in the settings to reset ignored apps.
+
+ * Detecting installed apps
+    - The full app detection is only done once, during the first launch. All
+      subsequent updates (packages added and/or removed from the system) are
+      now detected through Intents sent by the system.
+    - ApkTrack and its background services now communicate with the help of an
+      Event Bus, which allows complex information to be passed reliably. Model
+      modifications trigger notifications on this event bus, which tell the
+      applist which information should be refreshed. Thanks to this, there are
+      no more loadings when the model is updated.
+    - It shouldn't be possible for ApkTrack to miss apps that are installed,
+      removed or updated with this new design. So I'm removing the "Redetect
+      installed apps" button which wasn't very elegant nor user-friendly.
+
+ * Database overhaul
+    - ApkTrack now uses Sugar ORM to perform its database operations (branch
+      1.x contained a lot of manual SQL queries). The codebase is much cleaner
+      and easier to maintain now.
+    - Icons have been moved to a separate table, which allows ApkTrack to read
+      all the application info without eating up the device's RAM. From now on,
+      Icons are only loaded when they need to be displayed.
+
+ * Update sources
+    - ApkTrack can guess the default update source for some predetermined apps
+      based on their digital signature or their package name.
+    - The structure of sources.json has been changed. It is more complex now,
+      but it allows contributors to specify per-package regular expressions in
+      case the information for multiple apps is hosted on a single webpage.
+      Formerly, it would have been necessary to create an update source per
+      package in some cases.
+    - It is also possible to specify a regular expression to locate an APK
+      download link on the page. This will allow more direct downloads to be
+      provided.
+    - F-Droid, Mirakel, Xposed Stable / Beta now all provide direct APK
+      downloads.
+
+ * Misc
+    - Build system switched to Gradle to make third-party builds easier.
+    - ApkTrack will now remember across reboots whether you want to display
+      system apps or not.
+    - Searches are more flexible, and any part of the name or package name
+      can now be matched (not just the beginning as it was the case).
+    - Apps with vector icons are now displayed correctly on devices with an API
+      level >= 21.
+    - Manual changes to the update source are immediately reflected in the UI.
+    - The spinning icon which indicates that an app is currently being checked
+      isn't lost anymore when the app list is refreshed, sorted or updated.
+    - Notifications will not be displayed more than once for each updated app
+      (ApkTrack 1.1 would keep display notifications until the app was
+      upgraded).
+
+Known issues:
+-------------
+
+  * Swiping the app at position N, then scrolling down and up causes a blank
+    line to be displayed at position N-1.
+  * ApkTrack's APKs are still distributed over HTTP because the server uses a
+    self-signed certificate.
+  * If Greenify puts ApkTrack into hibernation, app installations, deletions
+    and upgrades will be missed. At the moment, the issue may be circumvented
+    by waking ApkTrack and performing the installation again, or deleting
+    ApkTrack's data to force a full re-detection.
+  * The "downloading" icon is too bright for a white background and needs to
+    be updated.
