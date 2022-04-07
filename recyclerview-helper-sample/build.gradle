@@ -1,0 +1,31 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION
+    defaultConfig {
+        applicationId "com.yl.sample"
+        minSdkVersion MIN_SDK_VERSION
+        targetSdkVersion TARGET_SDK_VERSION
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.appcompat:appcompat:$ANDROIDX_APPCOMPAT_VERSION"
+    implementation "androidx.recyclerview:recyclerview:$ANDROIDX_RECYCLERVIEW_VERSION"
+    implementation "androidx.cardview:cardview:$ANDROIDX_CARDVIEW_VERSION"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$ANDROIDX_SWIPE_REFRESH_LAYOUT"
+    implementation project(':recyclerview-helper-library')
+    //implementation "com.github.alidili:RecyclerViewHelper:1.1.5"
+}
