@@ -1,0 +1,5 @@
+plugins {
+  id 'eta'
+}
+
+apply plugin: 'eta'

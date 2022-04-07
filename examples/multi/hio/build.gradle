@@ -1,0 +1,9 @@
+plugins {
+    id 'com.typelead.eta'
+}
+
+dependencies {
+    compile eta('text:1.2.3.0')
+    compile eta('bytestring:0.10.8.2')
+    compile project(':java-deep')
+}

@@ -1,0 +1,16 @@
+.ackrc
+.cabal-sandbox/
+.dist-buildwrapper/
+.gradle/
+.gradletasknamecache
+.idea/
+build/
+build.properties
+cabal.sandbox.config
+dist/
+lib/
+out
+bin
+
+*.iml
+*.swp

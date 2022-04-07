@@ -1,0 +1,36 @@
+plugins {
+    id 'com.typelead.eta' version '0.8.1'
+    id 'application'
+}
+
+eta {
+    version = '0.8.6b5'
+    etlasVersion = '1.5.0.0'
+}
+
+sourceSets {
+  main {
+    eta {
+      srcDir 'eta'
+    }
+  }
+  test {
+    eta {
+      srcDir 'eta-test'
+    }
+  }
+}
+
+dependencies {
+  compile eta('base:4.11.1.0')
+}
+
+compileEta {
+  options {
+    args = ['-Wall']
+    extensions {
+      CPP
+    }
+    cpp = ['-DHELLO=1']
+  }
+}
