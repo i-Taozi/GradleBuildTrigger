@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/colorBackgroundLight"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/status"
+                            android:textColor="#FFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
+
+                    <TextView
+                            android:id="@+id/status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/loading_points"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            tools:text="Started"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorBackgroundLight"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/battery"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/battery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loading_points"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                tools:text="90%"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorBackgroundLight"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cartridge"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/cartridge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loading_points"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                tools:text="142U"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:clipToPadding="false"
+                    app:cardBackgroundColor="@color/colorBackgroundLight"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/active_basal_rate"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/active_basal_rate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loading_points"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                tools:text="Basal Profile 1: 1,2U/h"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/colorBackgroundLight"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp"
+                    app:contentPadding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/latest_bolus"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+
+                        <TextView
+                                android:id="@+id/latest_bolus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loading_points"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                tools:text="15:00: 2.5U"
+                                android:textAlignment="center"
+                                android:gravity="center"/>
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                app:cardBackgroundColor="@color/colorBackgroundLight"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="2dp"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="8dp"
+                            android:text="@string/daily_total"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="8dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/bolus"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:gravity="center"/>
+
+                            <TextView
+                                    android:id="@+id/daily_bolus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/loading_points"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="14sp"
+                                    tools:text="21.7U"
+                                    android:textAlignment="center"
+                                    android:gravity="center"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/basal_rate"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:gravity="center"/>
+
+                            <TextView
+                                    android:id="@+id/daily_basal"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/loading_points"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="14sp"
+                                    tools:text="28.7U"
+                                    android:textAlignment="center"
+                                    android:gravity="center"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="8dp"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/total"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold"
+                                    android:textAlignment="center"
+                                    android:gravity="center"/>
+
+                            <TextView
+                                    android:id="@+id/daily_total"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/loading_points"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="14sp"
+                                    tools:text="50.4U"
+                                    android:textAlignment="center"
+                                    android:gravity="center"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tbr_container"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/tbr_circle" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/temporary_basalrate"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tbr_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="150% for 2:00 / 3:00 hours" />
+
+                <ProgressBar
+                    android:id="@+id/tbr_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progress="2" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/tbr_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                app:srcCompat="@drawable/ic_cancel" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bolus1_container"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/bolus1_circle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/standard_bolus_circle" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bolus1_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    tools:text="Standard bolus" />
+
+                <TextView
+                    android:id="@+id/bolus1_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="2.0 / 3.0U" />
+
+                <ProgressBar
+                    android:id="@+id/bolus1_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progress="2" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/bolus1_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                app:srcCompat="@drawable/ic_cancel" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bolus2_container"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/bolus2_circle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/extended_bolus_circle" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bolus2_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    tools:text="Extended bolus" />
+
+                <TextView
+                    android:id="@+id/bolus2_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="2.0U / 3.0U in 2:00 / 3:00 hours" />
+
+                <ProgressBar
+                    android:id="@+id/bolus2_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progress="2" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/bolus2_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                app:srcCompat="@drawable/ic_cancel" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bolus3_container"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone">
+
+            <View
+                android:id="@+id/bolus3_circle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/multiwave_bolus_circle" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bolus3_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    tools:text="Multiwave bolus" />
+
+                <TextView
+                    android:id="@+id/bolus3_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="2.0U / 3.0U in 2:00 / 3:00 hours" />
+
+                <ProgressBar
+                    android:id="@+id/bolus3_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="3"
+                    android:progress="2" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/bolus3_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:background="@null"
+                app:srcCompat="@drawable/ic_cancel" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

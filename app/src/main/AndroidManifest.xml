@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="sugar.free.sightremote">
+
+    <permission
+        android:name="sugar.free.sightremote.HISTORY_BROADCASTS"
+        android:label="@string/access_to_history_broadcasts"
+        android:description="@string/this_app_can_access_sightremotes_history_broadcasts"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="sugar.free.sightremote.HISTORY_BROADCASTS" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="false" />
+
+    <application
+        android:name=".SightRemote"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="985349aae925fdb49761b17be467c24c19edc831" />
+
+        <activity
+            android:name=".activities.LauncherActivity"
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBackground">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.SetupActivity"
+            android:label="@string/setup" />
+        <activity
+            android:name=".activities.StatusActivity"
+            android:label="@string/status" />
+        <activity
+            android:name=".activities.boluses.StandardBolusActivity"
+            android:label="@string/standard_bolus" />
+        <activity
+            android:name=".activities.boluses.ExtendedBolusActivity"
+            android:label="@string/extended_bolus" />
+        <activity
+            android:name=".activities.boluses.MultiwaveBolusActivity"
+            android:label="@string/multiwave_bolus" />
+        <activity
+            android:name=".activities.TemporaryBasalRateActivity"
+            android:label="@string/temporary_basalrate" />
+        <activity
+            android:name=".activities.ChangeActiveBRProfileActivity"
+            android:label="@string/profiles" />
+        <activity
+            android:name=".activities.history.BolusHistoryActivity"
+            android:label="@string/bolus_data" />
+        <activity
+            android:name=".activities.history.TBRHistoryActivity"
+            android:label="@string/tbr_data" />
+        <activity android:name=".activities.EditBRProfileActivity" />
+        <activity
+            android:name=".activities.AuthorizeActivity"
+            android:label="@string/security_warning" />
+        <activity
+            android:name=".activities.AlertActivity"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.NoStatusBackground" />
+        <activity
+            android:name=".activities.FirewallActivity"
+            android:label="@string/firewall_options" />
+        <activity
+            android:name=".activities.SettingsActivity"
+            android:label="@string/settings" />
+        <activity
+            android:name=".activities.history.TDDHistoryActivity"
+            android:label="@string/daily_totals" />
+        <activity
+            android:name=".activities.history.SystemHistoryActivity"
+            android:label="@string/system_data" />
+        <activity
+            android:name=".activities.history.EventHistoryActivity"
+            android:label="@string/event_data" />
+
+        <service
+            android:name=".services.HistorySyncService"
+            android:enabled="true" />
+        <service
+            android:name=".services.AlertService"
+            android:enabled="true" />
+        <service
+            android:name=".services.OngoingNotificationService"
+            android:enabled="true" />
+        <service
+            android:name=".services.TimeSynchronizationService"
+            android:enabled="true" />
+        <service
+            android:name="sugar.free.sightparser.handling.SightService"
+            android:exported="true"
+            android:process="sugar.free.sightparser.handling.SightService" />
+
+        <receiver android:name=".receivers.ACLReceiver">
+            <intent-filter>
+                <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".receivers.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receivers.HistoryReceiver"
+            android:permission="sugar.free.sightremote.HISTORY_BROADCASTS">
+            <intent-filter>
+                <action android:name="sugar.free.sightremote.services.HistorySyncService.START_SYNC" />
+                <action android:name="sugar.free.sightremote.services.HistorySyncService.START_RESYNC" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

@@ -1,0 +1,36 @@
+ext {
+    minSdkVersion = 16
+    compileSdkVersion = 27
+    targetSdkVersion = 27
+    buildToolsVersion = '27.0.3'
+
+    versionMajor = 1
+    versionMinor = 6
+    versionRevision = 1
+    versionCompatiblity = 'cardea'
+
+    versionCode = 1
+    versionName = versionMajor + "." + versionMinor + "." + versionRevision + "_" + versionCompatiblity
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.2'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        google()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

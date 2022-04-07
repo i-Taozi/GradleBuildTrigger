@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/status">
+        <item
+            android:id="@+id/nav_status"
+            android:icon="@drawable/ic_status"
+            android:title="@string/status" />
+    </group>
+    <item android:title="@string/bolus">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/nav_standard_bolus"
+                    android:icon="@drawable/ic_standard_bolus"
+                    android:title="@string/standard_bolus" />
+                <item
+                    android:id="@+id/nav_extended_bolus"
+                    android:icon="@drawable/ic_extended_bolus"
+                    android:title="@string/extended_bolus" />
+                <item
+                    android:id="@+id/nav_multiwave_bolus"
+                    android:icon="@drawable/ic_multiwave_bolus"
+                    android:title="@string/multiwave_bolus" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/basal_rate">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/nav_tbr"
+                    android:icon="@drawable/ic_tbr"
+                    android:title="@string/temporary_basalrate" />
+                <item
+                    android:id="@+id/nav_br_profiles"
+                    android:icon="@drawable/ic_basal_rate"
+                    android:title="@string/profiles" />
+            </group>
+        </menu>
+    </item>
+    <item android:title="@string/history">
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/nav_bolus_data"
+                    android:icon="@drawable/ic_standard_bolus"
+                    android:title="@string/bolus_data" />
+                <item
+                    android:id="@+id/nav_tbr_data"
+                    android:icon="@drawable/ic_tbr"
+                    android:title="@string/tbr_data" />
+                <item
+                    android:id="@+id/nav_tdd_data"
+                    android:icon="@drawable/ic_tdd"
+                    android:title="@string/daily_totals" />
+                <item
+                    android:id="@+id/nav_system_data"
+                    android:icon="@drawable/ic_info"
+                    android:title="@string/system_data" />
+                <item
+                    android:id="@+id/nav_event_data"
+                    android:icon="@drawable/ic_events"
+                    android:title="@string/event_data" />
+            </group>
+        </menu>
+    </item>
+    <group android:id="@+id/settings">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+    </group>
+</menu>
