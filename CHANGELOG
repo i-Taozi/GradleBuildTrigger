@@ -1,0 +1,178 @@
+Version 1.7.2
+
+Bugfix
+* QR codes not reading properly #481
+
+Version 1.7.1
+
+Improvements
+* Enable "show password" option when changing password
+* Re-mask passwords when submitting
+* Compiled for newer Android versions.
+
+Version 1.7.0
+
+Improvements
+* Updated setup flow to on-board new users in a nicer interface.
+
+Bugfixes
+* App crashes on non-SQRL QR codes
+
+Version 1.6.0
+
+Improvements
+* Update rescue code page to new design.
+* Implement support for tif = 0x200 (reuse of old identity)
+* Implement unit tests for test vectors (2/6)
+* Added Indonesian language
+* Added Italian language
+* Added Portuguese language
+
+Bugfixes
+* Crash report in showErrorMessageInternal from Google Play
+* Camera is being used after Camera.release() was called
+* Base56 zero-padding missing on decoding
+* EnHash regression
+* QuickPass not working with large timeout values
+* Error when leaving "QuickPass Timeout" field empty
+
+Version 1.5.1
+
+Improvements
+* Back option added to all activities for easily returning to previous activity.
+* Added Korean language
+
+Bugfixes
+* Identity Management menu option should only be available from main
+* Fix Alt-Id input field not being recognizable as such
+* Fixing padding on base56 encoding.
+
+Version 1.5.0
+
+Bugfix
+* Handle rename in a consistent manner.
+* Fixing contrast issues in darkmode
+
+Improvements
+* Better darkmode frontpage
+* Add help texts to password fields.
+* Remove extra prefix "SQRL -"
+* First identity will now have the name "My identity"
+
+Version 1.4.0
+
+Bugfix
+* Better clearing of QuickPass
+
+Improvements
+* Improved login dialog
+    * Alternative ID can now easily be used with disable, remove and enable.
+    * Handling disable, enable and remove directly
+    * Added help texts and cleaner flow.
+* Improved design on multiple activities
+    * Language selection
+    * Rekey presentation and entering
+    * CPS Missing
+    * New identity done
+* Added icons to improve menu selection
+* Adaptive icons for all versions of Android
+* Improved CPS flow with simple page when cancelation address missing
+* Code clean-up and improved readability.
+
+Version 1.3.0
+
+Improvement
+* Main page QR scan can now be used for import.
+* Use the same GUI for QR Scan and button clicked on web page.
+
+Bugfixes
+* Don't display Identity management on that page.
+* Handle rekey event correctly. Send new SUK on login.
+
+Version 1.2.0
+
+Feature
+* Polish and Finish translations
+* Information popup information for settings.
+
+Bugfix
+* Fixes for Disable, Enable and Remove account.
+* Fix to handle clearing of previous data.
+* Landscape selector now working for URL layout.
+* Exclude login activity from history and recent apps.
+* Handle empty ask question.
+* Fixes for contrast in show rescue code dialog.
+
+Enhancement
+* Improved selection of identities.
+
+
+Version 1.1.0
+
+Feature
+* Hindi and Chinese translations
+* Application shortcuts
+
+Enhancement
+* Improved rename GUI
+* Remove share feature with application
+* Improved selection of identities.
+
+Bugfix
+* Handle long URLs.
+* Fix "missing argument" error
+
+Version 1.0.0
+
+Feature
+* Added application shortcuts
+
+Enhancements
+* Added file import to start activity
+* Better contrasting night colors
+* Improved domain verification
+* Identity Management v2
+
+Bugfix
+* Remove login popup after failed password
+
+Version 0.16.2
+
+Feature
+* Added chinese
+
+Version 0.16.1
+
+Bug fix
+* QR code import not working on the startup screen
+
+Changes
+* Rename Advanced operations to Identity management
+* Remove Use identity in Identity management
+* Reorder buttons on Identity Management
+
+Version 0.16.0
+
+Feature
+* Enable import of base64-url encoded identities
+* Show identity name in SimplifiedActivity
+* Read identity from file
+
+Version 0.15.0
+
+Bug fix
+* Don't delete quickpass on network errors.
+* Login popup issue
+* Simply login code and fix some inconsistencies
+* Landscape bugfix
+* Fix Alt-ID to use null character
+* Fixing Lastpass popup for verify field
+* Handle language change better.
+
+Feature
+* Password strength meter
+* Easy rescue code entry moving between fields
+* Share identity with application
+
+Deprecation
+* Removed quickpass notification

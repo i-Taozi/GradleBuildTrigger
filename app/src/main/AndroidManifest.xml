@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.ea.sqrl">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:allowBackup="false"
+        android:supportsRtl="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:name=".utils.SqrlApplication"
+        android:fullBackupContent="@xml/my_backup_rules"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".activites.identity.SupersededIdentityActivity"
+            android:label="@string/superseded_identity_headline"
+            />
+        <activity
+            android:name=".activites.IntroductionActivity"
+            android:label="@string/app_name"
+            />
+        <activity
+            android:name=".activites.StartActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            />
+
+        <activity
+            android:name=".activites.WizardPage1Activity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            />
+        <activity
+            android:name=".activites.WizardPage2Activity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            />
+        <activity
+            android:name=".activites.WizardPage3Activity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            />
+
+        <activity
+            android:name=".activites.identity.IdentityManagementActivity"
+            android:label="@string/title_identity_management"
+            />
+
+        <activity
+            android:name=".activites.identity.ShowIdentityActivity"
+            android:label="@string/title_activity_show_identity"
+            />
+        <activity
+            android:name=".activites.identity.IdentitySettingsActivity"
+            android:label="@string/title_activity_identity_settings"
+            />
+        <activity
+            android:name=".activites.MainActivity"
+            android:label="@string/app_name"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activites.create.EntropyGatherActivity"
+            android:label="@string/title_entropy_gather"
+            />
+
+        <activity android:name=".activites.create.RescueCodeShowActivity"
+            android:label="@string/title_rescuecode_show"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            />
+
+        <activity android:name=".activites.create.RescueCodeEnterActivity"
+            android:label="@string/title_rescuecode_enter"
+            />
+
+        <activity android:name=".activites.create.CreateIdentityActivity"
+            android:label="@string/title_create_identity"
+            />
+
+        <activity android:name=".activites.identity.TextImportActivity"
+            android:label="@string/title_text_import"
+            />
+
+        <activity android:name=".activites.create.RekeyIdentityActivity"
+            android:label="@string/title_rekey_identity"
+            />
+
+        <activity android:name=".activites.create.RekeyVerifyActivity"
+            android:label="@string/title_rekey_verify"
+            />
+
+        <activity android:name=".activites.create.NewIdentityDoneActivity"
+            android:label="@string/title_new_identity_done"
+            />
+
+        <activity android:name=".activites.create.SaveIdentityActivity"
+            android:label="@string/title_save_identity"
+            />
+        <activity android:name=".activites.identity.ChangePasswordActivity"
+            android:label="@string/title_change_password"
+            />
+
+        <activity android:name=".activites.identity.ResetPasswordActivity"
+            android:label="@string/title_reset_password"
+            />
+
+        <activity android:name=".activites.identity.RenameActivity"
+            android:label="@string/title_rename_identity"
+            />
+
+        <activity android:name=".activites.identity.ExportOptionsActivity"
+            android:label="@string/title_export_options"
+            />
+
+        <activity android:name=".activites.identity.ImportOptionsActivity"
+            android:label="@string/title_import_options"
+            />
+
+        <activity android:name=".activites.identity.ImportActivity"
+            android:label="@string/title_import">
+            <!--
+            <intent-filter
+                android:icon="@drawable/ic_sqrl_icon_vector_outline"
+                android:label="@string/app_name"
+                android:priority="50" >
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <data android:mimeType="text/*" />
+                <data android:mimeType="application/*" />
+            </intent-filter>
+            -->
+        </activity>
+
+        <activity android:name=".activites.CPSMissingActivity"
+            android:label="@string/title_cps_missing"
+            />
+
+        <activity android:name=".activites.LanguageActivity"
+            android:label="@string/title_language"
+            />
+
+        <activity
+            android:name=".activites.LoginActivity"
+            android:label="@string/title_activity_url_login"
+            android:noHistory="true"
+            android:excludeFromRecents="true"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="sqrl" />
+                <data android:scheme="qrl" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"
+            />
+
+        <activity android:name=".activites.ClearQuickPassActivity"
+            android:label="@string/title_activity_clear_identity"
+            />
+
+        <activity android:name=".activites.EnableQuickPassActivity"
+            android:label="@string/title_enable_quickpass"
+            />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="org.ea.sqrl.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+
+        <service
+            android:name=".services.ClearIdentityService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver android:name=".services.ClearIdentityReceiver" />
+
+    </application>
+
+</manifest>
