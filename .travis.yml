@@ -13,4 +13,4 @@ notifications:
   on_success: always
   on_failure: always
 branches:
-  only: [BitwiseInc/Hydrograph-182-origin]
+  only: [BitwiseInc/Hydrograph-182-GRADLE_INCREMENTAL_COMPILATION]
