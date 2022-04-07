@@ -1,0 +1,8 @@
+language: android
+jdk: [oraclejdk8]
+android:
+  components: [tools, build-tools-25.0.3, android-25, platform-tools, extra-android-support,
+    extra-google-m2repository, extra-android-m2repository]
+script: ./gradlew checkstyle build
+branches:
+  only: [pedrovgs/Lynx-40-origin]
