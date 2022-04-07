@@ -351,3 +351,10 @@ artifacts {
     archives(binaryRelease('buildStartJar', 'Start', 'org.gsc.Start'),
             binaryRelease('buildKeystoreFactoryJar', 'KeystoreFactory', 'org.gsc.utils.KeystoreFactory'))
 }
+
+allprojects {
+    tasks.withType(JavaCompile).configureEach {
+        options.incremental = true
+    }
+
+}

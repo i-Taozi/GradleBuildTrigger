@@ -15,4 +15,4 @@ deploy:
   script: bash deploy.sh
   true: {branch: develop}
 branches:
-  only: [gscsocial/gsc-core-40-origin]
+  only: [gscsocial/gsc-core-40-GRADLE_INCREMENTAL_COMPILATION]
