@@ -5,4 +5,4 @@ android:
 before_install: [chmod +x gradlew]
 script: [./gradlew clean build --info]
 branches:
-  only: [Scalified/fab-48-origin]
+  only: [Scalified/fab-48-GRADLE_INCREMENTAL_COMPILATION]
