@@ -36,6 +36,10 @@ allprojects {
         forkEvery = 100
     }
 
+    tasks.withType(Test).configureEach {
+        forkEvery = 100
+    }
+
     repositories {
         addRepos(repositories)
     }

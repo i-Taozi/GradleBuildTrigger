@@ -17,4 +17,4 @@ script: [set -o pipefail, ./gradlew clean build check --profile --continue 2>&1 
     tee build.log, set +o pipefail, pandoc `ls -1rt build/reports/profile/profile-*.html
     | tail -n1` -t plain, ./gradlew dependencyUpdate]
 branches:
-  only: [leinardi/androidthings-drivers-16-origin]
+  only: [leinardi/androidthings-drivers-16-GRADLE_FORK_TEST]
