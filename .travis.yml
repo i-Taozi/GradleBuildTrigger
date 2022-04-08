@@ -16,4 +16,4 @@ jobs:
       -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER}
 after_success: ['bash <(curl -s https://copilot.blackducksoftware.com/ci/travis/scripts/upload)']
 branches:
-  only: [Typhon0/AnimateFX-20-origin]
+  only: [Typhon0/AnimateFX-20-GRADLE_FORK_TEST]
