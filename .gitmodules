@@ -1,0 +1,17 @@
+[submodule "third_party/usb-serial-for-android"]
+	path = third_party/usb-serial-for-android
+	url = https://github.com/AndProx/usb-serial-for-android.git
+	branch = andprox
+[submodule "third_party/GraphView"]
+	path = third_party/GraphView
+	url = https://github.com/AndProx/GraphView.git
+	branch = master
+[submodule "third_party/proxmark3"]
+	path = third_party/proxmark3
+	url = https://github.com/proxmark/proxmark3.git
+	branch = master
+
+[submodule "third_party/material-design-icons/icons"]
+	path = third_party/material-design-icons/icons
+	url = https://github.com/google/material-design-icons.git
+	branch = master

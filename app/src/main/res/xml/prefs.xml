@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/connectivity_settings">
+        <ListPreference android:key="pref_conn_mode"
+            android:title="@string/transport_layer"
+            android:summary="%s"
+            android:entries="@array/conn_modes"
+            android:entryValues="@array/conn_modes_values"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/tcp_ip_settings">
+        <CheckBoxPreference android:key="pref_android_emu_host"
+            android:title="@string/connect_android_host"
+            android:disableDependentsState="true"
+            android:summaryOn="@string/connect_android_host_on"
+            android:summaryOff="@string/connect_android_host_off" />
+
+        <au.id.micolous.andprox.components.EditTextPreference2 android:key="pref_tcp_host"
+            android:title="@string/hostname"
+            android:inputType="textVisiblePassword"
+            android:dependency="pref_android_emu_host"
+            android:summary="%s"
+            android:defaultValue="127.0.0.1" />
+
+        <au.id.micolous.andprox.components.EditTextPreference2 android:key="pref_tcp_port"
+            android:inputType="number"
+            android:title="@string/tcp_port"
+            android:summary="%s"
+            android:defaultValue="1234" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/advanced_settings">
+        <CheckBoxPreference
+            android:key="pref_allow_sleep"
+            android:title="@string/allow_sleep"
+            android:summaryOn="@string/allow_sleep_on"
+            android:summaryOff="@string/allow_sleep_off" />
+    </PreferenceCategory>
+</PreferenceScreen>
