@@ -12,4 +12,4 @@ after_success: [test -n "$TRAVIS_TAG" && ssh-keyscan -H repo.joist.ws >> ~/.ssh/
 jdk: [openjdk8]
 services: [mysql]
 branches:
-  only: [stephenh/joist-java-22-origin]
+  only: [stephenh/joist-java-22-GRADLE_REPORT_GENERATION]
