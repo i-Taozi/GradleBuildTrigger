@@ -83,4 +83,4 @@ cache:
   directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
 notifications: {email: false}
 branches:
-  only: [dev-labs-bg/fullscreen-video-view-82-origin]
+  only: [dev-labs-bg/fullscreen-video-view-82-GRADLE_FORK_TEST]
