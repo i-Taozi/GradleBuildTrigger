@@ -9,4 +9,4 @@ notifications:
     recipients: [fishercoder@gmail.com]
     on_failure: always
 branches:
-  only: [fishercoder1534/Leetcode-165-origin]
+  only: [fishercoder1534/Leetcode-165-GRADLE_REPORT_GENERATION]
