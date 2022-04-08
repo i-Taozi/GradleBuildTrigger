@@ -1,6 +1,6 @@
 # OkDownload
 
-A Reliable, Flexible, Fast and Powerful download engine.
+可靠，灵活，高性能以及强大的下载引擎。
 
 ![][okdownload_svg]
 [![][build_status_svg]][build_status_link]
@@ -8,34 +8,34 @@ A Reliable, Flexible, Fast and Powerful download engine.
 [ ![Download](https://api.bintray.com/packages/jacksgong/maven/OkDownload/images/download.svg) ](https://bintray.com/jacksgong/maven/OkDownload/_latestVersion)
 [![][okdownload_snapshot_svg]](https://oss.sonatype.org/content/repositories/snapshots/com/liulishuo/okdownload/)
 
-> [中文文档](https://github.com/lingochamp/okdownload/blob/master/README-zh.md)
+> [ENGLISH](https://github.com/lingochamp/okdownload)
 
 ---
 
-> P.S. If you ask me, which version is the most stability, I will tell you it's not the version of 1.0.0 or 2.0.0, the most stability version must be the latest version because it is developed with github-flow, not production-flow. So please follow the latest release version and show me your PR. Here is [the changelog for each version](https://github.com/lingochamp/okdownload/blob/master/CHANGELOG.md), it may help you.
+> P.S. 如果你问我，哪个版本是最稳定的版本，我会告诉你不是1.0.0或是2.0.0版本，而是最新的版本，因为我们采用的是github开发流，而非产品的开发流。因此请使用最新的Release版本，欢迎PR。这是[每个版本的变更集](https://github.com/lingochamp/okdownload/blob/master/CHANGELOG.md)应该可以帮助到你。
 
-## I. WHY CHOOSE
+## I. 为什么选择
 
-In fact OkDownload is FileDownloader2, which extends all benefits from FileDownloader and beyond. More detail please move to [here](https://github.com/lingochamp/okdownload/wiki/Why-Choose-OkDownload)
+实际上，OkDownload是FileDownloader2，它继承了所有FileDownloader的优点，甚至做了更多的优化以及更多的特性，相关更详细的描述请移步到[这里](https://github.com/lingochamp/okdownload/wiki/Why-Choose-OkDownload)
 
-## II. HOW TO IMPORT
+## II. 如何引入
 
-We publish okdownload on [jcenter](http://jcenter.bintray.com/), [mavenCentral](https://oss.sonatype.org/content/repositories/releases/) and [Sonatype's snapshots repository](https://oss.sonatype.org/content/repositories/snapshots/), more detail about import OkDownload please move to [here](https://github.com/lingochamp/okdownload/wiki)
+我们将OkDownload发布到了[jcenter](http://jcenter.bintray.com/)、[mavenCentral](https://oss.sonatype.org/content/repositories/releases/)以及[Sonatype's snapshots仓库](https://oss.sonatype.org/content/repositories/snapshots/)，更多关于如何引入OkDownload请移步到[这里](https://github.com/lingochamp/okdownload/wiki)
 
-## III. HOW TO USE
+## III. 如何使用
 
-- The simple use case such as start and cancel, download queue or get state or task info, please more to [here](https://github.com/lingochamp/okdownload/wiki/Simple-Use-Guideline)
-- The advanced use case such as set max parallel running count, set remit database delay milliseconds or injection components, please move to [here](https://github.com/lingochamp/okdownload/wiki/Advanced-Use-Guideline)
+- 简单的使用场景如启动、取消、队列下载或者是获取任务的状态与信息，请移步到[这里](https://github.com/lingochamp/okdownload/wiki/Simple-Use-Guideline)
+- 高级的使用场景如设置最大并行运行的任务数目、设置延时提交数据库的延时毫秒亦或是如何注入自定义组件，请移步到[这里](https://github.com/lingochamp/okdownload/wiki/Advanced-Use-Guideline)
 
-## IV. SAMPLE
+## IV. 案例项目
 
-### Debug
+### 调试
 
-> [How to Debug](https://github.com/lingochamp/okdownload/wiki/Debug-OkDownload)
+> [如何调试](https://github.com/lingochamp/okdownload/wiki/Debug-OkDownload)
 
 ![][okcat_img]
 
-### Screenshot
+### 截图
 
 <img src="https://github.com/lingochamp/okdownload/raw/master/art/sample-home.jpeg" width="480">
 
@@ -70,6 +70,7 @@ limitations under the License.
 [queue_download_img]: https://github.com/lingochamp/okdownload/raw/master/art/queue-download.gif
 [content_uri_img]: https://github.com/lingochamp/okdownload/raw/master/art/content-uri.gif
 [notification_img]: https://github.com/lingochamp/okdownload/raw/master/art/notification.gif
+[listener_img]: https://github.com/lingochamp/okdownload/raw/master/art/listener.png
 [listener_img]: https://github.com/lingochamp/okdownload/raw/master/art/listener.png
 [check_before_chain_img]: https://github.com/lingochamp/okdownload/raw/master/art/check_before_chain.png
 [build_status_svg]: https://travis-ci.org/lingochamp/okdownload.svg?branch=master

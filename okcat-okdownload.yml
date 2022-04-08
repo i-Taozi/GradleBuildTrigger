@@ -1,0 +1,37 @@
+# You can use 'okcat -y=okcat-okdownload' to parse okdownload logcat runtime more easily.
+# More detail about okcat please move to https://github.com/Jacksgong/okcat
+package: com.liulishuo.okdownload.sample
+
+separator-regex-list:
+        - 'enqueueLocked for (.*)'
+
+trans-tag-map:
+        'BunchActivity' : '[DEMO]'
+        'NotificationActivity' : '[DEMO]'
+        'RemitSyncExecutor' : '[REMIT DATABASE]'
+
+trans-msg-map:
+        'taskEnd ' : 'TASK END'
+        'downloadFromBreakpoint ': 'RESUMABLE'
+        '----->' : 'REQUEST'
+        '<-----' : 'RESPONSE'
+        'call is finished' : 'FINISH CALL'
+        'cancel task' : 'TASK CANCELED'
+        'finish cancel bunch task' : 'BUNCH TASK CANCELED'
+        'breakpoint invalid' : 'CANNOT RESUME'
+        'endTasks' : 'BUNCH END CALLBACKS'
+        'OutputStream sync success' : 'SAVED BREAKPOINT'
+        'OutputStream close' : 'CLOSE FILE STREAM'
+        'Create output stream' : 'CREATE OUTPUT-STREAM'
+        'AssembleHeaderRange (' : 'REQUEST RANGE FROM'
+        'OutputStream start flush looper' : 'FLUSH STREAM LOOPER'
+        'SingleBlock special check' : 'SPECIAL CASE'
+
+highlight-list:
+        - 'connectStart'
+        - 'fetchEnd'
+        - 'task'
+        - 'block'
+        - 'waiting for sync cache to disk'
+        - 'isNoMoreStream'
+        - 'newNoMoreStreamBlockList'
