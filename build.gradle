@@ -1,0 +1,14 @@
+buildscript {
+    repositories {
+        jcenter()
+        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.4'
+    }
+}
+allprojects {
+    tasks.withType(Test).configureEach {
+     forkEvery = 100
+    }
+}
