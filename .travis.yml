@@ -1,7 +1,7 @@
 language: java
 jdk: [openjdk8]
 branches:
-  only: [jojoldu/springboot-webservice-2-origin]
+  only: [jojoldu/springboot-webservice-2-GRADLE_FORK_TEST]
 cache:
   directories: [$HOME/.m2/repository, $HOME/.gradle]
 script: ./gradlew clean build
