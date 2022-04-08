@@ -7,6 +7,13 @@ plugins {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
     apply plugin: 'idea'
     apply plugin: 'eclipse'
     apply plugin: 'com.peterabeles.gversion'
