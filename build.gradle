@@ -29,6 +29,13 @@ if (!project.hasProperty("gitCommitHash")) {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
     apply plugin: 'java'
     apply plugin: 'maven-publish'
 
