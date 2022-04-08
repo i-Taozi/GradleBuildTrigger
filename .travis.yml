@@ -5,4 +5,4 @@ cache:
   directories: [$HOME/.gradle]
 arch: [amd64, ppc64le]
 branches:
-  only: [json-path/JsonPath-758-origin]
+  only: [json-path/JsonPath-758-GRADLE_REPORT_GENERATION]

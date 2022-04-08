@@ -40,6 +40,13 @@ ext {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
     ext.displayName = null
     ext.buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
 
