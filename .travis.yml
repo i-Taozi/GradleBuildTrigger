@@ -11,4 +11,4 @@ before_install: [mkdir "$ANDROID_HOME/licenses" || true, echo -e "\n24333f8a63b6
     | sdkmanager "platforms;android-28", ./gradlew dependencies || true]
 script: ./gradlew build --stacktrace
 branches:
-  only: [thuryn/your-local-weather-182-origin]
+  only: [thuryn/your-local-weather-182-GRADLE_FORK_TEST]
