@@ -98,6 +98,13 @@ task sourcesJar(type: Jar, dependsOn: classes) {
  * Lint all the things!
  */
 allprojects {
+    tasks.withType(Test).configureEach {
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xlint:all" << "-Werror"
@@ -271,4 +278,3 @@ signing {
     required { forRelease && gradle.taskGraph.hasTask("uploadArchives") };
     sign configurations.archives;
 }
-
