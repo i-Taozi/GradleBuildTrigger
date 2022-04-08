@@ -44,4 +44,4 @@ script:
     ./gradlew :app:connectedAndroidTest
   fi
 branches:
-  only: [AndProx/AndProx-54-origin]
+  only: [AndProx/AndProx-54-GRADLE_FORK_TEST]
