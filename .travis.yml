@@ -14,4 +14,4 @@ stages:
 - test
 - {name: deploy, if: branch = master AND type = push}
 branches:
-  only: [linkedin/dynamometer-105-origin]
+  only: [linkedin/dynamometer-105-GRADLE_FORK_TEST]
