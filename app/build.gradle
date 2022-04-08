@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
+
+android {
+    playAccountConfigs {
+        defaultAccountConfig {
+            jsonFile = file('../../your-local-weather-addons/keys.json')
+        }
+    }
+
+    play {
+        track = 'production'
+        untrackOld = true
+        uploadImages = true
+    }
+
+    compileSdkVersion 30
+    defaultConfig {
+        applicationId "org.thosp.yourlocalweather"
+        minSdkVersion 14
+        targetSdkVersion 30
+        versionCode 144
+        versionName "5.7.5"
+        vectorDrawables.useSupportLibrary true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        playAccountConfig = playAccountConfigs.defaultAccountConfig
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        outputs.all {
+            outputFileName = "YourLocalWeather-${variant.name}.apk"
+        }
+    }
+
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*'
+    }
+}
+
+dependencies {
+// AndroidX
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
+
+// Third-party
+    implementation 'com.github.yukuku:ambilwarna:2.0.1'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'org.microg:address-formatter:0.2.1'
+    implementation 'com.github.hedzr:android-file-chooser:v1.2.0-final'
+    implementation 'com.loopj.android:android-async-http:1.4.11'
+    implementation 'org.osmdroid:osmdroid-android:6.1.8'
+
+// Testing
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.mockito:mockito-core:3.5.10'
+}
