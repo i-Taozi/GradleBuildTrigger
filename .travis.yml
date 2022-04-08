@@ -14,4 +14,4 @@ script: [./gradlew assembleRelease testReleaseUnitTest lintRelease findbugs, ech
 after_failure: ['adb logcat -d -b main,system,events,crash', cat app/build/reports/findbugs/findbugs.html,
   cat app/build/reports/tests/debug/index.html]
 branches:
-  only: [brarcher/video-transcoder-188-origin]
+  only: [brarcher/video-transcoder-188-GRADLE_FORK_TEST]
