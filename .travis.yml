@@ -11,4 +11,4 @@ cache:
 script: [./gradlew build --stacktrace]
 after_success: [bash scripts/prep-key.sh, bash scripts/upload-apk.sh]
 branches:
-  only: [fossasia/neurolab-android-705-origin]
+  only: [fossasia/neurolab-android-705-GRADLE_FORK_TEST]
