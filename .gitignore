@@ -1,0 +1,17 @@
+.checkstyle
+.classpath
+.DS_Store
+.project
+*.class
+target/
+.gradle/
+.settings/
+build/
+bin/
+conf.tar
+scripts.tar
+*~
+*.iml
+.idea/
+gradle.out
+*/out
