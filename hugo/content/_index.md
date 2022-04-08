@@ -1,17 +1,19 @@
+---
+title: RxJersey - Reactive Jersey Feature
+type: docs
+---
+
 ## RxJersey - Reactive Jersey Feature
 
 [![Build Status](https://travis-ci.org/alex-shpak/rx-jersey.svg?branch=master)](https://travis-ci.org/alex-shpak/rx-jersey)
 ![Maven Central](https://img.shields.io/maven-central/v/net.winterly.rxjersey/core-server.svg)
-[![JitPack](https://jitpack.io/v/alex-shpak/rx-jersey.svg)](https://jitpack.io/#alex-shpak/rx-jersey)
 
 RxJersey is RxJava extension for [Jersey](https://jersey.java.net/) framework providing non-blocking Jax-RS server and client.
 RxJersey target is to handle large amount requests in small static set of threads, which is highly suitable for microservice applications.
 
 Library uses Jersey 2 async support with `@Suspended` and `AsyncResponse` under the hood.
 
-Note that Jersey 2.26+ support is not released yet, you can obtain it from [JitPack](https://jitpack.io/#alex-shpak/rx-jersey/feature~jersey-2.27-SNAPSHOT)
-
-### [Documentation](https://alex-shpak.github.io/rx-jersey)
+Note that Jersey 2.26+ is not supported yet (WIP)
 
 ## Features
 - [x] RxJava Support
@@ -22,7 +24,6 @@ Note that Jersey 2.26+ support is not released yet, you can obtain it from [JitP
 
 ## Roadmap
 - [ ] Futures support
-- [ ] Vert.x integration
 - [ ] Improved proxy client
 
 
@@ -74,4 +75,4 @@ public interface GithubApi {
 ```
 
 ## Licence
-[MIT](LICENSE)
+[MIT](https://github.com/alex-shpak/rx-jersey/blob/master/LICENSE)

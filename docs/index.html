@@ -1,0 +1,191 @@
+<!DOCTYPE html><html>
+
+<head>
+	<meta name="generator" content="Hugo 0.52" />
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+    RxJersey - Reactive Jersey Feature | Rx Jersey</title>
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
+<link rel="stylesheet" href="/rx-jersey/normalize.min.css">
+
+<link rel="stylesheet" href="/rx-jersey/book.min.29d743ffb6d61ecbfc9bb21b7eab17d63b577d4bd547c3f095addb1c793ab1b1.css">
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav role="navigation">
+<h2 class="book-brand">
+  <a href="https://alex-shpak.github.io/rx-jersey/">Rx Jersey</a>
+</h2>
+
+
+
+    
+  
+  
+
+  <style>
+  nav ul a[href$="\2frx-jersey\2f "] {
+      color: #004ed0;
+  }
+  </style><ul>
+<li><a href="/rx-jersey/"><strong>Introduction</strong></a></li>
+
+<li><p><a href="/rx-jersey/docs/jersey-configuration/">Configuration</a></p>
+
+<ul>
+<li><a href="/rx-jersey/docs/jersey-configuration/">Jersey configuration</a></li>
+<li><a href="/rx-jersey/docs/dropwizard-configuration/">Dropwizard configuration</a><br /></li>
+</ul></li>
+
+<li><p><strong>Examples</strong></p></li>
+
+<li><p><a href="/rx-jersey/docs/rx-jersey-server/">Server</a></p></li>
+
+<li><p><a href="/rx-jersey/docs/rx-jersey-client/">Client</a></p></li>
+</ul>
+
+
+
+
+
+</nav>
+    </aside>
+
+    <div class="book-page">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/rx-jersey/svg/menu.svg" />
+  </label>
+  <strong>
+    RxJersey - Reactive Jersey Feature</strong>
+</header>
+
+      
+<article class="markdown">
+
+<h2 id="rxjersey-reactive-jersey-feature">RxJersey - Reactive Jersey Feature</h2>
+
+<p><a href="https://travis-ci.org/alex-shpak/rx-jersey"><img src="https://travis-ci.org/alex-shpak/rx-jersey.svg?branch=master" alt="Build Status" /></a>
+<img src="https://img.shields.io/maven-central/v/net.winterly.rxjersey/core-server.svg" alt="Maven Central" /></p>
+
+<p>RxJersey is RxJava extension for <a href="https://jersey.java.net/">Jersey</a> framework providing non-blocking Jax-RS server and client.
+RxJersey target is to handle large amount requests in small static set of threads, which is highly suitable for microservice applications.</p>
+
+<p>Library uses Jersey 2 async support with <code>@Suspended</code> and <code>AsyncResponse</code> under the hood.</p>
+
+<p>Note that Jersey 2.26+ is not supported yet (WIP)</p>
+
+<h2 id="features">Features</h2>
+
+<ul class="task-list">
+<li><label><input type="checkbox" checked disabled class="task-list-item"> RxJava Support</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> RxJava 2 Support</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> RxJava Proxy Client</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> Async Request Interceptors</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> Dropwizard bundle</label></li>
+</ul>
+
+<h2 id="roadmap">Roadmap</h2>
+
+<ul class="task-list">
+<li><label><input type="checkbox" disabled class="task-list-item"> Futures support</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> Improved proxy client</label></li>
+</ul>
+
+<h2 id="maven-artifacts">Maven Artifacts</h2>
+
+<h3 id="maven-central">Maven Central</h3>
+
+<pre><code>compile &quot;net.winterly.rxjersey:dropwizard:$rxJerseyVersion&quot;
+compile &quot;net.winterly.rxjersey:rxjava-client:$rxJerseyVersion&quot;
+compile &quot;net.winterly.rxjersey:rxjava-server:$rxJerseyVersion&quot;
+compile &quot;net.winterly.rxjersey:rxjava2-client:$rxJerseyVersion&quot;
+compile &quot;net.winterly.rxjersey:rxjava2-server:$rxJerseyVersion&quot;
+</code></pre>
+
+<h3 id="jitpack">JitPack</h3>
+
+<p>Most recent snapshot is available via <a href="https://jitpack.io/#alex-shpak/rx-jersey/">JitPack</a></p>
+
+<pre><code>compile &quot;com.github.alex-shpak.rx-jersey:dropwizard:$rxJerseyVersion&quot;
+compile &quot;com.github.alex-shpak.rx-jersey:rxjava-client:$rxJerseyVersion&quot;
+compile &quot;com.github.alex-shpak.rx-jersey:rxjava-server:$rxJerseyVersion&quot;
+compile &quot;com.github.alex-shpak.rx-jersey:rxjava2-client:$rxJerseyVersion&quot;
+compile &quot;com.github.alex-shpak.rx-jersey:rxjava2-server:$rxJerseyVersion&quot;
+</code></pre>
+
+<h2 id="example">Example</h2>
+<div class="highlight"><pre style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75af00">@Path</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;/example/&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#00a8c8">public</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">GithubResource</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#75af00">@Remote</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;https://api.github.com/&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#00a8c8">private</span> <span style="color:#111">GithubApi</span> <span style="color:#111">githubApi</span><span style="color:#f92672">;</span>
+
+    <span style="color:#75af00">@GET</span>
+    <span style="color:#75af00">@Path</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;github&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#00a8c8">public</span> <span style="color:#111">Single</span><span style="color:#f92672">&lt;</span><span style="color:#111">GithubRepository</span><span style="color:#f92672">&gt;</span> <span style="color:#75af00">getRepository</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#00a8c8">return</span> <span style="color:#111">githubApi</span><span style="color:#f92672">.</span><span style="color:#75af00">getRepository</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;alex-shpak&#34;</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;rx-jersey&#34;</span><span style="color:#f92672">).</span><span style="color:#75af00">toSingle</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+
+<span style="color:#75af00">@Path</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;/&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#00a8c8">public</span> <span style="color:#00a8c8">interface</span> <span style="color:#75af00">GithubApi</span> <span style="color:#f92672">{</span>
+
+    <span style="color:#75af00">@GET</span>
+    <span style="color:#75af00">@Path</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;/repos/{user}/{repo}&#34;</span><span style="color:#f92672">)</span>
+    <span style="color:#111">Observable</span><span style="color:#f92672">&lt;</span><span style="color:#111">GithubRepository</span><span style="color:#f92672">&gt;</span> <span style="color:#75af00">getRepository</span><span style="color:#f92672">(</span><span style="color:#75af00">@PathParam</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;user&#34;</span><span style="color:#f92672">)</span> <span style="color:#111">String</span> <span style="color:#111">username</span><span style="color:#f92672">,</span> <span style="color:#75af00">@PathParam</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;repo&#34;</span><span style="color:#f92672">)</span> <span style="color:#111">String</span> <span style="color:#111">repo</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span></code></pre></div>
+<h2 id="licence">Licence</h2>
+
+<p><a href="LICENSE.txt">MIT</a></p>
+</article>
+
+      
+
+    </div>
+
+    
+  
+  
+  <aside class="book-toc fixed">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#rxjersey-reactive-jersey-feature">RxJersey - Reactive Jersey Feature</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#roadmap">Roadmap</a></li>
+<li><a href="#maven-artifacts">Maven Artifacts</a>
+<ul>
+<li><a href="#maven-central">Maven Central</a></li>
+<li><a href="#jitpack">JitPack</a></li>
+</ul></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#licence">Licence</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+</body>
+
+</html>

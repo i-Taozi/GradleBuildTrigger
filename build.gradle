@@ -1,0 +1,41 @@
+allprojects {
+    tasks.withType(Test).configureEach {
+        maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply from: "$rootDir/maven-central.gradle"
+
+    group 'net.winterly.rxjersey'
+    version version
+
+    compileJava {
+        setSourceCompatibility JavaVersion.VERSION_1_8
+        setTargetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar, javadocJar
+    }
+}

@@ -1,0 +1,9 @@
+apply plugin: 'java'
+
+dependencies {
+    compile "io.dropwizard:dropwizard-core:$dropwizardVersion"
+    compile "io.dropwizard:dropwizard-client:$dropwizardVersion"
+
+    compile project(":rxjava2-server")
+    compile project(":rxjava2-client")
+}
