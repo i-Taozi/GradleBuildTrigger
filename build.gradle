@@ -1,0 +1,44 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+    id 'java'
+}
+
+group 'me.itzsomebody'
+version '2.0.0-SNAPSHOT'
+
+defaultTasks 'clean', 'shadowJar'
+sourceCompatibility = 1.8
+def main = 'me.itzsomebody.radon.Main'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest { attributes 'Main-Class': main }
+}
+
+shadowJar() {
+    classifier = null
+
+    relocate 'org.objectweb.asm', 'me.itzsomebody.radon.asm.lib'
+    exclude 'module-info.class'
+    manifest { attributes 'Main-Class': main }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://oss.sonatype.org/content/groups/public/" } // SnakeYAML
+}
+
+dependencies {
+    implementation 'org.ow2.asm:asm:7.1'
+    implementation 'org.ow2.asm:asm-tree:7.1'
+    implementation 'org.ow2.asm:asm-commons:7.1'
+    implementation 'org.ow2.asm:asm-util:7.1'
+    implementation 'org.yaml:snakeyaml:1.20'
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.powermock:powermock-api-mockito:1.6.6'
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.6'
+}

@@ -1,0 +1,20 @@
+# Compiled class file
+*.class
+
+# Gradle
+.gradle/
+build/
+
+# Eclipse
+.setup/
+bin/
+.classpath
+.project
+
+# IntelliJ
+*.iml
+.idea/
+out/
+
+# VS Code
+.settings/
