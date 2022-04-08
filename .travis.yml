@@ -11,4 +11,4 @@ before_install: [chmod +x gradlew, mkdir "$ANDROID_HOME/licenses" || true, echo 
     > "$ANDROID_HOME/licenses/android-sdk-preview-license"]
 script: [./gradlew assembleChargeDebug --daemon]
 branches:
-  only: [REBOOTERS/AndroidAnimationExercise-13-origin]
+  only: [REBOOTERS/AndroidAnimationExercise-13-GRADLE_REPORT_GENERATION]

@@ -84,6 +84,13 @@ subprojects { sub ->
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
     gradle.projectsEvaluated {
         tasks.withType(JavaCompile) {
             options.compilerArgs << "-Xmaxerrs" << "4000"
