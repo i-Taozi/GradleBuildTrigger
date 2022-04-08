@@ -12,4 +12,4 @@ notifications:
   email: false
   slack: {secure: asrV7/94tGqJbhotBAkPFi80PWJY3lcu7uYo855kpujXQHP61b0gC5gHnAairdD+MtrwICOmsJE9KIK/HOIpFrzwE+IwxJ+p6cGL9kX9blX+ZThcz1HkZgEK/EgaMSUxLKZFGrz0LUdktoZ9h+VixeRg05S4VijA7A814iA78fI=}
 branches:
-  only: [liato/android-bankdroid-691-origin]
+  only: [liato/android-bankdroid-691-GRADLE_REPORT_GENERATION]
