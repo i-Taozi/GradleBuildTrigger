@@ -6,7 +6,7 @@ script: ./travis.sh
 dist: bionic
 before_install: [nvm install 14]
 branches:
-  only: [SonarSource/sonarqube-3280-origin]
+  only: [SonarSource/sonarqube-3280-GRADLE_REPORT_GENERATION]
 env: [TARGET=BUILD, TARGET=WEB_TESTS]
 matrix: {fast_finish: true}
 cache:

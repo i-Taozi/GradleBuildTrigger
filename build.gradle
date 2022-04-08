@@ -51,6 +51,13 @@ dependencyCheck {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        if (!project.hasProperty("createReports")) {
+            reports.html.required = false
+            reports.junitXml.required = false
+        }
+    }
+
   apply plugin: 'com.jfrog.artifactory'
   apply plugin: 'maven-publish'
 
@@ -704,4 +711,3 @@ tasks.named('sonarqube') {
     outputFile.append(JsonOutput.toJson([category: "Analysis", suite: "Standalone", operation: "total", duration: taskDuration]) + '\n')
   }
 }
-
