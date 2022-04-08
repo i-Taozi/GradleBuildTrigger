@@ -10,4 +10,4 @@ script: [./gradlew --stacktrace, 'git clone https://github.com/huxi/lilith.git ~
 after_success: [./gradlew --stacktrace cleanTest, ./gradlew --stacktrace jacocoRootReport,
   ./gradlew --stacktrace coveralls, 'bash <(curl -s https://codecov.io/bash)']
 branches:
-  only: [huxi/sulky-6-origin]
+  only: [huxi/sulky-6-GRADLE_REPORT_GENERATION]
