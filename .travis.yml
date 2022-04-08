@@ -4,4 +4,4 @@ jdk: oraclejdk8
 dist: trusty
 script: [./gradlew build]
 branches:
-  only: [tronprotocol/wallet-cli-463-origin]
+  only: [tronprotocol/wallet-cli-463-GRADLE_FORK_TEST]
