@@ -1,5 +1,5 @@
 branches:
-  only: [FISCO-BCOS/web3sdk-748-origin]
+  only: [FISCO-BCOS/web3sdk-748-GRADLE_FORK_TEST]
 jobs:
   fast_finish: true
   include:
