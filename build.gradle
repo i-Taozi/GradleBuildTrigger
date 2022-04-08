@@ -40,6 +40,10 @@ ext {
 }
 
 allprojects {
+    tasks.withType(Test).configureEach {
+        forkEvery = 100
+    }
+
     ext.displayName = null
     ext.buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
 
