@@ -13,4 +13,4 @@ cache:
   directories: [$HOME/.gradle/caches/, $HOME/.gradle/wrapper/]
 script: ./gradlew assembleDebug checkstyle lintDebug lintKotlin check
 branches:
-  only: [codebutler/farebot-199-origin]
+  only: [codebutler/farebot-199-GRADLE_REPORT_GENERATION]
