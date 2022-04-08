@@ -10,4 +10,4 @@ script: [./gradlew --stacktrace]
 after_success: [./gradlew --stacktrace cleanTest, ./gradlew --stacktrace jacocoRootReport,
   ./gradlew --stacktrace coveralls, 'bash <(curl -s https://codecov.io/bash)']
 branches:
-  only: [huxi/lilith-36-origin]
+  only: [huxi/lilith-36-GRADLE_REPORT_GENERATION]
