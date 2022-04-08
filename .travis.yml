@@ -6,4 +6,4 @@ android:
     extra-android-m2repository, extra-google-m2repository]
 script: [./gradlew build connectedCheck]
 branches:
-  only: [flipkart-incubator/android-inline-youtube-view-27-origin]
+  only: [flipkart-incubator/android-inline-youtube-view-27-GRADLE_FORK_TEST]
