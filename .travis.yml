@@ -18,4 +18,4 @@ before_install: [echo no | android create avd --force --name test --target "andr
 before_script: [android-wait-for-emulator, adb shell input keyevent 82]
 script: [./gradlew test connectedAndroidTest]
 branches:
-  only: [maxpower47/PinDroid-98-origin]
+  only: [maxpower47/PinDroid-98-GRADLE_REPORT_GENERATION]
