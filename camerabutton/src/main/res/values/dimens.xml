@@ -1,0 +1,11 @@
+<resources>
+
+    <dimen name="cb_layout_width_default">120dp</dimen>
+    <dimen name="cb_layout_height_default">120dp</dimen>
+    <dimen name="cb_main_circle_radius_default">28dp</dimen>
+    <dimen name="cb_main_circle_radius_expanded_default">24dp</dimen>
+    <dimen name="cb_stroke_width_default">12dp</dimen>
+    <dimen name="cb_progress_arc_width_default">4dp</dimen>
+    <dimen name="cb_icon_size_default">28dp</dimen>
+
+</resources>

@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion sdk_version
+
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion sdk_version
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    libraryVariants.all { variant ->
+        variant.generateBuildConfig.enabled = false
+    }
+}
+
+dependencies {
+    api project(":camerabutton")
+
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxjava_android_version"
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+}
+
+apply from: pluginDeps.publish

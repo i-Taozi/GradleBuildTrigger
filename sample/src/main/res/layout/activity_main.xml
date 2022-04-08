@@ -1,0 +1,56 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hluhovskyi.camerabutton.sample.MainActivity">
+
+    <com.hluhovskyi.camerabutton.CameraButton
+        android:id="@+id/camera_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="24dp"
+        app:cb_collapse_action="click"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/camera_switch"
+        app:layout_constraintStart_toEndOf="@+id/flash_switch"/>
+
+    <ImageView
+        android:id="@+id/flash_switch"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_button"
+        app:layout_constraintEnd_toStartOf="@+id/camera_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/camera_button"
+        app:srcCompat="@drawable/ic_flash_on_white_36dp"
+        tools:ignore="ContentDescription"/>
+
+    <ImageView
+        android:id="@+id/camera_switch"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/camera_button"
+        app:layout_constraintTop_toTopOf="@+id/camera_button"
+        app:srcCompat="@drawable/ic_sync_white_36dp"
+        tools:ignore="ContentDescription"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

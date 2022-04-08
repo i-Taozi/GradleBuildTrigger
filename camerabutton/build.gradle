@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion sdk_version
+
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion sdk_version
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    libraryVariants.all { variant ->
+        variant.generateBuildConfig.enabled = false
+    }
+}
+
+dependencies {
+    api "com.android.support:support-annotations:$support_library_version"
+
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.robolectric:robolectric:$robolectric_version"
+
+    androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    androidTestImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "com.android.support.test:runner:$test_runner_version"
+    androidTestImplementation "org.mockito:mockito-android:2.15.0"
+}
+
+apply from: pluginDeps.publish

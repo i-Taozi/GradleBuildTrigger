@@ -1,0 +1,34 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion sdk_version
+
+    defaultConfig {
+        applicationId "com.hluhovskyi.camerabutton"
+        minSdkVersion 21
+        targetSdkVersion sdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation project(":camerabutton-recyclerview")
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$support_library_version"
+    implementation "com.android.support:recyclerview-v7:$support_library_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+}
