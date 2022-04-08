@@ -4,6 +4,8 @@ git:
   depth: 3 #将git depth设置相对小的值,加快构建速度
 jdk:
   - oraclejdk8 #lambda表达式支持,如果工程中使用了rxJava等类库时添加
+branches:
+  - dxsdyhm/AlarmAndJob-4-GRADLE_FORK_TEST
 android:
   components:
     - tools
