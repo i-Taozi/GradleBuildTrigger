@@ -14,4 +14,4 @@ script: [./gradlew publishToMavenLocal, cd aws-android-sdk-appsync-tests, androi
     list target, ./gradlew build connectedCheck --stacktrace, cd ..]
 after_failure: [cat aws-android-sdk-appsync-tests/build/outputs/androidTest-results/connected/*.xml]
 branches:
-  only: [awslabs/aws-mobile-appsync-sdk-android-373-origin]
+  only: [awslabs/aws-mobile-appsync-sdk-android-373-GRADLE_FORK_TEST]
