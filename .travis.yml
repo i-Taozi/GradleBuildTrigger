@@ -18,7 +18,7 @@ deploy:
   file: $TRAVIS_BUILD_DIR/app/build/outputs/apk/app-debug.apk
   true: {tags: false, repo: omkarmoghe/Pokemap, branch: dev}
 branches:
-  only: [omkarmoghe/Pokemap-494-origin]
+  only: [omkarmoghe/Pokemap-494-GRADLE_REPORT_GENERATION]
 notifications: {email: false}
 env:
   global: {secure: Q8ujMb2AcMsN4x6Z92K5U2zSkhDI9C2yRzfN/8CHZBqt4Wr0bNMeMWA8LuwSzGAqrJFkwjI76M7WGqCcQmM6sCakAS3zD/GwK6vJ96fN537lGF8zhJv9+qk1hYCrK/LSBwY2m+RJGwLRh0da5V5aD23r/oiNdH9Bo8fcWsN/SpGD4CHI2Q3F9nIvMBB3FMnrZRUC3hEzNFdTpdoYGxUiSOFs3uAKYHKJWc8tJ1AQfd58f8Uf2TQ5LBlBk8I2kUieU8RaRweuFwVBPwLa0rJzuIlmhBUJrZxIC/evxRnBYjEITwbYCixymj8JicHT9JgPkvRJJkhbjX+H7AX+xjjXKQgqDgSye5dTDFqfkjgdgnpAoCbXhzl8JXKPB/cDsiMuJGE2Az9asZN7EgvPDz7/NpqKc3nhzLkcNy8EWo0K28HPqLw2IZdST9ivrh3uUG+ry2GkXv8j4+4YP9VYJ3hz3OtLZXGXXnfqDr+ruOIKZez36gUH4HmrgssZCUa8O1kZq+geiMzqBq2NfR+QZ5NK+2zpNtT5jANma4hrpEJaeHC5m2l62HKlzMGTCmmitHkmOk2zuI/2xUW63K7bIqY5ioHA5H07RoDB79O6sHJuVMsZL/5vq+lMEzBxEvsW+KA8XtQZuk1Xktv4Fkgf41UGymeT+hqUbmxPCuKbPlIg2VA=}
