@@ -33,7 +33,7 @@ if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
 }
 
 allprojects {
-    tasks.withType(Test).configureEach {
+    tasks.withType(Test){
         forkEvery = 100
     }
 
