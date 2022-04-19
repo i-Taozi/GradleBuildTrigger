@@ -345,9 +345,7 @@ task printVersion {
 	}
 }
 
-allprojects {
-    tasks.withType(JavaCompile) {
-        options.incremental = true
-    }
-
+tasks.withType(JavaCompile){
+        options.incremental=true
 }
+
