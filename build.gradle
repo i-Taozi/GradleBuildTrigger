@@ -16,7 +16,7 @@ allprojects {
     tasks.withType(Test){
         reports {
             junitXml.enabled = false
-            html.enabled = true
+            html.enabled = false
         }     
     }
 
