@@ -39,13 +39,6 @@ ext {
     snapshotVersion = true
 }
 
-test {
-    reports {
-        junitXml.enabled = false
-        html.enabled = true
-    }               
-}
-
 allprojects {
     tasks.withType(Test){
         reports {
