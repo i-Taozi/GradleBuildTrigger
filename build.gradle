@@ -47,7 +47,12 @@ test {
 }
 
 allprojects {
- 
+    tasks.withType(Test){
+        reports {
+            junitXml.enabled = false
+            html.enabled = true
+        }     
+    }
 
     ext.displayName = null
     ext.buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
