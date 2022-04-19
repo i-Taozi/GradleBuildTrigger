@@ -40,11 +40,8 @@ ext {
 }
 
 allprojects {
-    tasks.withType(Test).configureEach {
-        if (!project.hasProperty("createReports")) {
-            html.enabled = false
-            csv.enabled = false
-        }
+    test {
+        reports.html.enabled = false
     }
 
     ext.displayName = null
