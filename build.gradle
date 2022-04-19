@@ -25,10 +25,10 @@ buildscript {
 
 allprojects {
     tasks.withType(Test){
-        if (!project.hasProperty("createReports")) {
-            reports.html.required = false
-            reports.junitXml.required = false
-        }
+        reports {
+            junitXml.enabled = false
+            html.enabled = true
+        }     
     }
 
     ext {
