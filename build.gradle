@@ -132,7 +132,7 @@ shadowJar {
 }
 
 allprojects {
-    tasks.withType(Test).configureEach {
+    tasks.withType(Test) {
         forkEvery = 100
     }
 
