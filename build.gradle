@@ -39,10 +39,15 @@ ext {
     snapshotVersion = true
 }
 
+test {
+    reports {
+        junitXml.enabled = false
+        html.enabled = true
+    }               
+}
+
 allprojects {
-    test {
-        reports.html.enabled = false
-    }
+ 
 
     ext.displayName = null
     ext.buildTimestamp = new Date().format('yyyy-MM-dd HH:mm:ss')
