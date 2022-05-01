@@ -20,8 +20,10 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 
 allprojects {
-    tasks.withType(JavaCompile).configureEach {
-        options.fork = true
+    tasks.withType(JavaCompile) {
+        options.with {
+            fork = true
+    	}
     }
 
     apply plugin: 'net.minecraftforge.gradle.forge'
