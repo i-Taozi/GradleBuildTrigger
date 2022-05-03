@@ -28,6 +28,10 @@ allprojects {
     } else {
         version = version + ".9999"
     }
+    
+    tasks.withType(JavaCompile){
+        options.fork = true
+    }
 
     minecraft {
         version = mcversion + "-" + forgeversion
